@@ -19,42 +19,9 @@ export default {
         };
     },
     mounted (){
-        this.grabs = [
-            {
-                "id": 1,
-                "created_at": "2017-10-10T19:50:54.472Z",
-                "image_public_url": "https:\/\/screenhole-staging.s3.amazonaws.com\/1507665054.png",
-                "user": {
-                    "id": 1,
-                    "username": "jacob",
-                    "created_at": "2017-10-10T19:48:45.758Z"
-                }
-            },
-            {
-                "id": 2,
-                "created_at": "2017-10-10T19:56:56.869Z",
-                "image_public_url": "https:\/\/screenhole-staging.s3.amazonaws.com\/1507665416.png",
-                "user": {
-                    "id": 1,
-                    "username": "jacob",
-                    "created_at": "2017-10-10T19:48:45.758Z"
-                }
-            },
-            {
-                "id": 3,
-                "created_at": "2017-10-10T19:57:00.757Z",
-                "image_public_url": "https:\/\/screenhole-staging.s3.amazonaws.com\/1507665420.png",
-                "user": {
-                    "id": 1,
-                    "username": "jacob",
-                    "created_at": "2017-10-10T19:48:45.758Z"
-                }
-            }
-        ];
-
-        // this.$http.get(API_BASE + "/shots").then((response) => {
-        //     this.shots = response.body;
-        // });
+        this.$http.get("/shots").then((response) => {
+            this.grabs = response.data;
+        });
     }
 }
 </script>
