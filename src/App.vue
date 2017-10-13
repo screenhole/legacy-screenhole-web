@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <header>
-            <img src="./assets/img/logo.svg" alt="SCREENHOLE!">
+            <img src="./assets/img/logo.svg" alt="SCREENHOLE!" class="logo">
         </header>
 
         <router-view/>
@@ -14,6 +14,12 @@ export default {
 }
 </script>
 
+<style lang="scss">
+    html, body {
+        background-color: #191919;
+    }
+</style>
+
 <style lang="scss" scoped>
 header {
     z-index: 10;
@@ -22,7 +28,7 @@ header {
     height: 60px;
     width: 100%;
 
-    img {
+    .logo {
         margin-top: 20px;
         margin-left: 20px;
     }

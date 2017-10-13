@@ -10,6 +10,8 @@ Vue.use(VueAxios, axios)
 
 Vue.axios.defaults.baseURL = process.env.API_BASE || 'https://api.screenhole.net';
 
+import 'purecss'
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
