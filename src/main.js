@@ -9,7 +9,7 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 
-Vue.axios.defaults.baseURL = process.env.API_BASE || 'https://api.screenhole.net';
+Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
 import 'bulma'
 

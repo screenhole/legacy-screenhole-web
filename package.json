@@ -8,7 +8,7 @@
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "stage": "npm run build && surge --project ./dist --domain staging.screenhole.net",
+    "stage": "cross-env PRODUCTION_MODE=staging npm run build && surge --project ./dist --domain staging.screenhole.net",
     "prod": "npm run build && surge --project ./dist --domain prod.screenhole.net",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
