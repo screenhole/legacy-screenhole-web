@@ -1,8 +1,11 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+    <div id="app">
+        <header>
+            <img src="./assets/img/logo.svg" alt="SCREENHOLE!">
+        </header>
+
+        <router-view/>
+    </div>
 </template>
 
 <script>
@@ -11,13 +14,27 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss" scoped>
+header {
+    z-index: 10;
+    background-color: black;
+    position: fixed;
+    height: 60px;
+    width: 100%;
+
+    img {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .login {
+        color: white;
+        margin-left: 50px;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        top: -5px;
+    }
 }
+
 </style>

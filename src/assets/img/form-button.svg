@@ -1,0 +1,40 @@
+<svg width="600" height="100" viewBox="0 0 600 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>gobutton</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-7909 -735)">
+<g id="gobutton">
+<g id="Rectangle 6">
+<mask id="mask0_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(7925.27 753)"/>
+</mask>
+<g mask="url(#mask0_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(7925.27 753)" fill="#6A40EE"/>
+</g>
+</g>
+<g id="Rectangle 6">
+<mask id="mask1_outline_ins">
+<use xlink:href="#path2_fill" fill="white" transform="translate(7917.14 744)"/>
+</mask>
+<g mask="url(#mask1_outline_ins)">
+<use xlink:href="#path3_stroke_2x" transform="translate(7917.14 744)" fill="#6A40EE"/>
+</g>
+</g>
+<g id="Rectangle 6">
+<mask id="mask2_outline_ins">
+<use xlink:href="#path4_fill" fill="white" transform="translate(7909 735)"/>
+</mask>
+<g mask="url(#mask2_outline_ins)">
+<use xlink:href="#path5_stroke_2x" transform="translate(7909 735)" fill="#6A40EE"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 0L 567.458 0L 567.458 65L 0 65L 0 0Z"/>
+<path id="path1_stroke_2x" d="M 0 0L 0 -4L -4 -4L -4 0L 0 0ZM 567.458 0L 571.458 0L 571.458 -4L 567.458 -4L 567.458 0ZM 567.458 65L 567.458 69L 571.458 69L 571.458 65L 567.458 65ZM 0 65L -4 65L -4 69L 0 69L 0 65ZM 0 4L 567.458 4L 567.458 -4L 0 -4L 0 4ZM 563.458 0L 563.458 65L 571.458 65L 571.458 0L 563.458 0ZM 567.458 61L 0 61L 0 69L 567.458 69L 567.458 61ZM 4 65L 4 0L -4 0L -4 65L 4 65Z"/>
+<path id="path2_fill" d="M 0 0L 583.729 0L 583.729 83L 0 83L 0 0Z"/>
+<path id="path3_stroke_2x" d="M 0 0L 0 -4L -4 -4L -4 0L 0 0ZM 583.729 0L 587.729 0L 587.729 -4L 583.729 -4L 583.729 0ZM 583.729 83L 583.729 87L 587.729 87L 587.729 83L 583.729 83ZM 0 83L -4 83L -4 87L 0 87L 0 83ZM 0 4L 583.729 4L 583.729 -4L 0 -4L 0 4ZM 579.729 0L 579.729 83L 587.729 83L 587.729 0L 579.729 0ZM 583.729 79L 0 79L 0 87L 583.729 87L 583.729 79ZM 4 83L 4 0L -4 0L -4 83L 4 83Z"/>
+<path id="path4_fill" d="M 0 5C 0 2.23858 2.23858 0 5 0L 595 0C 597.761 0 600 2.23858 600 5L 600 95C 600 97.7614 597.761 100 595 100L 5 100C 2.23858 100 0 97.7614 0 95L 0 5Z"/>
+<path id="path5_stroke_2x" d="M 5 4L 595 4L 595 -4L 5 -4L 5 4ZM 596 5L 596 95L 604 95L 604 5L 596 5ZM 595 96L 5 96L 5 104L 595 104L 595 96ZM 4 95L 4 5L -4 5L -4 95L 4 95ZM 5 -4C 0.0294373 -4 -4 0.0294373 -4 5L 4 5C 4 4.44772 4.44772 4 5 4L 5 -4ZM 595 4C 595.552 4 596 4.44772 596 5L 604 5C 604 0.0294373 599.971 -4 595 -4L 595 4ZM 596 95C 596 95.5523 595.552 96 595 96L 595 104C 599.971 104 604 99.9706 604 95L 596 95ZM 5 96C 4.44772 96 4 95.5523 4 95L -4 95C -4 99.9706 0.0294373 104 5 104L 5 96Z"/>
+</defs>
+</svg>
