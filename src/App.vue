@@ -17,6 +17,7 @@ export default {
 <style lang="scss">
     html, body {
         background-color: #191919;
+        font-family: 'Poppins', sans-serif;
     }
 </style>
 
