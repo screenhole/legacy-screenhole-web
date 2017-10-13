@@ -1,0 +1,17 @@
+/*
+
+- Do not include anything that will be actually rendered in
+  CSS, because it will be added to every imported SASS file.
+
+- Avoid using SASS @import rules inside resources files as
+  it slows down incremental builds.
+
+*/
+
+$bright-green: #3ae06e;
+$purple: #6A40EE;
+$red: #e2454c;
+
+$grey-warm: #3c3548;
+$grey-cool: #324840;
+

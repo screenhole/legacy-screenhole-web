@@ -25,6 +25,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~resources";
+
 .centeredForm {
     width: 100%;
     height: 100%;
@@ -44,7 +46,7 @@ export default {
         height: 50px;
         padding: 0;
         border: 0;
-        // border-bottom: 2px solid $grey-cool;
+        border-bottom: 2px solid $grey-cool;
         background-color: transparent;
         transition: all 0.2s ease;
         &:focus {
@@ -62,7 +64,7 @@ export default {
         border: 0;
         background: center no-repeat transparent url("../assets/img/form-button.svg");
         background-size: 300px 50px;
-        // color: $purple;
+        color: $purple;
         font-size: 16px;
         font-weight: bold;
         transition: all 0.2s ease;
@@ -94,7 +96,7 @@ export default {
         padding: 25px;
         bottom: 0;
         left: 0;
-        // background-color: $purple;
+        background-color: $purple;
         animation-name: slideup;
         animation-duration: 1s;
         animation-timing-function: ease-in-out;
