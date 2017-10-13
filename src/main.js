@@ -11,7 +11,7 @@ Vue.use(VueAxios, axios)
 
 Vue.axios.defaults.baseURL = process.env.API_BASE || 'https://api.screenhole.net';
 
-import 'purecss'
+import 'bulma'
 
 WebFont.load({
     google: {
