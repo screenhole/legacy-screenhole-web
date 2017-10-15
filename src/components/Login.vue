@@ -1,7 +1,7 @@
 <template>
     <div class="centeredForm">
         <form id="login" v-on:submit.prevent="submitLogin">
-            <h1>Login</h1>
+            <h1>Log in</h1>
 
             <input type="text" placeholder="mr-hole" v-model="username">
             <button>GO!</button>
@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import "~resources";
+
 html, body
     background: #000
 
@@ -43,8 +45,13 @@ html, body
 
 #app
     position: absolute
+    top: 0;
+    left: 0;
     width: 100%
     height: 100%
+
+header.main
+    border-bottom: 1px solid $grey-warm
 </style>
 
 <style lang="scss" scoped>

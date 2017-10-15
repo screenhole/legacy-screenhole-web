@@ -1,7 +1,12 @@
 <template>
     <section id="app">
-        <header>
-            <a href="/"><img src="./assets/img/logo.svg" alt="SCREENHOLE!" class="logo"></a>
+        <header class="main">
+            <a class="logo" href="/"><img src="./assets/img/logo.svg" alt="SCREENHOLE!"></a>
+
+            <nav class="pages">
+                <a class="link" href="/login">Log In</a>
+                <a class="link" href="https://www.facebook.com/groups/screenhole" target="_blank">Talk</a>
+            </nav>
         </header>
 
         <router-view/>
@@ -39,28 +44,33 @@ export default {
         width: 150px;
         display: block;
     }
-</style
+</style>
 
-<style lang="scss" scoped>
-header {
+<style lang="scss">
+header.main {
+    display: flex;
+    justify-content: space-between;
     z-index: 10;
     background-color: #000;
     position: fixed;
     height: 60px;
     width: 100%;
+    padding: 20px;
+    padding-top: 18px;
 
     .logo {
-        margin-top: 20px;
-        margin-left: 20px;
+        display: flex;
     }
 
-    .login {
-        color: #fff;
-        margin-left: 50px;
-        text-decoration: none;
-        display: inline-block;
-        position: relative;
-        top: -5px;
+    nav.pages {
+        display: flex;
+
+        .link {
+            color: #fff;
+            margin-left: 50px;
+            text-decoration: none;
+            display: flex;
+        }
     }
 }
 </style>
