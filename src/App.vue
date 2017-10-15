@@ -17,6 +17,8 @@ export default {
 </script>
 
 <style lang="sass">
+    @import "~resources"
+
     // set up bulma
     // http://bulma.io/documentation/overview/customize/
     @import '~bulma/sass/utilities/initial-variables';

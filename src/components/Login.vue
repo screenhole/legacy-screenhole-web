@@ -1,18 +1,10 @@
 <template>
     <div class="centeredForm">
-        <form class="login" v-on:submit.prevent="submitLogin">
+        <form id="login" v-on:submit.prevent="submitLogin">
             <h1>Login</h1>
 
-            <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                    <input class="input" type="text" placeholder="mr-hole" v-model="username">
-                </div>
-            </div>
-            <div class="field is-grouped is-grouped-centered">
-                <div class="control">
-                    <button class="button">Login</button>
-                </div>
-            </div>
+            <input type="text" placeholder="mr-hole" v-model="username">
+            <button>GO!</button>
         </form>
 
         <div v-if="terminal" v-bind:class="{ flash: terminal }">
@@ -43,8 +35,16 @@ export default {
 </script>
 
 <style lang="sass">
+html, body
+    background: #000
+
 #mr-hole
     display: none;
+
+#app
+    position: absolute
+    width: 100%
+    height: 100%
 </style>
 
 <style lang="scss" scoped>
@@ -64,23 +64,29 @@ export default {
         font-weight: bold;
     }
 
-    // input {
-    //     width: 300px;
-    //     display: block;
-    //     height: 50px;
-    //     padding: 0;
-    //     border: 0;
-    //     border-bottom: 2px solid $grey-cool;
-    //     background-color: transparent;
-    //     transition: all 0.2s ease;
-    //     &:focus {
-    //         color: #fff;
-    //         border-color: #fff;
-    //         outline: none;
-    //     }
-    // }
+    input {
+        width: 300px;
+        display: block;
+        height: 50px;
+        padding: 0;
+        font-size: 25px;
+        border: 0;
+        border-bottom: 2px solid $grey-cool;
+        background-color: transparent;
+        transition: all 0.2s ease;
 
-    .submit {
+        &, &::placeholder {
+            color: $grey-cool;
+        }
+
+        &:focus {
+            color: #fff;
+            border-color: #fff;
+            outline: none;
+        }
+    }
+
+    button {
         width: 300px;
         height: 50px;
         margin-top: 25px;
