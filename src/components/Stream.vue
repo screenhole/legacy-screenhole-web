@@ -1,6 +1,6 @@
 <template>
     <div class="stream">
-        <div class="grab" v-for="grab in grabs">
+        <div class="grab" v-for="grab in grabs" v-if="grabs && grabs.length">
             <div class="meta">
                 {{grab.user.username}}
             </div>
