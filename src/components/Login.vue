@@ -4,7 +4,7 @@
             <h1>Log in</h1>
 
             <input type="text" placeholder="mr-hole" v-model="username">
-            <button>GO!</button>
+            <button type="submit">GO!</button>
         </form>
 
         <div v-if="terminal" v-bind:class="{ flash: terminal }">
@@ -24,10 +24,49 @@ export default {
     },
     methods: {
         submitLogin: function() {
-            this.showTerminal();
+            if (! this.username) {
+                return;
+            }
+
+            this.$http.post("/user_token", {
+                auth: {
+                    username: this.username,
+                    password: "football",
+                }
+            }).then((response) => {
+                // success, show JWT
+                this.jwt = response.data.jwt;
+                this.showTerminalJWT();
+            }, response => {
+                // error. try registering
+                this.$http.post("/user_create", {
+                    auth: {
+                        username: this.username,
+                        password: "football",
+                    }
+                }).then((response) => {
+                    // register succes. try getting token again.
+
+                    this.$http.post("/user_token", {
+                        auth: {
+                            username: this.username,
+                            password: "football",
+                        }
+                    }).then((response) => {
+                        // success, show JWT
+                        this.jwt = response.data.jwt;
+                        this.showTerminalJWT();
+                    }, response => {
+                        // failure. show the error.
+                        this.terminal = 'oops, ' + this.username + '. bad login.';
+                    });
+                }, response => {
+                    // register failure. show the error.
+                    this.terminal = 'oops, ' + this.username + '. bad login.';
+                });
+            });
         },
-        showTerminal: function () {
-            this.jwt = 'aaaa.bbbb.cccc';
+        showTerminalJWT: function () {
             this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
         },
     }
