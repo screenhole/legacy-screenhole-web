@@ -28,7 +28,7 @@ export default {
     // http://bulma.io/documentation/overview/customize/
     @import '~bulma/sass/utilities/initial-variables';
 
-    $family-sans-serif: "Poppins"
+    $family-sans-serif: Poppins, sans-serif
 
     @import '~bulma';
 
