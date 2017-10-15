@@ -1,13 +1,22 @@
 <template>
     <div class="centeredForm">
-        <div id="login">
-            <h1>Log in</h1>
-            <input type="text" v-model="username">
-            <button class="submit" v-on:click="getUserToken">GO!</button>
+        <form class="login" v-on:submit.prevent="submitLogin">
+            <h1>Login</h1>
 
-            <div v-bind:class="{ flash: terminal }">
-                <pre>{{terminal}}</pre>
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <input class="input" type="text" placeholder="mr-hole" v-model="username">
+                </div>
             </div>
+            <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                    <button class="button">Login</button>
+                </div>
+            </div>
+        </form>
+
+        <div v-if="terminal" v-bind:class="{ flash: terminal }">
+            <pre>{{terminal}}</pre>
         </div>
     </div>
 </template>
@@ -16,13 +25,27 @@
 export default {
     data () {
         return {
+            username: '',
+            jwt: '',
+            terminal: '',
         };
     },
-    mounted (){
-
+    methods: {
+        submitLogin: function() {
+            this.showTerminal();
+        },
+        showTerminal: function () {
+            this.jwt = 'aaaa.bbbb.cccc';
+            this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
+        },
     }
 }
 </script>
+
+<style lang="sass">
+#mr-hole
+    display: none;
+</style>
 
 <style lang="scss" scoped>
 @import "~resources";
@@ -37,24 +60,25 @@ export default {
     h1 {
         color: white;
         margin-bottom: 25px;
+        font-size: 50px;
         font-weight: bold;
     }
 
-    input {
-        width: 300px;
-        display: block;
-        height: 50px;
-        padding: 0;
-        border: 0;
-        border-bottom: 2px solid $grey-cool;
-        background-color: transparent;
-        transition: all 0.2s ease;
-        &:focus {
-            color: white;
-            border-color: white;
-            outline: none;
-        }
-    }
+    // input {
+    //     width: 300px;
+    //     display: block;
+    //     height: 50px;
+    //     padding: 0;
+    //     border: 0;
+    //     border-bottom: 2px solid $grey-cool;
+    //     background-color: transparent;
+    //     transition: all 0.2s ease;
+    //     &:focus {
+    //         color: #fff;
+    //         border-color: #fff;
+    //         outline: none;
+    //     }
+    // }
 
     .submit {
         width: 300px;
@@ -89,8 +113,8 @@ export default {
         to {bottom: -200px;}
     }
 
-    .flash {
-        color: white;
+    .flash, .flash pre {
+        color: #fff;
         position: fixed;
         width: 100%;
         padding: 25px;

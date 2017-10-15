@@ -11,8 +11,6 @@ Vue.use(VueAxios, axios)
 
 Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
-import 'bulma'
-
 WebFont.load({
     google: {
         families: ['Poppins:400,700']
