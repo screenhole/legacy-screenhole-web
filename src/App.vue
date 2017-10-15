@@ -1,11 +1,11 @@
 <template>
     <section id="app">
         <header class="main">
-            <a class="logo" href="/"><img src="./assets/img/logo.svg" alt="SCREENHOLE!"></a>
+            <router-link class="logo" to="/" exact><img src="./assets/img/logo.svg" alt="SCREENHOLE!"></router-link>
 
             <nav class="pages">
-                <a class="link" href="/login">Log In</a>
-                <a class="link" href="https://www.facebook.com/groups/screenhole" target="_blank">Talk</a>
+                <router-link to="/login">Log In</router-link>
+                <a href="https://www.facebook.com/groups/screenhole" target="_blank">Talk</a>
             </nav>
         </header>
 
@@ -65,11 +65,15 @@ header.main {
     nav.pages {
         display: flex;
 
-        .link {
+        a {
             color: #fff;
             margin-left: 50px;
             text-decoration: none;
             display: flex;
+
+            &.router-link-active {
+                border-bottom: 1px solid #fff;
+            }
         }
     }
 }
