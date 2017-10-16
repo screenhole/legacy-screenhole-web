@@ -12,13 +12,28 @@
 </template>
 
 <script>
+const ActionCable = require('actioncable');
+
 export default {
     data () {
         return {
             grabs: []
         };
     },
-    mounted (){
+    mounted(){
+        var self = this;
+
+        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
+
+        this.cable.subscriptions.create(
+            "ShotsChannel",
+            {
+                received: function(data) {
+                    self.grabs.unshift(data.shot);
+                }
+            }
+        );        
+
         this.$http.get("/shots").then((response) => {
             this.grabs = response.data;
         });
