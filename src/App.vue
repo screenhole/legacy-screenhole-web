@@ -66,13 +66,17 @@ header.main {
         display: flex;
 
         a {
-            color: #fff;
+            color: #6A40EE; // todo: $purple variable
+            // font-weight: bold;
             margin-left: 50px;
             text-decoration: none;
             display: flex;
 
+            &:hover {
+              color: #3ae06e; // todo: $bright-green
+            }
             &.router-link-active {
-                border-bottom: 1px solid #fff;
+                color: white;
             }
         }
     }
