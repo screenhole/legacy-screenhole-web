@@ -39,7 +39,7 @@ export default {
                 this.showTerminalJWT();
             }, response => {
                 // error. try registering
-                this.$http.post("/user_create", {
+                this.$http.post("/user", {
                     auth: {
                         username: this.username,
                         password: "football",
