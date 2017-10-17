@@ -6,6 +6,7 @@
             <nav class="pages">
                 <router-link to="/login">Log In</router-link>
                 <a href="https://www.facebook.com/groups/screenhole" target="_blank">Talk</a>
+                <a href="https://screenhole.net/pasquale/~9B5spw">WTF?</a>
             </nav>
         </header>
 
