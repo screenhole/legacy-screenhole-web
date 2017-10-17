@@ -7,7 +7,7 @@
             <button type="submit">GO!</button>
         </form>
 
-        <div v-if="terminal" v-bind:class="{ flash: terminal }">
+        <div v-if="terminal" v-bind:class="{ flash: terminal }" v-clipboard:copy="terminal">
             <pre>{{terminal}}</pre>
         </div>
     </div>
