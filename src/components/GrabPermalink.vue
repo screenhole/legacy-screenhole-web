@@ -1,6 +1,6 @@
 <template>
     <div class="stream">
-        <div class="grab" v-for="grab in grabs" v-if="grabs && grabs.length">
+        <div class="grab" v-if="grab">
             <div class="meta">
                 <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                     username: grab.user.username,
@@ -17,30 +17,15 @@
 </template>
 
 <script>
-const ActionCable = require('actioncable');
-
 export default {
     data () {
         return {
-            grabs: []
+            grab: {}
         };
     },
     mounted(){
-        var self = this;
-
-        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
-
-        this.cable.subscriptions.create(
-            "ShotsChannel",
-            {
-                received: function(data) {
-                    self.grabs.unshift(data.shot);
-                }
-            }
-        );        
-
-        this.$http.get("/shots").then((response) => {
-            this.grabs = response.data;
+        this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
+            this.grab = response.data;
         });
     }
 }
