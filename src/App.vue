@@ -6,6 +6,7 @@
             <nav class="pages">
                 <router-link to="/login">Log In</router-link>
                 <a href="https://www.facebook.com/groups/screenhole" target="_blank">Talk</a>
+                <a href="https://screenhole.net/pasquale/~9B5spw">WTF?</a>
             </nav>
         </header>
 
@@ -66,13 +67,17 @@ header.main {
         display: flex;
 
         a {
-            color: #fff;
+            color: #6A40EE; // todo: $purple variable
+            // font-weight: bold;
             margin-left: 50px;
             text-decoration: none;
             display: flex;
 
+            &:hover {
+              color: #3ae06e; // todo: $bright-green
+            }
             &.router-link-active {
-                border-bottom: 1px solid #fff;
+                color: white;
             }
         }
     }

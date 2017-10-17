@@ -10,7 +10,12 @@
                 </router-link>
             </div>
             <div class="content">
+              <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
+                  username: grab.user.username,
+                  grab_id: grab.id
+              }}">
                 <img :src="grab.image_public_url" />
+              </router-link>
             </div>
         </div>
     </div>
@@ -37,7 +42,7 @@ export default {
                     self.grabs.unshift(data.shot);
                 }
             }
-        );        
+        );
 
         this.$http.get("/shots").then((response) => {
             this.grabs = response.data;
@@ -52,6 +57,7 @@ export default {
     padding: 150px 100px 100px 0;
     justify-content: center;
     flex-direction: column;
+    background-color: #212121;
 
     .grab {
         display: flex;
