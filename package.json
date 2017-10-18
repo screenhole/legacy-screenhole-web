@@ -15,7 +15,6 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "surge": "^0.19.0",
     "vue": "^2.4.2"
   },
   "devDependencies": {
@@ -71,6 +70,7 @@
     "sinon": "^4.0.0",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.19.0",
+    "surge": "^0.19.0",
     "url-loader": "^0.5.8",
     "vue-axios": "^2.0.2",
     "vue-clipboard2": "0.0.6",
