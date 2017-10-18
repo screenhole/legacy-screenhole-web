@@ -42,6 +42,8 @@ export default {
     mounted(){
         this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
             this.grab = response.data.shot;
+
+            // refresh the data in data head
             this.$emit('updateHead');
         });
     }
