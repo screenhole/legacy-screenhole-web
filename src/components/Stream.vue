@@ -19,7 +19,10 @@
             </div>
         </div>
         <infinite-loading @infinite="infiniteHandler">
-            <p slot="no-more">fin</p>
+            <div slot="spinner">
+                loading...
+            </div>
+            <p slot="no-more"></p>
         </infinite-loading>
     </div>
 </template>
