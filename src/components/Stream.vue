@@ -18,17 +18,42 @@
               </router-link>
             </div>
         </div>
+        <infinite-loading @infinite="infiniteHandler">
+            <p slot="no-more">fin</p>
+        </infinite-loading>
     </div>
 </template>
 
 <script>
-const ActionCable = require('actioncable');
+import InfiniteLoading from 'vue-infinite-loading';
+import ActionCable from 'actioncable';
 
 export default {
     data () {
         return {
+            page: 1,
             grabs: []
         };
+    },
+    methods: {
+        infiniteHandler($state) {
+            this.$http.get("/shots", {
+                params: {
+                    page: this.page,
+                }
+            }).then((response) => {
+                var data = response.data;
+
+                if (data.meta.next_page) {
+                    this.page = data.meta.next_page;
+                    this.grabs = this.grabs.concat(data.shots);
+
+                    $state.loaded();
+                } else {
+                    $state.complete();
+                }
+            });
+        },
     },
     mounted(){
         var self = this;
@@ -43,11 +68,10 @@ export default {
                 }
             }
         );
-
-        this.$http.get("/shots").then((response) => {
-            this.grabs = response.data;
-        });
-    }
+    },
+    components: {
+        InfiniteLoading,
+    },
 }
 </script>
 

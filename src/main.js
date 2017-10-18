@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import WebFont from 'webfontloader'
+import InfiniteLoading from 'vue-infinite-loading';
 import VueClipboard from 'vue-clipboard2'
 
 import App from './App'
@@ -25,5 +26,8 @@ new Vue({
     el: '#app',
     router,
     template: '<App/>',
-    components: { App }
+    components: {
+        InfiniteLoading,
+        App
+    }
 });
