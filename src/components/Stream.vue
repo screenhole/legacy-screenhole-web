@@ -87,6 +87,11 @@ export default {
             max-width: 100%;
             border-radius: 3px;
             box-shadow: 0px 0px 50px rgba(0,0,0,0.8);
+            transition: all 0.2s ease;
+
+            &:hover {
+                transform: scale(1.01);
+            }
         }
     }
 }
