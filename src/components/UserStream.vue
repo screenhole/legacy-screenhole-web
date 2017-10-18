@@ -2,15 +2,19 @@
     <div class="stream">
         <div class="grab" v-for="grab in grabs" v-if="grabs && grabs.length">
             <div class="meta">
-                <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
-                    username: grab.user.username,
-                    grab_id: grab.id
+                <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
+                    username: grab.user.username
                 }}">
                     {{grab.user.username}}
                 </router-link>
             </div>
             <div class="content">
-                <img :src="grab.image_public_url" />
+                <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
+                    username: grab.user.username,
+                    grab_id: grab.id
+                }}">
+                  <img :src="grab.image_public_url" />
+                </router-link>
             </div>
         </div>
     </div>
