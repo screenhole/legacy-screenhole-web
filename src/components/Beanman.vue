@@ -192,11 +192,12 @@ export default {
         #grab {
             display: block;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 1920px;
-            height: 1200px;
+            width: 930px;
+            left: 500px;
+            top: 220px;
+            height: 820px;
             background: center repeat #000;
+            background-size: contain;
         }
 
         #head, #brain, #eye {
