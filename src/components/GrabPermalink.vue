@@ -25,7 +25,7 @@ export default {
     },
     mounted(){
         this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
-            this.grab = response.data;
+            this.grab = response.data.shot;
         });
     }
 }

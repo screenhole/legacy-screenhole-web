@@ -28,10 +28,10 @@ export default {
         var self = this;
 
         this.$http.get("/users/" + this.$route.params.username).then((response) => {
-            self.user = response.data;
+            self.user = response.data.user;
 
             this.$http.get("/users/" + self.user.id + "/shots").then((response) => {
-                this.grabs = response.data;
+                this.grabs = response.data.shots;
             });
         });
     }
