@@ -4,9 +4,10 @@
             <router-link class="logo" to="/" exact><img src="./assets/img/logo.svg" alt="SCREENHOLE!"></router-link>
 
             <nav class="pages">
-                <router-link to="/login">Log In</router-link>
-                <a href="https://www.facebook.com/groups/screenhole" target="_blank">Talk</a>
-                <a href="https://screenhole.net/pasquale/~9B5spw">WTF?</a>
+                <router-link to="/login">log in</router-link>
+                <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
+                <a href="https://screenhole.net/pasquale/~9B5spw">wtf?</a>
+                <a href="https://twitter.com/screenhole">twitter</a>
             </nav>
         </header>
 
