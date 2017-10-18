@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueHead from 'vue-head'
 import WebFont from 'webfontloader'
 import InfiniteLoading from 'vue-infinite-loading';
 import VueClipboard from 'vue-clipboard2'
@@ -13,6 +14,7 @@ Vue.use(VueAxios, axios)
 
 Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
+Vue.use(VueHead);
 Vue.use(VueClipboard);
 
 WebFont.load({

@@ -24,14 +24,25 @@
 
 <script>
 export default {
-    data () {
+    data: function () {
         return {
             grab: {}
         };
     },
+    head: {
+        meta: function () {
+            return [
+                // Twitter
+                { n: 'twitter:image', c: this.grab.image_public_url },
+                // Facebook / Open Graph
+                { p: 'og:image', c: this.grab.image_public_url },
+            ];
+        }
+    },
     mounted(){
         this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
             this.grab = response.data.shot;
+            this.$emit('updateHead');
         });
     }
 }
