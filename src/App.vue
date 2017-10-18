@@ -26,14 +26,6 @@ export default {
 <style lang="sass">
     @import "~resources"
 
-    // set up bulma
-    // http://bulma.io/documentation/overview/customize/
-    @import '~bulma/sass/utilities/initial-variables';
-
-    $family-sans-serif: Poppins, sans-serif
-
-    @import '~bulma';
-
     html, body
         background-color: #191919;
 </style>
