@@ -24,7 +24,10 @@ export default {
 </script>
 
 <style lang="sass">
-    @import "~resources"
+    // @import "~resources"
+
+    @import "~normalize.css"
+    @import "~milligram"
 
     html, body
         background-color: #191919;
