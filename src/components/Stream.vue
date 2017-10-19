@@ -14,6 +14,7 @@
                     grab_id: grab.id
                 }}">
                   <img :src="grab.image_public_url" />
+                  <div class="shadow"></div>
                 </router-link>
             </div>
         </div>
@@ -83,7 +84,7 @@ export default {
     padding: 150px 100px 100px 0;
     justify-content: center;
     flex-direction: column;
-    background-color: #212121;
+    background-color: black;
 
     .grab {
         display: flex;
@@ -100,19 +101,30 @@ export default {
 
             a {
                 color: inherit;
+                text-shadow: -1px 1px #6A3FEE;
+                display: block;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    transform: translate(0,-2px) scale(1.1);
+                    color: white;
+                    text-shadow: -1px 3px #6A3FEE;
+                }
             }
+
+
         }
 
         .content {
             max-width: 1000px;
             flex-grow: 1;
+            position: relative;
         }
 
         img {
             display: inline-block;
             max-width: 100%;
-            border-radius: 3px;
-            box-shadow: 0px 0px 50px rgba(0,0,0,0.8);
+            border-radius: 5px;
             transition: all 0.2s ease;
 
             &:hover {
@@ -123,6 +135,16 @@ export default {
                 transform: scale(0.98);
             }
         }
+        //todo: make shading the same width as img
+        // .shadow {
+        //     position: absolute;
+        //     width: 100%;
+        //     height: 100%;
+        //     box-shadow: inset 1px 1px 1px 0 rgba(255,255,255,0.1);
+        //     border-radius: 5px;
+        //     top: 0;
+        //     left: 0;
+        // }
     }
 }
 </style>
