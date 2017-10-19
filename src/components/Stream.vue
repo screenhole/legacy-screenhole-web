@@ -47,10 +47,10 @@ export default {
             }).then((response) => {
                 var data = response.data;
 
+                this.grabs = this.grabs.concat(data.shots);
+
                 if (data.meta.next_page) {
                     this.page = data.meta.next_page;
-                    this.grabs = this.grabs.concat(data.shots);
-
                     $state.loaded();
                 } else {
                     $state.complete();
