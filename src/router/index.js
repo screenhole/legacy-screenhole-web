@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import UserStream from '@/components/UserStream'
 import GrabPermalink from '@/components/GrabPermalink'
 import Beanman from '@/components/Beanman'
+import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
@@ -17,5 +18,6 @@ export default new Router({
         { path: '/~beanman', component: Beanman},
         { path: '/:username', name: 'user-stream', component: UserStream },
         { path: '/:username/~:grab_id', name: 'grab-permalink', component: GrabPermalink },
+        { path: '*', component: NotFound },
     ]
 })
