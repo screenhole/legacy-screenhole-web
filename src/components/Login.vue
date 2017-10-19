@@ -3,7 +3,9 @@
         <form id="login" v-on:submit.prevent="submitLogin">
             <h1>Log in</h1>
 
-            <input type="text" placeholder="mr-hole" v-model="username">
+            <input type="text" placeholder="username" v-model="username">
+            <input type="password" placeholder="password" v-model="password">
+
             <button type="submit">GO!</button>
         </form>
 
@@ -19,52 +21,29 @@ export default {
     data () {
         return {
             username: '',
+            password: '',
             jwt: '',
             terminal: '',
         };
     },
     methods: {
         submitLogin: function() {
-            if (! this.username) {
+            if (! this.username || ! this.password) {
                 return;
             }
 
             this.$http.post("/user_token", {
                 auth: {
                     username: this.username,
-                    password: "football",
+                    password: this.password,
                 }
             }).then((response) => {
                 // success, show JWT
                 this.jwt = response.data.jwt;
                 this.showTerminalJWT();
             }, response => {
-                // error. try registering
-                this.$http.post("/users", {
-                    auth: {
-                        username: this.username,
-                        password: "football",
-                    }
-                }).then((response) => {
-                    // register succes. try getting token again.
-
-                    this.$http.post("/user_token", {
-                        auth: {
-                            username: this.username,
-                            password: "football",
-                        }
-                    }).then((response) => {
-                        // success, show JWT
-                        this.jwt = response.data.jwt;
-                        this.showTerminalJWT();
-                    }, response => {
-                        // failure. show the error.
-                        this.terminal = 'oops, ' + this.username + '. bad login.';
-                    });
-                }, response => {
-                    // register failure. show the error.
-                    this.terminal = 'oops, ' + this.username + '. bad login.';
-                });
+                // register failure. show the error.
+                this.terminal = 'oops, ' + this.username + '. bad login.';
             });
         },
         showTerminalJWT: function () {
