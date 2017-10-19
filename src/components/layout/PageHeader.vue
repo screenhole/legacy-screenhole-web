@@ -20,6 +20,8 @@
     z-index: 10;
     background-color: #000;
     position: fixed;
+    top: 0;
+    left: 0;
     height: 60px;
     width: 100%;
     padding: 20px;
