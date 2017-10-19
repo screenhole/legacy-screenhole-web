@@ -1,7 +1,7 @@
 <template>
     <header class="main">
         <router-link class="logo" to="/" exact>
-            <img src="../assets/img/logo.svg" alt="SCREENHOLE!">
+            <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
         </router-link>
 
         <nav class="pages">

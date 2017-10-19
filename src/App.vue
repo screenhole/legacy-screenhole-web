@@ -4,18 +4,20 @@
 
         <router-view/>
 
-        <img id="mr-hole" src="./assets/img/mr-hole.svg" alt="MR. HOLE">
+        <mr-hole></mr-hole>
     </section>
 </template>
 
 <script>
-import PageHeader from '@/components/PageHeader'
+import PageHeader from '@/components/layout/PageHeader'
+import MrHole from '@/components/layout/MrHole'
 
 export default {
     name: 'app',
 
     components: {
         PageHeader,
+        MrHole,
     }
 }
 </script>
@@ -35,14 +37,4 @@ export default {
     html, body
         background-color: #191919;
         font-family: Poppins, sans-serif;
-</style>
-
-<style lang="scss">
-    #mr-hole {
-        position: fixed;
-        bottom: 0;
-        right: 25px;
-        width: 150px;
-        display: block;
-    }
 </style>
