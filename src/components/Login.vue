@@ -14,6 +14,7 @@
 </template>
 
 <script>
+// TODO: hide mr hole
 export default {
     data () {
         return {
@@ -73,30 +74,13 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import "~resources";
-
-html, body
-    background: #000
-
-#mr-hole
-    display: none;
-
-#app
-    position: absolute
-    top: 0;
-    left: 0;
-    width: 100%
-    height: 100%
-
-header.main
-    border-bottom: 1px solid $grey-warm
-</style>
-
 <style lang="scss" scoped>
 @import "~resources";
 
 .centeredForm {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -169,6 +153,7 @@ header.main
         color: #fff;
         position: fixed;
         width: 100%;
+        margin: 0;
         padding: 25px;
         bottom: 0;
         left: 0;

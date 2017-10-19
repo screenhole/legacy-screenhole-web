@@ -13,17 +13,24 @@ import PageHeader from '@/components/PageHeader'
 
 export default {
     name: 'app',
+
     components: {
-        PageHeader
+        PageHeader,
     }
 }
 </script>
 
 <style lang="sass">
-    // @import "~resources"
+    // GLOBAL STYLES
+    @import "~resources"
 
     @import "~normalize.css"
-    @import "~milligram"
+
+    *, *:after, *:before
+        box-sizing: border-box;
+
+    a
+        text-decoration: none;
 
     html, body
         background-color: #191919;
