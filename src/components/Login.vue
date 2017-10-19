@@ -69,7 +69,7 @@ export default {
         },
         showTerminalJWT: function () {
             window.location = 'screenhole:///jwt/' + this.jwt;
-            this.terminal = 'success! share with control-cmd-option-s';
+            this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
         },
     }
 }
