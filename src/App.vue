@@ -35,6 +35,6 @@ export default {
         text-decoration: none;
 
     html, body
-        background-color: #191919;
+        background-color: #000;
         font-family: Poppins, sans-serif;
 </style>
