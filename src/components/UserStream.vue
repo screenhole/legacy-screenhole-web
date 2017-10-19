@@ -17,28 +17,62 @@
                 </router-link>
             </div>
         </div>
+
+        <infinite-loading @infinite="infiniteHandler">
+            <div slot="spinner">
+                loading...
+            </div>
+            <p slot="no-more"></p>
+        </infinite-loading>
     </div>
 </template>
 
 <script>
+import InfiniteLoading from 'vue-infinite-loading';
+
 export default {
     data () {
         return {
             user: '',
+            page: 1,
             grabs: [],
         };
     },
-    mounted(){
-        var self = this;
 
-        this.$http.get("/users/" + this.$route.params.username).then((response) => {
-            self.user = response.data.user;
+    methods: {
+        infiniteHandler($state) {
+            // load user
+            if (! this.user) {
+                this.$http.get("/users/" + this.$route.params.username).then((response) => {
+                    this.user = response.data.user;
+                    $state.loaded();
+                });
+                return;
+            }
 
-            this.$http.get("/users/" + self.user.id + "/shots").then((response) => {
-                this.grabs = response.data.shots;
+            // start pagination loop
+            this.$http.get("/users/" + this.user.id + "/shots", {
+                params: {
+                    page: this.page,
+                }
+            }).then((response) => {
+                var data = response.data;
+
+                this.grabs = this.grabs.concat(data.shots);
+
+                if (data.meta.next_page) {
+                    this.page = data.meta.next_page;
+                    $state.loaded();
+                } else {
+                    $state.complete();
+                }
             });
-        });
-    }
+        },
+    },
+
+    components: {
+        InfiniteLoading,
+    },
 }
 </script>
 
