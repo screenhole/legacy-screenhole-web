@@ -28,6 +28,7 @@
     width: 100%;
     padding: 20px;
     padding-top: 18px;
+    border-bottom: 1px solid $grey-warm;
 
     .logo {
         display: flex;
