@@ -193,9 +193,12 @@ export default {
             display: block;
             position: absolute;
             width: 930px;
-            left: 500px;
-            top: 220px;
-            height: 820px;
+            left: 510px;
+            top: 50px;
+            height: 1200px;
+
+            transform: perspective( 1000px ) rotateX( -5deg ) scaleY(0.70);
+
             background: center repeat #000;
             background-size: contain;
         }
