@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="bubble">
-            <span>Cram some screenshots into my hole!</span>
+            <span>Cram screenshots into my hole!</span>
         </div>
         <img id="mr-hole" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
     </div>
@@ -34,7 +34,7 @@ export default {
         padding: 15px;
         border-radius: 5px;
         background-color: $bright-green;
-        font-size: 90%;
+        font-size: 80%;
         line-height: 150%;
 
         &:after {
