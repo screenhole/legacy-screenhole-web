@@ -1,5 +1,7 @@
 <template>
-    <img id="mr-hole" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
+    <div>
+        <img id="mr-hole" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
+    </div>
 </template>
 
 <script>

@@ -14,6 +14,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "~resources";
+
 .main {
     display: flex;
     justify-content: space-between;
@@ -35,14 +37,14 @@
         display: flex;
 
         a {
-            color: #6A40EE; // todo: $purple variable
+            color: $purple;
             // font-weight: bold;
             margin-left: 50px;
             text-decoration: none;
             display: flex;
 
             &:hover {
-              color: #3ae06e; // todo: $bright-green
+              color: $bright-green;
             }
             &.router-link-active {
                 color: white;
