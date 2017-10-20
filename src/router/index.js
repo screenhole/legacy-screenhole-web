@@ -17,7 +17,7 @@ export default new Router({
         { path: '/', component: Stream },
         { path: '/login', component: Login },
         { path: '/wtf', component: Wtf },
-        { path: '/~beanman', component: Beanman},
+        { path: '/~beanman', component: Beanman, name: 'beanman' },
         { path: '/:username', name: 'user-stream', component: UserStream },
         { path: '/:username/~:grab_id', name: 'grab-permalink', component: GrabPermalink },
         { path: '*', component: NotFound },

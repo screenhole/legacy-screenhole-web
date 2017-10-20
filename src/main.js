@@ -12,6 +12,7 @@ import router from './router'
 Vue.use(VueAnalytics, {
     id: 'UA-108383158-1',
     router,
+    ignoreRoutes: ['beanman']
 })
 
 Vue.config.productionTip = false
