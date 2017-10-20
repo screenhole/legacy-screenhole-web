@@ -3,8 +3,11 @@
         <form id="login" v-on:submit.prevent="submitLogin">
             <h1>Log in</h1>
 
-            <input type="text" placeholder="username" v-model="username">
-            <input type="password" placeholder="password" v-model="password">
+            <input type="text" name="username" v-validate="'required'" placeholder="username" v-model="auth.username">
+            <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
+
+            <input type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
+            <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
 
             <button type="submit">GO!</button>
         </form>
@@ -20,35 +23,33 @@
 export default {
     data () {
         return {
-            username: '',
-            password: '',
+            auth: {
+                username: '',
+                password: '',
+            },
+
             jwt: '',
             terminal: '',
         };
     },
     methods: {
         submitLogin: function() {
-            if (! this.username || ! this.password) {
-                return;
-            }
+            this.$validator.validateAll().then((valid) => {
+                if (! valid) return;
 
-            this.$auth.login({
-                data: {
-                    auth: {
-                        username: this.username,
-                        password: this.password,
+                this.$auth.login({
+                    data: { auth: this.auth },
+                    rememberMe: true,
+                    success: function (response) {
+                        console.log('success ' + this.context);
+                        this.jwt = response.data.jwt;
+                        this.showTerminalJWT();
+                    },
+                    error: function (response) {
+                        console.log('error ' + this.context);
+                        this.terminal = response.data;
                     }
-                },
-                rememberMe: true,
-                success: function (response) {
-                    console.log('success ' + this.context);
-                    this.jwt = response.data.jwt;
-                    this.showTerminalJWT();
-                },
-                error: function (response) {
-                    console.log('error ' + this.context);
-                    this.terminal = response.data;
-                }
+                });
             });
         },
         showTerminalJWT: function () {
@@ -79,6 +80,11 @@ export default {
         font-weight: bold;
     }
 
+    .error {
+        padding: 10px 0 0 0;
+        color: $grey-cool;
+    }
+
     input {
         width: 300px;
         display: block;
@@ -90,10 +96,11 @@ export default {
         background-color: transparent;
         transition: all 0.2s ease;
 
-        &, &::placeholder {
+        &::placeholder {
             color: $grey-cool;
         }
 
+        color: #fff;
         &:focus {
             color: #fff;
             border-color: #fff;

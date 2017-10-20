@@ -39,22 +39,24 @@ export default {
     methods: {
         register: function() {
             this.$validator.validateAll().then((valid) => {
-                if (valid) {
-                    this.$auth.register({
-                        data: { auth: this.auth },
-                        autoLogin: true,
-                        rememberMe: true,
-                        success: function (response) {
-                            console.log('success ' + this.context);
-                            this.jwt = response.data.jwt;
-                            this.showTerminalJWT();
-                        },
-                        error: function (response) {
-                            console.log('error ' + this.context);
-                            this.terminal = res.data;
-                        }
-                    });
-                }
+                if (! valid) return;
+                
+                this.$auth.register({
+                    data: { auth: this.auth },
+                    autoLogin: true,
+                    rememberMe: true,
+                    success: function (response) {
+                        console.log('success ' + response);
+                        this.jwt = response.data.jwt;
+                        this.showTerminalJWT();
+                    },
+                    error: function (response) {
+                        console.log('error ' + response);
+                        this.terminal = response.data;
+                    }
+                }).then((response) => {
+                  console.log(response.data)
+                });
             });
         },
         showTerminalJWT: function () {
