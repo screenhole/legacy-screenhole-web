@@ -7,7 +7,7 @@
         <nav class="pages">
             <router-link to="/login">log in</router-link>
             <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
-            <a href="https://screenhole.net/pasquale/~9B5spw">wtf?</a>
+            <a href="/wtf">wtf?</a>
             <a href="https://twitter.com/screenhole">twitter</a>
         </nav>
     </header>
@@ -39,7 +39,6 @@
 
         a {
             color: $purple;
-            // font-weight: bold;
             margin-left: 50px;
             text-decoration: none;
             display: flex;
