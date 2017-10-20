@@ -5,7 +5,16 @@
         </router-link>
 
         <nav class="pages">
-            <span v-show="!$auth.check()">
+            <span v-if="$auth.check()">
+                <router-link v-if="$auth.user()" :to="{ name: 'user-stream', params: {
+                    username: $auth.user().username
+                }}">
+                    {{$auth.user().username}}
+                </router-link>
+
+                <a href="/" @click.prevent="logout">log out</a>
+            </span>
+            <span v-if="! $auth.check()">
                 <router-link to="/login">log in</router-link>
             </span>
 
@@ -15,6 +24,27 @@
         </nav>
     </header>
 </template>
+
+<script>
+export default {
+    data () {
+        return {
+        };
+    },
+
+    methods: {
+        logout: function() {
+            this.$auth.logout({
+                makeRequest: false,
+                success: function () {
+                },
+                error: function () {
+                },
+            });
+        },
+    }
+}
+</script>
 
 <style lang="scss" scoped>
 @import "~resources";

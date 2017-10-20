@@ -47,7 +47,7 @@ export default {
                 },
                 error: function (response) {
                     console.log('error ' + this.context);
-                    this.terminal = res.data;
+                    this.terminal = response.data;
                 }
             });
         },
