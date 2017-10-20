@@ -126,6 +126,7 @@ export default {
             max-width: 100%;
             border-radius: 5px;
             transition: all 0.2s ease;
+            max-height: 80vh;
 
             &:hover {
                 transform: scale(1.01);
