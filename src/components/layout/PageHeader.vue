@@ -19,7 +19,7 @@
             </span>
 
             <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
-            <a href="https://screenhole.net/pasquale/~9B5spw">wtf?</a>
+            <a href="/wtf">wtf?</a>
             <a href="https://twitter.com/screenhole">twitter</a>
         </nav>
     </header>
@@ -61,6 +61,7 @@ export default {
     width: 100%;
     padding: 20px;
     padding-top: 18px;
+    border-bottom: 1px solid $grey-warm;
 
     .logo {
         display: flex;
@@ -71,7 +72,6 @@ export default {
 
         a {
             color: $purple;
-            // font-weight: bold;
             margin-left: 50px;
             text-decoration: none;
             display: flex;

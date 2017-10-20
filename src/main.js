@@ -6,15 +6,23 @@ import VeeValidate from 'vee-validate';
 import VueHead from 'vue-head'
 import WebFont from 'webfontloader'
 import VueClipboard from 'vue-clipboard2'
+import VueAnalytics from 'vue-analytics'
 
 import App from './App'
 import router from './router'
+
+Vue.use(VueAnalytics, {
+    id: 'UA-108383158-1',
+    router,
+    ignoreRoutes: ['beanman']
+});
 
 Vue.router = router;
 
 Vue.config.productionTip = false;
 
 Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
 var knockAuth = {
     request: function (req, token) {
@@ -48,8 +56,6 @@ Vue.use(VueAuth, {
     http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
-
-Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
 Vue.use(VueHead);
 Vue.use(VueClipboard);
