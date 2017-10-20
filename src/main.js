@@ -36,6 +36,7 @@ Vue.use(VueAuth, {
         url: '/users/current'
     },
     registerData: {
+        redirect: '/',
         url: '/users'
     },
     auth: knockAuth,
