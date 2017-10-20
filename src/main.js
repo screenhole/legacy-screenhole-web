@@ -4,9 +4,15 @@ import VueAxios from 'vue-axios'
 import VueHead from 'vue-head'
 import WebFont from 'webfontloader'
 import VueClipboard from 'vue-clipboard2'
+import VueAnalytics from 'vue-analytics'
 
 import App from './App'
 import router from './router'
+
+Vue.use(VueAnalytics, {
+    id: 'UA-108383158-1',
+    router,
+})
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
