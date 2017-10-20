@@ -12,7 +12,7 @@
             <button type="submit">GO!</button>
         </form>
 
-        <div v-if="terminal" v-bind:class="{ flash: terminal }" v-clipboard:copy="terminal">
+        <div v-if="terminal" v-bind:class="{ flash: terminal }">
             <pre>{{terminal}}</pre>
         </div>
     </div>
@@ -41,13 +41,12 @@ export default {
                     data: { auth: this.auth },
                     rememberMe: true,
                     success: function (response) {
-                        console.log('success ' + this.context);
+                        console.log('success', response);
                         this.jwt = response.data.jwt;
                         this.showTerminalJWT();
                     },
                     error: function (response) {
-                        console.log('error ' + this.context);
-                        this.terminal = response.data;
+                        this.terminal = "Invalid login. Try again.";
                     }
                 });
             });

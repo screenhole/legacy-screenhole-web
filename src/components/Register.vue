@@ -15,7 +15,7 @@
             <button type="submit">GO!</button>
         </form>
 
-        <div v-if="terminal" v-bind:class="{ flash: terminal }" v-clipboard:copy="terminal">
+        <div v-if="terminal" v-bind:class="{ flash: terminal }">
             <pre>{{terminal}}</pre>
         </div>
     </div>
@@ -40,22 +40,20 @@ export default {
         register: function() {
             this.$validator.validateAll().then((valid) => {
                 if (! valid) return;
-                
+
                 this.$auth.register({
                     data: { auth: this.auth },
                     autoLogin: true,
                     rememberMe: true,
                     success: function (response) {
-                        console.log('success ' + response);
+                        console.log('success', response);
                         this.jwt = response.data.jwt;
                         this.showTerminalJWT();
                     },
                     error: function (response) {
-                        console.log('error ' + response);
-                        this.terminal = response.data;
+                        console.log('error', response);
+                        this.terminal = "Could not register.";
                     }
-                }).then((response) => {
-                  console.log(response.data)
                 });
             });
         },
