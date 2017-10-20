@@ -1,11 +1,11 @@
 <template>
     <div class="centeredForm">
-        <form id="login" v-on:submit.prevent="submitLogin">
+        <form id="login" v-on:submit.prevent="register">
             <h1>Register</h1>
 
-            <input type="email" placeholder="email" v-model="email">
-            <input type="text" placeholder="username" v-model="username">
-            <input type="password" placeholder="password" v-model="password">
+            <input type="email" placeholder="email" v-model="auth.email">
+            <input type="text" placeholder="username" v-model="auth.username">
+            <input type="password" placeholder="password" v-model="auth.password">
 
             <button type="submit">GO!</button>
         </form>
@@ -21,37 +21,42 @@
 export default {
     data () {
         return {
-            email: '',
-            username: '',
-            password: '',
+            auth: {
+                email: '',
+                username: '',
+                password: '',
+            },
+
             jwt: '',
             terminal: '',
         };
     },
     methods: {
-        submitLogin: function() {
-            if (! this.email || ! this.username || ! this.password) {
+        register: function() {
+            if (! this.auth.email || ! this.auth.username || ! this.auth.password) {
                 return;
             }
 
-            this.$http.post("/users", {
-                auth: {
-                    email: this.email,
-                    username: this.username,
-                    password: this.password,
+            this.$auth.register({
+                data: { auth: this.auth },
+                autoLogin: true,
+                rememberMe: true,
+                success: function (response) {
+                    console.log('success ' + this.context);
+                    this.jwt = response.data.jwt;
+                    this.showTerminalJWT();
+                },
+                error: function (response) {
+                    console.log('error ' + this.context);
+                    this.terminal = res.data;
                 }
-            }).then((response) => {
-                // success, show JWT
-                this.jwt = response.data.jwt;
-                this.showTerminalJWT();
-            }, response => {
-                // register failure. show the error.
-                this.terminal = 'oops, ' + this.username + '. couldn\'t register.';
             });
         },
         showTerminalJWT: function () {
-            window.location = 'screenhole:///jwt/' + this.jwt;
-            this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
+            if (this.jwt) {
+                window.location = 'screenhole:///jwt/' + this.jwt;
+                this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
+            }
         },
     }
 }
