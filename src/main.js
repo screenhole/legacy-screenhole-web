@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
+import VeeValidate from 'vee-validate';
 import VueHead from 'vue-head'
 import WebFont from 'webfontloader'
 import VueClipboard from 'vue-clipboard2'
@@ -27,6 +28,7 @@ var knockAuth = {
 
 Vue.use(VueAuth, {
     loginData: {
+        redirect: '/',
         url: '/users/token'
     },
     refreshData: {
@@ -48,6 +50,8 @@ Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net
 
 Vue.use(VueHead);
 Vue.use(VueClipboard);
+
+Vue.use(VeeValidate);
 
 WebFont.load({
     google: {

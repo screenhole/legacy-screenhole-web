@@ -38,22 +38,18 @@ export default {
                         username: this.username,
                         password: this.password,
                     }
+                },
+                rememberMe: true,
+                success: function (response) {
+                    console.log('success ' + this.context);
+                    this.jwt = response.data.jwt;
+                    this.showTerminalJWT();
+                },
+                error: function (response) {
+                    console.log('error ' + this.context);
+                    this.terminal = res.data;
                 }
             });
-
-            // this.$http.post("/user_token", {
-            //     auth: {
-            //         username: this.username,
-            //         password: this.password,
-            //     }
-            // }).then((response) => {
-            //     // success, show JWT
-            //     this.jwt = response.data.jwt;
-            //     this.showTerminalJWT();
-            // }, response => {
-            //     // register failure. show the error.
-            //     this.terminal = 'oops, ' + this.username + '. bad login.';
-            // });
         },
         showTerminalJWT: function () {
             window.location = 'screenhole:///jwt/' + this.jwt;

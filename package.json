@@ -73,6 +73,7 @@
     "style-loader": "^0.19.0",
     "surge": "^0.19.0",
     "url-loader": "^0.5.8",
+    "vee-validate": "^2.0.0-rc.19",
     "vue-axios": "^2.0.2",
     "vue-clipboard2": "0.0.6",
     "vue-head": "^2.0.11",
