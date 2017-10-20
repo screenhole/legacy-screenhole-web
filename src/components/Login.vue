@@ -32,19 +32,28 @@ export default {
                 return;
             }
 
-            this.$http.post("/user_token", {
-                auth: {
-                    username: this.username,
-                    password: this.password,
+            this.$auth.login({
+                data: {
+                    auth: {
+                        username: this.username,
+                        password: this.password,
+                    }
                 }
-            }).then((response) => {
-                // success, show JWT
-                this.jwt = response.data.jwt;
-                this.showTerminalJWT();
-            }, response => {
-                // register failure. show the error.
-                this.terminal = 'oops, ' + this.username + '. bad login.';
             });
+
+            // this.$http.post("/user_token", {
+            //     auth: {
+            //         username: this.username,
+            //         password: this.password,
+            //     }
+            // }).then((response) => {
+            //     // success, show JWT
+            //     this.jwt = response.data.jwt;
+            //     this.showTerminalJWT();
+            // }, response => {
+            //     // register failure. show the error.
+            //     this.terminal = 'oops, ' + this.username + '. bad login.';
+            // });
         },
         showTerminalJWT: function () {
             window.location = 'screenhole:///jwt/' + this.jwt;

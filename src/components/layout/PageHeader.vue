@@ -5,7 +5,10 @@
         </router-link>
 
         <nav class="pages">
-            <router-link to="/login">log in</router-link>
+            <span v-show="!$auth.check()">
+                <router-link to="/login">log in</router-link>
+            </span>
+
             <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
             <a href="https://screenhole.net/pasquale/~9B5spw">wtf?</a>
             <a href="https://twitter.com/screenhole">twitter</a>

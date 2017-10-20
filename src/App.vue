@@ -1,8 +1,14 @@
 <template>
     <section id="app">
-        <page-header></page-header>
+        <div v-if="$auth.ready() && loaded">
+            <page-header></page-header>
 
-        <router-view/>
+            <router-view></router-view>
+        </div>
+
+        <div v-if="!$auth.ready() || !loaded">
+            <span style="color:#fff">Loading...</span>
+        </div>
 
         <mr-hole></mr-hole>
     </section>
@@ -14,6 +20,41 @@ import MrHole from '@/components/layout/MrHole'
 
 export default {
     name: 'app',
+
+    data() {
+        return {
+            context: 'app context',
+            loaded: false
+        };
+    },
+
+    mounted() {
+        var _this = this;
+        setTimeout(function () {
+            _this.loaded = true;
+        }, 500);
+    },
+
+    created() {
+        var _this = this;
+        this.$auth.ready(function () {
+            console.log('ready ' + this.context);
+        });
+    },
+
+    methods: {
+        logout() {
+            this.$auth.logout({
+                makeRequest: true,
+                success() {
+                    console.log('success ' + this.context);
+                },
+                error() {
+                    console.log('error ' + this.context);
+                }
+            });
+        },
+    },
 
     components: {
         PageHeader,

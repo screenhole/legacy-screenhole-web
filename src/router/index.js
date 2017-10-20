@@ -15,9 +15,9 @@ export default new Router({
     routes: [
         // higher on list = higher priority route (aka first match wins)
         { path: '/', component: Stream },
-        { path: '/login', component: Login },
-        { path: '/register', component: Register },
-        { path: '/~beanman', component: Beanman},
+        { path: '/login', component: Login, meta: { auth: false } },
+        { path: '/register', component: Register, meta: { auth: false } },
+        { path: '/~beanman', component: Beanman, meta: { auth: true }},
         { path: '/:username', name: 'user-stream', component: UserStream },
         { path: '/:username/~:grab_id', name: 'grab-permalink', component: GrabPermalink },
         { path: '*', component: NotFound },
