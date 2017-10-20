@@ -30,7 +30,6 @@ Vue.use(VueAuth, {
         url: '/users/token'
     },
     refreshData: {
-        interval: 0,
         url: '/users/token/refresh'
     },
     fetchData: {
