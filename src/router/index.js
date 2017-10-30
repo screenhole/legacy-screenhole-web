@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Stream from '@/components/Stream'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
+import Settings from '@/components/Settings'
 import Wtf from '@/components/Wtf'
 import UserStream from '@/components/UserStream'
 import GrabPermalink from '@/components/GrabPermalink'
@@ -22,6 +23,7 @@ export default new Router({
         { path: '/register', component: Register, meta: { auth: false } },
 
         // require IS logged in (auth: true)
+        { path: '/settings', component: Settings, meta: { auth: true } },
         { path: '/~beanman', component: Beanman, name: 'beanman', meta: { auth: true } },
 
         // unauthenticated
