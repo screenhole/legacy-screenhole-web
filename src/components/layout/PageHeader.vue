@@ -5,7 +5,7 @@
         </router-link>
 
         <nav class="pages">
-            <span v-if="$auth.check()">
+            <template v-if="$auth.check()">
                 <router-link v-if="$auth.user()" :to="{ name: 'user-stream', params: {
                     username: $auth.user().username
                 }}">
@@ -13,10 +13,10 @@
                 </router-link>
 
                 <a href="/" @click.prevent="logout">log out</a>
-            </span>
-            <span v-if="! $auth.check()">
+            </template>
+            <template v-if="! $auth.check()">
                 <router-link to="/login">log in</router-link>
-            </span>
+            </template>
 
             <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
             <a href="/wtf">wtf?</a>
