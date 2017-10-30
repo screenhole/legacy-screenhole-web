@@ -7,7 +7,7 @@
         </div>
 
         <div v-if="!$auth.ready() || !loaded">
-            <span style="color:#fff">Loading...</span>
+            <div id="loader"></div>
         </div>
 
         <mr-hole></mr-hole>
@@ -78,4 +78,9 @@ export default {
     html, body
         background-color: #000;
         font-family: Poppins, sans-serif;
+
+    #loader
+        background: center no-repeat url("assets/img/loader.gif")
+        width: 100%;
+        min-height: 50px;
 </style>
