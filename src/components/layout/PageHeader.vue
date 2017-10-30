@@ -12,6 +12,7 @@
                     {{$auth.user().username}}
                 </router-link>
 
+                <router-link to="/settings">settings</router-link>
                 <a href="/" @click.prevent="logout">log out</a>
             </template>
             <template v-if="! $auth.check()">
