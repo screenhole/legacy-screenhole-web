@@ -12,6 +12,9 @@
             <input type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
 
+            <input type="input" name="code" v-validate="'required'" placeholder="invite code" v-model="auth.code">
+            <div class="error" v-if="errors.has('code')">{{ errors.first('code') }}</div>
+
             <button type="submit">GO!</button>
         </form>
 
@@ -30,6 +33,7 @@ export default {
                 email: '',
                 username: '',
                 password: '',
+                code: '',
             },
 
             jwt: '',
