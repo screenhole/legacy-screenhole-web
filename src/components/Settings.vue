@@ -45,14 +45,14 @@ export default {
             this.$validator.validateAll().then((valid) => {
                 if (! valid) return;
 
-                if (! this.auth.email) delete this.auth.email;
-                if (! this.auth.username) delete this.auth.username;
-                if (! this.auth.password) delete this.auth.password;
-                if (! this.auth.password_confirmation) delete this.auth.password_confirmation;
+                // clone, skipping nulls
+                var data = { auth: {} }
+                if (this.auth.email) data.auth.email = this.auth.email;
+                if (this.auth.username) data.auth.username = this.auth.username;
+                if (this.auth.password) data.auth.password = this.auth.password;
+                if (this.auth.password_confirmation) data.auth.password_confirmation = this.auth.password_confirmation;
 
-                this.$http.post("/users/current", {
-                    auth: this.auth,
-                }).then((response) => {
+                this.$http.post("/users/current", data).then((response) => {
                     console.log('success', response);
                     this.$auth.user(response.data.user);
                     this.terminal = "Cool!";
