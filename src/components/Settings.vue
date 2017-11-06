@@ -147,21 +147,6 @@ export default {
         to {bottom: -200px;}
     }
 
-    .flash, .flash pre {
-        color: #fff;
-        position: fixed;
-        width: 100%;
-        margin: 0;
-        padding: 25px;
-        bottom: 0;
-        left: 0;
-        background-color: $purple;
-        animation-name: slideup;
-        animation-duration: 1s;
-        animation-timing-function: ease-in-out;
-    }
-
-
     #login {
         width: 300px;
         padding-bottom: 20vh; // offset height for optics

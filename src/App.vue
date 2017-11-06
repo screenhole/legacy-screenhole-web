@@ -83,4 +83,17 @@ export default {
         background: center no-repeat url("assets/img/loader.gif")
         width: 100%;
         min-height: 50px;
+
+    .flash, .flash pre
+        color: #fff;
+        position: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 25px;
+        top: 60px;
+        left: 0;
+        background-color: $purple;
+        animation-name: slideup;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
 </style>
