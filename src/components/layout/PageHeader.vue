@@ -14,7 +14,7 @@
             </template>
 
             <template v-if="$auth.check()">
-                <div class="dropdown">
+                <div class="dropdown" v-bind:class="{ on: showDropdown }">
                   <ul>
                     <li>
                         <router-link v-if="$auth.user()" :to="{ name: 'user-stream', params: {
@@ -24,11 +24,11 @@
                         </router-link>
                     </li>
                     <li><router-link to="/settings">settings</router-link></li>
-                    <li><a href="/" class="avatar" @click.prevent="logout">log out</a></li>
+                    <li><a href="/" @click.prevent="logout">log out</a></li>
                   </ul>
                 </div>
 
-                <a href="/" class="avatar">
+                <a href="/" class="avatar" @click.prevent="showDropdown = !showDropdown">
                     <img src="../../assets/img/default-avatar.png" alt="">
                 </a>
             </template>
@@ -40,6 +40,7 @@
 export default {
     data () {
         return {
+            showDropdown: false,
         };
     },
 
@@ -96,24 +97,40 @@ export default {
             }
         }
 
-        .avatar img {
-            width: 35px;
-            height: 35px;
-            margin-top: -9px;
-            border-radius: 1000px;
+        .avatar  {
+            margin-left: 30px;
+
+            img {
+                width: 35px;
+                height: 35px;
+                margin-top: -9px;
+                border-radius: 1000px;
+            }
         }
 
         .dropdown {
-          position: absolute;
-          top: 55px;
-          right: 10px;
-          background-color: $purple;
-          border-radius: 5px;
-          padding: 0;
-          margin: 0;
-          box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
+            position: absolute;
+            top: 55px;
+            right: 10px;
+            background-color: $purple;
+            border-radius: 5px;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
+  
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+  
+            transition: all 400ms ease;
 
-          &::after {
+            &.on {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+        &::after {
             content: '';
             position: absolute;
             top: -8px;
@@ -123,37 +140,37 @@ export default {
             border-style: solid;
             border-width: 0 7.5px 10px 7.5px;
             border-color: transparent transparent $purple transparent;
-          }
+        }
 
-          ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            padding: 15px;
-            text-align: right;
-
-            li {
-              display: block;
-
-              a {
-                opacity: 0.8;
-                color: white;
+            ul {
                 margin: 0;
-                display: block;
-                transition: all 0.2s ease;
+                padding: 0;
+                list-style-type: none;
+                padding: 15px;
+                text-align: right;
 
-                &:hover {
-                  opacity: 1;
-                  text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.45);
-                  transform: translate(0,-1px);
+                li {
+                    display: block;
+
+                    a {
+                        opacity: 0.8;
+                        color: white;
+                        margin: 0;
+                        display: block;
+                        transition: all 0.2s ease;
+
+                        &:hover {
+                            opacity: 1;
+                            text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.45);
+                            transform: translate(0,-1px);
+                        }
+                    }
                 }
-              }
-            }
 
-            li + li {
-              margin-top: 1em;
+                li + li {
+                    margin-top: 1em;
+                }
             }
-          }
         }
     }
 }
