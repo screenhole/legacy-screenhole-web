@@ -9,11 +9,11 @@
             <input type="text" name="username" v-validate="" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
-            <input type="password" name="password" v-validate="" placeholder="password" v-model="auth.password">
+            <input type="password" name="password" v-validate="" placeholder="new password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
             <div class="error" v-if="! errors.has('password') && ! (this.auth.password || this.auth.password_confirmation)">Leave blank to not change.</div>
 
-            <input type="password" name="password_confirmation" v-validate="'confirmed:password'" placeholder="password (again)" v-model="auth.password_confirmation" data-vv-as="password" v-if="this.auth.password || this.auth.password_confirmation">
+            <input type="password" name="password_confirmation" v-validate="'confirmed:password'" placeholder="new password (again)" v-model="auth.password_confirmation" data-vv-as="password" v-if="this.auth.password || this.auth.password_confirmation">
             <div class="error" v-if="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</div>
 
             <button type="submit">GO!</button>
