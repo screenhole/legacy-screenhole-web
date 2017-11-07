@@ -1,13 +1,19 @@
 <template>
     <div class="centeredForm">
-        <form id="login" v-on:submit.prevent="submitLogin">
-            <h1>Log in</h1>
+        <form id="login" v-on:submit.prevent="register">
+            <h1>Register</h1>
+
+            <input type="email" name="email" v-validate="'required|email'" placeholder="email" v-model="auth.email">
+            <div class="error" v-if="errors.has('email')">{{ errors.first('email') }}</div>
 
             <input type="text" name="username" v-validate="'required'" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
             <input type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
+
+            <input type="input" name="code" v-validate="'required'" placeholder="invite code" v-model="auth.code">
+            <div class="error" v-if="errors.has('code')">{{ errors.first('code') }}</div>
 
             <button type="submit">GO!</button>
         </form>
@@ -24,8 +30,10 @@ export default {
     data () {
         return {
             auth: {
+                email: '',
                 username: '',
                 password: '',
+                code: '',
             },
 
             jwt: '',
@@ -33,12 +41,13 @@ export default {
         };
     },
     methods: {
-        submitLogin: function() {
+        register: function() {
             this.$validator.validateAll().then((valid) => {
                 if (! valid) return;
 
-                this.$auth.login({
+                this.$auth.register({
                     data: { auth: this.auth },
+                    autoLogin: true,
                     rememberMe: true,
                     success: function (response) {
                         console.log('success', response);
@@ -46,14 +55,17 @@ export default {
                         this.showTerminalJWT();
                     },
                     error: function (response) {
-                        this.terminal = "Invalid login. Try again.";
+                        console.log('error', response);
+                        this.terminal = "Could not register.";
                     }
                 });
             });
         },
         showTerminalJWT: function () {
-            window.location = 'screenhole:///jwt/' + this.jwt;
-            this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
+            if (this.jwt) {
+                window.location = 'screenhole:///jwt/' + this.jwt;
+                this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
+            }
         },
     }
 }

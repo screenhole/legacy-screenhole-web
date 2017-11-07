@@ -1,13 +1,20 @@
 <template>
     <div class="centeredForm">
-        <form id="login" v-on:submit.prevent="submitLogin">
-            <h1>Log in</h1>
+        <form id="login" v-on:submit.prevent="edit">
+            <h1>Edit User</h1>
 
-            <input type="text" name="username" v-validate="'required'" placeholder="username" v-model="auth.username">
+            <input type="email" name="email" v-validate="'email'" placeholder="email" v-model="auth.email">
+            <div class="error" v-if="errors.has('email')">{{ errors.first('email') }}</div>
+
+            <input type="text" name="username" v-validate="" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
-            <input type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
+            <input type="password" name="password" v-validate="" placeholder="password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
+            <div class="error" v-if="! errors.has('password') && ! (this.auth.password || this.auth.password_confirmation)">Leave blank to not change.</div>
+
+            <input type="password" name="password_confirmation" v-validate="'confirmed:password'" placeholder="password (again)" v-model="auth.password_confirmation" data-vv-as="password" v-if="this.auth.password || this.auth.password_confirmation">
+            <div class="error" v-if="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</div>
 
             <button type="submit">GO!</button>
         </form>
@@ -24,36 +31,36 @@ export default {
     data () {
         return {
             auth: {
-                username: '',
+                email: this.$auth.user().email,
+                username: this.$auth.user().username,
                 password: '',
+                password_confirmation: '',
             },
 
-            jwt: '',
             terminal: '',
         };
     },
     methods: {
-        submitLogin: function() {
+        edit: function() {
             this.$validator.validateAll().then((valid) => {
                 if (! valid) return;
 
-                this.$auth.login({
-                    data: { auth: this.auth },
-                    rememberMe: true,
-                    success: function (response) {
-                        console.log('success', response);
-                        this.jwt = response.data.jwt;
-                        this.showTerminalJWT();
-                    },
-                    error: function (response) {
-                        this.terminal = "Invalid login. Try again.";
-                    }
+                // clone, skipping nulls
+                var data = { auth: {} }
+                if (this.auth.email) data.auth.email = this.auth.email;
+                if (this.auth.username) data.auth.username = this.auth.username;
+                if (this.auth.password) data.auth.password = this.auth.password;
+                if (this.auth.password_confirmation) data.auth.password_confirmation = this.auth.password_confirmation;
+
+                this.$http.post("/users/current", data).then((response) => {
+                    console.log('success', response);
+                    this.$auth.user(response.data.user);
+                    this.terminal = "Cool!";
+                }, response => {
+                    console.log('error', response);
+                    this.terminal = "Could not save.";
                 });
             });
-        },
-        showTerminalJWT: function () {
-            window.location = 'screenhole:///jwt/' + this.jwt;
-            this.terminal = 'defaults write com.thinko.screenhole.macos "jwt" "' + this.jwt + '"';
         },
     }
 }
