@@ -5,33 +5,33 @@
         </router-link>
 
         <nav class="pages">
-            <template v-if="$auth.check()">
-                <router-link v-if="$auth.user()" :to="{ name: 'user-stream', params: {
-                    username: $auth.user().username
-                }}">
-                    {{$auth.user().username}}
-                </router-link>
+            <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
+            <router-link to="/wtf">wtf?</router-link>
+            <a href="https://twitter.com/screenhole">twitter</a>
 
-                <router-link to="/settings">settings</router-link>
-                <a href="/" @click.prevent="logout">log out</a>
-            </template>
             <template v-if="! $auth.check()">
                 <router-link to="/login">log in</router-link>
             </template>
 
-            <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
-            <a href="/wtf">wtf?</a>
-            <a href="https://twitter.com/screenhole">twitter</a>
-            <a href="#" class="avatar"><img src="../../assets/img/default-avatar.png" alt=""></a>
+            <template v-if="$auth.check()">
+                <div class="dropdown">
+                  <ul>
+                    <li>
+                        <router-link v-if="$auth.user()" :to="{ name: 'user-stream', params: {
+                            username: $auth.user().username
+                        }}">
+                            @{{$auth.user().username}}
+                        </router-link>
+                    </li>
+                    <li><router-link to="/settings">settings</router-link></li>
+                    <li><a href="/" class="avatar" @click.prevent="logout">log out</a></li>
+                  </ul>
+                </div>
 
-            <div class="dropdown">
-              <ul>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Edit Profile</a></li>
-                <li><a href="#">Log Out</a></li>
-              </ul>
-            </div>
-
+                <a href="/" class="avatar">
+                    <img src="../../assets/img/default-avatar.png" alt="">
+                </a>
+            </template>
         </nav>
     </header>
 </template>
