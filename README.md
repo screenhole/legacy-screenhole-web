@@ -10,7 +10,7 @@ npm install
 
 ## Development
 
-Serve with hot reload at [localhost:8080](http://localhost:8000). Automatically uses local API (`https://screenhole-api.ngrok.io`, which is part of `heroku local`).
+Serve with hot reload at [localhost:8080](http://localhost:8000). Automatically uses local API endpoint (e.g. `https://screenhole-api.ngrok.io`, which is part of `heroku local`). Be sure to run `heroku local` when working here or it won't work.
 
 ```
 npm run dev
