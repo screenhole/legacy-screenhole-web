@@ -46,8 +46,11 @@ export default {
 
     methods: {
         gravatar: function() {
+            // gravatar requires the default URL to be public, so use staging host in dev
+            var origin = (document.location.hostname == "localhost") ? "https://staging.screenhole.net" : document.location.origin;
+
             return 'https://www.gravatar.com/avatar/' + this.$auth.user().gravatar_hash
-                + '?d=' + encodeURIComponent(require('../../assets/img/default-avatar.png'))
+                + '?d=' + encodeURIComponent(origin + require('../../assets/img/default-avatar.png'));
         },
 
         logout: function() {
