@@ -29,7 +29,7 @@
                 </div>
 
                 <a href="/" class="avatar" @click.prevent="showDropdown = !showDropdown">
-                    <img src="../../assets/img/default-avatar.png" alt="">
+                    <img v-bind:src="this.gravatar()" alt="avatar">
                 </a>
             </template>
         </nav>
@@ -45,6 +45,11 @@ export default {
     },
 
     methods: {
+        gravatar: function() {
+            return 'https://www.gravatar.com/avatar/' + this.$auth.user().gravatar_hash
+                + '?d=' + encodeURIComponent(require('../../assets/img/default-avatar.png'))
+        },
+
         logout: function() {
             this.$auth.logout({
                 makeRequest: false,
