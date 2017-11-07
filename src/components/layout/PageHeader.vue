@@ -22,6 +22,16 @@
             <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
             <a href="/wtf">wtf?</a>
             <a href="https://twitter.com/screenhole">twitter</a>
+            <a href="#" class="avatar"><img src="../../assets/img/default-avatar.png" alt=""></a>
+
+            <div class="dropdown">
+              <ul>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Edit Profile</a></li>
+                <li><a href="#">Log Out</a></li>
+              </ul>
+            </div>
+
         </nav>
     </header>
 </template>
@@ -75,6 +85,7 @@ export default {
             color: $purple;
             margin-left: 50px;
             text-decoration: none;
+            margin-top: 3px;
             display: flex;
 
             &:hover {
@@ -83,6 +94,66 @@ export default {
             &.router-link-active {
                 color: white;
             }
+        }
+
+        .avatar img {
+            width: 35px;
+            height: 35px;
+            margin-top: -9px;
+            border-radius: 1000px;
+        }
+
+        .dropdown {
+          position: absolute;
+          top: 55px;
+          right: 10px;
+          background-color: $purple;
+          border-radius: 5px;
+          padding: 0;
+          margin: 0;
+          box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
+
+          &::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 7.5px 10px 7.5px;
+            border-color: transparent transparent $purple transparent;
+          }
+
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            padding: 15px;
+            text-align: right;
+
+            li {
+              display: block;
+
+              a {
+                opacity: 0.8;
+                color: white;
+                margin: 0;
+                display: block;
+                transition: all 0.2s ease;
+
+                &:hover {
+                  opacity: 1;
+                  text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.45);
+                  transform: translate(0,-1px);
+                }
+              }
+            }
+
+            li + li {
+              margin-top: 1em;
+            }
+          }
         }
     }
 }
