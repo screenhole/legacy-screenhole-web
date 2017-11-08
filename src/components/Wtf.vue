@@ -1,6 +1,8 @@
 <template>
     <div class="content">
-        <img class="wtf" src="/static/img/wtf.png" alt="MR. HOLE">
+        <img src="/static/img/wtf.png" alt="MR. HOLE">
+        <img src="../assets/img/how-to.png" alt="how to">
+        <img src="../assets/img/invite.png" alt="invite?">
     </div>
 
 </template>
@@ -13,11 +15,11 @@
 
 .content{
     // background-color: red;
-        max-width: 1000px;
         margin: 50px auto;
-        padding: 50px;
+        padding: 50px 10px;
+        max-width: 1000px;
 
-    .wtf {
+    img {
         display: block;
         max-width: 100%;
         border-radius: 5px;
