@@ -29,14 +29,15 @@ export default {
             grab: {}
         };
     },
-    head: {
-        meta: function () {
-            return [
+
+    metaInfo () {
+        return {
+            meta: [
                 // Twitter
-                { n: 'twitter:image', c: this.grab.image_public_url },
+                { name: 'twitter:image', content: this.grab.image_public_url },
                 // Facebook / Open Graph
-                { p: 'og:image', c: this.grab.image_public_url },
-            ];
+                { name: 'og:image', content: this.grab.image_public_url },
+            ],
         }
     },
     mounted(){
