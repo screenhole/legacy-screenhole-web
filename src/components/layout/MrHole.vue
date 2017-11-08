@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="bubble">
-            <span><a href="https://www.facebook.com/groups/screenhole/permalink/1745274202433015/">iPhone app coming shortly</a>, thanks&nbsp;<a href="/pim">@pim!</a> &amp; <a href="/apexskier">@apexskier</a>!</span>
+            <span>Cram some 'shots in my hole!</span>
         </div>
         <img id="mr-hole" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
     </div>
