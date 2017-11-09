@@ -6,6 +6,8 @@
             <router-view></router-view>
         </div>
 
+        <chomments></chomments>
+
         <div v-if="!$auth.ready() || !loaded">
             <div id="loader"></div>
         </div>
@@ -17,6 +19,7 @@
 <script>
 import PageHeader from '@/components/layout/PageHeader'
 import MrHole from '@/components/layout/MrHole'
+import Chomments from '@/components/layout/Chomments'
 
 export default {
     name: 'app',
@@ -59,6 +62,7 @@ export default {
     components: {
         PageHeader,
         MrHole,
+        Chomments,
     }
 }
 </script>
