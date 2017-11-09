@@ -5,7 +5,8 @@
         </router-link>
 
         <nav class="pages">
-            <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
+            <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get invite</a>
+            <a href="https://www.facebook.com/groups/screenhole" target="_blank">chat</a>
             <router-link to="/wtf">wtf?</router-link>
             <a href="https://twitter.com/screenhole">twitter</a>
 
@@ -125,11 +126,11 @@ export default {
             padding: 0;
             margin: 0;
             box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
-  
+
             opacity: 0;
             visibility: hidden;
             transform: translateY(-5px);
-  
+
             transition: all 400ms ease;
 
             &.on {
