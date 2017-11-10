@@ -79,6 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~resources";
 .stream {
     display: flex;
     padding: 150px 100px 100px 0;
@@ -100,15 +101,13 @@ export default {
             flex-shrink: 0;
 
             a {
-                color: inherit;
-                text-shadow: -1px 1px #6A3FEE;
+                color: $bright-green;
                 display: block;
                 transition: all 0.2s ease;
 
                 &:hover {
-                    transform: translate(0,-2px) scale(1.1);
                     color: white;
-                    text-shadow: -1px 3px #6A3FEE;
+
                 }
             }
 
