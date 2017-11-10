@@ -6,7 +6,7 @@
                     <div id="loader"></div>
                 </div>
                 <p slot="no-more">fin</p>
-                <p slot="no-results"></p>
+                <p slot="no-results">fin</p>
             </infinite-loading>
 
             <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
@@ -14,13 +14,17 @@
                     <router-link v-if="item.user" :to="{ name: 'user-stream', params: {
                         username: item.user.username
                     }}">
-                        {{item.user.username}}
+                        <img v-bind:src="gravatar(item)" alt="avatar">
                     </router-link>
                 </div>
                 <div class="content">
                     {{item.message}}
                 </div>
             </div>
+        </div>
+
+        <div class="input">
+            <input>
         </div>
     </div>
 </template>
@@ -38,6 +42,14 @@ export default {
     },
 
     methods: {
+        gravatar(user) {
+            // gravatar requires the default URL to be public, so use staging host in dev
+            var origin = (document.location.hostname == "localhost") ? "https://staging.screenhole.net" : document.location.origin;
+
+            return 'https://www.gravatar.com/avatar/' + user.gravatar_hash
+                + '?d=' + encodeURIComponent(origin + require('../../assets/img/default-avatar.png'));
+        },
+
         infiniteHandler($state) {
             // start pagination loop
             this.$http.get("/chomments", {
@@ -88,22 +100,56 @@ export default {
     position: fixed;
     top: 60px;
     right: 0;
+    bottom: 0;
     width: 300px;
-    height: calc(100% - 60px);
-    background: #ccc;
+    background: #000;
+    color: #fff;
     z-index: $z-layer-Chomments;
 
-    .items {
+    .input {
         position: absolute;
         bottom: 0;
         right: 0;
         left: 0;
+        height: 50px;
+
+        input {
+            height: 100%;
+            width: 100%;
+            background: #000;
+            color: #fff;
+        }
+    }
+
+    .items {
+        height: 100%;
+        padding-bottom: 50px;
         overflow-y: auto;
-        max-height: 100%;
+
+        // * { outline: 1px solid gold}
 
         .item {
-            border-top: 1px solid blue;
-            padding: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 10px;
+            padding-top: 10px;
+            border-top: 1px solid $grey-cool;
+
+            .meta {
+                width: 45px;
+                padding-right: 10px;
+                flex-shrink: 0;
+
+                img {
+                    max-width: 100%;
+                    border-radius: 1000px;
+                }
+            }
+
+            .content {
+                flex-grow: 1;
+            }
         }
     }
 }
