@@ -1,5 +1,13 @@
 <template>
-    <div class="chomments">
+    <div class="chomments" ref="scroller">
+        <infinite-loading @infinite="infiniteHandler" direction="top">
+            <div slot="spinner">
+                <div id="loader"></div>
+            </div>
+            <p slot="no-more">fin</p>
+            <p slot="no-results"></p>
+        </infinite-loading>
+
         <div class="message" v-for="line in chomments" v-if="chomments && chomments.length">
             <div class="meta">
                 <router-link v-if="line.user" :to="{ name: 'user-stream', params: {
@@ -12,13 +20,6 @@
                 {{line.message}}
             </div>
         </div>
-
-        <infinite-loading @infinite="infiniteHandler">
-            <div slot="spinner">
-                <div id="loader"></div>
-            </div>
-            <p slot="no-more"></p>
-        </infinite-loading>
     </div>
 </template>
 
@@ -30,12 +31,21 @@ export default {
     data () {
         return {
             page: 1,
+            height: 0,
             chomments: [],
         };
     },
 
+    watch: {
+        height: function(curr, old) {
+            this.$refs.scroller.scrollTop = curr - old;
+        }
+    },
+
     methods: {
         infiniteHandler($state) {
+            this.height = this.$refs.scroller.scrollHeight;
+
             // start pagination loop
             this.$http.get("/chomments", {
                 params: {
@@ -44,7 +54,12 @@ export default {
             }).then((response) => {
                 var data = response.data;
 
-                this.chomments = this.chomments.concat(data.chomments);
+                // flip it and push to top
+                this.chomments = data.chomments.reverse().concat(this.chomments);
+
+                // if (this.$refs.scroller.scrollTop < this.$refs.scroller.scrollHeight) {
+                //     this.$refs.scroller.scrollTop = this.$refs.scroller.scrollHeight;
+                // }
 
                 if (data.meta.next_page) {
                     this.page = data.meta.next_page;
@@ -78,12 +93,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~resources";    
+
 .chomments {
     position: fixed;
     top: 60px;
     right: 0;
-    width: 100px;
-    height: 100%;
+    width: 300px;
+    height: calc(100% - 60px);
     background: #ccc;
+    z-index: $z-layer-Chomments;
+    overflow: auto;
 }
 </style>
