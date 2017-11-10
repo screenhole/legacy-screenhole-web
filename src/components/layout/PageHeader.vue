@@ -73,7 +73,7 @@ export default {
 .main {
     display: flex;
     justify-content: space-between;
-    z-index: 10;
+    z-index: $z-layer-PageHeader;
     background-color: #000;
     position: fixed;
     top: 0;
