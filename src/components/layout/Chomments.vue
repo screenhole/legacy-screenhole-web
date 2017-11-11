@@ -23,9 +23,11 @@
             </div>
         </div>
 
-        <div class="input">
-            <input>
-        </div>
+        <template v-if="$auth.check()">
+            <form class="input" v-on:submit.prevent="sendMessage">
+                <input v-model="message">
+            </form>
+        </template>
     </div>
 </template>
 
@@ -37,6 +39,7 @@ export default {
     data () {
         return {
             page: 1,
+            message: "",
             chomments: [],
         };
     },
@@ -48,6 +51,17 @@ export default {
 
             return 'https://www.gravatar.com/avatar/' + user.gravatar_hash
                 + '?d=' + encodeURIComponent(origin + require('../../assets/img/default-avatar.png'));
+        },
+
+        sendMessage() {
+            var message = this.message;
+            this.message = "";
+
+            this.$http.post("/chomments", {
+                "chomment": { "message": message }
+            }).then((response) => {
+
+            });
         },
 
         infiniteHandler($state) {
