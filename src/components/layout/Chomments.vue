@@ -6,7 +6,7 @@
             </form>
         </template>
 
-        <div class="items" ref="scroller" v-chat-scroll="{always: false}">
+        <div class="items" v-bind:class="{ 'with-input': $auth.check() }" ref="scroller">
             <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
                 <div class="meta">
                     <router-link v-if="item.user" :to="{ name: 'user-stream', params: {
@@ -136,8 +136,11 @@ export default {
 
     .items {
         height: 100%;
-        padding-top: 50px;
         overflow-y: auto;
+
+        &.with-input {
+            padding-top: 50px;
+        }
 
         // * { outline: 1px solid gold}
 
