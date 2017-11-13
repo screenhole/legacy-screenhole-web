@@ -1,5 +1,5 @@
 <template>
-    <div class="chomments">
+    <div class="chomments" v-if="visible">
         <template v-if="$auth.check()">
             <form class="input" v-on:submit.prevent="sendMessage">
                 <input v-model="message">
@@ -37,6 +37,7 @@ import ActionCable from 'actioncable';
 export default {
     data () {
         return {
+            visible: true,
             page: 1,
             message: "",
             chomments: [],
