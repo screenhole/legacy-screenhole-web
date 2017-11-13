@@ -7,7 +7,6 @@ import VueHead from 'vue-head'
 import WebFont from 'webfontloader'
 import VueClipboard from 'vue-clipboard2'
 import VueAnalytics from 'vue-analytics'
-import VueChatScroll from 'vue-chat-scroll'
 
 import App from './App'
 import router from './router'
@@ -62,8 +61,6 @@ Vue.use(VueHead);
 Vue.use(VueClipboard);
 
 Vue.use(VeeValidate);
-
-Vue.use(VueChatScroll)
 
 WebFont.load({
     google: {

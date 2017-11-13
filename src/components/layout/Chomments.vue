@@ -1,14 +1,12 @@
 <template>
     <div class="chomments">
-        <div class="items" ref="scroller" v-chat-scroll="{always: false}">
-            <infinite-loading @infinite="infiniteHandler" direction="top">
-                <div slot="spinner">
-                    <div id="loader"></div>
-                </div>
-                <p slot="no-more">fin</p>
-                <p slot="no-results">fin</p>
-            </infinite-loading>
+        <template v-if="$auth.check()">
+            <form class="input" v-on:submit.prevent="sendMessage">
+                <input v-model="message">
+            </form>
+        </template>
 
+        <div class="items" ref="scroller" v-chat-scroll="{always: false}">
             <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
                 <div class="meta">
                     <router-link v-if="item.user" :to="{ name: 'user-stream', params: {
@@ -21,13 +19,14 @@
                     {{item.message}}
                 </div>
             </div>
+            <infinite-loading @infinite="infiniteHandler">
+                <div slot="spinner">
+                    <div id="loader"></div>
+                </div>
+                <p slot="no-more">fin</p>
+                <p slot="no-results">fin</p>
+            </infinite-loading>
         </div>
-
-        <template v-if="$auth.check()">
-            <form class="input" v-on:submit.prevent="sendMessage">
-                <input v-model="message">
-            </form>
-        </template>
     </div>
 </template>
 
@@ -74,7 +73,7 @@ export default {
                 var data = response.data;
 
                 // flip it and push to top
-                this.chomments = data.chomments.reverse().concat(this.chomments);
+                this.chomments = this.chomments.concat(data.chomments);
 
                 if (data.meta.next_page) {
                     this.page = data.meta.next_page;
@@ -95,7 +94,7 @@ export default {
             "ChommentsChannel",
             {
                 received: function(data) {
-                    self.chomments.push(data.chomment);
+                    self.chomments.unshift(data.chomment);
                 }
             }
         );
@@ -122,7 +121,7 @@ export default {
 
     .input {
         position: absolute;
-        bottom: 0;
+        top: 0;
         right: 0;
         left: 0;
         height: 50px;
@@ -137,7 +136,7 @@ export default {
 
     .items {
         height: 100%;
-        padding-bottom: 50px;
+        padding-top: 50px;
         overflow-y: auto;
 
         // * { outline: 1px solid gold}
