@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "dev-stage": "cross-env PRODUCTION_MODE=staging node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
     "stage": "cross-env PRODUCTION_MODE=staging npm run build && surge --project ./dist --domain staging.screenhole.net",

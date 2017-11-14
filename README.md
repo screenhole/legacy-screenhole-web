@@ -16,6 +16,14 @@ Serve with hot reload at [localhost:8080](http://localhost:8000). Automatically 
 npm run dev
 ```
 
+### Development, with Staging API
+
+Run the frontend locally, but read from the staging API.
+
+```
+npm run dev-stage
+```
+
 ### Testing
 
 Run unit tests.
