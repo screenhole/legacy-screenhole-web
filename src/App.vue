@@ -111,6 +111,7 @@ export default {
         background: center no-repeat url("assets/img/loader.gif")
         width: 100%;
         min-height: 50px;
+        max-height: 100%;
 
     .form
         &.centered
