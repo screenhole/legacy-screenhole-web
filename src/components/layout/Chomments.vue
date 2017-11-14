@@ -114,11 +114,12 @@ export default {
     top: 60px;
     right: 0;
     bottom: 0;
-    width: 300px;
+    width: 380px;
     background: #181818;
     border-left: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
+    padding-left: 10px;
 
     .input {
         position: absolute;
@@ -132,6 +133,15 @@ export default {
             width: 100%;
             background: #000;
             color: #fff;
+            border: 0;
+            border-bottom: 1px solid $grey-warm;
+            background-color: #181818;
+            text-indent: 1em;
+
+            &:focus {
+              outline: none;
+              background-color: #111;
+            }
         }
     }
 
@@ -150,8 +160,12 @@ export default {
             flex-direction: row;
             align-items: center;
             margin: 10px;
-            padding-top: 10px;
-            border-top: 1px solid $grey-cool;
+            padding-top: 20px;
+            color: #868091;
+            font-size: 15px;
+            line-height: 16px;
+
+            // border-top: 1px solid $grey-cool;
 
             .meta {
                 width: 45px;
@@ -159,7 +173,9 @@ export default {
                 flex-shrink: 0;
 
                 .avatar {
-                    background: red;
+                    width: 40px;
+                    height: 40px;
+
                 }
             }
 
@@ -167,7 +183,9 @@ export default {
                 flex-grow: 1;
 
                 .username {
-                    background: blue;
+                    color: $bright-green;
+                    padding-bottom: 0.5em;
+                    display: inline-block;
                 }
             }
         }
