@@ -129,6 +129,7 @@ $width: 380px;
     .viewport {
         .input {
             height: 50px;
+            margin-bottom: 10px;
 
             .message {
                 height: 100%;
@@ -157,12 +158,14 @@ $width: 380px;
                 flex-direction: row;
                 align-items: top;
                 margin: 10px;
-                padding-top: 20px;
+                padding: 10px 0;
                 color: #868091;
                 font-size: 15px;
                 line-height: 20px;
 
-                // border-top: 1px solid $grey-cool;
+                &:first-child {
+                    padding-top: 0;
+                }
 
                 .meta {
                     width: 45px;
