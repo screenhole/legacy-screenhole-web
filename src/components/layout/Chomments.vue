@@ -9,11 +9,7 @@
         <div class="items" v-bind:class="{ 'with-input': $auth.check() }" ref="scroller">
             <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
                 <div class="meta">
-                    <router-link v-if="item.user" :to="{ name: 'user-stream', params: {
-                        username: item.user.username
-                    }}">
-                        <img v-bind:src="gravatar(item)" alt="avatar">
-                    </router-link>
+                    <avatar :user="item.user"></avatar>
                 </div>
                 <div class="content">
                     {{item.message}}
@@ -34,6 +30,8 @@
 import InfiniteLoading from 'vue-infinite-loading';
 import ActionCable from 'actioncable';
 
+import Avatar from '@/components/Avatar'
+
 export default {
     data () {
         return {
@@ -45,14 +43,6 @@ export default {
     },
 
     methods: {
-        gravatar(user) {
-            // gravatar requires the default URL to be public, so use staging host in dev
-            var origin = (document.location.hostname == "localhost") ? "https://staging.screenhole.net" : document.location.origin;
-
-            return 'https://www.gravatar.com/avatar/' + user.gravatar_hash
-                + '?d=' + encodeURIComponent(origin + require('../../assets/img/default-avatar.png'));
-        },
-
         sendMessage() {
             var message = this.message;
             this.message = "";
@@ -102,6 +92,7 @@ export default {
     },
 
     components: {
+        Avatar,
         InfiniteLoading,
     },
 }
