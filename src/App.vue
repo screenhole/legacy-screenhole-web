@@ -120,6 +120,7 @@ export default {
         padding: 25px;
         top: 60px;
         left: 0;
+        z-index: $z-layer-Flash;
         background-color: $purple;
         animation-name: slideup;
         animation-duration: 1s;
