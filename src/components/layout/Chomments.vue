@@ -2,7 +2,7 @@
     <aside class="chomments" v-bind:class="{ 'visible': visible }">
         <div class="viewport">
             <form class="input" v-on:submit.prevent="sendMessage" v-if="$auth.check()">
-                <input class="message" placeholder="Type some chomments" v-model="message">
+                <input class="message" placeholder="Type some chomments" v-model="message" ref="messageInput">
             </form>
 
             <div class="items">
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js';
 import InfiniteLoading from 'vue-infinite-loading';
 import ActionCable from 'actioncable';
 
@@ -43,7 +44,7 @@ import Avatar from '@/components/Avatar'
 export default {
     data () {
         return {
-            visible: true,
+            visible: false,
             page: 1,
             message: "",
             chomments: [],
@@ -97,6 +98,16 @@ export default {
                 }
             }
         );
+
+        EventBus.$on('chomments.toggle', () => {
+            this.visible = ! this.visible;
+
+            if (this.visible) {
+                this.$refs.messageInput.focus();
+            } else {
+                this.$refs.messageInput.blur();
+            }
+        });
     },
 
     components: {
