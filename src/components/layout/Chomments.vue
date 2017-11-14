@@ -116,7 +116,7 @@ export default {
     bottom: 0;
     width: 380px;
     background: #181818;
-    border-left: 1px solid $grey-warm;
+    border-right: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
     padding-left: 10px;
