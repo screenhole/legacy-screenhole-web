@@ -115,8 +115,8 @@ export default {
     left: 0;
     bottom: 0;
     width: 380px;
-    background: #181818;
-    // border-right: 1px solid $grey-warm;
+    background: black;
+    border-right: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
     padding-left: 10px;
@@ -131,12 +131,11 @@ export default {
         input {
             height: 100%;
             width: 100%;
-            background: #000;
             color: #fff;
             border: 0;
             border-bottom: 1px solid #222;
-            background-color: #181818;
             padding: 5px 15px;
+            background-color: black;
 
             &:focus {
               outline: none;
