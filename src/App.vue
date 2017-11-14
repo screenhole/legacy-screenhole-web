@@ -112,6 +112,67 @@ export default {
         width: 100%;
         min-height: 50px;
 
+    .form
+        &.centered
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+
+            .center
+                max-width: 50%;
+                padding-bottom: 20vh
+
+        .title
+            color: white;
+            margin-bottom: 25px;
+            font-size: 50px;
+            font-weight: bold;
+
+        .error
+            padding: 10px 0 0 0;
+            color: $grey-cool;
+
+        .input
+            width: 300px;
+            display: block;
+            height: 50px;
+            padding: 0;
+            font-size: 25px;
+            border: 0;
+            border-bottom: 2px solid $grey-cool;
+            background-color: transparent;
+            transition: all 0.2s ease;
+
+            &::placeholder
+                color: $grey-cool;
+
+            color: #fff;
+            &:focus
+                color: #fff;
+                border-color: #fff;
+                outline: none;
+
+        .button
+            width: 300px;
+            height: 50px;
+            margin-top: 25px;
+            padding: 0;
+            border: 0;
+            background: center no-repeat transparent url("./assets/img/form-button.svg");
+            background-size: 300px 50px;
+            color: $purple;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+
+            &:active
+                transform: scale(0.95) translate(0, 2px);
+                outline: none;
+
+            &:focus
+                outline: none;
+
     .flash, .flash pre
         color: #fff;
         position: fixed;
@@ -122,7 +183,4 @@ export default {
         left: 0;
         z-index: $z-layer-Flash;
         background-color: $purple;
-        animation-name: slideup;
-        animation-duration: 1s;
-        animation-timing-function: ease-in-out;
 </style>
