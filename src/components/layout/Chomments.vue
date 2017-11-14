@@ -186,7 +186,7 @@ export default {
 
                 .username {
                     color: #ccc;
-                    padding-bottom: 0.5em;
+                    // padding-bottom: 0.5em;
                     display: inline-block;
                 }
             }
