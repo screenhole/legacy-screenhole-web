@@ -187,6 +187,13 @@ export default {
                     color: #ccc;
                     // padding-bottom: 0.5em;
                     display: inline-block;
+                    transition: all 0.2s ease;
+                    border-bottom: 1px solid rgba(0,0,0,0);
+
+                    &:hover {
+                        color: white;
+                        border-bottom: 1px solid $purple;
+                    }
                 }
             }
         }
