@@ -102,10 +102,12 @@ export default {
         EventBus.$on('chomments.toggle', () => {
             this.visible = ! this.visible;
 
-            if (this.visible) {
-                this.$refs.messageInput.focus();
-            } else {
-                this.$refs.messageInput.blur();
+            if (this.$refs.messageInput) {
+                if (this.visible) {
+                    this.$refs.messageInput.focus();
+                } else {
+                    this.$refs.messageInput.blur();
+                }
             }
         });
     },
