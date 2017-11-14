@@ -6,14 +6,20 @@
             </form>
         </template>
 
-        <div class="items" v-bind:class="{ 'with-input': $auth.check() }" ref="scroller">
+        <div class="items" v-bind:class="{ 'with-input': $auth.check() }">
             <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
                 <div class="meta">
                     <avatar :user="item.user"></avatar>
                 </div>
                 <div class="content">
-                    {{item.user.username}}
+                    <router-link class="username" v-if="item.user" :to="{ name: 'user-stream', params: {
+                            username: item.user.username
+                        }}">
+                        {{item.user.username}}
+                    </router-link>
+
                     <br>
+
                     {{item.message}}
                 </div>
             </div>
@@ -152,14 +158,17 @@ export default {
                 padding-right: 10px;
                 flex-shrink: 0;
 
-                img {
-                    max-width: 100%;
-                    border-radius: 1000px;
+                .avatar {
+                    background: red;
                 }
             }
 
             .content {
                 flex-grow: 1;
+
+                .username {
+                    background: blue;
+                }
             }
         }
     }
