@@ -5,7 +5,7 @@
                 <input class="message" placeholder="Type some chomments" v-model="message">
             </form>
 
-            <div class="items" v-bind:class="{ 'with-input': $auth.check() }">
+            <div class="items">
                 <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
                     <div class="meta">
                         <avatar :user="item.user"></avatar>
@@ -123,16 +123,11 @@ $width: 380px;
     border-right: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
-    padding: 0 10px;
-    height: 100vh;
+    padding: 10px;
     overflow: auto;
 
     .viewport {
         .input {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
             height: 50px;
 
             .message {
@@ -154,10 +149,6 @@ $width: 380px;
         .items {
             height: 100%;
             overflow-y: auto;
-
-            &.with-input {
-                padding-top: 50px;
-            }
 
             // * { outline: 1px solid gold}
 

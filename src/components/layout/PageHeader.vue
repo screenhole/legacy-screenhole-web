@@ -75,9 +75,6 @@ export default {
     justify-content: space-between;
     z-index: $z-layer-PageHeader;
     background-color: #000;
-    position: fixed;
-    top: 0;
-    left: 0;
     height: 60px;
     width: 100%;
     padding: 20px;
