@@ -119,7 +119,7 @@ export default {
     border-right: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
-    padding-left: 10px;
+    padding: 0 10px;
 
     .input {
         position: absolute;
