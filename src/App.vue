@@ -1,6 +1,6 @@
 <template>
     <main id="app">
-        <page-header></page-header>
+        <page-header v-if="$auth.ready() && loaded"></page-header>
 
         <section id="content">
             <template v-if="$auth.ready() && loaded">
