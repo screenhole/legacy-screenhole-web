@@ -1,37 +1,37 @@
 <template>
-    <div class="chomments" v-if="visible">
-        <template v-if="$auth.check()">
-            <form class="input" v-on:submit.prevent="sendMessage">
-                <input placeholder="Type some chomments" v-model="message">
+    <aside class="chomments" v-bind:class="{ 'visible': visible }">
+        <div class="viewport">
+            <form class="input" v-on:submit.prevent="sendMessage" v-if="$auth.check()">
+                <input class="message" placeholder="Type some chomments" v-model="message">
             </form>
-        </template>
 
-        <div class="items" v-bind:class="{ 'with-input': $auth.check() }">
-            <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
-                <div class="meta">
-                    <avatar :user="item.user"></avatar>
+            <div class="items" v-bind:class="{ 'with-input': $auth.check() }">
+                <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
+                    <div class="meta">
+                        <avatar :user="item.user"></avatar>
+                    </div>
+                    <div class="content">
+                        <router-link class="username" v-if="item.user" :to="{ name: 'user-stream', params: {
+                                username: item.user.username
+                            }}">
+                            {{item.user.username}}
+                        </router-link>
+
+                        <br>
+
+                        {{item.message}}
+                    </div>
                 </div>
-                <div class="content">
-                    <router-link class="username" v-if="item.user" :to="{ name: 'user-stream', params: {
-                            username: item.user.username
-                        }}">
-                        {{item.user.username}}
-                    </router-link>
-
-                    <br>
-
-                    {{item.message}}
-                </div>
+                <infinite-loading @infinite="infiniteHandler">
+                    <div slot="spinner">
+                        <div id="loader"></div>
+                    </div>
+                    <p slot="no-more">fin</p>
+                    <p slot="no-results">fin</p>
+                </infinite-loading>
             </div>
-            <infinite-loading @infinite="infiniteHandler">
-                <div slot="spinner">
-                    <div id="loader"></div>
-                </div>
-                <p slot="no-more">fin</p>
-                <p slot="no-results">fin</p>
-            </infinite-loading>
         </div>
-    </div>
+    </aside>
 </template>
 
 <script>
@@ -109,90 +109,97 @@ export default {
 <style lang="scss" scoped>
 @import "~resources";
 
+$width: 380px;
+
 .chomments {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    bottom: 0;
-    width: 380px;
-    background: black;
+    flex: 0 0 $width;
+    margin-left: -$width;
+    &.visible {
+        margin-left: 0;
+    }
+
+    transition: margin 0.3s ease;
+    background: #000;
     border-right: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
     padding: 0 10px;
+    height: 100vh;
+    overflow: auto;
 
-    .input {
-        position: absolute;
-        top: 0;
-        right: 0;
-        left: 0;
-        height: 50px;
+    .viewport {
+        .input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 50px;
 
-        input {
-            height: 100%;
-            width: 100%;
-            color: #fff;
-            border: 0;
-            border-bottom: 1px solid #222;
-            padding: 5px 15px;
-            background-color: black;
+            .message {
+                height: 100%;
+                width: 100%;
+                color: #fff;
+                border: 0;
+                border-bottom: 1px solid #222;
+                padding: 5px 15px;
+                background-color: black;
 
-            &:focus {
-              outline: none;
-              background-color: #111;
-            }
-        }
-    }
-
-    .items {
-        height: 100%;
-        overflow-y: auto;
-
-        &.with-input {
-            padding-top: 50px;
-        }
-
-        // * { outline: 1px solid gold}
-
-        .item {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin: 10px;
-            padding-top: 20px;
-            color: #868091;
-            font-size: 15px;
-            line-height: 20px;
-
-            // border-top: 1px solid $grey-cool;
-
-            .meta {
-                width: 45px;
-                padding-right: 10px;
-                flex-shrink: 0;
-
-                .avatar {
-                    top: 0;
-                    display: block;
-                    width: 40px;
-                    height: 40px;
-
+                &:focus {
+                  outline: none;
+                  background-color: #111;
                 }
             }
+        }
 
-            .content {
-                flex-grow: 1;
+        .items {
+            height: 100%;
+            overflow-y: auto;
 
-                .username {
-                    color: #ccc;
-                    // padding-bottom: 0.5em;
-                    display: inline-block;
-                    transition: all 0.2s ease;
-                    border-bottom: 1px solid rgba(0,0,0,0);
+            &.with-input {
+                padding-top: 50px;
+            }
 
-                    &:hover {
-                        color: white;
-                        border-bottom: 1px solid $purple;
+            // * { outline: 1px solid gold}
+
+            .item {
+                display: flex;
+                flex-direction: row;
+                align-items: top;
+                margin: 10px;
+                padding-top: 20px;
+                color: #868091;
+                font-size: 15px;
+                line-height: 20px;
+
+                // border-top: 1px solid $grey-cool;
+
+                .meta {
+                    width: 45px;
+                    padding-right: 10px;
+                    flex-shrink: 0;
+
+                    .avatar {
+                        display: block;
+                        width: 40px;
+                        height: 40px;
+
+                    }
+                }
+
+                .content {
+                    flex-grow: 1;
+
+                    .username {
+                        color: #ccc;
+                        // padding-bottom: 0.5em;
+                        display: inline-block;
+                        transition: all 0.2s ease;
+                        border-bottom: 1px solid rgba(0,0,0,0);
+
+                        &:hover {
+                            color: white;
+                            border-bottom: 1px solid $purple;
+                        }
                     }
                 }
             }

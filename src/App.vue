@@ -1,19 +1,22 @@
 <template>
-    <section id="app">
-        <div v-if="$auth.ready() && loaded">
-            <page-header></page-header>
+    <main id="app">
+        <page-header></page-header>
 
-            <router-view></router-view>
-        </div>
+        <section id="content">
+            <template v-if="$auth.ready() && loaded">
+                <chomments></chomments>
+                <section id="view">
+                    <router-view></router-view>
+                </section>
+            </template>
 
-        <chomments></chomments>
-
-        <div v-if="!$auth.ready() || !loaded">
-            <div id="loader"></div>
-        </div>
+            <template v-if="! $auth.ready() || ! loaded">
+                <div id="loader"></div>
+            </template>
+        </section>
 
         <mr-hole></mr-hole>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -67,6 +70,26 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+#app {
+    height: 100%;
+    overflow: auto;
+
+    #content {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        overflow: hidden;
+        height: 100%;
+
+        #view {
+            flex: 1;
+            overflow: auto;
+        }
+    }
+}
+</style>
+
 <style lang="sass">
     // GLOBAL STYLES
     @import "~resources"
@@ -80,6 +103,7 @@ export default {
         text-decoration: none;
 
     html, body
+        height: 100%;
         background-color: #000;
         font-family: Poppins, sans-serif;
 
