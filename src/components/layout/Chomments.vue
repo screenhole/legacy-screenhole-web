@@ -112,7 +112,7 @@ export default {
 .chomments {
     position: fixed;
     top: 60px;
-    right: 0;
+    left: 0;
     bottom: 0;
     width: 380px;
     background: #181818;
