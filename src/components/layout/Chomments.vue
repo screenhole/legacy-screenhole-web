@@ -2,7 +2,7 @@
     <div class="chomments" v-if="visible">
         <template v-if="$auth.check()">
             <form class="input" v-on:submit.prevent="sendMessage">
-                <input v-model="message">
+                <input placeholder="Type some chomments" v-model="message">
             </form>
         </template>
 
@@ -116,7 +116,7 @@ export default {
     bottom: 0;
     width: 380px;
     background: #181818;
-    border-right: 1px solid $grey-warm;
+    // border-right: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
     padding-left: 10px;
@@ -134,9 +134,9 @@ export default {
             background: #000;
             color: #fff;
             border: 0;
-            border-bottom: 1px solid $grey-warm;
+            border-bottom: 1px solid #222;
             background-color: #181818;
-            text-indent: 1em;
+            padding: 5px 15px;
 
             &:focus {
               outline: none;
@@ -163,7 +163,7 @@ export default {
             padding-top: 20px;
             color: #868091;
             font-size: 15px;
-            line-height: 16px;
+            line-height: 20px;
 
             // border-top: 1px solid $grey-cool;
 
@@ -173,6 +173,8 @@ export default {
                 flex-shrink: 0;
 
                 .avatar {
+                    top: 0;
+                    display: block;
                     width: 40px;
                     height: 40px;
 
