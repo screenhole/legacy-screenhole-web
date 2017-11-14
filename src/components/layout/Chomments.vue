@@ -12,6 +12,8 @@
                     <avatar :user="item.user"></avatar>
                 </div>
                 <div class="content">
+                    {{item.user.username}}
+                    <br>
                     {{item.message}}
                 </div>
             </div>
@@ -99,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~resources";    
+@import "~resources";
 
 .chomments {
     position: fixed;
@@ -107,7 +109,8 @@ export default {
     right: 0;
     bottom: 0;
     width: 300px;
-    background: #000;
+    background: #181818;
+    border-left: 1px solid $grey-warm;
     color: #fff;
     z-index: $z-layer-Chomments;
 
