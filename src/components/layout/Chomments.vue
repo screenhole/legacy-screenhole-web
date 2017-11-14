@@ -185,7 +185,7 @@ export default {
                 flex-grow: 1;
 
                 .username {
-                    color: $bright-green;
+                    color: #ccc;
                     padding-bottom: 0.5em;
                     display: inline-block;
                 }
