@@ -1,21 +1,21 @@
 <template>
-    <div class="centeredForm">
-        <form id="login" v-on:submit.prevent="register">
-            <h1>Register</h1>
+    <div class="form centered">
+        <form v-on:submit.prevent="submit">
+            <h1 class="title">Register</h1>
 
-            <input type="email" name="email" v-validate="'required|email'" placeholder="email" v-model="auth.email">
+            <input class="input" type="email" name="email" v-validate="'required|email'" placeholder="email" v-model="auth.email">
             <div class="error" v-if="errors.has('email')">{{ errors.first('email') }}</div>
 
-            <input type="text" name="username" v-validate="'required'" placeholder="username" v-model="auth.username">
+            <input class="input" type="text" name="username" v-validate="'required'" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
-            <input type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
+            <input class="input" type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
 
-            <input type="input" name="code" v-validate="'required'" placeholder="invite code" v-model="auth.code">
+            <input class="input" type="input" name="code" v-validate="'required'" placeholder="invite code" v-model="auth.code">
             <div class="error" v-if="errors.has('code')">{{ errors.first('code') }}</div>
 
-            <button type="submit">GO!</button>
+            <button class="button" type="submit">GO!</button>
         </form>
 
         <div v-if="terminal" v-bind:class="{ flash: terminal }">
@@ -41,7 +41,7 @@ export default {
         };
     },
     methods: {
-        register: function() {
+        submit: function() {
             this.$validator.validateAll().then((valid) => {
                 if (! valid) return;
 
@@ -70,91 +70,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "~resources";
-
-.centeredForm {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    h1 {
-        color: white;
-        margin-bottom: 25px;
-        font-size: 50px;
-        font-weight: bold;
-    }
-
-    .error {
-        padding: 10px 0 0 0;
-        color: $grey-cool;
-    }
-
-    input {
-        width: 300px;
-        display: block;
-        height: 50px;
-        padding: 0;
-        font-size: 25px;
-        border: 0;
-        border-bottom: 2px solid $grey-cool;
-        background-color: transparent;
-        transition: all 0.2s ease;
-
-        &::placeholder {
-            color: $grey-cool;
-        }
-
-        color: #fff;
-        &:focus {
-            color: #fff;
-            border-color: #fff;
-            outline: none;
-        }
-    }
-
-    button {
-        width: 300px;
-        height: 50px;
-        margin-top: 25px;
-        padding: 0;
-        border: 0;
-        background: center no-repeat transparent url("../assets/img/form-button.svg");
-        background-size: 300px 50px;
-        color: $purple;
-        font-size: 16px;
-        font-weight: bold;
-        transition: all 0.2s ease;
-
-        &:active {
-            transform: scale(0.95) translate(0, 2px);
-            outline: none;
-        }
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    @keyframes slideup {
-        from {bottom: -200px;}
-        to {bottom: 0;}
-    }
-
-    @keyframes slidedown {
-        from {bottom: 0;}
-        to {bottom: -200px;}
-    }
-
-    #login {
-        width: 300px;
-        padding-bottom: 20vh; // offset height for optics
-    }
-}
-</style>
