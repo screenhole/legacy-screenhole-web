@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="mr-hole">
         <div class="bubble">
             <span>Cram some 'shots in my hole!</span>
         </div>
-        <img id="mr-hole" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
+        <img class="cutie" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
     </div>
 </template>
 
@@ -17,8 +17,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import "~resources";
-    #mr-hole {
+@import "~resources";
+
+.mr-hole {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: $z-layer-MrHole;
+
+    .cutie {
         position: fixed;
         bottom: 10px;
         right: 25px;
@@ -26,6 +33,7 @@ export default {
         display: block;
         transition: all 0.2s;
     }
+
     .bubble {
         position: fixed;
         bottom: 90px;
@@ -50,6 +58,7 @@ export default {
                 color: #f438be;
             }
         }
+
         &:after {
             content: '';
             width: 0;
@@ -62,6 +71,5 @@ export default {
             border-color: $bright-green transparent transparent transparent;
         }
     }
-
-
+}
 </style>

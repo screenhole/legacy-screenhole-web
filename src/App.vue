@@ -1,22 +1,28 @@
 <template>
-    <section id="app">
-        <div v-if="$auth.ready() && loaded">
-            <page-header></page-header>
+    <main id="app">
+        <page-header v-if="$auth.ready() && loaded"></page-header>
 
-            <router-view></router-view>
-        </div>
+        <section id="content">
+            <template v-if="$auth.ready() && loaded">
+                <chomments></chomments>
+                <section id="view">
+                    <router-view></router-view>
+                </section>
+            </template>
 
-        <div v-if="!$auth.ready() || !loaded">
-            <div id="loader"></div>
-        </div>
+            <template v-if="! $auth.ready() || ! loaded">
+                <div id="loader"></div>
+            </template>
+        </section>
 
         <mr-hole></mr-hole>
-    </section>
+    </main>
 </template>
 
 <script>
 import PageHeader from '@/components/layout/PageHeader'
 import MrHole from '@/components/layout/MrHole'
+import Chomments from '@/components/layout/Chomments'
 
 export default {
     name: 'app',
@@ -59,9 +65,30 @@ export default {
     components: {
         PageHeader,
         MrHole,
+        Chomments,
     }
 }
 </script>
+
+<style lang="scss" scoped>
+#app {
+    height: 100%;
+    overflow: auto;
+
+    #content {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        overflow: hidden;
+        height: calc(100vh - 60px);
+
+        #view {
+            flex: 1;
+            overflow: auto;
+        }
+    }
+}
+</style>
 
 <style lang="sass">
     // GLOBAL STYLES
@@ -76,6 +103,7 @@ export default {
         text-decoration: none;
 
     html, body
+        height: 100%;
         background-color: #000;
         font-family: Poppins, sans-serif;
 
@@ -83,6 +111,68 @@ export default {
         background: center no-repeat url("assets/img/loader.gif")
         width: 100%;
         min-height: 50px;
+        max-height: 100%;
+
+    .form
+        &.centered
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+
+            .center
+                max-width: 50%;
+                padding-bottom: 20vh
+
+        .title
+            color: white;
+            margin-bottom: 25px;
+            font-size: 50px;
+            font-weight: bold;
+
+        .error
+            padding: 10px 0 0 0;
+            color: $grey-cool;
+
+        .input
+            width: 300px;
+            display: block;
+            height: 50px;
+            padding: 0;
+            font-size: 25px;
+            border: 0;
+            border-bottom: 2px solid $grey-cool;
+            background-color: transparent;
+            transition: all 0.2s ease;
+
+            &::placeholder
+                color: $grey-cool;
+
+            color: #fff;
+            &:focus
+                color: #fff;
+                border-color: #fff;
+                outline: none;
+
+        .button
+            width: 300px;
+            height: 50px;
+            margin-top: 25px;
+            padding: 0;
+            border: 0;
+            background: center no-repeat transparent url("./assets/img/form-button.svg");
+            background-size: 300px 50px;
+            color: $purple;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+
+            &:active
+                transform: scale(0.95) translate(0, 2px);
+                outline: none;
+
+            &:focus
+                outline: none;
 
     .flash, .flash pre
         color: #fff;
@@ -92,8 +182,6 @@ export default {
         padding: 25px;
         top: 60px;
         left: 0;
+        z-index: $z-layer-Flash;
         background-color: $purple;
-        animation-name: slideup;
-        animation-duration: 1s;
-        animation-timing-function: ease-in-out;
 </style>
