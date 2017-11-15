@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "express": "^4.16.2",
-    "vue": "^2.4.2",
+    "vue": "^2.4.2"
+  },
+  "devDependencies": {
     "@websanova/vue-auth": "^2.18.3-beta",
     "actioncable": "^5.1.4",
     "autoprefixer": "^7.1.2",
