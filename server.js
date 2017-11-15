@@ -38,16 +38,17 @@ router.get('/:username/~:shot_id', function (req, res, next) {
 
     axios.get('/shots/' + req.params.shot_id)
     .then(function(response) {
-        const data = response.data;
+        const image = response.data.shot.image_public_url.replace('s3.amazonaws.com', 'accelerator.net')
 
         const tags = buildTags([
             // twitter
             { name: 'twitter:card', content: 'summary_large_card' },
-            { name: 'twitter:image', content: data.shot.image_public_url },
+            { name: 'twitter:image', content: image + ';1024x1024-c.jpeg' },
 
             // facebook open graph
-            { name: 'og:image', content: data.shot.image_public_url },
-            // TODO: read from env
+            { name: 'og:image', content: image + ';1200x630-c.jpeg' },
+            { name: 'og:image:width', content: '1200' },
+            { name: 'og:image:height', content: '630' },
             { name: 'og:url', content: url }
         ])
 
