@@ -39,13 +39,16 @@ router.get('/:username/~:shot_id', function (req, res, next) {
     axios.get('/shots/' + req.params.shot_id)
     .then(function(response) {
         const image = response.data.shot.image_public_url.replace('s3.amazonaws.com', 'accelerator.net')
+        const description = 'A ‘shot by ' + req.params.username + ' in screenhole'
 
         const tags = buildTags([
             // twitter
             { name: 'twitter:card', content: 'summary_large_card' },
-            { name: 'twitter:image', content: image + ';1024x1024-c.jpeg' },
+            { name: 'twitter:image', content: image + ';1200x630-c.jpeg' },
+            { name: 'twitter:description', content: description },
 
             // facebook open graph
+            { name: 'og:description', content: description },
             { name: 'og:image', content: image + ';1200x630-c.jpeg' },
             { name: 'og:image:width', content: '1200' },
             { name: 'og:image:height', content: '630' },
@@ -54,7 +57,7 @@ router.get('/:username/~:shot_id', function (req, res, next) {
 
         appendToHead(req, res, next, tags)
     }).catch(function(response){
-        console.log('api error')
+        console.log('api error', response)
         next();
     });
 })
