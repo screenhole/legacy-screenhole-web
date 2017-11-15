@@ -19,8 +19,24 @@ function appendToHead(req, res, next, content){
     next();
 }
 
+function buildTags(metas) {
+    var tags = '';
+
+    for (var i in metas) {
+        tags += '<meta name="' + metas[i]['name'] + '" property="' + metas[i]['name'] + '" content="' + metas[i]['content'] + '">\n';
+    }
+
+    return tags;
+}
+
 router.get('/:username/~:shot_id', function (req, res, next) {
-    const tags = '<!--' + req.params.username + '-->'
+    // const tags = '<!--' + req.params.username + '-->'
+
+    const tags = buildTags([
+        { name: 'twitter:card', content: 'summary_large_card' },
+        { name: 'twitter:image', content: 'https://screenhole.s3.amazonaws.com/qKkt6Y/1510765449.png' },
+        { name: 'og:image', content: 'https://screenhole.s3.amazonaws.com/qKkt6Y/1510765449.png' },
+    ])
 
     appendToHead(req, res, next, tags)
 })
