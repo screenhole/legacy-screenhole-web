@@ -1,14 +1,14 @@
 <template>
     <div class="stream">
         <div class="grab" v-for="grab in grabs" v-if="grabs && grabs.length">
-            <div class="meta">
-                <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
-                    username: grab.user.username
-                }}">
-                    {{grab.user.username}}
-                </router-link>
-            </div>
             <div class="content">
+                <div class="meta">
+                    <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
+                        username: grab.user.username
+                        }}">
+                        {{grab.user.username}}
+                    </router-link>
+                </div>
                 <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                     username: grab.user.username,
                     grab_id: grab.id
@@ -83,10 +83,11 @@ export default {
 @import "~resources";
 .stream {
     display: flex;
-    padding: 150px 100px 100px 0;
+    padding: 150px 50px 100px 50px;
     justify-content: center;
     flex-direction: column;
     background-color: black;
+    margin: 0 auto;
 
     .grab {
         display: flex;
@@ -95,28 +96,22 @@ export default {
         padding-bottom: 100px;
 
         .meta {
-            width: 175px;
-            padding-right: 25px;
-            color: #00dc76;
-            text-align: right;
-            flex-shrink: 0;
 
             a {
-                color: $bright-green;
-                display: block;
+                color: $purple;
+                padding-bottom: 20px;
+                display: inline-block;
                 transition: all 0.2s ease;
 
-                &:hover {
+                &:hover{
                     color: white;
-
                 }
             }
-
 
         }
 
         .content {
-            max-width: 1000px;
+            max-width: 1200px;
             flex-grow: 1;
             position: relative;
         }
@@ -127,6 +122,7 @@ export default {
             border-radius: 5px;
             transition: all 0.2s ease;
             max-height: 80vh;
+            border: 1px solid rgba(255,255,255,0.1);
 
             &:hover {
                 transform: scale(1.01);
@@ -136,16 +132,6 @@ export default {
                 transform: scale(0.98);
             }
         }
-        //todo: make shading the same width as img
-        // .shadow {
-        //     position: absolute;
-        //     width: 100%;
-        //     height: 100%;
-        //     box-shadow: inset 1px 1px 1px 0 rgba(255,255,255,0.1);
-        //     border-radius: 5px;
-        //     top: 0;
-        //     left: 0;
-        // }
     }
 }
 </style>
