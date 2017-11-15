@@ -33,9 +33,13 @@ router.get('/:username/~:shot_id', function (req, res, next) {
     // const tags = '<!--' + req.params.username + '-->'
 
     const tags = buildTags([
+        // twitter
         { name: 'twitter:card', content: 'summary_large_card' },
         { name: 'twitter:image', content: 'https://screenhole.s3.amazonaws.com/qKkt6Y/1510765449.png' },
+
+        // facebook open graph
         { name: 'og:image', content: 'https://screenhole.s3.amazonaws.com/qKkt6Y/1510765449.png' },
+        { name: 'og:url', content: '' }
     ])
 
     appendToHead(req, res, next, tags)
