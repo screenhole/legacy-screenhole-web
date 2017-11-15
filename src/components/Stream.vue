@@ -98,8 +98,11 @@ export default {
         .meta {
 
             a {
-                color: $purple;
-                padding-bottom: 20px;
+                color: white;
+                background-color: $purple;
+                padding: 5px 15px;
+                border-radius: 300px;
+                margin-bottom: 10px;
                 display: inline-block;
                 transition: all 0.2s ease;
 
