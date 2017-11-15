@@ -120,17 +120,15 @@ export default {
             display: inline-block;
             max-width: 100%;
             border-radius: 5px;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
             max-height: 80vh;
             border: 1px solid rgba(255,255,255,0.1);
 
             &:hover {
-                transform: scale(1.01);
+                // border: 1px solid $purple;
+                box-shadow: 0px 0px 0px 5px $purple;
             }
 
-            &:active {
-                transform: scale(0.98);
-            }
         }
     }
 }
