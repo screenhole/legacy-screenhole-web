@@ -83,7 +83,7 @@ export default {
 @import "~resources";
 .stream {
     display: flex;
-    padding: 150px 50px 100px 50px;
+    padding: 100px 50px 100px 50px;
     justify-content: center;
     flex-direction: column;
     background-color: black;
