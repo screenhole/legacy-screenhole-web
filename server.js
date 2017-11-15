@@ -1,8 +1,12 @@
+const axios = require('axios')
 const express = require('express')
 const app = express()
 const router = express.Router()
 
 app.use(express.static(__dirname + '/dist'))
+
+// TODO: read from env
+axios.defaults.baseURL = 'https://api.screenhole.net';
 
 function appendToHead(req, res, next, content){
     var write = res.write;
@@ -30,19 +34,28 @@ function buildTags(metas) {
 }
 
 router.get('/:username/~:shot_id', function (req, res, next) {
-    // const tags = '<!--' + req.params.username + '-->'
+    const url = 'https://' + req.get('host') + req.originalUrl
 
-    const tags = buildTags([
-        // twitter
-        { name: 'twitter:card', content: 'summary_large_card' },
-        { name: 'twitter:image', content: 'https://screenhole.s3.amazonaws.com/qKkt6Y/1510765449.png' },
+    axios.get('/shots/' + req.params.shot_id)
+    .then(function(response) {
+        const data = response.data;
 
-        // facebook open graph
-        { name: 'og:image', content: 'https://screenhole.s3.amazonaws.com/qKkt6Y/1510765449.png' },
-        { name: 'og:url', content: '' }
-    ])
+        const tags = buildTags([
+            // twitter
+            { name: 'twitter:card', content: 'summary_large_card' },
+            { name: 'twitter:image', content: data.shot.image_public_url },
 
-    appendToHead(req, res, next, tags)
+            // facebook open graph
+            { name: 'og:image', content: data.shot.image_public_url },
+            // TODO: read from env
+            { name: 'og:url', content: url }
+        ])
+
+        appendToHead(req, res, next, tags)
+    }).catch(function(response){
+        console.log('api error')
+        next();
+    });
 })
 
 router.get('*', (req, res) => {
