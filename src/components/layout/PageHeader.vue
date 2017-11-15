@@ -5,11 +5,13 @@
         </router-link>
 
         <nav class="pages">
-            <a href="https://www.facebook.com/groups/screenhole" target="_blank">talk</a>
-            <router-link to="/wtf">wtf?</router-link>
+            <a href="/" @click.prevent="toggleChomments">chomment</a>
             <a href="https://twitter.com/screenhole">twitter</a>
+            <router-link to="/wtf">wtf?</router-link>
 
             <template v-if="! $auth.check()">
+                <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get invite</a>
+
                 <router-link to="/login">log in</router-link>
             </template>
 
@@ -37,6 +39,8 @@
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js';
+
 export default {
     data () {
         return {
@@ -51,6 +55,10 @@ export default {
 
             return 'https://www.gravatar.com/avatar/' + this.$auth.user().gravatar_hash
                 + '?d=' + encodeURIComponent(origin + require('../../assets/img/default-avatar.png'));
+        },
+
+        toggleChomments: function() {
+            EventBus.$emit('chomments.toggle');
         },
 
         logout: function() {
@@ -72,11 +80,8 @@ export default {
 .main {
     display: flex;
     justify-content: space-between;
-    z-index: 10;
+    z-index: $z-layer-PageHeader;
     background-color: #000;
-    position: fixed;
-    top: 0;
-    left: 0;
     height: 60px;
     width: 100%;
     padding: 20px;
@@ -125,11 +130,11 @@ export default {
             padding: 0;
             margin: 0;
             box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
-  
+
             opacity: 0;
             visibility: hidden;
             transform: translateY(-5px);
-  
+
             transition: all 400ms ease;
 
             &.on {

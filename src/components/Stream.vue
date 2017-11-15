@@ -1,14 +1,14 @@
 <template>
     <div class="stream">
         <div class="grab" v-for="grab in grabs" v-if="grabs && grabs.length">
-            <div class="meta">
-                <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
-                    username: grab.user.username
-                }}">
-                    {{grab.user.username}}
-                </router-link>
-            </div>
             <div class="content">
+                <div class="meta">
+                    <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
+                        username: grab.user.username
+                        }}">
+                        {{grab.user.username}}
+                    </router-link>
+                </div>
                 <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                     username: grab.user.username,
                     grab_id: grab.id
@@ -22,7 +22,8 @@
             <div slot="spinner">
                 <div id="loader"></div>
             </div>
-            <p slot="no-more"></p>
+            <p slot="no-more">fin</p>
+            <p slot="no-results"></p>
         </infinite-loading>
     </div>
 </template>
@@ -79,12 +80,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~resources";
 .stream {
     display: flex;
-    padding: 150px 100px 100px 0;
+    padding: 50px 50px 100px 50px;
     justify-content: center;
     flex-direction: column;
     background-color: black;
+    margin: 0 auto;
 
     .grab {
         display: flex;
@@ -93,30 +96,25 @@ export default {
         padding-bottom: 100px;
 
         .meta {
-            width: 175px;
-            padding-right: 25px;
-            color: #00dc76;
-            text-align: right;
-            flex-shrink: 0;
 
             a {
-                color: inherit;
-                text-shadow: -1px 1px #6A3FEE;
-                display: block;
+                color: white;
+                background-color: $purple;
+                padding: 5px 15px;
+                border-radius: 300px;
+                margin-bottom: 10px;
+                display: inline-block;
                 transition: all 0.2s ease;
 
-                &:hover {
-                    transform: translate(0,-2px) scale(1.1);
+                &:hover{
                     color: white;
-                    text-shadow: -1px 3px #6A3FEE;
                 }
             }
-
 
         }
 
         .content {
-            max-width: 1000px;
+            max-width: 1200px;
             flex-grow: 1;
             position: relative;
         }
@@ -125,27 +123,16 @@ export default {
             display: inline-block;
             max-width: 100%;
             border-radius: 5px;
-            transition: all 0.2s ease;
+            transition: all 0.1s ease;
             max-height: 80vh;
+            border: 1px solid rgba(255,255,255,0.1);
 
             &:hover {
-                transform: scale(1.01);
+                // border: 1px solid $purple;
+                box-shadow: 0px 0px 0px 5px $purple;
             }
 
-            &:active {
-                transform: scale(0.98);
-            }
         }
-        //todo: make shading the same width as img
-        // .shadow {
-        //     position: absolute;
-        //     width: 100%;
-        //     height: 100%;
-        //     box-shadow: inset 1px 1px 1px 0 rgba(255,255,255,0.1);
-        //     border-radius: 5px;
-        //     top: 0;
-        //     left: 0;
-        // }
     }
 }
 </style>

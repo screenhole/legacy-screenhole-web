@@ -22,7 +22,8 @@
             <div slot="spinner">
                 <div id="loader"></div>
             </div>
-            <p slot="no-more"></p>
+            <p slot="no-more">fin</p>
+            <p slot="no-results"></p>
         </infinite-loading>
     </div>
 </template>
