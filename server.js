@@ -4,15 +4,25 @@ const router = express.Router()
 
 app.use(express.static(__dirname + '/dist'))
 
-// router.use(function (req, res, next) {
-//     console.log('Time:', Date.now())
-//     next()
-// })
+function appendToHead(req, res, next, content){
+    var write = res.write;
+
+    res.write = function (chunk) {
+      if (~res.getHeader('Content-Type').indexOf('text/html')) {
+        chunk instanceof Buffer && (chunk = chunk.toString());
+        chunk = chunk.replace(/(<\/head>)/, content + "\n\n$1");
+        res.setHeader('Content-Length', chunk.length);
+      }
+      write.apply(this, arguments);
+    };
+
+    next();
+}
 
 router.get('/:username/~:shot_id', function (req, res, next) {
-    console.log(req.params['username'])
-    // pass through
-    next()
+    const tags = '<!--' + req.params.username + '-->'
+
+    appendToHead(req, res, next, tags)
 })
 
 router.get('*', (req, res) => {
