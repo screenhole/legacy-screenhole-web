@@ -44,7 +44,7 @@ import Avatar from '@/components/Avatar'
 export default {
     data () {
         return {
-            visible: false,
+            visible: true,
             page: 1,
             message: "",
             chomments: [],
