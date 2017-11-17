@@ -159,8 +159,7 @@ aside {
     }
 
     .items {
-        // height: 100%;
-        // overflow-y: auto;
+        overflow-x: hidden;
 
         .item {
             display: flex;
