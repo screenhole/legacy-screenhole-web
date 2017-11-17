@@ -131,6 +131,9 @@ aside {
 
     will-change: margin;
 
+    display: flex;
+    flex-direction: column;
+
     transition: margin 0.3s ease;
     background: #000;
     border-right: 1px solid $grey-warm;
