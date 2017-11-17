@@ -164,6 +164,10 @@ aside {
     .items {
         overflow-x: hidden;
 
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
         .item {
             display: flex;
             flex-direction: row;

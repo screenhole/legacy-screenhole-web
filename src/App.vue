@@ -100,6 +100,10 @@ export default {
     &.splitscreen-Middle {
         flex: 1;
     }
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 </style>
 
