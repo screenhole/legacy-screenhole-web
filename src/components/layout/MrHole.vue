@@ -1,7 +1,7 @@
 <template>
     <div class="mr-hole">
         <div class="bubble">
-            <span>Cram some 'shots in my hole!</span>
+            <span>haha, hi!</span>
         </div>
         <img class="cutie" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
     </div>
@@ -37,17 +37,17 @@ export default {
     .bubble {
         position: fixed;
         bottom: 90px;
-        right: 25px;
+        right: 38px;
         max-width: 250px;
         padding: 15px;
         border-radius: 5px;
-        background-color: $bright-green;
+        background-color: $purple;
         font-size: 80%;
         line-height: 150%;
         box-shadow: 0px 3px 31px -8px rgba(0,0,0,0.75);
 
         a {
-            color: $purple;
+            color: white;
             text-decoration: underline;
             transition: all 0.2s;
             display: inline-block;
@@ -68,7 +68,7 @@ export default {
             right: 50px;
             border-style: solid;
             border-width: 10px 5px 0 5px;
-            border-color: $bright-green transparent transparent transparent;
+            border-color: $purple transparent transparent transparent;
         }
     }
 }

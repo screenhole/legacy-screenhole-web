@@ -1,5 +1,5 @@
 <template>
-    <header class="main">
+    <header class="splitscreen-Top">
         <router-link class="logo" to="/" exact>
             <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
         </router-link>
@@ -77,12 +77,11 @@ export default {
 <style lang="scss" scoped>
 @import "~resources";
 
-.main {
+header {
     display: flex;
     justify-content: space-between;
     z-index: $z-layer-PageHeader;
     background-color: #000;
-    height: 60px;
     width: 100%;
     padding: 20px;
     padding-top: 18px;

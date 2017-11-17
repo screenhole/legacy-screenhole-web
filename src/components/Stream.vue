@@ -3,10 +3,11 @@
         <div class="grab" v-for="grab in grabs" v-if="grabs && grabs.length">
             <div class="content">
                 <div class="meta">
-                    <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
+                    <router-link  class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
                         username: grab.user.username
                         }}">
-                        {{grab.user.username}}
+                        <avatar :user="grab.user"></avatar>
+                        <span class="user">{{grab.user.username}}</span>
                     </router-link>
                 </div>
                 <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
@@ -31,6 +32,8 @@
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
 import ActionCable from 'actioncable';
+
+import Avatar from '@/components/Avatar';
 
 export default {
     data () {
@@ -74,6 +77,7 @@ export default {
         );
     },
     components: {
+        Avatar,
         InfiniteLoading,
     },
 }
@@ -95,32 +99,75 @@ export default {
         flex-direction: row;
         padding-bottom: 100px;
 
-        .meta {
-
-            a {
-                color: white;
-                background-color: $purple;
-                padding: 5px 15px;
-                border-radius: 300px;
-                margin-bottom: 10px;
-                display: inline-block;
-                transition: all 0.2s ease;
-
-                &:hover{
-                    color: white;
-                }
-            }
-
-        }
 
         .content {
             max-width: 1200px;
             flex-grow: 1;
             position: relative;
+
+            .permalink {
+                &:hover {
+                    .user {
+                        color: $purple;
+                        background-color: white;
+
+                        &:after {
+                            border-color: transparent white transparent transparent;
+                        }
+                    }
+                }
+            }
+            .meta {
+                margin-bottom: 10px;
+                border-radius: 1000px;
+                display: inline-block;
+
+                .avatar {
+                    display: inline-block;
+                    margin: 0;
+                    float: left;
+                }
+
+                .user {
+                    background-color: $purple;
+                    padding: 5px 10px;
+                    border-radius: 100px;
+                    display: inline-block;
+                    margin-top: 5px;
+                    margin-left: 10px;
+                    color: white;
+                    transition: all 0.2s ease;
+                    float: left;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        top: 14px;
+                        left: 38px;
+                        width: 0;
+                        height: 0;
+                        border-style: solid;
+                        border-width: 5px 10px 5px 0;
+                        border-color: transparent $purple transparent transparent;
+                        transition: all 0.2s ease;
+                    }
+                    &:hover {
+                        color: $purple;
+                        background-color: white;
+
+                        &:after {
+                            border-color: transparent white transparent transparent;
+                        }
+                    }
+                }
+
+            }
+
         }
 
         img {
-            display: inline-block;
+            clear: both;
+            display: block;
             max-width: 100%;
             border-radius: 5px;
             transition: all 0.1s ease;
