@@ -2,18 +2,18 @@
     <main id="app">
         <page-header v-if="$auth.ready() && loaded"></page-header>
 
-        <section id="content">
+        <div class="splitscreen-Container">
             <template v-if="$auth.ready() && loaded">
                 <chomments></chomments>
-                <section id="view">
+                <div class="splitscreen-Column splitscreen-Middle">
                     <router-view></router-view>
-                </section>
+                </div>
             </template>
 
             <template v-if="! $auth.ready() || ! loaded">
                 <div id="loader"></div>
             </template>
-        </section>
+        </div>
 
         <mr-hole></mr-hole>
     </main>
@@ -72,20 +72,33 @@ export default {
 
 <style lang="scss" scoped>
 #app {
+    width: 100%;
     height: 100%;
+}
+
+.splitscreen-Top {
+    display: flex;
+    height: 60px;
+}
+
+.splitscreen-Container {
+    display: flex;
+    overflow: hidden;
+    height: calc(100vh - 60px);
+    position: relative;
+    width: 100%;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+.splitscreen-Column {
     overflow: auto;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
 
-    #content {
-        display: flex;
-        flex-direction: row;
+    &.splitscreen-Middle {
         flex: 1;
-        overflow: hidden;
-        height: calc(100vh - 60px);
-
-        #view {
-            flex: 1;
-            overflow: auto;
-        }
     }
 }
 </style>
