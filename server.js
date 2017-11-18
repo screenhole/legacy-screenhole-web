@@ -63,7 +63,7 @@ router.get('/:username/~:shot_id', function (req, res, next) {
 })
 
 router.get('*', (req, res) => {
-    res.sendFile('200.html', { root: 'dist' });
+    res.sendFile('index.html', { root: 'dist' });
 })
 
 app.use(router)
