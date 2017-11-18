@@ -7,8 +7,10 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "dev-stage": "cross-env PRODUCTION_MODE=staging node build/dev-server.js",
-    "build": "node build/build.js",
     "start": "node server.js",
+    "build": "node build/build.js",
+    "deploy": "now -e NODE_ENV=production",
+    "stage": "now -e NODE_ENV=production -e PRODUCTION_MODE=staging",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e"

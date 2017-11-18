@@ -5,8 +5,9 @@ const router = express.Router()
 
 app.use(express.static(__dirname + '/dist'))
 
-// TODO: read from env
-axios.defaults.baseURL = 'https://api.screenhole.net';
+// get API baseURL from env
+axios.defaults.baseURL = process.env.PRODUCTION_MODE === 'staging' ? 'https://staging-api.screenhole.net' : 'https://api.screenhole.net';
+console.log("axios.defaults.baseURL", axios.defaults.baseURL)
 
 function appendToHead(req, res, next, content){
     var write = res.write;
