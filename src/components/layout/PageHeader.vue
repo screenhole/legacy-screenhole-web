@@ -80,7 +80,6 @@ export default {
 header {
     display: flex;
     justify-content: space-between;
-    z-index: $z-layer-PageHeader;
     background-color: #000;
     width: 100%;
     padding: 20px;
@@ -121,6 +120,7 @@ header {
         }
 
         .dropdown {
+            z-index: $z-layer-PageHeader;
             position: absolute;
             top: 55px;
             right: 10px;
