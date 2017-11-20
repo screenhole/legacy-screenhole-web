@@ -1,28 +1,13 @@
 <template>
-    <div class="stream">
-        <div class="grab" v-if="grab">
-            <div class="meta">
-                <router-link v-if="grab.user" :to="{ name: 'user-stream', params: {
-                    username: grab.user.username
-                }}">
-                    {{grab.user.username}}
-                </router-link>
-            </div>
-            <div class="content">
-                <div class="content">
-                    <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
-                        username: grab.user.username,
-                        grab_id: grab.id
-                    }}">
-                      <img :src="grab.image_public_url" />
-                    </router-link>
-                </div>
-            </div>
-        </div>
-    </div>
+    <grab
+        v-bind:key="grab.id"
+        v-bind:grab="grab"
+    />
 </template>
 
 <script>
+import Grab from '@/components/Grab';
+
 export default {
     data: function () {
         return {
@@ -40,6 +25,7 @@ export default {
             ],
         }
     },
+
     mounted(){
         this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
             this.grab = response.data.shot;
@@ -47,46 +33,20 @@ export default {
             // refresh the data in data head
             this.$emit('updateHead');
         });
-    }
+    },
+
+    components: {
+        Grab,
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-.stream {
+.grab {
     display: flex;
-    padding: 150px 100px 100px 0;
+    padding: 50px;
     justify-content: center;
     flex-direction: column;
-
-    .grab {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        padding-bottom: 100px;
-
-        .meta {
-            width: 175px;
-            padding-right: 25px;
-            color: #00dc76;
-            text-align: right;
-            flex-shrink: 0;
-
-            a {
-                color: inherit;
-            }
-        }
-
-        .content {
-            max-width: 1000px;
-            flex-grow: 1;
-        }
-
-        img {
-            display: inline-block;
-            max-width: 100%;
-            border-radius: 3px;
-            box-shadow: 0px 0px 50px rgba(0,0,0,0.8);
-        }
-    }
+    margin: 0 auto;
 }
 </style>

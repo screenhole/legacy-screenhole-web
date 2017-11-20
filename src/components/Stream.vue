@@ -6,6 +6,7 @@
             v-bind:grab="grab"
             v-on:remove="grabs.splice(index, 1)"
         />
+
         <infinite-loading @infinite="infiniteHandler">
             <div slot="spinner">
                 <div id="loader"></div>
@@ -29,6 +30,7 @@ export default {
             grabs: []
         };
     },
+
     methods: {
         infiniteHandler($state) {
             this.$http.get("/shots", {
@@ -49,6 +51,7 @@ export default {
             });
         },
     },
+
     mounted(){
         var self = this;
 
@@ -63,6 +66,7 @@ export default {
             }
         );
     },
+
     components: {
         InfiniteLoading,
 
@@ -79,7 +83,6 @@ export default {
     padding: 50px 50px 100px 50px;
     justify-content: center;
     flex-direction: column;
-    background-color: black;
     margin: 0 auto;
 }
 </style>
