@@ -32,23 +32,6 @@ export default {
         };
     },
 
-    beforeRouteUpdate(to, from, next) {
-        // blow away old data
-        this.user = '';
-        this.page = 1;
-        this.grabs = [];
-
-        // fetch the new user
-        this.$http.get("/users/" + to.params.username).then((response) => {
-            // store user, refresh infinite loader
-            this.user = response.data.user;
-            this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
-            next();
-        }).catch(function(response){
-            console.log('api error', response)
-        });
-    },
-
     methods: {
         infiniteHandler($state) {
             // load user, if first pass
@@ -82,6 +65,23 @@ export default {
         },
     },
 
+    beforeRouteUpdate(to, from, next) {
+        // blow away old data
+        this.user = '';
+        this.page = 1;
+        this.grabs = [];
+
+        // fetch the new user
+        this.$http.get("/users/" + to.params.username).then((response) => {
+            // store user, refresh infinite loader
+            this.user = response.data.user;
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
+            next();
+        }).catch(function(response){
+            console.log('api error', response)
+        });
+    },
+    
     created(){
         // not rerun when going between same components
 

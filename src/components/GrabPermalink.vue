@@ -15,10 +15,27 @@ export default {
         };
     },
 
-    mounted(){
-        this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
-            this.grab = response.data.shot;
+    methods: {
+        fetchData(grab_id) {
+            // TODO: validate that the user in the route is correct
+            return this.$http.get("/shots/" + grab_id).then((response) => {
+                this.grab = response.data.shot;
+            });
+        }
+    },
+
+    beforeRouteUpdate(to, from, next) {
+        // reset
+        this.grab = {};
+
+        // reload
+        this.fetchData(to.params.grab_id).then(() => {
+            next();
         });
+    },
+
+    created(){
+        this.fetchData(this.$route.params.grab_id);
     },
 
     components: {
