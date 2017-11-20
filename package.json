@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "express": "^4.16.2",
-    "raven-js": "^3.20.1",
     "vue": "^2.4.2"
   },
   "devDependencies": {
@@ -48,6 +47,7 @@
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
+    "raven-js": "^3.20.1",
     "rimraf": "^2.6.0",
     "sass-loader": "^6.0.6",
     "semver": "^5.3.0",
