@@ -68,3 +68,13 @@ Deploy a new instance, pointing to the local API.
 ```
 npm run deploy:local
 ```
+
+## Promote to Production
+
+To promote a deploy to production, alias a now.sh URL to [screenhole.net](https://screenhole.net).
+
+**Be sure to only promote non-staging/local deploys to production. They will be promoted exactly as-is, their environment will not be modified.**
+
+```
+now alias screenhole-web-abcdef.now.sh screenhole.net
+```
