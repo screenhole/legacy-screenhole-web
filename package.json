@@ -7,11 +7,9 @@
   "scripts": {
     "start": "node server.js",
     "build": "node build/build.js",
-
     "dev": "node build/dev-server.js",
     "dev:local": "cross-env API_BASE=https://screenhole-api.ngrok.io npm run dev",
     "dev:stage": "cross-env API_BASE=https://staging-api.screenhole.net npm run dev",
-
     "deploy": "now --team screenhole",
     "deploy:local": "now --team screenhole --name screenhole-web-local -e API_BASE=https://screenhole-api.ngrok.io",
     "deploy:stage": "now --team screenhole --name screenhole-web-stage -e API_BASE=https://staging-api.screenhole.net"
@@ -44,6 +42,7 @@
     "http-proxy-middleware": "^0.17.3",
     "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
+    "now": "^8.5.2",
     "opn": "^5.1.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
