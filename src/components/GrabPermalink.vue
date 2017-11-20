@@ -15,23 +15,9 @@ export default {
         };
     },
 
-    metaInfo () {
-        return {
-            meta: [
-                // Twitter
-                { name: 'twitter:image', content: this.grab.image_public_url },
-                // Facebook / Open Graph
-                { name: 'og:image', content: this.grab.image_public_url },
-            ],
-        }
-    },
-
     mounted(){
         this.$http.get("/shots/" + this.$route.params.grab_id).then((response) => {
             this.grab = response.data.shot;
-
-            // refresh the data in data head
-            this.$emit('updateHead');
         });
     },
 
