@@ -1,6 +1,6 @@
 <template>
     <div class="form centered">
-        <form v-on:submit.prevent="submit">
+        <form class="center" v-on:submit.prevent="submit">
             <h1 class="title">Edit User</h1>
 
             <input class="input" type="email" name="email" v-validate="'email'" placeholder="email" v-model="auth.email">
