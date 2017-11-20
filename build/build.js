@@ -11,7 +11,7 @@ const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
 
-const spinner = ora('building for production...' + (process.env.PRODUCTION_MODE === 'staging' ? ' [staging mode]' : ''))
+const spinner = ora('building for production... [API_BASE=' + (process.env.API_BASE ? process.env.API_BASE : 'default'))
 spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {

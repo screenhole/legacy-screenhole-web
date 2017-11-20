@@ -5,12 +5,16 @@
   "author": "Thinko <screenhole@thinko.com>",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
-    "dev-stage": "cross-env PRODUCTION_MODE=staging node build/dev-server.js",
     "start": "node server.js",
     "build": "node build/build.js",
+
+    "dev": "node build/dev-server.js",
+    "dev:local": "cross-env API_BASE=https://screenhole-api.ngrok.io npm run dev",
+    "dev:stage": "cross-env API_BASE=https://staging-api.screenhole.net npm run dev",
+
     "deploy": "now --team screenhole",
-    "stage": "now --team screenhole -e PRODUCTION_MODE=staging"
+    "deploy:local": "now --team screenhole --name screenhole-web-local -e API_BASE=https://screenhole-api.ngrok.io",
+    "deploy:stage": "now --team screenhole --name screenhole-web-stage -e API_BASE=https://staging-api.screenhole.net"
   },
   "dependencies": {
     "express": "^4.16.2",

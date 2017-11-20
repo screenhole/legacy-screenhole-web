@@ -87,6 +87,9 @@ devMiddleware.waitUntilValid(() => {
     if (err) {
       _reject(err)
     }
+
+    console.log('> API_BASE: ' + config.dev.env.API_BASE)
+
     process.env.PORT = port
     var uri = 'http://localhost:' + port
     console.log('> Listening at ' + uri + '\n')
