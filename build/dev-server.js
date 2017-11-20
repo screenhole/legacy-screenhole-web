@@ -11,7 +11,7 @@ const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
 const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
+const webpackConfig = process.env.NODE_ENV === 'production'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
 
@@ -90,8 +90,8 @@ devMiddleware.waitUntilValid(() => {
     process.env.PORT = port
     var uri = 'http://localhost:' + port
     console.log('> Listening at ' + uri + '\n')
-    // when env is testing, don't need open it
-    if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+    // open it
+    if (autoOpenBrowser) {
       opn(uri)
     }
     server = app.listen(port)

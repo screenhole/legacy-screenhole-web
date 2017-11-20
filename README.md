@@ -24,26 +24,6 @@ Run the frontend locally, but read from the staging API.
 npm run dev-stage
 ```
 
-### Testing
-
-Run unit tests.
-
-```
-npm run unit
-```
-
-Run e2e tests.
-
-```
-npm run e2e
-```
-
-Run all tests.
-
-```
-npm test
-```
-
 ## Build
 
 Build for production with minification. Unlikely you need to do this explicitly, will be run prior to each deploy.
