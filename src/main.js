@@ -6,6 +6,14 @@ import VeeValidate from 'vee-validate';
 import WebFont from 'webfontloader'
 import VueAnalytics from 'vue-analytics'
 
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
+
+Raven
+    .config('https://3cfc1d4e9157428b91990b4450b240c6@sentry.io/248084')
+    .addPlugin(RavenVue, Vue)
+    .install();
+
 import App from './App'
 import router from './router'
 
