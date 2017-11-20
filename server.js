@@ -45,12 +45,12 @@ router.get('/:username/~:shot_id', function (req, res, next) {
         const tags = buildTags([
             // twitter
             { name: 'twitter:card', content: 'summary_large_card' },
-            { name: 'twitter:image', content: image + ';background(000)/1200x630,contain.jpeg' },
+            { name: 'twitter:image', content: image + ';background(dominant)/1200x630,contain.jpeg' },
             { name: 'twitter:description', content: description },
 
             // facebook open graph
             { name: 'og:description', content: description },
-            { name: 'og:image', content: image + ';background(000)/1200x630,contain.jpeg' },
+            { name: 'og:image', content: image + ';background(dominant)/1200x630,contain.jpeg' },
             { name: 'og:image:width', content: '1200' },
             { name: 'og:image:height', content: '630' },
             { name: 'og:url', content: url }
