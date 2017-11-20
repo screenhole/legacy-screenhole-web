@@ -7,7 +7,7 @@
             v-on:remove="grabs.splice(index, 1)"
         />
 
-        <infinite-loading @infinite="infiniteHandler">
+        <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading">
             <div slot="spinner">
                 <div id="loader"></div>
             </div>
@@ -32,9 +32,26 @@ export default {
         };
     },
 
+    beforeRouteUpdate(to, from, next) {
+        // blow away old data
+        this.user = '';
+        this.page = 1;
+        this.grabs = [];
+
+        // fetch the new user
+        this.$http.get("/users/" + to.params.username).then((response) => {
+            // store user, refresh infinite loader
+            this.user = response.data.user;
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
+            next();
+        }).catch(function(response){
+            console.log('api error', response)
+        });
+    },
+
     methods: {
         infiniteHandler($state) {
-            // load user
+            // load user, if first pass
             if (! this.user) {
                 this.$http.get("/users/" + this.$route.params.username).then((response) => {
                     this.user = response.data.user;
@@ -65,7 +82,9 @@ export default {
         },
     },
 
-    mounted(){
+    created(){
+        // not rerun when going between same components
+
         this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
 
         this.cable.subscriptions.create(
