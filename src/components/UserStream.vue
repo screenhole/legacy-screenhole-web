@@ -38,6 +38,8 @@ export default {
                 this.$http.get("/users/" + this.$route.params.username).then((response) => {
                     this.user = response.data.user;
                     $state.loaded();
+                }).catch(function(response){
+                    console.log('api error', response)
                 });
                 return;
             }
