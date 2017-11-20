@@ -10,38 +10,26 @@ npm install
 
 ## Development
 
-Serve with hot reload at [localhost:8080](http://localhost:8000). Automatically uses local API endpoint (e.g. `https://screenhole-api.ngrok.io`, which is part of `heroku local`). Be sure to run `heroku local` when working here or it won't work.
+Serve with hot reload at [localhost:8080](http://localhost:8080). Uses production API by default.
 
 ```
 npm run dev
 ```
 
-### Development, with Staging API
+### Staging API
 
 Run the frontend locally, but read from the staging API.
 
 ```
-npm run dev-stage
+npm run dev:stage
 ```
 
-### Testing
+### Local API
 
-Run unit tests.
-
-```
-npm run unit
-```
-
-Run e2e tests.
+Run the frontend locally, but read from the local API (e.g. `https://screenhole-api.ngrok.io`, which is part of `heroku local`).
 
 ```
-npm run e2e
-```
-
-Run all tests.
-
-```
-npm test
+npm run dev:local
 ```
 
 ## Build
@@ -55,16 +43,28 @@ npm run build
 npm run build --report
 ```
 
-### Deploy
+## Deploy
 
-Deploy staging. Will build and push to [staging.screenhole.net](https://staging.screenhole.net). Automatically uses staging API.
+Deploy an instance of your current working tree (not just what is committed or pushed to GitHub). Will create a new now.sh subdomain, check command output for details.
 
-```
-npm run stage
-```
-
-Deploy production. Will build and push to [screenhole.net](https://screenhole.net).
+Uses production API by default.
 
 ```
-npm run prod
+npm run deploy
+```
+
+### Staging API
+
+Deploy a new instance, pointing to the staging API.
+
+```
+npm run deploy:stage
+```
+
+### Local API
+
+Deploy a new instance, pointing to the local API.
+
+```
+npm run deploy:local
 ```

@@ -3,7 +3,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
 import VeeValidate from 'vee-validate';
-import VueHead from 'vue-head'
+import Meta from 'vue-meta'
 import WebFont from 'webfontloader'
 import VueClipboard from 'vue-clipboard2'
 import VueAnalytics from 'vue-analytics'
@@ -57,7 +57,8 @@ Vue.use(VueAuth, {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
 
-Vue.use(VueHead);
+Vue.use(Meta);
+
 Vue.use(VueClipboard);
 
 Vue.use(VeeValidate);
