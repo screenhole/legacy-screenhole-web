@@ -110,9 +110,9 @@ export default {
 <style lang="scss" scoped>
 .stream {
     display: flex;
-    padding: 50px 50px 100px 50px;
+    padding: 0 50px 100px 50px;
     justify-content: center;
     flex-direction: column;
-    margin: 0 auto;
+    min-height: 100%;
 }
 </style>
