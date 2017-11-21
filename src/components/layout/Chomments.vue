@@ -165,7 +165,7 @@ aside {
     }
 
     .items {
-        overflow-x: hidden;
+        max-width: 100%;
 
         &::-webkit-scrollbar {
             display: none;
@@ -180,6 +180,7 @@ aside {
             color: #868091;
             font-size: 15px;
             line-height: 20px;
+            max-width: 100%;
 
             &:first-child {
                 padding-top: 0;
@@ -200,6 +201,8 @@ aside {
 
             .content {
                 flex-grow: 1;
+                max-width: calc(100% - 45px);
+                word-wrap: break-word;
 
                 .username {
                     color: #ccc;
