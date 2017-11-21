@@ -42,8 +42,6 @@ Vue.axios.interceptors.response.use(function (response) {
         return Promise.resolve(error);
     }
 
-    console.log('second', error)
-
     return Promise.reject(error);
 });
 
