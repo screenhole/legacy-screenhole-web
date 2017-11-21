@@ -154,6 +154,9 @@ aside {
             padding: 5px 15px;
             background-color: black;
 
+            // fix for -webkit-overflow-scrolling making inputs disappear on mobile
+            transform: translateZ(0px);
+
             &:focus {
               outline: none;
               background-color: #111;
