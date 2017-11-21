@@ -35,6 +35,9 @@ function buildTags(metas) {
 }
 
 router.get('/:username/~:shot_id', function (req, res, next) {
+    // have to bail if headers already sent somehow
+    if (res.headerSent) next();
+
     const url = 'https://' + req.get('host') + req.originalUrl
 
     axios.get('/shots/' + req.params.shot_id)
