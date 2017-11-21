@@ -21,12 +21,12 @@ export default new Router({
         // require IS NOT logged in (auth: false)
         { path: '/login', component: Login, meta: { auth: false } },
         { path: '/register', component: Register, meta: { auth: false } },
-        { path: '/~beanman', component: Beanman, name: 'beanman', meta: { auth: false } },
 
         // require IS logged in (auth: true)
         { path: '/settings', component: Settings, meta: { auth: true } },
 
         // unauthenticated
+        { path: '/~beanman', component: Beanman, name: 'beanman' },
         { path: '/wtf', component: Wtf },
         { path: '/:username', name: 'user-stream', component: UserStream },
         { path: '/:username/~:grab_id', name: 'grab-permalink', component: GrabPermalink },
