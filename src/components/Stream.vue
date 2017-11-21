@@ -26,10 +26,7 @@ import Grab from '@/components/Grab';
 export default {
     data () {
         return {
-            positions: {
-                prev: 0,
-                next: 0,
-            },
+            current: null,
             page: 1,
             grabs: []
         };
@@ -39,20 +36,24 @@ export default {
         setCurrent(event) {
             this.getCurrent();
 
-            var pos = 0;
+            var pos = this.$parent.$refs.middleColumn.scrollTop;
 
             switch (event.srcKey) {
                 case 'up':
-                    pos = this.positions.prev;
+                    if (this.current.previousElementSibling) {
+                        pos = this.current.previousElementSibling.offsetTop || 0;
+                    }
+
                     break;
                 case 'down':
-                    pos = this.positions.next;
+                    if (this.current.nextElementSibling) {
+                        pos = this.current.nextElementSibling.offsetTop || 0;
+                    }
+
                     break;
             }
 
-            if (pos > 0) {
-                this.$parent.$refs.middleColumn.scrollTop = pos;
-            }
+            this.$parent.$refs.middleColumn.scrollTop = pos;
         },
 
         getCurrent() {
@@ -67,16 +68,8 @@ export default {
                 }
             }
 
-            if (!current) {
-                return;
-            }
-
-            if (current.previousElementSibling) {
-                this.positions.prev = current.previousElementSibling.offsetTop || 0;
-            }
-
-            if (current.nextElementSibling) {
-                this.positions.next = current.nextElementSibling.offsetTop || 0;
+            if (current) {
+                this.current = current;
             }
         },
 
