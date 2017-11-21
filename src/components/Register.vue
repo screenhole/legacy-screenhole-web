@@ -6,13 +6,13 @@
             <input class="input" type="email" name="email" v-validate="'required|email'" placeholder="email" v-model="auth.email">
             <div class="error" v-if="errors.has('email')">{{ errors.first('email') }}</div>
 
-            <input class="input" type="text" name="username" v-validate="'required'" placeholder="username" v-model="auth.username">
+            <input class="input" type="text" name="username" autocorrect="off" autocapitalize="none" v-validate="'required'" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
-            <input class="input" type="password" name="password" v-validate="'required'" placeholder="password" v-model="auth.password">
+            <input class="input" type="password" name="password" autocorrect="off" autocapitalize="none" v-validate="'required'" placeholder="password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
 
-            <input class="input" type="input" name="code" v-validate="'required'" placeholder="invite code" v-model="auth.code">
+            <input class="input" type="input" name="code" autocorrect="off" autocapitalize="none" v-validate="'required'" placeholder="invite code" v-model="auth.code">
             <div class="error" v-if="errors.has('code')">{{ errors.first('code') }}</div>
 
             <button class="button" type="submit">GO!</button>

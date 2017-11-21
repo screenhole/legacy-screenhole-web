@@ -6,14 +6,14 @@
             <input class="input" type="email" name="email" v-validate="'email'" placeholder="email" v-model="auth.email">
             <div class="error" v-if="errors.has('email')">{{ errors.first('email') }}</div>
 
-            <input class="input" type="text" name="username" v-validate="" placeholder="username" v-model="auth.username">
+            <input class="input" type="text" name="username" autocorrect="off" autocapitalize="none" v-validate="" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
-            <input class="input" type="password" name="password" v-validate="" placeholder="new password" v-model="auth.password">
+            <input class="input" type="password" name="password" autocorrect="off" autocapitalize="none" v-validate="" placeholder="new password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
             <div class="error" v-if="! errors.has('password') && ! (this.auth.password || this.auth.password_confirmation)">Leave blank to not change.</div>
 
-            <input class="input" type="password" name="password_confirmation" v-validate="'confirmed:password'" placeholder="new password (again)" v-model="auth.password_confirmation" data-vv-as="password" v-if="this.auth.password || this.auth.password_confirmation">
+            <input class="input" type="password" name="password_confirmation" autocorrect="off" autocapitalize="none" v-validate="'confirmed:password'" placeholder="new password (again)" v-model="auth.password_confirmation" data-vv-as="password" v-if="this.auth.password || this.auth.password_confirmation">
             <div class="error" v-if="errors.has('password_confirmation')">{{ errors.first('password_confirmation') }}</div>
 
             <button class="button" type="submit">GO!</button>
