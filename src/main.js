@@ -30,6 +30,31 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
+// catch 401 errors and logout
+Vue.axios.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    const originalRequest = error.config;
+
+    if (error.response.status === 401) {
+        console.log('401, invalid token. logging out')
+        Vue.auth.logout();
+        return Promise.resolve(error);
+    }
+
+    console.log('second', error)
+
+    return Promise.reject(error);
+});
+
+(function(request, next) {
+    next(function (res) {
+        if (res.status === 401) {
+            Vue.auth.logout();
+        }
+    });
+});
+
 var knockAuth = {
     request: function (req, token) {
         this.options.http._setHeaders.call(this, req, {Authorization: 'Bearer ' + token});
