@@ -5,7 +5,7 @@
         <div class="splitscreen-Container">
             <template v-if="$auth.ready() && loaded">
                 <chomments></chomments>
-                <div class="splitscreen-Column splitscreen-Middle">
+                <div class="splitscreen-Column splitscreen-Middle" ref="middleColumn">
                     <router-view></router-view>
                 </div>
             </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="stream">
+    <div class="stream" v-shortkey="{up: ['k'], down: ['j']}" @shortkey="setCurrent">
         <grab
             v-for="(grab, index) in grabs"
             v-bind:key="grab.id"
@@ -26,12 +26,60 @@ import Grab from '@/components/Grab';
 export default {
     data () {
         return {
+            positions: {
+                prev: 0,
+                next: 0,
+            },
             page: 1,
             grabs: []
         };
     },
 
     methods: {
+        setCurrent(event) {
+            this.getCurrent();
+
+            var pos = 0;
+
+            switch (event.srcKey) {
+                case 'up':
+                    pos = this.positions.prev;
+                    break;
+                case 'down':
+                    pos = this.positions.next;
+                    break;
+            }
+
+            if (pos > 0) {
+                this.$parent.$refs.middleColumn.scrollTop = pos;
+            }
+        },
+
+        getCurrent() {
+            var els = this.$el.querySelectorAll(".grab");
+            var current, top, min = Number.MAX_VALUE;
+
+            for (var i=0; i < els.length; i++) {
+                top = Math.abs(els[i].getBoundingClientRect().top);
+                if (top < min) {
+                    min = top;
+                    current = els[i];
+                }
+            }
+
+            if (!current) {
+                return;
+            }
+
+            if (current.previousElementSibling) {
+                this.positions.prev = current.previousElementSibling.offsetTop || 0;
+            }
+
+            if (current.nextElementSibling) {
+                this.positions.next = current.nextElementSibling.offsetTop || 0;
+            }
+        },
+
         infiniteHandler($state) {
             this.$http.get("/shots", {
                 params: {

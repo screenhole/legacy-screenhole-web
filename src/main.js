@@ -2,14 +2,12 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueAuth from '@websanova/vue-auth'
-import VeeValidate from 'vee-validate';
 import WebFont from 'webfontloader'
-import VueAnalytics from 'vue-analytics'
 
 import App from './App'
 import router from './router'
 
-Vue.use(VueAnalytics, {
+Vue.use(require('vue-analytics'), {
     id: 'UA-108383158-1',
     router,
     ignoreRoutes: ['beanman']
@@ -78,7 +76,9 @@ Vue.use(VueAuth, {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
 
-Vue.use(VeeValidate);
+
+Vue.use(require('vee-validate'));
+Vue.use(require('vue-shortkey'), { prevent: ['input', 'textarea'] })
 
 WebFont.load({
     google: {
