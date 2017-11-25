@@ -9,19 +9,22 @@ app.use(express.static(__dirname + '/dist'))
 axios.defaults.baseURL = process.env.API_BASE ? process.env.API_BASE : 'https://api.screenhole.net';
 console.log("axios.defaults.baseURL", axios.defaults.baseURL)
 
-function appendToHead(req, res, next, content){
+function appendToHead(res, content){
+    if (res.headerSent) {
+        return;
+    }
+
     var write = res.write;
 
     res.write = function (chunk) {
-      if (~res.getHeader('Content-Type').indexOf('text/html')) {
-        chunk instanceof Buffer && (chunk = chunk.toString());
-        chunk = chunk.replace(/(<\/head>)/, content + "\n\n$1");
-        res.setHeader('Content-Length', chunk.length);
-      }
-      write.apply(this, arguments);
-    };
+        if (~res.getHeader('Content-Type').indexOf('text/html')) {
+            chunk instanceof Buffer && (chunk = chunk.toString());
+            chunk = chunk.replace(/(<\/head>)/, content + "\n\n$1");
+            res.setHeader('Content-Length', chunk.length);
+        }
 
-    next();
+        write.apply(this, arguments);
+    };
 }
 
 function buildTags(metas) {
@@ -61,10 +64,12 @@ router.get('/:username/~:shot_id', function (req, res, next) {
             { name: 'og:url', content: url }
         ])
 
-        appendToHead(req, res, next, tags)
-    }).catch(function(response){
-        console.log('api error', response)
-        next();
+        appendToHead(res, tags)
+    }).then(function(){
+        next()
+    }).catch(function(res){
+        console.log('api error', res.response.status, res.response.statusText)
+        next()
     });
 })
 
