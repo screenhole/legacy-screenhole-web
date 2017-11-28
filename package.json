@@ -58,6 +58,7 @@
     "vue-axios": "^2.0.2",
     "vue-infinite-loading": "^2.2.1",
     "vue-loader": "^13.0.4",
+    "vue-match-media": "^1.0.2",
     "vue-router": "^2.8.1",
     "vue-shortkey": "^3.0.2",
     "vue-template-compiler": "^2.4.2",

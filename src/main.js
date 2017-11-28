@@ -76,8 +76,10 @@ Vue.use(VueAuth, {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
 
+import MQ from 'vue-match-media/src'
+Vue.use(MQ)
 
-Vue.use(require('vee-validate'));
+Vue.use(require('vee-validate'))
 Vue.use(require('vue-shortkey'), { prevent: ['input', 'textarea'] })
 
 WebFont.load({
@@ -91,6 +93,9 @@ new Vue({
     el: '#app',
     router,
     template: '<App/>',
+    mq: {
+        mobile: '(max-width: 980px)',
+    },
     components: {
         App
     }
