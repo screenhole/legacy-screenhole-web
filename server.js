@@ -37,6 +37,7 @@ function buildTags(metas) {
     return tags;
 }
 
+/*
 router.get('/:username/~:shot_id', function (req, res, next) {
     // have to bail if headers already sent somehow
     if (res.headerSent) {
@@ -72,6 +73,7 @@ router.get('/:username/~:shot_id', function (req, res, next) {
         next()
     });
 })
+*/
 
 router.get('*', (req, res) => {
     res.sendFile('index.html', { root: 'dist' });
