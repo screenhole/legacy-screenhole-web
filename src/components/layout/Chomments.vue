@@ -1,5 +1,5 @@
 <template>
-    <aside class="splitscreen-Column" v-bind:class="{ 'visible': visible }">
+    <aside>
         <form class="input" v-on:submit.prevent="sendMessage" v-if="$auth.check()">
             <input class="message" placeholder="Type some chomments" v-model="message" ref="messageInput">
         </form>
@@ -120,25 +120,16 @@ export default {
 <style lang="scss" scoped>
 @import "~resources";
 
-$width: 380px;
-
 aside {
-    width: $width;
-    margin-left: -$width;
-    &.visible {
-        margin-left: 0;
-    }
-
-    will-change: margin;
+    width: 100%;
+    min-height: 100%;
 
     display: flex;
     flex-direction: column;
 
-    transition: margin 0.3s ease;
     background: #000;
     border-right: 1px solid $grey-warm;
     color: #fff;
-    z-index: $z-layer-Chomments;
     padding: 10px;
 
     .input {

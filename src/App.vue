@@ -4,10 +4,30 @@
 
         <div class="splitscreen-Container">
             <template v-if="$auth.ready() && loaded">
-                <chomments></chomments>
-                <div class="splitscreen-Column splitscreen-Middle" ref="middleColumn">
+                <div class="splitscreen-Chomments" v-bind:class="{
+                    'splitscreen-Hidden': $mq.mobile && activeTab != 'chomments',
+                    'visible': ! $mq.mobile && chommentsVisible,
+                    'splitscreen-Column': ! $mq.mobile,
+                    'splitscreen-View': $mq.mobile,
+                }">
+                    <chomments></chomments>
+                </div>
+                <div class="splitscreen-Main" ref="middleColumn" v-bind:class="{
+                    'splitscreen-Hidden': $mq.mobile && activeTab != 'main',
+                    'splitscreen-Column': ! $mq.mobile,
+                    'splitscreen-View': $mq.mobile,
+                }">
                     <router-view></router-view>
                 </div>
+            </template>
+
+            <template v-if="$mq.mobile">
+                <footer id="bottom">
+                    <nav class="tabs">
+                        <a class="icon" href="#" @click.prevent="activeTab = 'chomments'">chomments</a>
+                        <a class="icon" href="#" @click.prevent="activeTab = 'main'">main</a>
+                    </nav>
+                </footer>
             </template>
 
             <template v-if="! $auth.ready() || ! loaded">
@@ -15,11 +35,12 @@
             </template>
         </div>
 
-        <mr-hole></mr-hole>
+        <mr-hole v-if="! $mq.mobile"></mr-hole>
     </main>
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js';
 import PageHeader from '@/components/layout/PageHeader'
 import MrHole from '@/components/layout/MrHole'
 import Chomments from '@/components/layout/Chomments'
@@ -30,22 +51,10 @@ export default {
     data() {
         return {
             context: 'app context',
-            loaded: false
+            loaded: false,
+            activeTab: 'main',
+            chommentsVisible: true,
         };
-    },
-
-    mounted() {
-        var _this = this;
-        setTimeout(function () {
-            _this.loaded = true;
-        }, 500);
-    },
-
-    created() {
-        var _this = this;
-        this.$auth.ready(function () {
-            console.log('ready ' + this.context);
-        });
     },
 
     methods: {
@@ -60,6 +69,24 @@ export default {
                 }
             });
         },
+    },
+
+    mounted() {
+        var _this = this;
+        setTimeout(function () {
+            _this.loaded = true;
+        }, 500);
+
+        EventBus.$on('chomments.toggle', () => {
+            this.chommentsVisible = ! this.chommentsVisible;
+        });
+    },
+
+    created() {
+        var _this = this;
+        this.$auth.ready(function () {
+            console.log('ready ' + this.context);
+        });
     },
 
     components: {
@@ -89,20 +116,63 @@ export default {
     width: 100%;
     backface-visibility: hidden;
     will-change: overflow;
-}
 
-.splitscreen-Column {
-    overflow: auto;
-    height: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
+    .splitscreen-View {
+        overflow: auto;
+        height: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
 
-    &.splitscreen-Middle {
         flex: 1;
+
+        &.splitscreen-Hidden {
+            display: none;
+        }
     }
 
-    &::-webkit-scrollbar {
-        display: none;
+    .splitscreen-Column {
+        overflow: auto;
+        height: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+
+        &.splitscreen-Chomments {
+            width: 380px;
+            margin-left: -380px;
+            will-change: margin;
+            transition: margin 0.3s ease;
+
+            &.visible {
+                margin-left: 0;
+            }
+        }
+
+        &.splitscreen-Main {
+            flex: 1;
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+#bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: red;
+    height: 100px;
+
+    .tabs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        .icon {
+            display: block;
+        }
     }
 }
 </style>
