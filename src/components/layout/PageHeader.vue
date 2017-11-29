@@ -1,5 +1,5 @@
 <template>
-    <header class="splitscreen-Top">
+    <header class="splitscreen-Top" v-bind:class="{'mobile': $mq.mobile}">
         <router-link class="logo" to="/" exact>
             <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
         </router-link>
@@ -85,6 +85,19 @@ header {
     padding: 20px;
     padding-top: 18px;
     border-bottom: 1px solid $grey-warm;
+
+    &.mobile {
+        height: 120px;
+
+        .logo {
+            img {
+                width: 30vw + 15;
+                padding: 0;
+                margin-left: 3vw;
+                margin-top: 10px;
+            }
+        }
+    }
 
     .logo {
         display: flex;

@@ -1,5 +1,5 @@
 <template>
-    <router-link class="avatar" v-if="user" :to="{ name: 'user-stream', params: {
+    <router-link class="avatar" v-bind:class="{'mobile': $mq.mobile}" v-if="user" :to="{ name: 'user-stream', params: {
         username: user.username
     }}">
         <img v-bind:src="this.gravatar()" v-bind:alt="user.username">
@@ -26,9 +26,21 @@ export default {
 @import "~resources";
 
 .avatar  {
+    width: 35px;
+    height: 35px;
+
+    &.mobile {
+        width: 10vw;
+        height: 10vw;
+
+        img {
+            border-radius: 1000px;
+        }
+    }
+
     img {
-        width: 35px;
-        height: 35px;
+        width: 100%;
+        height: 100%;
         border-radius: 35px;
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="grab">
         <div class="content">
-            <div class="meta">
+            <div class="meta" v-bind:class="{'mobile': $mq.mobile}">
                 <router-link  class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
                     username: grab.user.username
                     }}">
@@ -63,6 +63,19 @@ export default {
             border-radius: 1000px;
             display: inline-block;
 
+            &.mobile {
+                .user {
+                    font-size: 45px;
+                    padding: 20px 30px;
+                    margin-left: 15px;
+
+                    &:after {
+                        border-width: 30px 40px 30px 0;
+                        top: 20px;
+                        left: 99px;
+                    }
+                }
+            }
             .avatar {
                 display: inline-block;
                 margin: 0;
