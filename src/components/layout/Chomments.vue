@@ -21,7 +21,7 @@
                     {{item.message}}
                 </div>
             </div>
-            <infinite-loading @infinite="infiniteHandler">
+            <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading">
                 <div slot="spinner">
                     <div id="loader"></div>
                 </div>
@@ -96,6 +96,12 @@ export default {
                 }
             }
         );
+
+        EventBus.$on('chomments.reset', () => {
+            this.chomments = [];
+            this.page = 1;
+            this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
+        });
 
         EventBus.$on('chomments.toggle', () => {
             this.visible = ! this.visible;

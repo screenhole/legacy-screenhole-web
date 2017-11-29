@@ -57,6 +57,12 @@ export default {
         };
     },
 
+    watch: {
+        activeTab: function(now) {
+            EventBus.$emit('chomments.reset');
+        },
+    },
+
     methods: {
         logout() {
             this.$auth.logout({
