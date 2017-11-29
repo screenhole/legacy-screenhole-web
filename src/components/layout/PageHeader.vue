@@ -86,18 +86,6 @@ header {
     padding-top: 18px;
     border-bottom: 1px solid $grey-warm;
 
-    &.mobile {
-        height: 120px;
-
-        .logo {
-            img {
-                width: 30vw + 15;
-                padding: 0;
-                margin-left: 3vw;
-                margin-top: 10px;
-            }
-        }
-    }
 
     .logo {
         display: flex;

@@ -1,5 +1,5 @@
 <template>
-    <div class="stream" v-shortkey="{up: ['k'], down: ['j']}" @shortkey="setCurrent">
+    <div class="stream" v-bind:class="{'mobile': $mq.mobile}" v-shortkey="{up: ['k'], down: ['j']}" @shortkey="setCurrent">
         <grab
             v-for="(grab, index) in grabs"
             v-bind:key="grab.id"
@@ -125,5 +125,9 @@ export default {
     padding: 0 50px 100px 50px;
     justify-content: center;
     flex-direction: column;
+
+    &.mobile {
+        padding: 0;
+    }
 }
 </style>

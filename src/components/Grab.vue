@@ -13,7 +13,7 @@
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-              <img :src="grab.image_public_url" />
+              <img :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
               <div class="shadow"></div>
             </router-link>
         </div>
@@ -64,15 +64,20 @@ export default {
             display: inline-block;
 
             &.mobile {
+
+                .avatar {
+                    margin-left: 10px;
+                    width: 30px;
+                    height: 30px;
+                }
+
                 .user {
-                    font-size: 45px;
-                    padding: 20px 30px;
-                    margin-left: 15px;
+                    margin: 0;
+                    margin-left: 5px;
 
                     &:after {
-                        border-width: 30px 40px 30px 0;
-                        top: 20px;
-                        left: 99px;
+                        top: 10px;
+                        left: 38px;
                     }
                 }
             }
@@ -127,6 +132,10 @@ export default {
         transition: all 0.1s ease;
         max-height: 80vh;
         border: 1px solid rgba(255,255,255,0.1);
+
+        &.mobile {
+            max-height: 100%;
+        }
 
         &:hover {
             // border: 1px solid $purple;

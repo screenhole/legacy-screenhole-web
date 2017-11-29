@@ -30,8 +30,8 @@ export default {
     height: 35px;
 
     &.mobile {
-        width: 10vw;
-        height: 10vw;
+        width: 50px;
+        height: 50px;
 
         img {
             border-radius: 1000px;
