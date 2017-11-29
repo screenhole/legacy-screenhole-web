@@ -76,7 +76,7 @@ Vue.use(VueAuth, {
     router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
 });
 
-import MQ from 'vue-match-media/src'
+import MQ from 'vue-match-media/dist'
 Vue.use(MQ)
 
 Vue.use(require('vee-validate'))

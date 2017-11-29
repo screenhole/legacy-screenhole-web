@@ -4,7 +4,7 @@
             <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
         </router-link>
 
-        <nav class="pages">
+        <nav class="pages" v-if="! $mq.mobile">
             <a href="/" @click.prevent="toggleChomments">chomment</a>
             <a href="https://twitter.com/screenhole">twitter</a>
             <router-link to="/wtf">wtf?</router-link>
