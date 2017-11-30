@@ -66,7 +66,6 @@ export default {
             &.mobile {
 
                 .avatar {
-                    margin-left: 10px;
                     width: 30px;
                     height: 30px;
                 }
@@ -77,7 +76,7 @@ export default {
 
                     &:after {
                         top: 10px;
-                        left: 38px;
+                        left: 28px;
                     }
                 }
             }
