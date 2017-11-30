@@ -174,8 +174,8 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 1%,rgba(0,0,0,1) 100%);
-    height: 100px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 1%,rgba(0,0,0,0.8) 80%);
+    height: 150px;
 
     .tabs {
         display: flex;
@@ -183,7 +183,7 @@ export default {
         justify-content: space-around;
 
         .icon {
-            margin-top: 40px;
+            margin-top: 110px;
             .stream {
               width: 34px;
             }
