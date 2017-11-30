@@ -19,13 +19,18 @@
                 }">
                     <router-view></router-view>
                 </div>
+
             </template>
 
             <template v-if="$mq.mobile">
                 <footer id="bottom">
                     <nav class="tabs">
-                        <a class="icon" href="#" @click.prevent="activeTab = 'chomments'">chomments</a>
-                        <a class="icon" href="#" @click.prevent="activeTab = 'main'">main</a>
+                        <a class="icon" href="#" @click.prevent="activeTab = 'chomments'">
+                          <img class ="stream" src="../src/assets/img/toggle-chomments.svg">
+                        </a>
+                        <a class="icon" href="#" @click.prevent="activeTab = 'main'">
+                          <img class ="stream" src="../src/assets/img/toggle-stream.svg">
+                        </a>
                     </nav>
                 </footer>
             </template>
@@ -104,6 +109,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 #app {
     width: 100%;
     height: 100%;
@@ -168,7 +174,7 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: red;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 1%,rgba(0,0,0,1) 100%);
     height: 100px;
 
     .tabs {
@@ -177,7 +183,10 @@ export default {
         justify-content: space-around;
 
         .icon {
-            display: block;
+            margin-top: 40px;
+            .stream {
+              width: 34px;
+            }
         }
     }
 }
