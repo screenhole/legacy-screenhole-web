@@ -8,9 +8,15 @@
                     <avatar :user="grab.user"></avatar>
                     <span class="user">{{grab.user.username}}</span>
                 </router-link>
-                <a class="delete" href="#">
-                    <img src="../assets/img/trash.svg" alt="Can it!">
-                </a>
+
+                <div class="actions">
+                    <a class="call" href="#">
+                        <img src="../assets/img/telephone.svg" alt="Call Screenhole">
+                    </a>
+                    <a class="delete" href="#">
+                        <img src="../assets/img/trash.svg" alt="Can it!">
+                    </a>
+                </div>
             </div>
             <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                 username: grab.user.username,
@@ -69,13 +75,29 @@ export default {
             border-radius: 1000px;
             display: inline-block;
 
-            .delete {
+            .actions {
                 float: left;
-                margin-left: 10px;
                 margin-top: 5px;
 
+                a {
+                    display: inline-block;
+                    margin-left: 10px;
+
+                    &:hover {
+                        border: 0 !important;
+
+                    }
+                }
                 img {
+                    border-radius: 0;
                     border: 0;
+                    transition: all 0.2 ease;
+
+                    &:hover {
+                        box-shadow: none;
+                        transform: translateY(-2px);
+                    }
+
                 }
             }
             &.mobile {
