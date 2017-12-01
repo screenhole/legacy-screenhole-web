@@ -177,16 +177,19 @@ export default {
     background: linear-gradient(to bottom, rgba(0,0,0,0) 1%,rgba(0,0,0,0.8) 80%);
     height: 150px;
 
+    pointer-events: none;
+
     .tabs {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
 
         .icon {
-            margin-top: 110px;
-            width: 34px;
+            margin-top: 80px;
+            padding: 20px;
 
             opacity: 0.5;
+            pointer-events: auto;
 
             &.active {
                 opacity: 1;
