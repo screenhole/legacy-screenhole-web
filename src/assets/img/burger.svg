@@ -1,0 +1,20 @@
+<svg width="20" height="15" viewBox="0 0 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>hamburgo</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-8168 3619)">
+<g id="hamburgo">
+<g id="Rectangle 2">
+<use xlink:href="#path0_fill" transform="translate(8168 -3619)" fill="#6A40EE"/>
+</g>
+<g id="Rectangle 2.2">
+<use xlink:href="#path0_fill" transform="translate(8168 -3613)" fill="#6A40EE"/>
+</g>
+<g id="Rectangle 2.3">
+<use xlink:href="#path0_fill" transform="translate(8168 -3607)" fill="#6A40EE"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 1.5C 0 0.671573 0.671573 0 1.5 0L 18.5 0C 19.3284 0 20 0.671573 20 1.5L 20 1.5C 20 2.32843 19.3284 3 18.5 3L 1.5 3C 0.671573 3 0 2.32843 0 1.5L 0 1.5Z"/>
+</defs>
+</svg>

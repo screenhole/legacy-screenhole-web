@@ -4,6 +4,45 @@
             <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
         </router-link>
 
+        <template v-if="$mq.mobile">
+            <nav class="overlay" v-bind:class="{ 'visible': overlayVisible }">
+                <a href="/" class="close">
+                    <img src="../../assets/img/close.svg" alt="X" @click.prevent="overlayVisible = ! overlayVisible">
+                </a>
+
+                <template v-if="! $auth.check()">
+                    <a class="nav" href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get invite</a>
+
+                    <router-link class="nav" to="/login">log in</router-link>
+                </template>
+
+                <template v-if="$auth.check()">
+                    <router-link class="nav avatar" v-if="$auth.user()" :to="{ name: 'user-stream', params: {
+                        username: $auth.user().username
+                    }}">
+                        <img v-bind:src="this.gravatar()" alt="avatar">
+                    </router-link>
+
+                    <router-link class="nav username" v-if="$auth.user()" :to="{ name: 'user-stream', params: {
+                        username: $auth.user().username
+                    }}">
+                        @{{$auth.user().username}}
+                    </router-link>
+                    <router-link class="nav" to="/settings">settings</router-link>
+                    <a class="nav" href="/" @click.prevent="logout">log out</a>
+                </template>
+
+                <a class="nav" href="https://twitter.com/screenhole">twitter</a>
+                <router-link class="nav" to="/wtf">wtf?</router-link>
+            </nav>
+
+            <nav class="pages">
+                <a href="/" class="close">
+                    <img src="../../assets/img/burger.svg" alt="menu" @click.prevent="overlayVisible = ! overlayVisible">
+                </a>
+            </nav>
+        </template>
+
         <nav class="pages" v-if="! $mq.mobile">
             <a href="/" @click.prevent="toggleChomments">chomment</a>
             <a href="https://twitter.com/screenhole">twitter</a>
@@ -44,8 +83,16 @@ import { EventBus } from '@/event-bus.js';
 export default {
     data () {
         return {
+            overlayVisible: false,
             showDropdown: false,
         };
+    },
+
+    watch: {
+        '$route': function(to, from){
+            this.overlayVisible = false;
+            this.showDropdown = false;
+        }
     },
 
     methods: {
@@ -92,6 +139,71 @@ header {
 
     .logo {
         display: flex;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #000;
+        z-index: $z-layer-Burger;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        visibility: hidden;
+        opacity: 0;
+
+        &, & * {
+            transition: all 200ms ease;
+        }
+
+        &.visible {
+            visibility: visible;
+            opacity: 1;
+
+            .nav {
+                transform: translateY(0)
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 25px;
+        }
+
+        .nav {
+            display: block;
+            color: #fff;
+            font-size: 24px;
+            padding: 1.5vh;
+            margin: 1.5vh;
+
+            transform: translateY(25px);
+
+            &.avatar {
+                margin: 0;
+                padding: 0;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50px;
+                }
+            }
+
+            &.username {
+                margin-top: 0;
+                margin-bottom: 4vh;
+                color: $purple;
+            }
+        }
     }
 
     .pages {
@@ -146,17 +258,17 @@ header {
                 transform: translateY(0);
             }
 
-        &::after {
-            content: '';
-            position: absolute;
-            top: -8px;
-            right: 20px;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 7.5px 10px 7.5px;
-            border-color: transparent transparent $purple transparent;
-        }
+            &::after {
+                content: '';
+                position: absolute;
+                top: -8px;
+                right: 20px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 0 7.5px 10px 7.5px;
+                border-color: transparent transparent $purple transparent;
+            }
 
             ul {
                 margin: 0;

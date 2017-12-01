@@ -1,0 +1,25 @@
+<svg width="16" height="16" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>close</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-8137 3620)">
+<g id="close">
+<g id="Rectangle 2">
+<use xlink:href="#path0_fill" transform="matrix(0.707094 0.70712 -0.707094 0.70712 8151.32 -3620)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(0.707094 0.70712 -0.707094 0.70712 8151.32 -3620)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(0.707094 0.70712 -0.707094 0.70712 8151.32 -3620)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(0.707094 0.70712 -0.707094 0.70712 8151.32 -3620)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(0.707094 0.70712 -0.707094 0.70712 8151.32 -3620)" fill="#6A40EE"/>
+</g>
+<g id="Rectangle 2.1">
+<use xlink:href="#path0_fill" transform="matrix(-0.707107 0.707107 -0.707133 -0.707081 8153.44 -3605.68)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(-0.707107 0.707107 -0.707133 -0.707081 8153.44 -3605.68)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(-0.707107 0.707107 -0.707133 -0.707081 8153.44 -3605.68)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(-0.707107 0.707107 -0.707133 -0.707081 8153.44 -3605.68)" fill="#6A40EE"/>
+<use xlink:href="#path0_fill" transform="matrix(-0.707107 0.707107 -0.707133 -0.707081 8153.44 -3605.68)" fill="#6A40EE"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 1.5C 0 0.671573 0.671573 0 1.5 0L 1.5 0C 2.32843 0 3 0.671573 3 1.5L 3 18.7452C 3 19.5736 2.32843 20.2452 1.5 20.2452L 1.5 20.2452C 0.671573 20.2452 0 19.5736 0 18.7452L 0 1.5Z"/>
+</defs>
+</svg>
