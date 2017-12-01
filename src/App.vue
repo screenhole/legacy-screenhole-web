@@ -25,11 +25,11 @@
             <template v-if="$mq.mobile">
                 <footer id="bottom">
                     <nav class="tabs">
-                        <a class="icon" href="#" @click.prevent="activeTab = 'chomments'">
-                          <img class ="stream" src="../src/assets/img/toggle-chomments.svg">
+                        <a class="icon" v-bind:class="{ 'active': activeTab == 'chomments' }" href="#" @click.prevent="activeTab = 'chomments'">
+                          <img src="../src/assets/img/toggle-chomments.svg">
                         </a>
-                        <a class="icon" href="#" @click.prevent="activeTab = 'main'">
-                          <img class ="stream" src="../src/assets/img/toggle-stream.svg">
+                        <a class="icon" v-bind:class="{ 'active': activeTab == 'main' }" href="#" @click.prevent="activeTab = 'main'">
+                          <img src="../src/assets/img/toggle-stream.svg">
                         </a>
                     </nav>
                 </footer>
@@ -184,8 +184,12 @@ export default {
 
         .icon {
             margin-top: 110px;
-            .stream {
-              width: 34px;
+            width: 34px;
+
+            opacity: 0.5;
+
+            &.active {
+                opacity: 1;
             }
         }
     }
