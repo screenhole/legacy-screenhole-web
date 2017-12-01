@@ -6,8 +6,8 @@
 
         <template v-if="$mq.mobile">
             <nav class="overlay" v-bind:class="{ 'visible': overlayVisible }">
-                <a href="/" class="close">
-                    <img src="../../assets/img/close.svg" alt="X" @click.prevent="overlayVisible = ! overlayVisible">
+                <a href="/" class="close" @click.prevent="overlayVisible = ! overlayVisible">
+                    <img src="../../assets/img/close.svg" alt="X">
                 </a>
 
                 <template v-if="! $auth.check()">
@@ -179,7 +179,7 @@ header {
             position: absolute;
             right: 0;
             top: 0;
-            padding: 25px;
+            padding: 22px;
         }
 
         .nav {
