@@ -86,6 +86,9 @@ header {
     padding-top: 18px;
     border-bottom: 1px solid $grey-warm;
 
+    &.mobile {
+        padding-left: 0;
+    }
 
     .logo {
         display: flex;

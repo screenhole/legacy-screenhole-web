@@ -1,5 +1,5 @@
 <template>
-    <div class="stream">
+    <div class="stream" v-bind:class="{'mobile': $mq.mobile}">
         <grab
             v-for="(grab, index) in grabs"
             v-bind:key="grab.id"
@@ -114,5 +114,9 @@ export default {
     justify-content: center;
     flex-direction: column;
     min-height: 100%;
+
+    &.mobile {
+        padding: 25px 5px 100px 5px;
+    }
 }
 </style>

@@ -38,8 +38,11 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    padding-top: 50px;
-    padding-bottom: 50px;
+
+    & + .grab {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
 
     .content {
         max-width: 1200px;

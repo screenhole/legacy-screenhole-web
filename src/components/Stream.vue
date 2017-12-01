@@ -127,7 +127,7 @@ export default {
     flex-direction: column;
 
     &.mobile {
-        padding: 0 5px 100px 5px;
+        padding: 25px 5px 100px 5px;
     }
 }
 </style>

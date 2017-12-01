@@ -2,6 +2,7 @@
     <grab
         v-bind:key="grab.id"
         v-bind:grab="grab"
+        v-bind:class="{'mobile': $mq.mobile}"
     />
 </template>
 
@@ -51,5 +52,9 @@ export default {
     justify-content: center;
     flex-direction: column;
     margin: 0 auto;
+
+    &.mobile {
+        padding: 25px 5px;
+    }
 }
 </style>
