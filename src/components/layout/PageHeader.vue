@@ -55,7 +55,7 @@
             </template>
 
             <template v-if="$auth.check()">
-                <div class="dropdown" v-bind:class="{ on: showDropdown }">
+                <div class="dropdown" v-bind:class="{ on: showDropdown }" v-shortkey="['esc']" @shortkey="dismissDropdown">
                   <ul>
                     <li>
                         <router-link v-if="$auth.user()" :to="{ name: 'user-stream', params: {
@@ -102,6 +102,10 @@ export default {
 
             return 'https://www.gravatar.com/avatar/' + this.$auth.user().gravatar_hash
                 + '?d=' + encodeURIComponent(origin + require('../../assets/img/default-avatar.png'));
+        },
+
+        dismissDropdown: function() {
+            this.showDropdown = false;
         },
 
         toggleChomments: function() {
