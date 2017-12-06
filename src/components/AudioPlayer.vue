@@ -1,7 +1,7 @@
 <template>
     <div class="audioPlayer">
-        <button class="button play" @click="togglePlayback" v-if="! playing ">{{ playing ? 'Pause' : 'Play' }}</button>
-        <button class="button stop" @click="stop" v-if="playing ">Stop</button>
+        <button class="button play" @click="togglePlayback" v-if="! playing "></button>
+        <button class="button stop" @click="stop" v-if="playing "></button>
     </div>
 </template>
 
@@ -26,6 +26,18 @@
     height: 100%;
 
     color: white;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.play {
+        background: center no-repeat black url('../assets/img/player-button-play.svg');
+    }
+
+    &.stop {
+        background: center no-repeat black url('../assets/img/player-button-pause.svg');
+    }
 }
 
 </style>
