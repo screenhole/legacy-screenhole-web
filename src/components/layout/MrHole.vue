@@ -1,9 +1,9 @@
 <template>
     <div class="mr-hole">
         <div class="bubble">
-            <span>haha, hi!</span>
+            <span>ho, ho, hole!</span>
         </div>
-        <img class="cutie" src="../../assets/img/mr-hole.svg" alt="MR. HOLE">
+        <img class="cutie" src="../../assets/img/mr-hole-christmas.svg" alt="MR. HOLE">
     </div>
 </template>
 
