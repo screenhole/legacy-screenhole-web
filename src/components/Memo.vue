@@ -68,7 +68,7 @@ export default {
     .bubble {
         margin-left: 10px;
         max-width: 80%;
-        background: #FCD674;
+        background: #6ade77;
         border-radius: 25px;
         display: flex;
 
