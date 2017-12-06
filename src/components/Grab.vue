@@ -48,7 +48,17 @@ export default {
 
     methods: {
         voiceMemo: function() {
-            alert('hmmm...');
+            this.$http.post("/shots/" + this.grab.id + '/memos', {
+                memo: {
+                    'variant': 'voice',
+                }
+            })
+            .then(function(res){
+                alert("Call 1-810-420-8008 and enter " + res.data.memo.calling_code);
+            }.bind(this))
+            .catch(function(err){
+                alert(err);
+            })
         },
 
         deleteGrab: function() {
