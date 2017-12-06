@@ -1,8 +1,10 @@
 <template>
     <grab
-        v-bind:key="grab.id"
-        v-bind:grab="grab"
-        v-bind:class="{'mobile': $mq.mobile}"
+        :key="grab.id"
+        :grab="grab"
+        :class="{'mobile': $mq.mobile}"
+        :button-call="true"
+        :button-delete="true"
     />
 </template>
 

@@ -4,16 +4,16 @@
             <div class="meta" v-bind:class="{'mobile': $mq.mobile}">
                 <router-link  class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
                     username: grab.user.username
-                    }}">
+                }}">
                     <avatar :user="grab.user"></avatar>
                     <span class="user">{{grab.user.username}}</span>
                 </router-link>
 
                 <div class="actions">
-                    <a class="call" href="#">
+                    <a href="#" v-if="buttonCall" @click.prevent="voiceMemo">
                         <img src="../assets/img/telephone.svg" alt="Call Screenhole">
                     </a>
-                    <a class="delete" href="#">
+                    <a href="#" v-if="buttonDelete && owned_by_current_user" @click.prevent="deleteGrab">
                         <img src="../assets/img/trash.svg" alt="Can it!">
                     </a>
                 </div>
@@ -33,7 +33,44 @@
 import Avatar from '@/components/Avatar';
 
 export default {
-    props: [ 'grab' ],
+    props: {
+        'grab': {
+            type: Object,
+            required: true,
+        },
+        'button-delete': {
+            'default': false,
+        },
+        'button-call': {
+            'default': false,
+        },
+    },
+
+    methods: {
+        voiceMemo: function() {
+            alert('hmmm...');
+        },
+
+        deleteGrab: function() {
+            if (! confirm('Are you sure you want to delete this grab?')) return;
+
+            return this.$http.delete("/shots/" + this.grab.id)
+            .then(function(){
+                this.$router.push('/');
+            }.bind(this))
+            .catch(function(err){
+                alert(err);
+            })
+        },
+    },
+
+    computed: {
+        owned_by_current_user: function() {
+            return this.$auth.check()
+                && this.grab.user
+                && this.$auth.user().id == this.grab.user.id
+        },
+    },
 
     components: {
         Avatar,
