@@ -40,16 +40,12 @@ export default {
     &.mobile {
         width: 50px;
         height: 50px;
-
-        img {
-            border-radius: 1000px;
-        }
     }
 
     img {
         width: 100%;
         height: 100%;
-        border-radius: 35px;
+        border-radius: 10000px;
     }
 }
 </style>
