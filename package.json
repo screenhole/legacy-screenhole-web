@@ -56,6 +56,7 @@
     "vee-validate": "^2.0.0-rc.19",
     "vue-analytics": "^5.1.1",
     "vue-axios": "^2.0.2",
+    "vue-howler": "^0.7.0",
     "vue-infinite-loading": "^2.2.1",
     "vue-loader": "^13.0.4",
     "vue-match-media": "^1.0.2",

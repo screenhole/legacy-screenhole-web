@@ -2,16 +2,21 @@
     <div class="memo" v-if="! memo.pending">
         <avatar :user="memo.user" />
 
-        <div class="message">
-            {{memo.message}}
-        </div>
+        <div class="bubble">
+            <div class="message">
+                <span class="username">{{memo.user.username}}:&nbsp;</span>
 
-        <audio controls :src="memo.media_path" />
+                {{memo.message}}
+            </div>
+
+            <audio-player :sources="audioSources"></audio-player>
+        </div>
     </div>
 </template>
 
 <script>
 import Avatar from '@/components/Avatar';
+import AudioPlayer from '@/components/AudioPlayer';
 
 export default {
     props: {
@@ -25,6 +30,10 @@ export default {
     },
 
     computed: {
+        audioSources: function() {
+            return [ this.memo.media_path ]
+        },
+
         owned_by_current_user: function() {
             return this.$auth.check()
                 && this.memo.user
@@ -34,6 +43,7 @@ export default {
 
     components: {
         Avatar,
+        AudioPlayer,
     },
 }
 </script>
@@ -51,16 +61,34 @@ export default {
     }
 
     .avatar {
-        width: 50px;
-        height: 50px;
+        width: 35px;
+        height: 35px;
     }
 
-    .message {
+    .bubble {
         margin-left: 10px;
         max-width: 80%;
         background: #FCD674;
-        border-radius: 15px;
-        padding: 15px;
+        border-radius: 25px;
+        display: flex;
+
+        .message {
+            margin: 15px 20px;
+            color: #fff;
+            font-size: 18px;
+            align-self: center;
+
+            .username {
+                color: #000;
+            }
+        }
+
+        .audioPlayer {
+            margin: 10px;
+            width: 35px;
+            height: 35px;
+            align-self: flex-end;
+        }
     }
 }
 </style>
