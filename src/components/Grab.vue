@@ -77,6 +77,7 @@ export default {
 
             .actions {
                 float: left;
+                margin-top: 5px;
 
                 a {
                     display: inline-block;
