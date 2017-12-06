@@ -10,7 +10,7 @@
                 </router-link>
 
                 <div class="actions">
-                    <a href="#" v-if="buttonCall" @click.prevent="voiceMemo">
+                    <a href="#" v-if="buttonCall && this.$auth.check()" @click.prevent="voiceMemo">
                         <img src="../assets/img/telephone.svg" alt="Call Screenhole">
                     </a>
                     <a href="#" v-if="buttonDelete && owned_by_current_user" @click.prevent="deleteGrab">
