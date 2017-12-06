@@ -3,6 +3,7 @@
         :key="grab.id"
         :grab="grab"
         :class="{'mobile': $mq.mobile}"
+        :memos="true"
         :button-call="true"
         :button-delete="true"
     />

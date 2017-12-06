@@ -25,18 +25,29 @@
               <img :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
               <div class="shadow"></div>
             </router-link>
+
+            <memo
+                v-if="memos"
+                v-for="(memo, index) in grab.memos"
+                v-bind:key="memo.id"
+                v-bind:memo="memo"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import Avatar from '@/components/Avatar';
+import Memo from '@/components/Memo';
 
 export default {
     props: {
         'grab': {
             type: Object,
             required: true,
+        },
+        'memos': {
+            'default': false,
         },
         'button-delete': {
             'default': false,
@@ -84,6 +95,7 @@ export default {
 
     components: {
         Avatar,
+        Memo,
     },
 }
 </script>
