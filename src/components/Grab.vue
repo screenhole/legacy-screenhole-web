@@ -27,8 +27,8 @@
             </router-link>
 
             <memo
-                v-if="memos"
-                v-for="(memo, index) in grab.memos"
+                v-if="showMemos"
+                v-for="(memo, index) in memos"
                 v-bind:key="memo.id"
                 v-bind:memo="memo"
             />
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import ActionCable from 'actioncable';
+
 import Avatar from '@/components/Avatar';
 import Memo from '@/components/Memo';
 
@@ -46,7 +48,7 @@ export default {
             type: Object,
             required: true,
         },
-        'memos': {
+        'show-memos': {
             'default': false,
         },
         'button-delete': {
@@ -55,6 +57,12 @@ export default {
         'button-call': {
             'default': false,
         },
+    },
+
+    data () {
+        return {
+            'memos': [],
+        }
     },
 
     methods: {
@@ -91,6 +99,35 @@ export default {
                 && this.grab.user
                 && this.$auth.user().id == this.grab.user.id
         },
+    },
+
+    mounted(){
+        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
+
+        this.memos = this.grab.memos;
+
+        this.cable.subscriptions.create(
+            "MemosChannel",
+            {
+                received: function(data) {
+                    if (data.memo.shot.id != this.grab.id) return;
+
+                    var found = false;
+
+                    for (var i=0; i < this.memos.length; i++) {
+                        if (this.memos[i].id == data.memo.id) {
+                            this.$set(this.memos, i, data.memo);
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (! found) {
+                        this.grab.memos.unshift(data.memo);
+                    }
+                }.bind(this)
+            }
+        );
     },
 
     components: {
