@@ -5,7 +5,7 @@
                 <router-link  class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
                     username: grab.user.username
                 }}">
-                    <avatar :user="grab.user"></avatar>
+                    <avatar tag="span" :user="grab.user"></avatar>
                     <span class="user">{{grab.user.username}}</span>
                 </router-link>
 
@@ -98,8 +98,9 @@ export default {
         .permalink {
             &:hover {
                 .user {
-                    color: $purple;
-                    background-color: white;
+                    background-color: transparent;
+                    color: white;
+                    border-color: white;
 
                     &:after {
                         border-color: transparent white transparent transparent;
@@ -138,54 +139,36 @@ export default {
                 }
             }
             &.mobile {
-
                 .avatar {
-                    width: 30px;
-                    height: 30px;
-                }
-
-                .user {
-                    margin: 0;
-                    margin-left: 5px;
-
-                    &:after {
-                        top: 10px;
-                        left: 28px;
-                    }
+                    width: 35px;
+                    height: 35px;
                 }
             }
+
             .avatar {
+                width: 35px;
+                height: 35px;
                 display: inline-block;
                 margin: 0;
                 float: left;
             }
 
             .user {
-                background-color: $purple;
                 padding: 5px 10px;
                 border-radius: 100px;
+                border: 2px solid $grey-warm;
                 display: inline-block;
-                margin-top: 5px;
                 margin-left: 10px;
+                margin-top: 2px;
                 color: white;
                 transition: all 0.2s ease;
                 float: left;
 
-                &:after {
-                    content: '';
-                    position: absolute;
-                    top: 14px;
-                    left: 38px;
-                    width: 0;
-                    height: 0;
-                    border-style: solid;
-                    border-width: 5px 10px 5px 0;
-                    border-color: transparent $purple transparent transparent;
-                    transition: all 0.2s ease;
-                }
+
                 &:hover {
-                    color: $purple;
-                    background-color: white;
+                    background-color: transparent;
+                    color: white;
+                    border-color: white;
 
                     &:after {
                         border-color: transparent white transparent transparent;
