@@ -1,14 +1,22 @@
 <template>
-    <router-link class="avatar" v-bind:class="{'mobile': $mq.mobile}" v-if="user" :to="{ name: 'user-stream', params: {
+    <router-link class="avatar" :tag="tag" :class="{'mobile': $mq.mobile}" v-if="user" :to="{ name: 'user-stream', params: {
         username: user.username
     }}">
-        <img v-bind:src="this.gravatar()" v-bind:alt="user.username">
+        <img :src="this.gravatar()" :alt="user.username">
     </router-link>
 </template>
 
 <script>
 export default {
-    props: [ 'user' ],
+    props: {
+        'user': {
+            type: Object,
+            required: true,
+        },
+        'tag': {
+            'default': 'a',
+        },
+    },
 
     methods: {
         gravatar: function() {

@@ -5,7 +5,7 @@
                 <router-link  class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
                     username: grab.user.username
                 }}">
-                    <avatar :user="grab.user"></avatar>
+                    <avatar tag="span" :user="grab.user"></avatar>
                     <span class="user">{{grab.user.username}}</span>
                 </router-link>
 
@@ -98,8 +98,9 @@ export default {
         .permalink {
             &:hover {
                 .user {
-                    color: $purple;
-                    background-color: white;
+                    background-color: transparent;
+                    color: white;
+                    border-color: white;
 
                     &:after {
                         border-color: transparent white transparent transparent;
