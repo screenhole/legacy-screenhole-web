@@ -5,7 +5,7 @@
         </form>
 
         <div class="items">
-            <div class="item" v-for="item in chomments" v-if="chomments && chomments.length">
+            <div class="item" :class="item.variant" v-for="item in chomments" v-if="chomments && chomments.length">
                 <div class="meta">
                     <avatar :user="item.user"></avatar>
                 </div>
@@ -18,7 +18,12 @@
 
                     <br>
 
-                    {{item.message}}
+                    <template v-if="item.variant == 'voice_memo'">
+                        &ldquo;{{item.message}}&rdquo;
+                    </template>
+                    <template v-else>
+                        {{item.message}}
+                    </template>
                 </div>
             </div>
             <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading">
@@ -188,7 +193,26 @@ aside {
                     display: block;
                     width: 40px;
                     height: 40px;
+                }
+            }
 
+            &.voice_memo {
+                .avatar {
+                    position: relative;
+
+                    &:after {
+                        position: absolute;
+                        left: -5px;
+                        bottom: -5px;
+                        background: $purple;
+                        width: 20px;
+                        height: 20px;
+                        content: "m";
+                        color: #fff;
+                        font-size: 10px;
+                        text-align: center;
+                        border-radius: 5px;
+                    }
                 }
             }
 
