@@ -19,7 +19,6 @@
 
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
-import ActionCable from 'actioncable';
 
 import Grab from '@/components/Grab';
 
@@ -94,15 +93,11 @@ export default {
     },
 
     mounted(){
-        var self = this;
-
-        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
-
-        this.cable.subscriptions.create(
+        this.$cable.subscriptions.create(
             "ShotsChannel",
             {
-                received: function(data) {
-                    self.grabs.unshift(data.shot);
+                received: (data) => {
+                    this.grabs.unshift(data.shot);
                 }
             }
         );

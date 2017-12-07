@@ -20,6 +20,9 @@ Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net";
 
+import ActionCable from 'actioncable'
+Vue.prototype.$cable = ActionCable.createConsumer(Vue.axios.defaults.baseURL.replace('http', 'ws') + '/cable')
+
 // catch 401 errors and logout
 Vue.axios.interceptors.response.use(function (response) {
     return response;

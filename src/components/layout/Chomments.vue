@@ -84,15 +84,11 @@ export default {
     },
 
     mounted(){
-        var self = this;
-
-        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
-
-        this.cable.subscriptions.create(
+        this.$cable.subscriptions.create(
             "ChommentsChannel",
             {
-                received: function(data) {
-                    self.chomments.unshift(data.chomment);
+                received: (data) => {
+                    this.chomments.unshift(data.chomment);
                 }
             }
         );

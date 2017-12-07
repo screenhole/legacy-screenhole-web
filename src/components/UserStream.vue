@@ -85,16 +85,14 @@ export default {
     created(){
         // not rerun when going between same components
 
-        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
-
-        this.cable.subscriptions.create(
+        this.$cable.subscriptions.create(
             "ShotsChannel",
             {
-                received: function(data) {
+                received: (data) => {
                     if (data.shot.user.id == this.user.id) {
                         this.grabs.unshift(data.shot);
                     }
-                }.bind(this)
+                }
             }
         );
     },

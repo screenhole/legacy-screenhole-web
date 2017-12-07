@@ -102,14 +102,12 @@ export default {
     },
 
     mounted(){
-        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
-
         this.memos = this.grab.memos;
 
-        this.cable.subscriptions.create(
+        this.$cable.subscriptions.create(
             "MemosChannel",
             {
-                received: function(data) {
+                received: (data) => {
                     if (data.memo.shot.id != this.grab.id) return;
 
                     var found = false;
@@ -125,7 +123,7 @@ export default {
                     if (! found) {
                         this.grab.memos.unshift(data.memo);
                     }
-                }.bind(this)
+                }
             }
         );
     },

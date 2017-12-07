@@ -146,33 +146,22 @@
 </template>
 
 <script>
-import ActionCable from 'actioncable';
-
 export default {
     data () {
         return {
             backgroundImage: '',
-            grabs: [],
         };
     },
     mounted(){
-        var self = this;
-
-        this.$http.get("/shots").then((response) => {
-            this.grabs = this.grabs.concat(response.data.shots);
-
-            this.backgroundImage = this.grabs[0].image_public_url;
+        this.$http.get("/shots", { "per_page": 1}).then((response) => {
+            this.backgroundImage = response.data.shots[0].image_public_url;
         });
 
-        this.cable = ActionCable.createConsumer(this.$http.defaults.baseURL.replace('http', 'ws') + '/cable');
-
-        this.cable.subscriptions.create(
+        this.$cable.subscriptions.create(
             "ShotsChannel",
             {
-                received: function(data) {
-                    self.grabs.unshift(data.shot);
-
-                    self.backgroundImage = self.grabs[0].image_public_url;
+                received: (data) => {
+                    this.backgroundImage = data.shot.image_public_url;
                 }
             }
         );
