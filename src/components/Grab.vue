@@ -12,9 +12,9 @@
                 <div class="actions">
                     <a class="button" href="#" @click.prevent="voiceMemo">
                         <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
-                        <span class="count">4</span>
+                        <span class="count">{{voiceMemoCount || '&nbsp;'}}</span>
                     </a>
-                    <a class="button" href="#" v-if="buttonDelete && owned_by_current_user" @click.prevent="deleteGrab">
+                    <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
                 </div>
@@ -95,7 +95,13 @@ export default {
     },
 
     computed: {
-        owned_by_current_user: function() {
+        voiceMemoCount: function() {
+            return Object.values(this.grab.memos || []).reduce(function(count, memo) {
+                return count + (memo.pending ? 0 : 1);
+            }, 0)
+        },
+
+        ownedByCurrentUser: function() {
             return this.$auth.check()
                 && this.grab.user
                 && this.$auth.user().id == this.grab.user.id
