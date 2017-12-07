@@ -2,7 +2,7 @@
     <div class="grab">
         <div class="content">
             <div class="meta" v-bind:class="{'mobile': $mq.mobile}">
-                <router-link  class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
+                <router-link class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
                     username: grab.user.username
                 }}">
                     <avatar tag="span" :user="grab.user"></avatar>
@@ -10,11 +10,12 @@
                 </router-link>
 
                 <div class="actions">
-                    <a href="#" v-if="buttonCall && this.$auth.check()" @click.prevent="voiceMemo">
-                        <img src="../assets/img/telephone.svg" alt="Call Screenhole">
+                    <a class="button" href="#" @click.prevent="voiceMemo">
+                        <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
+                        <span class="count">4</span>
                     </a>
-                    <a href="#" v-if="buttonDelete && owned_by_current_user" @click.prevent="deleteGrab">
-                        <img src="../assets/img/trash.svg" alt="Can it!">
+                    <a class="button" href="#" v-if="buttonDelete && owned_by_current_user" @click.prevent="deleteGrab">
+                        <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
                 </div>
             </div>
@@ -22,7 +23,7 @@
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-              <img :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
+              <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
               <div class="shadow"></div>
             </router-link>
 
@@ -150,9 +151,11 @@ export default {
     .content {
         max-width: 1200px;
         flex-grow: 1;
-        position: relative;
 
         .permalink {
+            display: flex;
+            align-items: start;
+
             &:hover {
                 .user {
                     background-color: transparent;
@@ -165,36 +168,42 @@ export default {
                 }
             }
         }
+
         .meta {
             margin-bottom: 10px;
             border-radius: 1000px;
-            display: inline-block;
+            display: flex;
+            align-items: center;
 
             .actions {
-                float: left;
                 margin-top: 5px;
+                display: flex;
+                align-items: center;
 
-                a {
-                    display: inline-block;
+                .button {
+                    display: flex;
+                    align-items: center;
                     margin-left: 10px;
+
+                    .icon {
+                        border-radius: 0;
+                        border: 0;
+                        transition: all 0.2 ease;
+                    }
+
+                    .count {
+                        color: $purple;
+                        font-size: 18px;
+                        padding: 10px 5px;
+                    }
 
                     &:hover {
                         border: 0 !important;
-
-                    }
-                }
-                img {
-                    border-radius: 0;
-                    border: 0;
-                    transition: all 0.2 ease;
-
-                    &:hover {
-                        box-shadow: none;
                         transform: translateY(-2px);
                     }
-
                 }
             }
+
             &.mobile {
                 .avatar {
                     width: 35px;
@@ -207,7 +216,6 @@ export default {
                 height: 35px;
                 display: inline-block;
                 margin: 0;
-                float: left;
             }
 
             .user {
@@ -219,8 +227,6 @@ export default {
                 margin-top: 2px;
                 color: white;
                 transition: all 0.2s ease;
-                float: left;
-
 
                 &:hover {
                     background-color: transparent;
@@ -237,7 +243,7 @@ export default {
 
     }
 
-    img {
+    .grab_image {
         clear: both;
         display: block;
         max-width: 100%;
