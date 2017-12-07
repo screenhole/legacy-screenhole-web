@@ -24,6 +24,8 @@ export default {
             // TODO: validate that the user in the route is correct
             return this.$http.get("/shots/" + grab_id).then((response) => {
                 this.grab = response.data.shot;
+            }).catch((err) => {
+                this.$router.push('/');
             });
         }
     },

@@ -39,8 +39,9 @@ export default {
                 this.$http.get("/users/" + this.$route.params.username).then((response) => {
                     this.user = response.data.user;
                     $state.loaded();
-                }).catch(function(response){
+                }).catch((response) => {
                     console.log('api error', response)
+                    this.$router.push('/');
                 });
                 return;
             }
@@ -77,8 +78,8 @@ export default {
             this.user = response.data.user;
             this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
             next();
-        }).catch(function(response){
-            console.log('api error', response)
+        }).catch((err) => {
+            this.$router.push('/');
         });
     },
     
