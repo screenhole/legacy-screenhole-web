@@ -68,6 +68,17 @@ export default {
 
     methods: {
         voiceMemo: function() {
+            if (! this.showMemos) {
+                return this.$router.push({ name: 'grab-permalink', params: {
+                    username: this.grab.user.username,
+                    grab_id: this.grab.id
+                }})
+            }
+
+            if (! this.$auth.check()) {
+                return alert("Log in to leave a voice memo!");
+            }
+
             this.$http.post("/shots/" + this.grab.id + '/memos', {
                 memo: {
                     'variant': 'voice',
