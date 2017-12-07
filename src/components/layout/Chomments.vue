@@ -19,7 +19,17 @@
                     <br>
 
                     <template v-if="item.variant == 'voice_memo'">
-                        &ldquo;{{item.message}}&rdquo;
+                        <template v-if="item.cross_ref_type == 'Shot'">
+                            &ldquo;<router-link class="username" :to="{ name: 'grab-permalink', params: {
+                                    // TODO: find the username
+                                    username: 'grab',
+                                    grab_id: item.cross_ref.id
+                                }}">{{item.message}}</router-link>&rdquo;
+                        </template>
+                        <template v-else>
+                            &ldquo;{{item.message}}&rdquo;
+                        </template>
+                    </a>
                     </template>
                     <template v-else>
                         {{item.message}}

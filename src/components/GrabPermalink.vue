@@ -21,7 +21,7 @@ export default {
 
     methods: {
         fetchData(grab_id) {
-            // TODO: validate that the user in the route is correct
+            // TODO: validate that the user in the route is correct, but allow "grab" still
             return this.$http.get("/shots/" + grab_id).then((response) => {
                 this.grab = response.data.shot;
             }).catch((err) => {
