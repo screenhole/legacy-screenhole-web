@@ -211,17 +211,21 @@ aside {
                     position: relative;
 
                     &:after {
+                        content: "";
                         position: absolute;
                         left: -5px;
                         bottom: -5px;
                         background: $purple;
+                        background-image: url('../../assets/img/icon-phone-chomment.svg');
+                        background-size: 12px 12px;
+                        background-repeat: no-repeat;
+                        background-position: center;
                         width: 20px;
                         height: 20px;
-                        content: "m";
                         color: #fff;
                         font-size: 10px;
                         text-align: center;
-                        border-radius: 5px;
+                        border-radius: 20px;
                     }
                 }
             }
