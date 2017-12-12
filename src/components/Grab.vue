@@ -123,7 +123,7 @@ export default {
     mounted(){
         this.memos = this.grab.memos;
 
-        // this.$http.get('https://cors.now.sh/' + this.grab.image_public_url + ';metadata.json').then((response) => {
+        // this.$http.get(this.grab.image_public_url + ';metadata.json').then((response) => {
         //     this.metadata = response.data;
         // });
 
