@@ -3,23 +3,30 @@
   <div class="main">
 
     <div class="profile" v-bind:class="{'mobile': $mq.mobile}">
-      <avatar :user="user" class="avatar"></avatar>
 
-      <div class="info">
-        <h1>Pasquale D'Silva</h1>
-        <h2 class="username">@pasquale</h2>
 
-        <section class="bio">
-          <p>Working on <a href="#">screenhole</a> &amp; other projects at <a href="#">Thinko</a></p>
+      <div class="left">
+        <avatar :user="user" class="avatar"></avatar>
 
-          <p><a href="#">@pasql</a> on twitter.</p>
-        </section>
+        <div class="text">
+          <h1>Pasquale D'Silva</h1>
+          <h2 class="username">@pasquale</h2>
+
+          <section class="bio">
+            <p>Working on <a href="#">screenhole</a> &amp; other projects at <a href="#">Thinko</a></p>
+
+            <p><a href="#">@pasql</a> on twitter.</p>
+          </section>
+        </div>
 
       </div>
 
-      <div class="stats" v-bind:class="{'mobile': $mq.mobile}">
-        <span class="number">203</span>
-        <span class="numberLabel">Grabs</span>
+      <div class="right" v-bind:class="{'mobile': $mq.mobile}">
+
+        <section class="stat">
+          <span class="number">203</span>
+          <span class="numberLabel">Grabs</span>
+        </section>
       </div>
 
     </div>
@@ -147,53 +154,63 @@ export default {
   .profile {
     padding: 50px;
     border-bottom: 1px solid $grey-warm;
-
-    // background-color: red;
     display: flex;
     justify-content: center;
+    justify-content: space-around;
+
     &.mobile {
-      padding: 50px 5px;
+      padding: 50px 25px;
     }
     .avatar {
-      display: inline-block;
-      float: left;
-      width: 100px;
+      display: block;
+      min-width: 100px;
       height: 100px;
       margin-right: 25px;
     }
 
-    .info {
-      width: 50%;
-      h1 {
-        font-size: 30px;
-        color: white;
+    .left {
+      // background-color: red;
+      width: 70%;
+      max-width: 600px;
+      display: flex;
+
+      .text {
+        padding-right: 25px;
         display: block;
-        line-height: 30px;
-        margin: 10px 0;
-      }
 
-      .username {
-        margin: 0;
-        color: $grey-warm;
-        font-weight: normal;
-      }
+        h1 {
+          font-size: 30px;
+          color: white;
+          display: block;
+          line-height: 30px;
+          margin: 10px 0;
+        }
 
-      .bio {
-        max-width: 500px;
-        // background-color: red;
-        color:#868091;
+        .username {
+          margin: 0;
+          color: $grey-warm;
+          font-weight: normal;
+        }
 
-        a {
-          color: $purple;
+        .bio {
+          max-width: 500px;
+          color:#868091;
+          line-height: 150%;
+
+          a {
+            color: $purple;
+          }
         }
       }
     }
 
-    .stats {
-      width: 50%;
-      background-color: blue;
+    .right {
+      width: 30%;
+      max-width: 300px;
       display: flex;
       align-items: flex-start;
+      flex-direction: row-reverse;
+
       &.mobile {
         // margin-left: 100px;
       }
