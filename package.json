@@ -21,6 +21,7 @@
   "devDependencies": {
     "@websanova/vue-auth": "^2.18.3-beta",
     "actioncable": "^5.1.4",
+    "animejs": "^2.2.0",
     "autoprefixer": "^7.1.2",
     "axios": "^0.16.2",
     "babel-core": "^6.22.1",
