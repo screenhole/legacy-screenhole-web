@@ -12,7 +12,7 @@
                 }">
                     <chomments></chomments>
                 </div>
-                <div class="splitscreen-Main" ref="middleColumn" v-bind:class="{
+                <div class="splitscreen-Main" ref="middleColumn" v-on:scroll="middleColumnScroll" v-bind:class="{
                     'splitscreen-Hidden': $mq.mobile && activeTab != 'main',
                     'splitscreen-Column': ! $mq.mobile,
                     'splitscreen-View': $mq.mobile,
@@ -40,7 +40,9 @@
             </template>
         </div>
 
-        <div class="scrollToTop" v-on:mouseover="throbOn" v-on:mouseout="throbOff">
+        <div class="scrollToTop" v-bind:class="{
+            'show': showScrollToTopArrow
+        }" v-on:mouseover="throbOn" v-on:mouseout="throbOff">
             <a href="#" @click.prevent="jumpToTop" class="graphic"></a>
         </div>
 
@@ -63,6 +65,7 @@ export default {
             loaded: false,
             activeTab: 'main',
             chommentsVisible: true,
+            showScrollToTopArrow: false,
             timeline: null,
         };
     },
@@ -84,6 +87,11 @@ export default {
                     console.log('error ' + this.context);
                 }
             });
+        },
+
+        middleColumnScroll() {
+            const threshold = 400;
+            this.showScrollToTopArrow = this.$refs.middleColumn.scrollTop > threshold;
         },
 
         throbOn() {
@@ -180,10 +188,15 @@ export default {
         background: 50% 45% no-repeat $purple url('./assets/img/scroll-to-top-arrow.svg');
 
         transition: transform 200ms ease;
-
         &:active {
             transform: scale(.9);
         }
+    }
+
+    transition: transform 200ms ease;
+    transform: scale(0);
+    &.show {
+        transform: scale(1);
     }
 }
 
