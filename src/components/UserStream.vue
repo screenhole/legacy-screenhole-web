@@ -156,10 +156,16 @@ export default {
     border-bottom: 1px solid $grey-warm;
     display: flex;
     justify-content: center;
-    justify-content: space-around;
+    align-items: flex-start;
 
     &.mobile {
       padding: 50px 25px;
+
+      .avatar {
+        min-width: 75px;
+        height: 75px;
+      }
+
     }
     .avatar {
       display: block;
@@ -169,9 +175,8 @@ export default {
     }
 
     .left {
-      // background-color: red;
-      width: 70%;
-      max-width: 600px;
+      flex-grow: 2;
+      max-width: 800px;
       display: flex;
 
       .text {
@@ -205,8 +210,8 @@ export default {
     }
 
     .right {
-      width: 30%;
-      max-width: 300px;
+      flex-grow: 1;
+      max-width: 400px;
       display: flex;
       align-items: flex-start;
       flex-direction: row-reverse;
