@@ -217,6 +217,7 @@ export default {
           max-width: 500px;
           color:#868091;
           line-height: 150%;
+          margin-top: 15px;
 
           a {
             color: $purple;
