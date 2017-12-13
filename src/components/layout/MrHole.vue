@@ -3,16 +3,24 @@
         <div class="bubble">
             <span>ho, ho, hole!</span>
         </div>
-        <img class="cutie" src="../../assets/img/mr-hole-christmas.svg" alt="MR. HOLE">
+        <img class="cutie" @click.prevent="jump" src="../../assets/img/mr-hole-christmas.svg" alt="MR. HOLE">
     </div>
 </template>
 
 <script>
+import { EventBus } from '@/event-bus.js';
+
 export default {
     data () {
         return {
         };
     },
+
+    methods: {
+        jump() {
+            EventBus.$emit('scrollToTop');
+        },
+    }
 }
 </script>
 

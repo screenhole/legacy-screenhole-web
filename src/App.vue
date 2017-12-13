@@ -25,11 +25,11 @@
             <template v-if="$mq.mobile">
                 <footer id="bottom">
                     <nav class="tabs">
-                        <a class="icon" v-bind:class="{ 'active': activeTab == 'chomments' }" href="#" @click.prevent="activeTab = 'chomments'">
-                          <img src="../src/assets/img/toggle-chomments.svg">
+                        <a class="icon" href="#" @click.prevent="activeTab = 'chomments'">
+                          <img class ="stream" src="../src/assets/img/toggle-chomments.svg">
                         </a>
-                        <a class="icon" v-bind:class="{ 'active': activeTab == 'main' }" href="#" @click.prevent="activeTab = 'main'">
-                          <img src="../src/assets/img/toggle-stream.svg">
+                        <a class="icon" href="#" @click.prevent="activeTab = 'main'">
+                          <img class ="stream" src="../src/assets/img/toggle-stream.svg">
                         </a>
                     </nav>
                 </footer>
@@ -88,6 +88,16 @@ export default {
             _this.loaded = true;
         }, 500);
 
+        EventBus.$on('scrollToTop', () => {
+            this.$anime({
+                targets: this.$refs.middleColumn,
+                scrollTop: 0,
+                duration: 500,
+                easing: 'easeOutExpo'
+            });
+            // this.$refs.middleColumn.scrollTop = 0;
+        });
+
         EventBus.$on('chomments.toggle', () => {
             this.chommentsVisible = ! this.chommentsVisible;
         });
@@ -113,6 +123,8 @@ export default {
 #app {
     width: 100%;
     height: 100%;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }
 
 .splitscreen-Top {
@@ -177,22 +189,15 @@ export default {
     background: linear-gradient(to bottom, rgba(0,0,0,0) 1%,rgba(0,0,0,0.8) 80%);
     height: 150px;
 
-    pointer-events: none;
-
     .tabs {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
 
         .icon {
-            margin-top: 80px;
-            padding: 20px;
-
-            opacity: 0.5;
-            pointer-events: auto;
-
-            &.active {
-                opacity: 1;
+            margin-top: 110px;
+            .stream {
+              width: 34px;
             }
         }
     }
@@ -230,6 +235,7 @@ export default {
             min-height: 100%;
 
             .center
+                max-width: 50%;
                 padding-bottom: 20vh
 
         .title
