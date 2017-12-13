@@ -65,9 +65,7 @@ export default {
             user: '',
             page: 1,
             grabs: [],
-            stats: {
-                grabs: '0',
-            }
+            stats: {}
         };
     },
 
@@ -77,6 +75,7 @@ export default {
             if (! this.user) {
                 this.$http.get("/users/" + this.$route.params.username).then((response) => {
                     this.user = response.data.user;
+                    this.stats = this.user.stats;
                     $state.loaded();
                 }).catch((response) => {
                     console.log('api error', response)
@@ -110,11 +109,13 @@ export default {
         this.user = '';
         this.page = 1;
         this.grabs = [];
+        this.stats = {};
 
         // fetch the new user
         this.$http.get("/users/" + to.params.username).then((response) => {
             // store user, refresh infinite loader
             this.user = response.data.user;
+            this.stats = this.user.stats;
             this.$refs.infiniteLoading.$emit('$InfiniteLoading:reset');
             next();
         }).catch((err) => {
