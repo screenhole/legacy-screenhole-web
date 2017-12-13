@@ -120,6 +120,8 @@ export default {
         },
 
         jumpToTop() {
+            this.throbOff();
+
             this.$anime({
                 targets: this.$refs.middleColumn,
                 scrollTop: 0,
