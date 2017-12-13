@@ -10,7 +10,7 @@
 
         <div class="text">
           <h1>Pasquale D'Silva</h1>
-          <h2 class="username">@pasquale</h2>
+          <h2 class="username">@{{user.username}}</h2>
 
           <section class="bio">
             <p>Working on <a href="#">screenhole</a> &amp; other projects at <a href="#">Thinko</a></p>
@@ -27,6 +27,9 @@
           <span class="number">203</span>
           <span class="numberLabel">Grabs</span>
         </section>
+        <!-- <section class="profileControls">
+          <a href="#">Edit Profile</a>
+        </section> -->
       </div>
 
     </div>
