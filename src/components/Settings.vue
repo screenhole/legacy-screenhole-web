@@ -9,6 +9,12 @@
             <input class="input" type="text" name="username" autocorrect="off" autocapitalize="none" v-validate="" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
 
+            <input class="input" type="text" name="name" placeholder="name" v-model="auth.name">
+            <div class="error" v-if="errors.has('name')">{{ errors.first('name') }}</div>
+
+            <input class="input" type="text" name="bio" placeholder="bio" v-model="auth.bio">
+            <div class="error" v-if="errors.has('bio')">{{ errors.first('bio') }}</div>
+
             <input class="input" type="password" name="password" autocorrect="off" autocapitalize="none" v-validate="" placeholder="new password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
             <div class="error" v-if="! errors.has('password') && ! (this.auth.password || this.auth.password_confirmation)">Leave blank to not change.</div>
@@ -31,6 +37,8 @@ export default {
     data () {
         return {
             auth: {
+                name: this.$auth.user().name,
+                bio: this.$auth.user().bio,
                 email: this.$auth.user().email,
                 username: this.$auth.user().username,
                 password: '',
@@ -47,6 +55,8 @@ export default {
 
                 // clone, skipping nulls
                 var data = { auth: {} }
+                if (this.auth.name) data.auth.name = this.auth.name;
+                if (this.auth.bio) data.auth.bio = this.auth.bio;
                 if (this.auth.email) data.auth.email = this.auth.email;
                 if (this.auth.username) data.auth.username = this.auth.username;
                 if (this.auth.password) data.auth.password = this.auth.password;
