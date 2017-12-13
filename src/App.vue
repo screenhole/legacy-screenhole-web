@@ -40,6 +40,10 @@
             </template>
         </div>
 
+        <div class="scrollToTop" v-on:mouseover="throbOn" v-on:mouseout="throbOff">
+            <a href="#" @click.prevent="jumpToTop" class="graphic"></a>
+        </div>
+
         <mr-hole v-if="! $mq.mobile"></mr-hole>
     </main>
 </template>
@@ -59,6 +63,7 @@ export default {
             loaded: false,
             activeTab: 'main',
             chommentsVisible: true,
+            timeline: null,
         };
     },
 
@@ -80,6 +85,40 @@ export default {
                 }
             });
         },
+
+        throbOn() {
+            this.timeline.add({
+                'targets': this.$el.querySelector(".scrollToTop .graphic"),
+                'background-position-y': '30%',
+                'duration': 400,
+                'easing': 'easeOutCirc',
+            }).add({
+                'targets': this.$el.querySelector(".scrollToTop .graphic"),
+                'background-position-y': '45%',
+                'duration': 400,
+                'easing': 'easeOutCirc',
+            });
+        },
+
+        throbOff() {
+            this.timeline.pause();
+
+            this.$anime({
+                'targets': this.$el.querySelector(".scrollToTop .graphic"),
+                'background-position-y': '45%',
+                'duration': 400,
+                'easing': 'easeOutCirc',
+            });
+        },
+
+        jumpToTop() {
+            this.$anime({
+                targets: this.$refs.middleColumn,
+                scrollTop: 0,
+                duration: 500,
+                easing: 'easeOutExpo'
+            });
+        },
     },
 
     mounted() {
@@ -88,14 +127,12 @@ export default {
             _this.loaded = true;
         }, 500);
 
+        this.timeline = this.$anime.timeline({
+            loop: true
+        });
+
         EventBus.$on('scrollToTop', () => {
-            this.$anime({
-                targets: this.$refs.middleColumn,
-                scrollTop: 0,
-                duration: 500,
-                easing: 'easeOutExpo'
-            });
-            // this.$refs.middleColumn.scrollTop = 0;
+            this.jumpToTop();
         });
 
         EventBus.$on('chomments.toggle', () => {
@@ -119,12 +156,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~resources";
 
 #app {
     width: 100%;
     height: 100%;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
+}
+
+.scrollToTop {
+    position: fixed;
+    top: calc(60px + 20px);
+    right: 20px;
+    width: 35px;
+    height: 35px;
+
+    .graphic {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 100px;
+        background: 50% 45% no-repeat $purple url('./assets/img/scroll-to-top-arrow.svg');
+
+        transition: transform 200ms ease;
+
+        &:active {
+            transform: scale(.9);
+        }
+    }
 }
 
 .splitscreen-Top {
