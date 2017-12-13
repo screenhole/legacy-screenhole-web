@@ -62,6 +62,7 @@ export default {
 
     data () {
         return {
+            // 'metadata': {},
             'memos': [],
         }
     },
@@ -121,6 +122,10 @@ export default {
 
     mounted(){
         this.memos = this.grab.memos;
+
+        // this.$http.get(this.grab.image_public_url + ';metadata.json').then((response) => {
+        //     this.metadata = response.data;
+        // });
 
         this.$cable.subscriptions.create(
             "MemosChannel",

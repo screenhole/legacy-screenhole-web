@@ -23,6 +23,9 @@ Vue.axios.defaults.baseURL = process.env.API_BASE || "https://api.screenhole.net
 import ActionCable from 'actioncable'
 Vue.prototype.$cable = ActionCable.createConsumer(Vue.axios.defaults.baseURL.replace('http', 'ws') + '/cable')
 
+import anime from 'animejs'
+Vue.prototype.$anime = anime
+
 // catch 401 errors and logout
 Vue.axios.interceptors.response.use(function (response) {
     return response;
@@ -50,7 +53,7 @@ var knockAuth = {
     request: function (req, token) {
         this.options.http._setHeaders.call(this, req, {Authorization: 'Bearer ' + token});
     },
-    
+
     response: function (res) {
         return res.data == null ? null : res.data.jwt;
     }

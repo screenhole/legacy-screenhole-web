@@ -12,7 +12,7 @@
                 }">
                     <chomments></chomments>
                 </div>
-                <div class="splitscreen-Main" ref="middleColumn" v-bind:class="{
+                <div class="splitscreen-Main" ref="middleColumn" v-on:scroll="middleColumnScroll" v-bind:class="{
                     'splitscreen-Hidden': $mq.mobile && activeTab != 'main',
                     'splitscreen-Column': ! $mq.mobile,
                     'splitscreen-View': $mq.mobile,
@@ -25,11 +25,11 @@
             <template v-if="$mq.mobile">
                 <footer id="bottom">
                     <nav class="tabs">
-                        <a class="icon" v-bind:class="{ 'active': activeTab == 'chomments' }" href="#" @click.prevent="activeTab = 'chomments'">
-                          <img src="../src/assets/img/toggle-chomments.svg">
+                        <a class="icon" href="#" @click.prevent="activeTab = 'chomments'">
+                          <img class ="stream" src="../src/assets/img/toggle-chomments.svg">
                         </a>
-                        <a class="icon" v-bind:class="{ 'active': activeTab == 'main' }" href="#" @click.prevent="activeTab = 'main'">
-                          <img src="../src/assets/img/toggle-stream.svg">
+                        <a class="icon" href="#" @click.prevent="activeTab = 'main'">
+                          <img class ="stream" src="../src/assets/img/toggle-stream.svg">
                         </a>
                     </nav>
                 </footer>
@@ -38,6 +38,12 @@
             <template v-if="! $auth.ready() || ! loaded">
                 <div id="loader"></div>
             </template>
+        </div>
+
+        <div class="scrollToTop" v-bind:class="{
+            'show': showScrollToTopArrow
+        }" v-on:mouseover="throbOn" v-on:mouseout="throbOff">
+            <a href="#" @click.prevent="jumpToTop" class="graphic"></a>
         </div>
 
         <mr-hole v-if="! $mq.mobile"></mr-hole>
@@ -59,6 +65,8 @@ export default {
             loaded: false,
             activeTab: 'main',
             chommentsVisible: true,
+            showScrollToTopArrow: false,
+            timeline: null,
         };
     },
 
@@ -80,6 +88,47 @@ export default {
                 }
             });
         },
+
+        middleColumnScroll() {
+            const threshold = 400;
+            this.showScrollToTopArrow = this.$refs.middleColumn.scrollTop > threshold;
+        },
+
+        throbOn() {
+            this.timeline.add({
+                'targets': this.$el.querySelector(".scrollToTop .graphic"),
+                'background-position-y': '30%',
+                'duration': 400,
+                'easing': 'easeOutCirc',
+            }).add({
+                'targets': this.$el.querySelector(".scrollToTop .graphic"),
+                'background-position-y': '45%',
+                'duration': 400,
+                'easing': 'easeOutCirc',
+            });
+        },
+
+        throbOff() {
+            this.timeline.pause();
+
+            this.$anime({
+                'targets': this.$el.querySelector(".scrollToTop .graphic"),
+                'background-position-y': '45%',
+                'duration': 400,
+                'easing': 'easeOutCirc',
+            });
+        },
+
+        jumpToTop() {
+            this.throbOff();
+
+            this.$anime({
+                targets: this.$refs.middleColumn,
+                scrollTop: 0,
+                duration: 500,
+                easing: 'easeOutExpo'
+            });
+        },
     },
 
     mounted() {
@@ -87,6 +136,14 @@ export default {
         setTimeout(function () {
             _this.loaded = true;
         }, 500);
+
+        this.timeline = this.$anime.timeline({
+            loop: true
+        });
+
+        EventBus.$on('scrollToTop', () => {
+            this.jumpToTop();
+        });
 
         EventBus.$on('chomments.toggle', () => {
             this.chommentsVisible = ! this.chommentsVisible;
@@ -109,10 +166,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~resources";
 
 #app {
     width: 100%;
     height: 100%;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.scrollToTop {
+    position: fixed;
+    top: calc(60px + 20px);
+    right: 20px;
+    width: 35px;
+    height: 35px;
+
+    .graphic {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 100px;
+        background: 50% 45% no-repeat $purple url('./assets/img/scroll-to-top-arrow.svg');
+
+        transition: transform 200ms ease;
+        &:active {
+            transform: scale(.9);
+        }
+    }
+
+    transition: transform 200ms ease;
+    transform: scale(0);
+    &.show {
+        transform: scale(1);
+    }
 }
 
 .splitscreen-Top {
@@ -177,22 +264,15 @@ export default {
     background: linear-gradient(to bottom, rgba(0,0,0,0) 1%,rgba(0,0,0,0.8) 80%);
     height: 150px;
 
-    pointer-events: none;
-
     .tabs {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
 
         .icon {
-            margin-top: 80px;
-            padding: 20px;
-
-            opacity: 0.5;
-            pointer-events: auto;
-
-            &.active {
-                opacity: 1;
+            margin-top: 110px;
+            .stream {
+              width: 34px;
             }
         }
     }
@@ -230,6 +310,7 @@ export default {
             min-height: 100%;
 
             .center
+                max-width: 50%;
                 padding-bottom: 20vh
 
         .title

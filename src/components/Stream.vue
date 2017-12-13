@@ -52,7 +52,14 @@ export default {
                     break;
             }
 
-            this.$parent.$refs.middleColumn.scrollTop = pos;
+            // this.$parent.$refs.middleColumn.scrollTop = pos;
+
+            this.$anime({
+                targets: this.$parent.$refs.middleColumn,
+                scrollTop: pos,
+                duration: 300,
+                easing: 'easeOutQuad'
+            });
         },
 
         getCurrent() {
@@ -115,6 +122,8 @@ export default {
 @import "~resources";
 
 .stream {
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
     display: flex;
     min-height: 100%;
     padding: 50px 50px 100px 50px;
