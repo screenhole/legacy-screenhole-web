@@ -16,6 +16,10 @@ export default {
         'tag': {
             'default': 'a',
         },
+        'size': {
+            'type': Number,
+            'default': 100
+        }
     },
 
     methods: {
@@ -24,7 +28,8 @@ export default {
             var origin = (document.location.hostname == "localhost") ? "https://staging.screenhole.net" : document.location.origin;
 
             return 'https://www.gravatar.com/avatar/' + this.user.gravatar_hash
-                + '?d=' + encodeURIComponent(origin + require('../assets/img/default-avatar.png'));
+                + '?size=' + encodeURIComponent(this.size)
+                + '&d=' + encodeURIComponent(origin + require('../assets/img/default-avatar.png'));
         },
     },
 }

@@ -6,7 +6,7 @@
 
 
       <div class="left">
-        <avatar :user="user" class="avatar"></avatar>
+        <avatar :size="500" :user="user" class="avatar"></avatar>
 
         <div class="text">
           <h1>{{user.name || user.username}}</h1>
