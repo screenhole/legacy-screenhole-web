@@ -9,13 +9,15 @@
         <avatar :user="user" class="avatar"></avatar>
 
         <div class="text">
-          <h1>Pasquale D'Silva</h1>
+          <h1>{{user.name || user.username}}</h1>
           <h2 class="username">@{{user.username}}</h2>
 
-          <section class="bio">
-            <p>Working on <a href="#">screenhole</a> &amp; other projects at <a href="#">Thinko</a></p>
+          <section class="bio" v-if="user.bio">
+            {{user.bio}}
+          </section>
 
-            <p><a href="#">@pasql</a> on twitter.</p>
+          <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
+              <router-link to="/settings">Edit Profile</router-link>
           </section>
         </div>
 
@@ -24,12 +26,9 @@
       <div class="right" v-bind:class="{'mobile': $mq.mobile}">
 
         <section class="stat">
-          <span class="number">203</span>
+          <span class="number">{{stats.grabs}}</span>
           <span class="numberLabel">Grabs</span>
         </section>
-        <!-- <section class="profileControls">
-          <a href="#">Edit Profile</a>
-        </section> -->
       </div>
 
     </div>
@@ -66,6 +65,9 @@ export default {
             user: '',
             page: 1,
             grabs: [],
+            stats: {
+                grabs: '0',
+            }
         };
     },
 
@@ -194,6 +196,16 @@ export default {
           margin: 10px 0;
         }
 
+        .profileControls {
+            margin: 10px 0;
+            font-size: 14px;
+            text-transform: uppercase;
+
+            a {
+                color: $purple;
+            }
+        }
+
         .username {
           margin: 0;
           color: $grey-warm;
@@ -224,7 +236,6 @@ export default {
       }
 
       .number {
-
         color: white;
         font-size: 50px;
         display: block;
