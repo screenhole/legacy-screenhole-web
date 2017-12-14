@@ -262,9 +262,8 @@ export default {
       justify-content: center;
       border-bottom: 1px solid $grey-warm;
       color: #75707e;
-      line-height: 150%;
-
-      padding: 25px 50px 50px 50px;
+      line-height: 120%;
+      padding: 0 50px 50px 50px;
 
       a {
         color: $purple;
