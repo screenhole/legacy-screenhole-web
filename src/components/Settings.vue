@@ -1,19 +1,24 @@
 <template>
     <div class="form centered">
         <form class="center" v-on:submit.prevent="submit">
-            <h1 class="title">Edit User</h1>
+            <h1 class="title">Settings</h1>
 
-            <input class="input" type="email" name="email" v-validate="'email'" placeholder="email" v-model="auth.email">
+            <input class="input" type="email" name="email" v-validate="'email'" placeholder="you@email.com" v-model="auth.email">
             <div class="error" v-if="errors.has('email')">{{ errors.first('email') }}</div>
+            <span class="label">Email Address</span>
+
 
             <input class="input" type="text" name="username" autocorrect="off" autocapitalize="none" v-validate="" placeholder="username" v-model="auth.username">
             <div class="error" v-if="errors.has('username')">{{ errors.first('username') }}</div>
+            <span class="label">Username</span>
 
-            <input class="input" type="text" name="name" placeholder="name" v-model="auth.name">
+            <input class="input" type="text" name="name" placeholder="Spiderman Jones" v-model="auth.name">
             <div class="error" v-if="errors.has('name')">{{ errors.first('name') }}</div>
+            <span class="label">Your Name</span>
 
-            <input class="input" type="text" name="bio" placeholder="bio" v-model="auth.bio">
+            <input class="input" type="text" name="bio" placeholder="Tell us about yerself" v-model="auth.bio">
             <div class="error" v-if="errors.has('bio')">{{ errors.first('bio') }}</div>
+            <span class="label">Bio</span>
 
             <input class="input" type="password" name="password" autocorrect="off" autocapitalize="none" v-validate="" placeholder="new password" v-model="auth.password">
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
@@ -75,3 +80,13 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+@import "~resources";
+
+.label {
+  color: $grey-cool;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  display: block;
+}
+</style>
