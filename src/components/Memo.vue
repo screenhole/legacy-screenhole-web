@@ -9,7 +9,7 @@
                 {{memo.message}}
             </div>
 
-            <audio-player :sources="audioSources"></audio-player>
+            <audio-player :sources="audioSources" :html5="true"></audio-player>
         </div>
     </div>
 </template>
@@ -31,7 +31,7 @@ export default {
 
     computed: {
         audioSources: function() {
-            return [ this.memo.media_path ]
+            return [ this.memo.media_public_url ]
         },
 
         owned_by_current_user: function() {
