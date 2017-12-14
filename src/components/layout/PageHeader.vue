@@ -138,11 +138,13 @@ header {
     border-bottom: 1px solid $grey-warm;
 
     &.mobile {
-        padding-left: 0;
+        padding-left: 10px;;
     }
 
     .logo {
-        display: flex;
+        display: block;
+        align-self: flex-start;
+        width: 200px;
     }
 
     .overlay {
