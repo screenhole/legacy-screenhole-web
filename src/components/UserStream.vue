@@ -26,14 +26,14 @@
 
     </div>
 
-    <div class="profileFooter">
+    <div class="profileFooter" v-bind:class="{'mobile': $mq.mobile}">
         <section class="bio" v-if="user.bio">
-            {{user.bio}} fuck
+            {{user.bio}}
         </section>
 
-        <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
+        <!-- <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
             <router-link to="/settings">Edit Profile</router-link>
-        </section>
+        </section> -->
     </div>
 
 
@@ -172,7 +172,7 @@ export default {
     align-items: flex-start;
 
     &.mobile {
-      padding: 50px 10px;
+      padding: 50px 10px 0 10px;
 
       .avatar {
         min-width: 60px;
@@ -180,6 +180,7 @@ export default {
       }
 
     }
+
     .avatar {
       display: block;
       min-width: 100px;
@@ -225,7 +226,7 @@ export default {
     }
 
     .right {
-        background-color: yellow;
+      background-color: yellow;
       flex-grow: 1;
       max-width: 400px;
       display: flex;
@@ -256,24 +257,27 @@ export default {
   }
 
   .profileFooter {
-      background-color: red;
-      padding: 25px 50px;
       display: flex;
+      background-color: red;
       justify-content: center;
       align-items: flex-start;
-      flex-direction: column;
 
-      .bio, .profileControls {
-          background-color: purple;
+      &.mobile {
+        .bio {
+          margin-top: 10px;
+          padding-right: 10px;
+          padding-left: 10px;
+        }
+      }
+      .bio {
+        background-color: orange;
+          flex-grow: 1;
           max-width: 1200px;
           display: flex;
-          align-items: flex-start;
-          flex-grow: 1;
-
-          a {
-              color: $purple;
-          }
+          padding-left: 130px;
+          padding-right: 50px;
       }
+
   }
 }
 
