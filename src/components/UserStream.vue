@@ -27,13 +27,17 @@
     </div>
 
     <div class="profileFooter" v-bind:class="{'mobile': $mq.mobile}">
+
+      <div class="inner">
         <section class="bio" v-if="user.bio">
-            {{user.bio}}
+          {{user.bio}}
         </section>
 
         <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
-            <router-link to="/settings">Edit Profile</router-link>
+          <router-link to="/settings">Edit Profile</router-link>
         </section>
+      </div>
+
     </div>
 
 
@@ -254,34 +258,28 @@ export default {
   }
 
   .profileFooter {
-    padding: 0 50px;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       border-bottom: 1px solid $grey-warm;
       color: #75707e;
-      padding-bottom: 50px;
-      flex-direction: column;
+      line-height: 150%;
+
+      padding: 25px 50px 50px 50px;
+
+      a {
+        color: $purple;
+      }
 
       &.mobile {
-        .bio, .profileControls {
-          margin-top: 10px;
-          padding-right: 10px;
+        .inner {
           padding-left: 45px;
         }
       }
 
-      .bio, .profileControls {
-          flex-grow: 1;
-          max-width: 1200px;
-          display: flex;
-          padding-left: 130px;
-          padding-right: 50px;
-          line-height: 150%;
-
-          a {
-            color: $purple;
-          }
+      .inner {
+        width: 100%;
+        max-width: 1200px;
+        padding-left: 125px;
       }
 
       .profileControls {
