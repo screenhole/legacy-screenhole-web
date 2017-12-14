@@ -31,10 +31,13 @@
           <h2>Leave a Voice Memo</h2>
           <p>Click the little telephone icon above a post, and follow the prompts. Make sure to say something funny if you want people to like you.</p>
 
+          <h2>Set your Avatar</h2>
+          <p>Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>. We'll let you manually set it in your profile soon.</p>
+
           <h1>Get in touch</h1>
           <p>Since this whole thing is crazy, expect rough edges 🤭 . If you find a bug, or get stuck, email <a href="mailto:screenhole@thinko.com">screenhole@thinko.com</a>, and we'll get back to you. HAVE FUN!</p>
 
-          <p>- Last updated by <a href="/pasquale">@pasquale</a> at 1:10am, Dec 14, 2017</p>
+          <p>- Last updated by <a href="/pasquale">@pasquale</a> at 1:25am, Dec 14, 2017</p>
         </section>
     </div>
 

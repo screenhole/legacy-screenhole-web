@@ -33,7 +33,7 @@
                 </template>
 
                 <a class="nav" href="https://twitter.com/screenhole">twitter</a>
-                <router-link class="nav" to="/wtf">wtf?</router-link>
+                <router-link class="nav" to="/wtf">manual</router-link>
             </nav>
 
             <nav class="pages">
@@ -46,7 +46,7 @@
         <nav class="pages" v-if="! $mq.mobile">
             <a href="/" @click.prevent="toggleChomments">chomment</a>
             <a href="https://twitter.com/screenhole">twitter</a>
-            <router-link to="/wtf">wtf?</router-link>
+            <router-link to="/wtf">manual</router-link>
 
             <template v-if="! $auth.check()">
                 <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get invite</a>

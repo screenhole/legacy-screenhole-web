@@ -1,7 +1,7 @@
 <template>
     <div class="mr-hole">
         <div class="bubble">
-            <span>Lookin' hot 🔥</span>
+            <span>Check out the <a href="/wtf">manual</a>!</span>
         </div>
         <img class="cutie" @click.prevent="jump" src="../../assets/img/mr-hole-christmas.svg" alt="MR. HOLE">
     </div>
