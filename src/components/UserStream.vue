@@ -12,13 +12,6 @@
           <h1>{{user.name || user.username}}</h1>
           <h2 class="username">@{{user.username}}</h2>
 
-          <section class="bio" v-if="user.bio">
-            {{user.bio}}
-          </section>
-
-          <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
-              <router-link to="/settings">Edit Profile</router-link>
-          </section>
         </div>
 
       </div>
@@ -32,6 +25,19 @@
       </div>
 
     </div>
+
+    <div class="profileFooter">
+        <section class="bio" v-if="user.bio">
+            {{user.bio}} fuck
+        </section>
+
+        <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
+            <router-link to="/settings">Edit Profile</router-link>
+        </section>
+    </div>
+
+
+
 
     <div class="stream" v-bind:class="{'mobile': $mq.mobile}">
       <grab
@@ -158,18 +164,19 @@ export default {
   min-height: 100%;
 
   .profile {
-    padding: 50px;
+    background-color: pink;
+    padding: 50px 50px 0 50px;
     border-bottom: 1px solid $grey-warm;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 
     &.mobile {
-      padding: 50px 25px;
+      padding: 50px 10px;
 
       .avatar {
-        min-width: 75px;
-        height: 75px;
+        min-width: 60px;
+        height: 60px;
       }
 
     }
@@ -181,6 +188,7 @@ export default {
     }
 
     .left {
+    background-color: green;
       flex-grow: 2;
       max-width: 800px;
       display: flex;
@@ -213,20 +221,11 @@ export default {
           font-weight: normal;
         }
 
-        .bio {
-          max-width: 500px;
-          color:#868091;
-          line-height: 150%;
-          margin-top: 15px;
-
-          a {
-            color: $purple;
-          }
-        }
       }
     }
 
     .right {
+        background-color: yellow;
       flex-grow: 1;
       max-width: 400px;
       display: flex;
@@ -256,6 +255,26 @@ export default {
 
   }
 
+  .profileFooter {
+      background-color: red;
+      padding: 25px 50px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+
+      .bio, .profileControls {
+          background-color: purple;
+          max-width: 1200px;
+          display: flex;
+          align-items: flex-start;
+          flex-grow: 1;
+
+          a {
+              color: $purple;
+          }
+      }
+  }
 }
 
 .stream {
