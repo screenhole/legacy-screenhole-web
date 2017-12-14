@@ -1,7 +1,7 @@
 <template>
     <div class="mr-hole">
         <div class="bubble">
-            <span>ho, ho, hole!</span>
+            <span>Lookin' hot 🔥</span>
         </div>
         <img class="cutie" @click.prevent="jump" src="../../assets/img/mr-hole-christmas.svg" alt="MR. HOLE">
     </div>
@@ -55,15 +55,15 @@ export default {
         box-shadow: 0px 3px 31px -8px rgba(0,0,0,0.75);
 
         a {
-            color: white;
-            text-decoration: underline;
+            color: #3ae06d;
+            // text-decoration: underline;
             transition: all 0.2s;
             display: inline-block;
 
             &:hover {
                 transform: translateY(-2px);
                 text-decoration: none;
-                color: #f438be;
+                color: white;
             }
         }
 
