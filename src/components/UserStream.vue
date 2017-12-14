@@ -262,7 +262,7 @@ export default {
       justify-content: center;
       border-bottom: 1px solid $grey-warm;
       color: #75707e;
-      line-height: 120%;
+      line-height: 150%;
       padding: 0 50px 50px 50px;
 
       a {
@@ -270,6 +270,8 @@ export default {
       }
 
       &.mobile {
+        padding-top: 10px;
+
         .inner {
           padding-left: 45px;
         }
