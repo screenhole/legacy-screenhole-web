@@ -34,6 +34,7 @@
           <h1>Get in touch</h1>
           <p>Since this whole thing is crazy, expect rough edges 🤭 . If you find a bug, or get stuck, email <a href="mailto:screenhole@thinko.com">screenhole@thinko.com</a>, and we'll get back to you. HAVE FUN!</p>
 
+          <p>- Last updated by <a href="/pasquale">@pasquale</a> at 1:10am, Dec 14, 2017</p>
         </section>
     </div>
 
