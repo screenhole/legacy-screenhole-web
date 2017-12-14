@@ -234,6 +234,7 @@ aside {
                 flex-grow: 1;
                 max-width: calc(100% - 45px);
                 word-wrap: break-word;
+                overflow: hidden;
 
                 .username {
                     color: #ccc;
