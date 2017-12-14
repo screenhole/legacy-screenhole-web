@@ -31,9 +31,9 @@
             {{user.bio}}
         </section>
 
-        <!-- <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
+        <section class="profileControls" v-if="$auth.check() && $auth.user().username == user.username">
             <router-link to="/settings">Edit Profile</router-link>
-        </section> -->
+        </section>
     </div>
 
 
@@ -164,9 +164,8 @@ export default {
   min-height: 100%;
 
   .profile {
-    background-color: pink;
     padding: 50px 50px 0 50px;
-    border-bottom: 1px solid $grey-warm;
+
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -189,7 +188,6 @@ export default {
     }
 
     .left {
-    background-color: green;
       flex-grow: 2;
       max-width: 800px;
       display: flex;
@@ -226,7 +224,6 @@ export default {
     }
 
     .right {
-      background-color: yellow;
       flex-grow: 1;
       max-width: 400px;
       display: flex;
@@ -257,25 +254,38 @@ export default {
   }
 
   .profileFooter {
+    padding: 0 50px;
       display: flex;
-      background-color: red;
       justify-content: center;
       align-items: flex-start;
+      border-bottom: 1px solid $grey-warm;
+      color: #75707e;
+      padding-bottom: 50px;
+      flex-direction: column;
 
       &.mobile {
-        .bio {
+        .bio, .profileControls {
           margin-top: 10px;
           padding-right: 10px;
-          padding-left: 10px;
+          padding-left: 45px;
         }
       }
-      .bio {
-        background-color: orange;
+
+      .bio, .profileControls {
           flex-grow: 1;
           max-width: 1200px;
           display: flex;
           padding-left: 130px;
           padding-right: 50px;
+          line-height: 150%;
+
+          a {
+            color: $purple;
+          }
+      }
+
+      .profileControls {
+        margin-top: 25px;
       }
 
   }
