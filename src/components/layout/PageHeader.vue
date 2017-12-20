@@ -8,7 +8,7 @@
 
             <template v-if="$auth.check()">
                 <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
-                    <img class="icon" src="../../assets/img/buttcoin.svg" alt="buttcoin">
+                    <img class="icon" src="../../assets/img/buttcoin-spin.gif" alt="buttcoin">
                     <span>{{ $auth.user().stats.buttcoins }}</span>
                 </div>
             </template>
