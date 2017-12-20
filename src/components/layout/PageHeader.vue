@@ -6,10 +6,12 @@
             <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
           </router-link>
 
-          <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
-            <img class="icon" src="../../assets/img/buttcoin.svg" alt="buttcoin">
-            <span>100</span>
-          </div>
+          <template v-if="$auth.check()">
+            <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
+              <img class="icon" src="../../assets/img/buttcoin.svg" alt="buttcoin">
+              <span>100</span>
+            </div>
+          </template>
 
         </div>
 
@@ -57,9 +59,9 @@
             <router-link to="/wtf">manual</router-link>
 
             <template v-if="! $auth.check()">
-                <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get invite</a>
+                <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get&nbsp;invite</a>
 
-                <router-link to="/login">log in</router-link>
+                <router-link to="/login">log&nbsp;in</router-link>
             </template>
 
             <template v-if="$auth.check()">
@@ -253,7 +255,7 @@ header {
             margin-left: 50px;
             text-decoration: none;
             margin-top: 3px;
-            display: flex;
+            display: inline-block;
 
             &:hover {
               color: $bright-green;
