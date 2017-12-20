@@ -1,8 +1,17 @@
 <template>
     <header class="splitscreen-Top" v-bind:class="{'mobile': $mq.mobile}">
-        <router-link class="logo" to="/" exact>
+        <div class="left" v-bind:class="{'mobile': $mq.mobile}">
+
+          <router-link class="logo" to="/" exact>
             <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
-        </router-link>
+          </router-link>
+
+          <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
+            <img class="icon" src="../../assets/img/buttcoin.svg" alt="buttcoin">
+            <span>100</span>
+          </div>
+
+        </div>
 
         <template v-if="$mq.mobile">
             <nav class="overlay" v-bind:class="{ 'visible': overlayVisible }">
@@ -44,7 +53,6 @@
         </template>
 
         <nav class="pages" v-if="! $mq.mobile">
-            <a href="/" @click.prevent="toggleChomments">chomment</a>
             <a href="https://twitter.com/screenhole">twitter</a>
             <router-link to="/wtf">manual</router-link>
 
@@ -138,15 +146,40 @@ header {
     border-bottom: 1px solid $grey-warm;
 
     &.mobile {
-        padding-left: 10px;;
+        padding-left: 10px;
+
     }
 
-    .logo {
+
+    .left {
+      display: flex;
+      align-self: flex-start;
+      justify-content: space-between;
+      width: 100%;
+
+      .logo {
         display: block;
-        align-self: flex-start;
         width: 200px;
-    }
+      }
 
+      .buttcoin {
+        display: flex;
+        height: 25px;
+        color: white;
+
+        .icon {
+          width: 25px;
+        }
+        span {
+          font-size: 16px;
+          display: block;
+          margin-top: 4px;
+          margin-left: 5px;
+          color: #ffd655;
+
+        }
+      }
+    }
     .overlay {
         position: fixed;
         top: 0;
