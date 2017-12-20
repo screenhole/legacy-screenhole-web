@@ -2,17 +2,16 @@
     <header class="splitscreen-Top" v-bind:class="{'mobile': $mq.mobile}">
         <div class="left" v-bind:class="{'mobile': $mq.mobile}">
 
-          <router-link class="logo" to="/" exact>
-            <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
-          </router-link>
+            <router-link class="logo" to="/" exact>
+                <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
+            </router-link>
 
-          <template v-if="$auth.check()">
-            <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
-              <img class="icon" src="../../assets/img/buttcoin.svg" alt="buttcoin">
-              <span>100</span>
-            </div>
-          </template>
-
+            <template v-if="$auth.check()">
+                <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
+                    <img class="icon" src="../../assets/img/buttcoin.svg" alt="buttcoin">
+                    <span>100</span>
+                </div>
+            </template>
         </div>
 
         <template v-if="$mq.mobile">
