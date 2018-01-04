@@ -1,9 +1,9 @@
 <template>
     <div class="mr-hole">
         <div class="bubble">
-            <span>Check out the <a href="/wtf">manual</a>!</span>
+            <span>Happy New Year!</a>!</span>
         </div>
-        <img class="cutie" @click.prevent="jump" src="../../assets/img/mr-hole-christmas.svg" alt="MR. HOLE">
+        <img class="cutie" @click.prevent="jump" src="../../assets/img/mr-hole-grin.svg" alt="MR. HOLE">
     </div>
 </template>
 
@@ -44,8 +44,8 @@ export default {
 
     .bubble {
         position: fixed;
-        bottom: 90px;
-        right: 38px;
+        bottom: 80px;
+        right: 37px;
         max-width: 250px;
         padding: 15px;
         border-radius: 5px;

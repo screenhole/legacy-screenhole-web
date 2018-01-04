@@ -31,6 +31,9 @@
           <h2>Leave a Voice Memo</h2>
           <p>Click the little telephone icon above a post, and follow the prompts. Make sure to say something funny if you want people to like you.</p>
 
+          <h2>Buttcoin?</h2>
+          <p>It's a craptocurrency. Score Buttcoin by using Screenhole. You can spend it soon.</p>
+
           <h2>Set your Avatar</h2>
           <p>Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>. We'll let you manually set it in your profile soon.</p>
 
