@@ -80,7 +80,7 @@ export default {
                 return alert("Log in to leave a voice memo!");
             }
 
-            this.$http.post("/shots/" + this.grab.id + '/memos', {
+            this.$http.post("/grabs/" + this.grab.id + '/memos', {
                 memo: {
                     'variant': 'voice',
                 }
@@ -96,7 +96,7 @@ export default {
         deleteGrab: function() {
             if (! confirm('Are you sure you want to delete this grab?')) return;
 
-            return this.$http.delete("/shots/" + this.grab.id)
+            return this.$http.delete("/grabs/" + this.grab.id)
             .then(function(){
                 this.$router.push('/');
             }.bind(this))
@@ -131,7 +131,7 @@ export default {
             "MemosChannel",
             {
                 received: (data) => {
-                    if (data.memo.shot.id != this.grab.id) return;
+                    if (data.memo.grab.id != this.grab.id) return;
 
                     var found = false;
 

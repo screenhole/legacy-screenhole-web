@@ -38,7 +38,7 @@ function buildTags(metas) {
 }
 
 /*
-router.get('/:username/~:shot_id', function (req, res, next) {
+router.get('/:username/~:grab_id', function (req, res, next) {
     // have to bail if headers already sent somehow
     if (res.headerSent) {
         return next();
@@ -46,9 +46,9 @@ router.get('/:username/~:shot_id', function (req, res, next) {
 
     const url = 'https://' + req.get('host') + req.originalUrl
 
-    axios.get('/shots/' + req.params.shot_id)
+    axios.get('/grabs/' + req.params.grab_id)
     .then(function(response) {
-        const image = response.data.shot.image_public_url.replace('s3.amazonaws.com', 'accelerator.net')
+        const image = response.data.grab.image_public_url.replace('s3.amazonaws.com', 'accelerator.net')
         const description = 'Grab by ' + req.params.username + ' in screenhole'
 
         const tags = buildTags([

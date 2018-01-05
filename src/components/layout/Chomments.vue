@@ -19,7 +19,7 @@
                     <br>
 
                     <template v-if="item.variant == 'voice_memo'">
-                        <template v-if="item.cross_ref_type == 'Shot'">
+                        <template v-if="item.cross_ref_type == 'Grab'">
                             &ldquo;<router-link class="username" :to="{ name: 'grab-permalink', params: {
                                     // TODO: find the username
                                     username: 'grab',

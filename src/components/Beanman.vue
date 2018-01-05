@@ -153,15 +153,15 @@ export default {
         };
     },
     mounted(){
-        this.$http.get("/shots", { "per_page": 1}).then((response) => {
-            this.backgroundImage = response.data.shots[0].image_public_url;
+        this.$http.get("/grabs", { "per_page": 1}).then((response) => {
+            this.backgroundImage = response.data.grabs[0].image_public_url;
         });
 
         this.$cable.subscriptions.create(
-            "ShotsChannel",
+            "GrabsChannel",
             {
                 received: (data) => {
-                    this.backgroundImage = data.shot.image_public_url;
+                    this.backgroundImage = data.grab.image_public_url;
                 }
             }
         );

@@ -95,14 +95,14 @@ export default {
             }
 
             // start pagination loop
-            this.$http.get("/users/" + this.user.id + "/shots", {
+            this.$http.get("/users/" + this.user.id + "/grabs", {
                 params: {
                     page: this.page,
                 }
             }).then((response) => {
                 var data = response.data;
 
-                this.grabs = this.grabs.concat(data.shots);
+                this.grabs = this.grabs.concat(data.grabs);
 
                 if (data.meta.next_page) {
                     this.page = data.meta.next_page;
@@ -137,11 +137,11 @@ export default {
         // not rerun when going between same components
 
         this.$cable.subscriptions.create(
-            "ShotsChannel",
+            "GrabsChannel",
             {
                 received: (data) => {
-                    if (data.shot.user.id == this.user.id) {
-                        this.grabs.unshift(data.shot);
+                    if (data.grab.user.id == this.user.id) {
+                        this.grabs.unshift(data.grab);
                     }
                 }
             }

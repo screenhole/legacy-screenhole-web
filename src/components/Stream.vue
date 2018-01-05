@@ -80,14 +80,14 @@ export default {
         },
 
         infiniteHandler($state) {
-            this.$http.get("/shots", {
+            this.$http.get("/grabs", {
                 params: {
                     page: this.page,
                 }
             }).then((response) => {
                 var data = response.data;
 
-                this.grabs = this.grabs.concat(data.shots);
+                this.grabs = this.grabs.concat(data.grabs);
 
                 if (data.meta.next_page) {
                     this.page = data.meta.next_page;
@@ -101,10 +101,10 @@ export default {
 
     mounted(){
         this.$cable.subscriptions.create(
-            "ShotsChannel",
+            "GrabsChannel",
             {
                 received: (data) => {
-                    this.grabs.unshift(data.shot);
+                    this.grabs.unshift(data.grab);
                 }
             }
         );
