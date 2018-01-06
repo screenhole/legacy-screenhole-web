@@ -90,6 +90,7 @@ export default {
             width: 35px;
             height: 35px;
             align-self: flex-end;
+            flex-shrink: 0;
         }
     }
 }
