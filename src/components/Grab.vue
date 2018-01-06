@@ -267,7 +267,7 @@ export default {
 
     .grab_image {
         clear: both;
-        display: block;
+        display: inline-block;
         max-width: 100%;
         border-radius: 5px;
         transition: all 0.1s ease;
