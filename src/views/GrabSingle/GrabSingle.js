@@ -61,7 +61,9 @@ class MetaTags extends Component {
         <meta name="twitter:creator" content="@screenhole" />
         <meta
           name="twitter:url"
-          content={`https://screenhole.net/grab/${this.props.grab_id}`}
+          content={`https://screenhole.net/${this.props.username}/${
+            this.props.grab_id
+          }`}
         />
         <meta
           name="twitter:title"

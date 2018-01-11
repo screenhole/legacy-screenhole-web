@@ -20,7 +20,7 @@ class App extends Component {
         <MainContent>
           <Switch>
             <Route exact path="/" component={GrabStream} />
-            <Route path="/grab/:id" component={GrabSingle} />
+            <Route path="/:username/:id" component={GrabSingle} />
             <Route exact path="/manual" component={Manual} />
             <Route path="*" component={NotFound} />
           </Switch>
