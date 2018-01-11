@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Nav from './components/Nav/Nav';
 import ChommentStream from './views/ChommentStream/ChommentStream';
 import GrabStream from './views/GrabStream/GrabStream';
+import GrabSingle from './views/GrabSingle/GrabSingle';
 import Manual from './views/Manual/Manual';
 import NotFound from './views/NotFound/NotFound';
 
@@ -19,6 +20,7 @@ class App extends Component {
         <MainContent>
           <Switch>
             <Route exact path="/" component={GrabStream} />
+            <Route path="/grab/:id" component={GrabSingle} />
             <Route exact path="/manual" component={Manual} />
             <Route path="*" component={NotFound} />
           </Switch>

@@ -10,7 +10,7 @@ class Nav extends Component {
     return (
       <Navbar>
         <Link to="/">
-          <Logo src="./img/screenhole-logo.svg" alt="SCREENHOLE!" />
+          <Logo src="/img/screenhole-logo.svg" alt="SCREENHOLE!" />
         </Link>
         <Menu>
           <Buttcoin amount="6969" />

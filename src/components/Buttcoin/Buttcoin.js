@@ -8,7 +8,7 @@ class Buttcoin extends Component {
   render() {
     return (
       <Wrapper>
-        <Coin src="./img/buttcoin-spin.gif" alt="Hold on to your $butt" />
+        <Coin src="/img/buttcoin-spin.gif" alt="Hold on to your $butt" />
         {this.props.amount && <span>{this.props.amount}</span>}
       </Wrapper>
     );
