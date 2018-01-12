@@ -5,21 +5,46 @@ import Helmet from 'react-helmet';
 import Grab from '../../components/Grab/Grab';
 
 class GrabSingle extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const grab_id = this.props.match.params.id;
+
+    this.state = {
+      currentGrab: grab_id.substr(1) // removes "~"
+    };
+  }
+  componentWillMount() {
+    fetch(`https://api.screenhole.net/grabs/${this.state.currentGrab}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          grab: res.grab
+        });
+      })
+      .catch();
   }
   render() {
     return (
       <article>
-        <MetaTags
-          username="pasquale"
-          grab_id="123"
-          grab_url="https://pbs.twimg.com/profile_images/757821676977397760/4VX6_NlV_400x400.jpg"
-        />
-        <Grab
-          grab_url="https://pbs.twimg.com/profile_images/757821676977397760/4VX6_NlV_400x400.jpg"
-          username="pasquale"
-        />
+        {this.state.grab ? (
+          <span>
+            <MetaTags
+              username={this.state.grab.user.username}
+              grab_id={this.state.grab.id}
+              grab_image_url={this.state.grab.image_public_url}
+            />
+            <Grab
+              username={this.state.grab.user.username}
+              image={this.state.grab.image_public_url}
+              id={this.state.grab.id}
+              gravatar={this.state.grab.user.gravatar_hash}
+              key={this.state.grab.id}
+            />
+          </span>
+        ) : (
+          'Loading...'
+        )}
       </article>
     );
   }
@@ -43,13 +68,13 @@ class MetaTags extends Component {
         />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
-        <meta property="og:url" content={this.props.grab_url} />
+        <meta property="og:url" content={this.props.grab_image_url} />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
           content={`${this.props.username}’s Grab on SCREENHOLE!`}
         />
-        <meta property="og:image" content={this.props.grab_url} />
+        <meta property="og:image" content={this.props.grab_image_url} />
         <meta
           property="og:description"
           content={`Check out this cool Grab from ${this.props.username}.`}
@@ -73,7 +98,7 @@ class MetaTags extends Component {
           name="twitter:description"
           content={`Check out this cool Grab from ${this.props.username}.`}
         />
-        <meta name="twitter:image" content={this.props.grab_url} />
+        <meta name="twitter:image" content={this.props.grab_image_url} />
       </Helmet>
     );
   }

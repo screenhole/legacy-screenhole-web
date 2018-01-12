@@ -11,7 +11,7 @@ class ChommentStream extends Component {
       chomments: []
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     fetch(`https://api.screenhole.net/chomments?page=1`)
       .then(res => res.json())
       .then(res => {

@@ -21,7 +21,7 @@ class App extends Component {
         <MainContent>
           <Switch>
             <Route exact path="/" component={GrabStream} />
-            <Route path="/:username" component={UserStream} />
+            <Route exact path="/:username" component={UserStream} />
             <Route path="/:username/:id" component={GrabSingle} />
             <Route exact path="/manual" component={Manual} />
             <Route path="*" component={NotFound} />

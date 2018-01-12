@@ -11,12 +11,10 @@ class Chomment extends Component {
   render() {
     return (
       <Wrapper>
-        <Link to={`/${this.props.username}`}>
-          <Avatar
-            src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
-            username="Mr. Hole"
-          />
-        </Link>
+        <Avatar
+          src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
+          username={this.props.username}
+        />
         <Content>
           <Link to="/pasquale">{this.props.username}</Link>
           <Message>{this.props.message}</Message>
@@ -33,6 +31,9 @@ const Wrapper = styled.div`
   margin: var(--app-padding) 0;
 
   img {
+    background-color: var(--muted-color);
+    width: 2.25rem;
+    height: 2.25rem;
     flex-shrink: 0;
     margin-right: 0.5rem;
   }
