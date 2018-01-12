@@ -8,7 +8,7 @@ class ChommentStream extends Component {
     super();
 
     this.state = {
-      chomments: []
+      chomments: false
     };
   }
   componentWillMount() {
@@ -33,7 +33,7 @@ class ChommentStream extends Component {
                 key={chomment.id}
               />
             ))
-          : 'Loading...'}
+          : 'Stacking up them Chomments...'}
       </Chomments>
     );
   }
@@ -50,7 +50,19 @@ const Chomments = styled.aside`
   max-width: var(--sidebar-width);
   border-right: var(--divider);
   padding: var(--app-padding);
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column-reverse;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overscroll-behavior: contain;
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    left 20%,
+    left top,
+    from(#000),
+    to(rgba(0, 0, 0, 0))
+  );
 
   ::-webkit-scrollbar {
     display: none;

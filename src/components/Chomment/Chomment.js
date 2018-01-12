@@ -11,14 +11,16 @@ class Chomment extends Component {
   render() {
     return (
       <Wrapper>
-        <Avatar
-          src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
-          username={this.props.username}
-        />
-        <Content>
-          <Link to="/pasquale">{this.props.username}</Link>
-          <Message>{this.props.message}</Message>
-        </Content>
+        <InnerChomment>
+          <Avatar
+            src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
+            username={this.props.username}
+          />
+          <Content>
+            <Link to={`/${this.props.username}`}>{this.props.username}</Link>
+            <Message>{this.props.message}</Message>
+          </Content>
+        </InnerChomment>
       </Wrapper>
     );
   }
@@ -27,8 +29,12 @@ class Chomment extends Component {
 export default Chomment;
 
 const Wrapper = styled.div`
-  display: flex;
+  display: block;
   margin: var(--app-padding) 0;
+`;
+
+const InnerChomment = styled.div`
+  display: flex;
 
   img {
     background-color: var(--muted-color);
