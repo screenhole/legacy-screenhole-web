@@ -12,16 +12,14 @@ class GrabStream extends Component {
     };
   }
   componentWillMount() {
-    // fetch(`https://api.screenhole.net/grabs?page=1`)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     window.localStorage.setItem('grabs', JSON.stringify(res.grabs));
-    //
-    //     this.setState({
-    //       grabs: JSON.parse(window.localStorage.grabs)
-    //     });
-    //   })
-    //   .catch();
+    fetch(`https://api.screenhole.net/grabs?page=1`)
+      .then(res => res.json())
+      .then(res => {
+        window.localStorage.setItem('grabs', JSON.stringify(res.grabs));
+      })
+      .catch();
+  }
+  componentDidMount() {
     this.setState({
       grabs: JSON.parse(window.localStorage.grabs)
     });
