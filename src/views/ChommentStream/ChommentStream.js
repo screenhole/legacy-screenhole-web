@@ -4,19 +4,36 @@ import styled from 'styled-components';
 import Chomment from '../../components/Chomment/Chomment';
 
 class ChommentStream extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      chomments: []
+    };
+  }
+  componentDidMount() {
+    fetch(`https://api.screenhole.net/chomments?page=1`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          chomments: res.chomments
+        });
+      })
+      .catch();
+  }
   render() {
     return (
       <Chomments>
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
-        <Chomment />
+        {this.state.chomments
+          ? this.state.chomments.map(chomment => (
+              <Chomment
+                username={chomment.user.username}
+                message={chomment.message}
+                gravatar={chomment.user.gravatar_hash}
+                key={chomment.id}
+              />
+            ))
+          : 'Loading...'}
       </Chomments>
     );
   }

@@ -5,21 +5,21 @@ import styled from 'styled-components';
 import Avatar from '../User/Avatar';
 
 class Chomment extends Component {
+  constructor() {
+    super();
+  }
   render() {
     return (
       <Wrapper>
-        <Link to="/pasquale">
+        <Link to={`/${this.props.username}`}>
           <Avatar
-            src="https://pbs.twimg.com/profile_images/757821676977397760/4VX6_NlV_400x400.jpg"
+            src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
             username="Mr. Hole"
           />
         </Link>
         <Content>
-          <Link to="/pasquale">pasquale</Link>
-          <Message>
-            I've thieved your buttcoin gif into our Slack. Let me know where to
-            send royalties (in buttcoin obv).
-          </Message>
+          <Link to="/pasquale">{this.props.username}</Link>
+          <Message>{this.props.message}</Message>
         </Content>
       </Wrapper>
     );
@@ -46,6 +46,7 @@ const Message = styled.p`
   color: var(--muted-color);
   line-height: 1.45;
   font-size: 0.925rem;
+  word-break: break-word;
 `;
 
 const Content = styled.div`
