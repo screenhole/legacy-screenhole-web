@@ -8,6 +8,9 @@ class Grab extends Component {
   constructor() {
     super();
   }
+  showMemoInstructions() {
+    alert('Call 1-810-420-8008 and enter 72195');
+  }
   render() {
     return (
       <Wrapper>
@@ -19,7 +22,7 @@ class Grab extends Component {
           <Link to={`/${this.props.username}`} className="grab-username">
             {this.props.username}
           </Link>
-          <MemoButton>
+          <MemoButton onClick={this.showMemoInstructions}>
             <svg
               width="25"
               height="25"
