@@ -36,6 +36,9 @@ class ChommentStream extends Component {
               ))
             : 'Stacking up them Chomments...'}
         </InnerChomments>
+        <ChommentInputWrapper>
+          <Input type="text" placeholder="Type some chomments" />
+        </ChommentInputWrapper>
       </Chomments>
     );
   }
@@ -52,6 +55,7 @@ const Chomments = styled.aside`
   max-width: var(--sidebar-width);
   box-shadow: inset -1px 0 0 0 var(--divider-color);
   padding: var(--app-padding);
+  padding-bottom: 4rem;
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
@@ -82,4 +86,30 @@ const Chomments = styled.aside`
 
 const InnerChomments = styled.div`
   padding-top: 2rem;
+`;
+
+const ChommentInputWrapper = styled.form`
+  display: block;
+  position: fixed;
+  width: var(--sidebar-width);
+  bottom: 0;
+  left: 0;
+`;
+
+const Input = styled.input`
+  height: 100%;
+  width: 100%;
+  font-size: 1rem;
+  color: #fff;
+  border: 0;
+  border-top: 1px solid #222;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.65);
+  background-color: var(--body-bg-color);
+  transform: translateZ(0);
+  padding: var(--app-padding);
+
+  &:focus {
+    outline: none;
+    background-color: #111;
+  }
 `;

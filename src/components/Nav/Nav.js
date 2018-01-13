@@ -65,7 +65,6 @@ const Menu = styled.div`
   justify-content: flex-end;
   text-align: right;
 
-  img,
   a {
     margin-left: 3rem;
   }
