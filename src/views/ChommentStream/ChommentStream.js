@@ -91,7 +91,7 @@ const InnerChomments = styled.div`
 const ChommentInputWrapper = styled.form`
   display: block;
   position: fixed;
-  width: var(--sidebar-width);
+  width: calc(var(--sidebar-width) - 1px);
   bottom: 0;
   left: 0;
 `;
@@ -107,6 +107,7 @@ const Input = styled.input`
   background-color: var(--body-bg-color);
   transform: translateZ(0);
   padding: var(--app-padding);
+  transition: 0.2s ease all;
 
   &:focus {
     outline: none;
