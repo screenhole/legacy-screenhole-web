@@ -10,6 +10,7 @@
     "react-helmet": "^5.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-router-scroll-memory": "^1.0.1",
     "react-scripts": "1.0.17",
     "styled-components": "^2.4.0"
   },

@@ -2,8 +2,7 @@ import 'babel-polyfill'; // required for prerendering & OG tags!
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-
-import ScrollToTop from './utils/ScrollToTop';
+import ScrollMemory from 'react-router-scroll-memory';
 import registerServiceWorker from './registerServiceWorker';
 
 import App from './App';
@@ -14,9 +13,10 @@ import './index.css';
 
 ReactDOM.render(
   <Router>
-    <ScrollToTop>
+    <div>
+      <ScrollMemory />
       <App />
-    </ScrollToTop>
+    </div>
   </Router>,
   document.getElementById('app')
 );
