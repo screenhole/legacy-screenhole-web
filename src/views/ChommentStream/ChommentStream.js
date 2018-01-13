@@ -50,7 +50,8 @@ const Chomments = styled.aside`
   height: calc(100% - var(--nav-height));
   width: 100%;
   max-width: var(--sidebar-width);
-  ${'' /* border-right: var(--divider); */} padding: var(--app-padding);
+  box-shadow: inset -1px 0 0 0 var(--divider-color);
+  padding: var(--app-padding);
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
