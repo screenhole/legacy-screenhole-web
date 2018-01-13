@@ -56,6 +56,8 @@ const Navbar = styled.nav`
 
 const Logo = styled.img`
   width: 200px;
+  position: relative;
+  top: 1px;
 `;
 
 const Menu = styled.div`
