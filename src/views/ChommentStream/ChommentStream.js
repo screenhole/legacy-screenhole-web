@@ -16,7 +16,7 @@ class ChommentStream extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({
-          chomments: res.chomments
+          chomments: res.chomments.reverse()
         });
       })
       .catch();
@@ -24,16 +24,18 @@ class ChommentStream extends Component {
   render() {
     return (
       <Chomments>
-        {this.state.chomments
-          ? this.state.chomments.map(chomment => (
-              <Chomment
-                username={chomment.user.username}
-                message={chomment.message}
-                gravatar={chomment.user.gravatar_hash}
-                key={chomment.id}
-              />
-            ))
-          : 'Stacking up them Chomments...'}
+        <InnerChomments>
+          {this.state.chomments
+            ? this.state.chomments.map(chomment => (
+                <Chomment
+                  username={chomment.user.username}
+                  message={chomment.message}
+                  gravatar={chomment.user.gravatar_hash}
+                  key={chomment.id}
+                />
+              ))
+            : 'Stacking up them Chomments...'}
+        </InnerChomments>
       </Chomments>
     );
   }
@@ -48,9 +50,7 @@ const Chomments = styled.aside`
   height: calc(100% - var(--nav-height));
   width: 100%;
   max-width: var(--sidebar-width);
-  border-right: var(--divider);
-  padding: var(--app-padding);
-  padding-top: 2rem;
+  ${'' /* border-right: var(--divider); */} padding: var(--app-padding);
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
@@ -64,7 +64,21 @@ const Chomments = styled.aside`
     to(rgba(0, 0, 0, 0))
   );
 
-  ::-webkit-scrollbar {
-    display: none;
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
   }
+
+  &::-webkit-scrollbar {
+    background-color: var(--divider-color);
+    height: 6px;
+    width: 1px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+  }
+`;
+
+const InnerChomments = styled.div`
+  padding-top: 2rem;
 `;

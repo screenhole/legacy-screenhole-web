@@ -36,3 +36,15 @@ a {
 a:hover {
   color: var(--secondary-color);
 }
+
+@supports (-moz-appearance: none) {
+  aside {
+    flex-direction: column !important;
+    -webkit-mask-image: none !important;
+  }
+
+  aside > div {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}

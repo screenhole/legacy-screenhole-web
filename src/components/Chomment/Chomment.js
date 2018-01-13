@@ -30,7 +30,7 @@ export default Chomment;
 
 const Wrapper = styled.div`
   display: block;
-  margin: var(--app-padding) 0;
+  margin: calc(var(--app-padding) / 2) 0;
 `;
 
 const InnerChomment = styled.div`
