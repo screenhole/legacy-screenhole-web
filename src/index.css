@@ -37,7 +37,7 @@ a:hover {
   color: var(--secondary-color);
 }
 
-@supports (-moz-appearance: none) {
+/* @supports (-moz-appearance: none) {
   aside {
     flex-direction: column !important;
     -webkit-mask-image: none !important;
@@ -47,4 +47,4 @@ a:hover {
     display: flex !important;
     flex-direction: column !important;
   }
-}
+} */

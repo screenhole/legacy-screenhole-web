@@ -52,6 +52,10 @@ const UserInfo = styled.div`
     margin-left: 0.5rem;
     color: #fff;
     transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #fff;
+    }
   }
 `;
 
