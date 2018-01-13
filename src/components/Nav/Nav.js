@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Avatar from '../User/Avatar';
@@ -17,7 +17,7 @@ class Nav extends Component {
           <a href="https://twitter.com/screenhole" target="_blank">
             twitter
           </a>
-          <Link to="/manual">manual</Link>
+          <NavLink to="/manual">manual</NavLink>
           <Avatar
             src="https://www.gravatar.com/avatar/02c2fdca0586515379d9f6ea895f7bee?size=100&d=https%3A%2F%2Fscreenhole.net%2Fstatic%2Fimg%2Fdefault-avatar.dbeaf7a.png"
             username="Mr. Hole"
@@ -47,6 +47,10 @@ const Navbar = styled.nav`
 
   a {
     flex-shrink: 0;
+  }
+
+  [aria-current='true'] {
+    color: white;
   }
 `;
 
