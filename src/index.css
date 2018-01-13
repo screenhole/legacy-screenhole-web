@@ -21,6 +21,20 @@ body {
   min-height: 100vh;
 }
 
+h1,
+h2 {
+  font-weight: 700;
+  color: white;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
 .App {
   min-height: 100vh;
   display: block;
