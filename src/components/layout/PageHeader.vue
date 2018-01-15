@@ -3,7 +3,7 @@
         <div class="left" v-bind:class="{'mobile': $mq.mobile}">
 
             <router-link class="logo" to="/" exact>
-                <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
+                <div ref="logo"></div>
             </router-link>
 
             <template v-if="$auth.check()">
@@ -102,6 +102,17 @@ export default {
             this.overlayVisible = false;
             this.showDropdown = false;
         }
+    },
+
+    mounted: function(){
+        var logo = this.$lottie.loadAnimation({
+            container: this.$refs.logo,
+            path: require('../../assets/animation/logo/logo.json'),
+            renderer: 'canvas',
+            loop: true,
+            autoplay: true,
+            name: "logo",
+        });
     },
 
     methods: {
