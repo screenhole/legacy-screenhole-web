@@ -2,9 +2,10 @@
     <header class="splitscreen-Top" v-bind:class="{'mobile': $mq.mobile}">
         <div class="left" v-bind:class="{'mobile': $mq.mobile}">
 
-            <router-link class="logo" to="/" exact>
-                <div ref="logo"></div>
-            </router-link>
+            <div class="logo">
+                <router-link class="clicker" to="/" exact></router-link>
+                <div class="animation" ref="logo"></div>
+            </div>
 
             <template v-if="$auth.check()">
                 <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
@@ -105,14 +106,18 @@ export default {
     },
 
     mounted: function(){
-        var logo = this.$lottie.loadAnimation({
+        this.logo = this.$lottie.loadAnimation({
             container: this.$refs.logo,
             path: require('../../assets/animation/logo/logo.json'),
-            renderer: 'canvas',
-            loop: true,
-            autoplay: true,
+            renderer: 'svg',
+            loop: false,
+            autoplay: false,
             name: "logo",
         });
+
+        setTimeout(() => {
+            this.logo.play();
+        }, 1800);
     },
 
     methods: {
@@ -171,7 +176,24 @@ header {
 
       .logo {
         display: block;
-        width: 200px;
+
+        .clicker {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 260px;
+            height: 60px;
+            z-index: $z-layer-PageHeader + 1;
+        }
+
+        .animation {
+            position: absolute;
+            top: -160px;
+            left: -60px;
+            width: 380px;
+            z-index: $z-layer-PageHeader;
+            pointer-events: none;
+        }
       }
 
       .buttcoin {
