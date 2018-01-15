@@ -9,7 +9,7 @@
 
             <template v-if="$auth.check()">
                 <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
-                    <img class="icon" src="../../assets/img/buttcoin-spin.gif" alt="buttcoin">
+                    <div class="icon" ref="buttcoinIcon"></div>
                     <span>{{ $auth.user().stats.buttcoins }}</span>
                 </div>
             </template>
@@ -106,6 +106,15 @@ export default {
     },
 
     mounted: function(){
+        this.buttcoinIcon = this.$lottie.loadAnimation({
+            container: this.$refs.buttcoinIcon,
+            path: require('../../assets/animation/buttcoin/spin.json'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            name: "buttcoinIcon",
+        });
+
         this.logo = this.$lottie.loadAnimation({
             container: this.$refs.logo,
             path: require('../../assets/animation/logo/logo.json'),
@@ -202,7 +211,10 @@ header {
         color: white;
 
         .icon {
-          width: 25px;
+            width: 100px;
+            position: relative;
+            left: 30px;
+            align-self: center;
         }
         span {
           font-size: 16px;
