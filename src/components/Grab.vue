@@ -26,8 +26,14 @@
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
+                <div class="stickerStage" ref="stickerStage">
+                    <sticker
+                        v-for="(sticker, index) in stickers"
+                        v-bind:key="sticker.id"
+                        v-bind:sticker="sticker"
+                    />
+                </div>
                 <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
-                <div class="shadow"></div>
             </router-link>
 
             <memo
@@ -54,6 +60,7 @@ import ActionCable from 'actioncable';
 
 import Avatar from '@/components/Avatar';
 import Memo from '@/components/Memo';
+import Sticker from '@/components/Sticker';
 
 export default {
     props: {
@@ -88,6 +95,7 @@ export default {
                     opacity: 0,
                 }
             },
+            'stickers': [],
             'memos': [],
         }
     },
@@ -153,21 +161,9 @@ export default {
         },
 
         dropSticker: function(x, y, sticker) {
+            this.stickers.push({ x: x, y: y })
+
             console.log('sticker at:', x, y, sticker)
-        },
-
-        dragMoveListener: function(event) {
-            var target = event.target,
-                // keep the dragged position in the data-x/data-y attributes
-                x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-            // translate the element
-            target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
-            // update the posiion attributes
-            target.setAttribute('data-x', x);
-            target.setAttribute('data-y', y);
         },
     },
 
@@ -201,7 +197,20 @@ export default {
             //     endOnly: true,
             // },
 
-            onmove: this.dragMoveListener,
+            onmove: (event) => {
+                var target = event.target,
+                    // keep the dragged position in the data-x/data-y attributes
+                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+                // translate the element
+                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+                // update the posiion attributes
+                target.setAttribute('data-x', x);
+                target.setAttribute('data-y', y);
+            },
+
             // onend: function (event) {
             //     console.log('draggable.onend');
 
@@ -228,13 +237,14 @@ export default {
 
                 console.log('dropzone.ondrop');
 
-                console.log(event.dragEvent.pageX, event.dragEvent.pageY, target.getAttribute('data-sticker'))
+                var rect = target.getBoundingClientRect();
 
-                // this.dropSticker(target);
+                // TOOD: where does magic number 10 come from?
+                this.dropSticker(rect.x, rect.y - (rect.height * 0.5) - 10, target.getAttribute('data-sticker'));
 
-                // target.setAttribute('data-x', 0);
-                // target.setAttribute('data-y', 0);
-                // target.style.transform = 'translate(0px, 0px)';
+                target.setAttribute('data-x', 0);
+                target.setAttribute('data-y', 0);
+                target.style.transform = 'translate(0px, 0px)';
             }
         });
 
@@ -280,6 +290,7 @@ export default {
     components: {
         Avatar,
         Memo,
+        Sticker,
     },
 }
 </script>
@@ -410,6 +421,11 @@ export default {
                     box-shadow: 0px 0px 0px 5px $purple;
                 }
             }
+
+            .stickerStage {
+                .sticker {
+                }
+            }
         }
     }
 
@@ -456,14 +472,6 @@ export default {
                     display: inline-block;
                 }
             }
-
-            // &:first-child {
-            //     margin-left: 0;
-            // }
-
-            // &:last-child {
-            //     margin-right: 0;
-            // }
         }
 
         &.mobile {
