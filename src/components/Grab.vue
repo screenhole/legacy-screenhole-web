@@ -232,9 +232,9 @@ export default {
 
                 // this.dropSticker(target);
 
-                target.setAttribute('data-x', 0);
-                target.setAttribute('data-y', 0);
-                target.style.transform = 'translate(0px, 0px)';
+                // target.setAttribute('data-x', 0);
+                // target.setAttribute('data-y', 0);
+                // target.style.transform = 'translate(0px, 0px)';
             }
         });
 
@@ -426,6 +426,8 @@ export default {
         z-index: $z-layer-StickerTray;
 
         .sticker {
+            touch-action: none;
+
             .art {
                 position: relative;
                 width: 100px;
