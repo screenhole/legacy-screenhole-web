@@ -44,6 +44,7 @@ export default {
     bottom: -50px;
     right: -50px;
     z-index: $z-layer-MrHole;
+    pointer-events: none;
 
     .character {
         width: 200px;
