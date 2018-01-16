@@ -14,17 +14,34 @@
                         <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
                         <span class="count">{{voiceMemoCount || '&nbsp;'}}</span>
                     </a>
+                    <a class="button" href="#" v-if="buttonStickers && ! ownedByCurrentUser" @click.prevent="showStickersTray">
+                        <img class="icon" src="../assets/img/eyeball.svg" alt="Stickers">
+                    </a>
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
                 </div>
             </div>
-            <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
+            <router-link class="media" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-              <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
-              <div class="shadow"></div>
+                <div class="stickersTray" v-if="buttonStickers && ! ownedByCurrentUser">
+                    <div class="sticker">
+                        <div class="art"></div>
+                        <div class="price">100</div>
+                    </div>
+                    <div class="sticker">
+                        <div class="art"></div>
+                        <div class="price">100</div>
+                    </div>
+                    <div class="sticker">
+                        <div class="art"></div>
+                        <div class="price">100</div>
+                    </div>
+                </div>
+                <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
+                <div class="shadow"></div>
             </router-link>
 
             <memo
@@ -53,6 +70,9 @@ export default {
             'default': false,
         },
         'button-delete': {
+            'default': false,
+        },
+        'button-stickers': {
             'default': false,
         },
         'button-call': {
@@ -91,6 +111,10 @@ export default {
             .catch(function(err){
                 alert(err);
             })
+        },
+
+        showStickersTray: function() {
+
         },
 
         deleteGrab: function() {
@@ -260,29 +284,74 @@ export default {
                     }
                 }
             }
-
         }
 
-    }
+        .media {
+            display: inline-block;
+            position: relative;
 
-    .grab_image {
-        clear: both;
-        display: inline-block;
-        max-width: 100%;
-        border-radius: 5px;
-        transition: all 0.1s ease;
-        max-height: 80vh;
-        border: 1px solid rgba(255,255,255,0.1);
+            .stickersTray {
+                position: absolute;
+                top: -60px;
+                right: -10px;
+                background: #000;
+                border: 2px solid $purple;
+                border-radius: 5px;
+                display: flex;
+                padding: 20px 10px;
 
-        &.mobile {
-            max-height: 100%;
+                .sticker {
+                    margin: 0 15px;
+
+                    .art {
+                        width: 50px;
+                        height: 50px;
+                        background: white;
+                        border-radius: 100px;
+                    }
+
+                    .price {
+                        color: gold;
+                        margin-top: 10px;
+
+                        &:before {
+                            content: url('../assets/img/buttcoin.svg');
+                            width: 0.8em;
+                            height: auto;
+                            display: inline-block;
+                            margin-right: 5px;
+                        }
+                    }
+
+                    // &:first-child {
+                    //     margin-left: 0;
+                    // }
+
+                    // &:last-child {
+                    //     margin-right: 0;
+                    // }
+                }
+            }
+
+            .grab_image {
+                clear: both;
+                display: inline-block;
+                max-width: 100%;
+                border-radius: 5px;
+                transition: all 0.1s ease;
+                max-height: 80vh;
+                border: 1px solid rgba(255,255,255,0.1);
+
+                &.mobile {
+                    max-height: 100%;
+                }
+
+                &:hover {
+                    // border: 1px solid $purple;
+                    box-shadow: 0px 0px 0px 5px $purple;
+                }
+            }
         }
-
-        &:hover {
-            // border: 1px solid $purple;
-            box-shadow: 0px 0px 0px 5px $purple;
-        }
-
     }
 }
 </style>
