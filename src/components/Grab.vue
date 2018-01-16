@@ -40,7 +40,9 @@
 
         <div class="stickersTray" ref="stickersTray" v-if="buttonStickers && ! ownedByCurrentUser" v-bind:class="{'mobile': $mq.mobile}">
             <div class="sticker">
-                <div class="art" ref="stickerChuckle"></div>
+                <div class="art draggable" ref="stickerChuckle" data-sticker="chuckle">
+                    <div class="handle"></div>
+                </div>
                 <div class="price">100</div>
             </div>
         </div>
@@ -149,6 +151,24 @@ export default {
                 alert(err);
             })
         },
+
+        dropSticker: function(x, y, sticker) {
+            console.log('sticker at:', x, y, sticker)
+        },
+
+        dragMoveListener: function(event) {
+            var target = event.target,
+                // keep the dragged position in the data-x/data-y attributes
+                x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+                y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+            // translate the element
+            target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+
+            // update the posiion attributes
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        },
     },
 
     computed: {
@@ -170,6 +190,53 @@ export default {
 
         this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
         this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
+
+        this.$interact('.draggable').draggable({
+            inertia: true,
+
+            allowFrom: '.handle',
+
+            // restrict: {
+            //     restriction: 'parent',
+            //     endOnly: true,
+            // },
+
+            onmove: this.dragMoveListener,
+            // onend: function (event) {
+            //     console.log('draggable.onend');
+
+            //     event.target.setAttribute('data-x', 0);
+            //     event.target.setAttribute('data-y', 0);
+            //     event.target.style.transform = 'translate(0px, 0px)';
+            // }
+        });
+
+        this.$interact('.media').dropzone({
+            accept: '.draggable',
+
+            // ondragenter: function (event) {
+            //     var draggableElement = event.relatedTarget,
+            //         dropzoneElement = event.target;
+            // },
+
+            // ondropmove: function (event) {
+            //     console.log(event);
+            // },
+
+            ondrop: (event) => {
+                var target = event.relatedTarget;
+
+                console.log('dropzone.ondrop');
+
+                console.log(event.dragEvent.pageX, event.dragEvent.pageY, target.getAttribute('data-sticker'))
+
+                // this.dropSticker(target);
+
+                target.setAttribute('data-x', 0);
+                target.setAttribute('data-y', 0);
+                target.style.transform = 'translate(0px, 0px)';
+            }
+        });
 
         if (this.$refs.stickerChuckle) {
             this.$lottie.loadAnimation({
@@ -360,8 +427,18 @@ export default {
 
         .sticker {
             .art {
+                position: relative;
                 width: 100px;
                 height: 100px;
+
+                .handle {
+                    position: absolute;
+                    top: 25px;
+                    left: 25px;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 100px;
+                }
             }
 
             .price {
