@@ -106,27 +106,31 @@ export default {
     },
 
     mounted: function(){
-        this.buttcoinIcon = this.$lottie.loadAnimation({
-            container: this.$refs.buttcoinIcon,
-            path: require('../../assets/animation/buttcoin/spin.json'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            name: "buttcoinIcon",
-        });
+        if (this.$refs.buttcoinIcon) {
+            this.buttcoinIcon = this.$lottie.loadAnimation({
+                container: this.$refs.buttcoinIcon,
+                path: require('../../assets/animation/buttcoin/spin.json'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                name: "buttcoinIcon",
+            });
+        }
 
-        this.logo = this.$lottie.loadAnimation({
-            container: this.$refs.logo,
-            path: require('../../assets/animation/logo/logo.json'),
-            renderer: 'svg',
-            loop: false,
-            autoplay: false,
-            name: "logo",
-        });
+        if (this.$refs.logo) {
+            this.logo = this.$lottie.loadAnimation({
+                container: this.$refs.logo,
+                path: require('../../assets/animation/logo/logo.json'),
+                renderer: 'svg',
+                loop: false,
+                autoplay: false,
+                name: "logo",
+            });
 
-        setTimeout(() => {
-            this.logo.play();
-        }, 1800);
+            setTimeout(() => {
+                this.logo.play();
+            }, 1800);
+        }
     },
 
     methods: {

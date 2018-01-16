@@ -1,9 +1,9 @@
 <template>
     <div class="mr-hole">
-        <div class="bubble">
-            <span>Happy New Year!</a>!</span>
+        <div ref="character" class="character">
+
         </div>
-        <img class="cutie" @click.prevent="jump" src="../../assets/img/mr-hole-grin.svg" alt="MR. HOLE">
+
     </div>
 </template>
 
@@ -14,6 +14,18 @@ export default {
     data () {
         return {
         };
+    },
+    mounted: function(){
+        if (this.$refs.character) {
+            this.character = this.$lottie.loadAnimation({
+                container: this.$refs.character,
+                path: require('../../assets/animation/mr-hole/idle.json'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                name: "character",
+            });
+        }
     },
 
     methods: {
@@ -29,55 +41,14 @@ export default {
 
 .mr-hole {
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: -50px;
+    right: -50px;
     z-index: $z-layer-MrHole;
+    pointer-events: none;
 
-    .cutie {
-        position: fixed;
-        bottom: 10px;
-        right: 25px;
-        width: 100px;
-        display: block;
-        transition: all 0.2s;
-    }
+    .character {
+        width: 200px;
 
-    .bubble {
-        position: fixed;
-        bottom: 80px;
-        right: 37px;
-        max-width: 250px;
-        padding: 15px;
-        border-radius: 5px;
-        background-color: $purple;
-        font-size: 80%;
-        line-height: 150%;
-        box-shadow: 0px 3px 31px -8px rgba(0,0,0,0.75);
-
-        a {
-            color: #3ae06d;
-            // text-decoration: underline;
-            transition: all 0.2s;
-            display: inline-block;
-
-            &:hover {
-                transform: translateY(-2px);
-                text-decoration: none;
-                color: white;
-            }
-        }
-
-        &:after {
-            content: '';
-            width: 0;
-            height: 0;
-            position: absolute;
-            bottom: -6px;
-            right: 50px;
-            border-style: solid;
-            border-width: 10px 5px 0 5px;
-            border-color: $purple transparent transparent transparent;
-        }
     }
 }
 </style>
