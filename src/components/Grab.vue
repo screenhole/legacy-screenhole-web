@@ -14,7 +14,7 @@
                         <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
                         <span class="count">{{voiceMemoCount || '&nbsp;'}}</span>
                     </a>
-                    <a class="button" href="#" v-if="buttonStickers && ! ownedByCurrentUser" @click.prevent="showStickersTray">
+                    <a class="button" href="#" v-if="buttonStickers && ! ownedByCurrentUser" @click.prevent="toggleStickersTray">
                         <img class="icon" src="../assets/img/eyeball.svg" alt="Stickers">
                     </a>
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
@@ -26,20 +26,6 @@
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-                <div class="stickersTray" v-if="buttonStickers && ! ownedByCurrentUser">
-                    <div class="sticker">
-                        <div class="art"></div>
-                        <div class="price">100</div>
-                    </div>
-                    <div class="sticker">
-                        <div class="art"></div>
-                        <div class="price">100</div>
-                    </div>
-                    <div class="sticker">
-                        <div class="art"></div>
-                        <div class="price">100</div>
-                    </div>
-                </div>
                 <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
                 <div class="shadow"></div>
             </router-link>
@@ -50,6 +36,13 @@
                 v-bind:key="memo.id"
                 v-bind:memo="memo"
             />
+        </div>
+
+        <div class="stickersTray" ref="stickersTray" v-if="buttonStickers && ! ownedByCurrentUser" v-bind:class="{'mobile': $mq.mobile}">
+            <div class="sticker">
+                <div class="art" ref="stickerChuckle"></div>
+                <div class="price">100</div>
+            </div>
         </div>
     </div>
 </template>
@@ -83,6 +76,16 @@ export default {
     data () {
         return {
             // 'metadata': {},
+            animeStates: {
+                visible: {
+                    bottom: '20px',
+                    opacity: 1,
+                },
+                offscreen: {
+                    bottom: '-50px',
+                    opacity: 0,
+                }
+            },
             'memos': [],
         }
     },
@@ -113,8 +116,26 @@ export default {
             })
         },
 
-        showStickersTray: function() {
+        toggleStickersTray: function() {
+            if (this.stickersTrayVisible) {
+                this.$anime({
+                    targets: this.$refs.stickersTray,
+                    bottom: this.animeStates.offscreen.bottom,
+                    opacity: this.animeStates.offscreen.opacity,
+                    duration: 500,
+                    easing: 'easeOutExpo'
+                });
+            } else {
+                this.$anime({
+                    targets: this.$refs.stickersTray,
+                    bottom: this.animeStates.visible.bottom,
+                    opacity: this.animeStates.visible.opacity,
+                    duration: 500,
+                    easing: 'easeOutExpo'
+                });                
+            }
 
+            this.stickersTrayVisible = ! this.stickersTrayVisible;
         },
 
         deleteGrab: function() {
@@ -146,6 +167,20 @@ export default {
 
     mounted(){
         this.memos = this.grab.memos;
+
+        this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
+        this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
+
+        if (this.$refs.stickerChuckle) {
+            this.$lottie.loadAnimation({
+                container: this.$refs.stickerChuckle,
+                path: require('../assets/animation/stickers/chuckle.json'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                name: "stickerChuckle",
+            });
+        }
 
         // this.$http.get(this.grab.image_public_url + ';metadata.json').then((response) => {
         //     this.metadata = response.data;
@@ -288,50 +323,6 @@ export default {
 
         .media {
             display: inline-block;
-            position: relative;
-
-            .stickersTray {
-                position: absolute;
-                top: -60px;
-                right: -10px;
-                background: #000;
-                border: 2px solid $purple;
-                border-radius: 5px;
-                display: flex;
-                padding: 20px 10px;
-
-                .sticker {
-                    margin: 0 15px;
-
-                    .art {
-                        width: 50px;
-                        height: 50px;
-                        background: white;
-                        border-radius: 100px;
-                    }
-
-                    .price {
-                        color: gold;
-                        margin-top: 10px;
-
-                        &:before {
-                            content: url('../assets/img/buttcoin.svg');
-                            width: 0.8em;
-                            height: auto;
-                            display: inline-block;
-                            margin-right: 5px;
-                        }
-                    }
-
-                    // &:first-child {
-                    //     margin-left: 0;
-                    // }
-
-                    // &:last-child {
-                    //     margin-right: 0;
-                    // }
-                }
-            }
 
             .grab_image {
                 clear: both;
@@ -340,6 +331,7 @@ export default {
                 border-radius: 5px;
                 transition: all 0.1s ease;
                 max-height: 80vh;
+                margin-bottom: 120px;
                 border: 1px solid rgba(255,255,255,0.1);
 
                 &.mobile {
@@ -351,6 +343,52 @@ export default {
                     box-shadow: 0px 0px 0px 5px $purple;
                 }
             }
+        }
+    }
+
+    .stickersTray {
+        position: fixed;
+        bottom: 20px;
+        left: 400px;
+        right: 20px;
+        background: #000;
+        border: 2px solid $purple;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-evenly;
+        z-index: $z-layer-StickerTray;
+
+        .sticker {
+            .art {
+                width: 100px;
+                height: 100px;
+            }
+
+            .price {
+                color: gold;
+                margin: 0 0 10px 0;
+                text-align: center;
+                text-indent: -5px;
+
+                &:before {
+                    content: url('../assets/img/buttcoin.svg');
+                    width: 0.8em;
+                    height: auto;
+                    display: inline-block;
+                }
+            }
+
+            // &:first-child {
+            //     margin-left: 0;
+            // }
+
+            // &:last-child {
+            //     margin-right: 0;
+            // }
+        }
+
+        &.mobile {
+            left: 20px;
         }
     }
 }

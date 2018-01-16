@@ -1,9 +1,7 @@
 <template>
-    <div class="mr-hole">
+    <div class="mr-hole offscreen">
         <div ref="character" class="character">
-
         </div>
-
     </div>
 </template>
 
@@ -15,6 +13,7 @@ export default {
         return {
         };
     },
+
     mounted: function(){
         if (this.$refs.character) {
             this.character = this.$lottie.loadAnimation({
@@ -46,9 +45,14 @@ export default {
     z-index: $z-layer-MrHole;
     pointer-events: none;
 
+    transition: all 0.3s ease;
+
     .character {
         width: 200px;
+    }
 
+    &.offscreen {
+        transform: translateY(100px);
     }
 }
 </style>
