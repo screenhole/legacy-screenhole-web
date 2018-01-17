@@ -4,23 +4,32 @@ import styled from 'styled-components';
 
 import Grab from './../../components/Grab/Grab';
 
+function getNewGrabs() {
+  fetch(`https://api.screenhole.net/grabs?page=1`)
+    .then(res => res.json())
+    .then(res => {
+      window.localStorage.setItem('grabs', JSON.stringify(res.grabs));
+    })
+    .catch();
+}
+
 class GrabStream extends Component {
   constructor() {
     super();
 
     this.state = {
-      grabs: []
+      grabs: [],
+      firstLoad: true
     };
   }
   componentWillMount() {
     if (!window.localStorage.grabs) {
-      fetch(`https://api.screenhole.net/grabs?page=1`)
-        .then(res => res.json())
-        .then(res => {
-          window.localStorage.setItem('grabs', JSON.stringify(res.grabs));
-        })
-        .catch();
+      getNewGrabs();
     }
+  }
+  componentWillReceiveProps(nextProps) {
+    var routeChanged = nextProps.location !== this.props.location;
+    this.setState({ firstLoad: routeChanged });
   }
   componentDidMount() {
     if (window.localStorage.grabs) {
@@ -30,16 +39,12 @@ class GrabStream extends Component {
     }
   }
   componentWillUnmount() {
-    fetch(`https://api.screenhole.net/grabs?page=1`)
-      .then(res => res.json())
-      .then(res => {
-        window.localStorage.setItem('grabs', JSON.stringify(res.grabs));
-      })
-      .catch();
+    getNewGrabs();
   }
   render() {
     return (
       <Grabs>
+        {this.state.firstLoad && <h1>First load</h1>}
         <MetaTags />
         {this.state.grabs
           ? this.state.grabs.map(grab => (
