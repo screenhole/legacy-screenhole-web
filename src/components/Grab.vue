@@ -15,7 +15,7 @@
                         <span class="count">{{voiceMemoCount || '&nbsp;'}}</span>
                     </a>
                     <a class="button" href="#" v-if="buttonStickers && ! ownedByCurrentUser" @click.prevent="toggleStickersTray">
-                        <img class="icon" src="../assets/img/eyeball.svg" alt="Stickers">
+                        <img class="icon" src="../assets/img/sticker.svg" alt="Stickers">
                     </a>
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
@@ -142,7 +142,7 @@ export default {
                     opacity: this.animeStates.visible.opacity,
                     duration: 500,
                     easing: 'easeOutExpo'
-                });                
+                });
             }
 
             this.stickersTrayVisible = ! this.stickersTrayVisible;
