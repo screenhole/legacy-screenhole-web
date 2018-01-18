@@ -219,13 +219,16 @@ export default {
                 }
             }
 
-            var rect = this.$el.querySelector(".dropzone").getBoundingClientRect();
-            var dropzone = new Rect(rect.left, rect.top, rect.width, rect.height);
+            var dropzoneRect = this.$el.querySelector(".dropzone").getBoundingClientRect();
+            var dropzone = new Rect(dropzoneRect.left, dropzoneRect.top, dropzoneRect.width, dropzoneRect.height);
+
+            var trayRect = this.$refs.stickersTray.getBoundingClientRect();
+            var tray = new Rect(trayRect.left, trayRect.top, trayRect.width, trayRect.height);
 
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
+            var inTray = tray.contains(event.clientX, event.clientY);
 
-            // TODO: check for drops on tray
-            if (inDropzone) {
+            if (! inTray && inDropzone) {
                 var percent = dropzone.toPercent(event.clientX - (this.drag.rect.width * 0.5), event.clientY - (this.drag.rect.height * 0.5));
 
                 this.dropSticker(percent.x, percent.y, this.drag.sticker);
