@@ -31,6 +31,7 @@
                     v-bind:key="sticker.id"
                     v-bind:sticker="sticker"
                 />
+
                 <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
             </router-link>
 
@@ -113,8 +114,8 @@ export default {
                 }
             },
             'stickers': [
-                { name: 'chuckle', x: 10, y: 10 },
-                { name: 'confuzzle', x: 20, y: 20 },
+                { id: '1', name: 'chuckle', x: 10, y: 10 },
+                { id: '2', name: 'confuzzle', x: 20, y: 20 },
             ],
             'memos': [],
         }
@@ -180,38 +181,13 @@ export default {
             })
         },
 
-        dropSticker: function(x, y, sticker) {
-            this.stickers.push({ name: sticker, x: x, y: y })
-
-            console.log('sticker at:', x, y, sticker)
-        },
-    },
-
-    computed: {
-        voiceMemoCount: function() {
-            return Object.values(this.grab.memos || []).reduce(function(count, memo) {
-                return count + (memo.pending ? 0 : 1);
-            }, 0)
-        },
-
-        ownedByCurrentUser: function() {
-            return this.$auth.check()
-                && this.grab.user
-                && this.$auth.user().id == this.grab.user.id
-        },
-    },
-
-    mounted(){
-        this.memos = this.grab.memos;
-
-        this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
-        this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
-
-        document.addEventListener('pointerdown', function(event) {
+        onPointerDown: function(event) {
             // console.log(event);
 
             if (! event.target.classList.contains("handle")) return;
             if (! event.target.parentNode.classList.contains("draggable")) return;
+
+            // TODO: move to vue object
 
             window.isDragging = true;
             window.dragging = {
@@ -221,9 +197,11 @@ export default {
                     y: event.clientY,
                 },
             };
-        });
 
-        document.addEventListener('pointerup', (event) => {
+            window.dragging.target.classList.add("isDragging");
+        },
+
+        onPointerUp: function(event) {
             if (! window.isDragging) return;
 
             // TODO: check for drops on tray
@@ -248,22 +226,65 @@ export default {
             if (inDropzone) {
                 this.dropSticker(50, 50, 'chuckle')
                 // move sticker to stage, create new in tray
-                window.dragging.target.style.left = '0px';
-                window.dragging.target.style.top = '0px';
-            } else {
-                window.dragging.target.style.left = '0px';
-                window.dragging.target.style.top = '0px';
             }
 
-            window.isDragging = false;
-        });
+            window.dragging.target.classList.remove("isDragging");
+            window.dragging.target.style.left = '0px';
+            window.dragging.target.style.top = '0px';            
 
-        document.addEventListener('pointermove', function(event) {
+            window.isDragging = false;
+        },
+
+        onPointerMove: function(event) {
             if (! window.isDragging) return;
 
             window.dragging.target.style.left = (event.clientX - window.dragging.origin.x) + 'px';
             window.dragging.target.style.top = (event.clientY - window.dragging.origin.y) + 'px';
-        });
+        },
+
+        dropSticker: function(x, y, sticker) {
+            console.log('dropSticker:', x, y, sticker)
+
+            this.stickers.push({ name: sticker, x: x, y: y });
+        },
+    },
+
+    computed: {
+        voiceMemoCount: function() {
+            return Object.values(this.grab.memos || []).reduce(function(count, memo) {
+                return count + (memo.pending ? 0 : 1);
+            }, 0)
+        },
+
+        ownedByCurrentUser: function() {
+            return this.$auth.check()
+                && this.grab.user
+                && this.$auth.user().id == this.grab.user.id
+        },
+    },
+
+    created: function() {
+        // TODO: only attach once per page
+        document.addEventListener('pointerdown', this.onPointerDown);
+        document.addEventListener('pointerup', this.onPointerUp);
+        document.addEventListener('pointermove', this.onPointerMove);
+    },
+
+    destroyed: function() {
+        document.removeEventListener('pointerdown', this.onPointerDown);
+        document.removeEventListener('pointerup', this.onPointerUp);
+        document.removeEventListener('pointermove', this.onPointerMove);
+    },
+
+    mounted: function(){
+        this.memos = this.grab.memos;
+
+        if (this.$refs.stickersTray) {
+            this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
+            this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
+        }
+
+        // TODO: make dynamic
 
         if (this.$refs.stickerChuckle) {
             this.$lottie.loadAnimation({
@@ -279,7 +300,7 @@ export default {
         if (this.$refs.stickerConfuzzle) {
             this.$lottie.loadAnimation({
                 container: this.$refs.stickerConfuzzle,
-                path: require('../assets/animation/stickers/chuckle.json'),
+                path: require('../assets/animation/stickers/confuzzle.json'),
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
@@ -494,6 +515,11 @@ export default {
                 left: 0;
                 width: 100px;
                 height: 100px;
+                transition: transform 0.2s ease;
+
+                &.isDragging {
+                    transform: scale(1.3);
+                }
 
                 .handle {
                     position: absolute;
