@@ -1,6 +1,5 @@
 <template>
     <div class="sticker" :style="{ left: sticker.x + '%', top: sticker.y + '%' }">
-        <div class="handle"></div>
         <div class="art" ref="art"></div>
     </div>
 </template>
@@ -20,11 +19,10 @@ export default {
     mounted: function() {
         this.$lottie.loadAnimation({
             container: this.$refs.art,
-            path: require('../assets/animation/stickers/chuckle.json'),
+            path: require('../assets/animation/stickers/' + this.sticker.name + '.json'),
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            name: "stickerChuckle",
         });
     },
 }
