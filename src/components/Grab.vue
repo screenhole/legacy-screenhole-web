@@ -240,8 +240,8 @@ export default {
                     targets: this.drag.target,
                     top: 0,
                     left: 0,
-                    duration: 250,
-                    easing: 'easeOutExpo'
+                    duration: 500,
+                    elasticity: 300,
                 });
             }
 
