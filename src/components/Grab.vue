@@ -234,6 +234,8 @@ export default {
             var rect = this.$el.querySelector(".dropzone").getBoundingClientRect();
             var dropzone = new Rect(rect.x, rect.y, rect.width, rect.height);
 
+            alert(event.clientX + ' ' + event.clientY + ' ' + rect.x + ' ' + rect.y + ' ' + rect.width + ' ' + rect.height)
+
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
 
             alert(inDropzone)
