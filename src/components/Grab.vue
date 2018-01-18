@@ -228,6 +228,8 @@ export default {
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
             var inTray = tray.contains(event.clientX, event.clientY);
 
+            this.drag.target.classList.remove("dragRunning");
+
             if (! inTray && inDropzone) {
                 var percent = dropzone.toPercent(event.clientX - (this.drag.rect.width * 0.5), event.clientY - (this.drag.rect.height * 0.5));
 
@@ -235,6 +237,16 @@ export default {
 
                 this.drag.target.style.left = 0;
                 this.drag.target.style.top = 0;
+                this.drag.target.style.transform = "scale(0)";
+
+                this.$anime({
+                    targets: this.drag.target,
+                    scale: 1,
+                    duration: 1000,
+                    elasticity: 500,
+                }).finished.then(() => {
+                    this.drag.target.style.transform = null;
+                });
             } else {
                 this.$anime({
                     targets: this.drag.target,
@@ -244,8 +256,6 @@ export default {
                     elasticity: 300,
                 });
             }
-
-            this.drag.target.classList.remove("dragRunning");
 
             this.drag.running = false;
         },
@@ -505,9 +515,9 @@ export default {
                 left: 0;
                 width: 100px;
                 height: 100px;
-                transition: transform 0.2s ease;
 
                 &.dragRunning {
+                    transition: transform 0.2s ease;
                     transform: scale(1.3);
                 }
 
