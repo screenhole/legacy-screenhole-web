@@ -43,7 +43,7 @@
             />
         </div>
 
-        <div class="stickersTray" ref="stickersTray" v-if="buttonStickers && ! ownedByCurrentUser" v-bind:class="{'mobile': $mq.mobile}">
+        <div class="stickersTray" ref="stickersTray" touch-action="none" v-if="buttonStickers && ! ownedByCurrentUser" v-bind:class="{'mobile': $mq.mobile}">
             <div class="sticker">
                 <div class="art draggable" ref="stickerChuckle" data-sticker="chuckle">
                     <div class="handle"></div>
@@ -512,10 +512,10 @@ export default {
         display: flex;
         justify-content: space-evenly;
         z-index: $z-layer-StickerTray;
+        touch-action: none;
 
         .sticker {
             position: relative;
-            touch-action: none;
 
             .spacer {
                 height: 100px;
