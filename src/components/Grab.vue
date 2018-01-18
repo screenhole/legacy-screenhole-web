@@ -102,6 +102,16 @@ export default {
         return {
             stickersTrayVisible: false,
 
+            drag: {
+                running: false,
+                sticker: false,
+                target: event.target.parentNode,
+                origin: {
+                    x: event.clientX,
+                    y: event.clientY,
+                },
+            },
+
             // 'metadata': {},
             animeStates: {
                 visible: {
@@ -182,30 +192,24 @@ export default {
         },
 
         onPointerDown: function(event) {
-            // console.log(event);
-
             if (! event.target.classList.contains("handle")) return;
             if (! event.target.parentNode.classList.contains("draggable")) return;
 
-            // TODO: move to vue object
-
-            window.isDragging = true;
-            window.dragging = {
-                target: event.target.parentNode,
-                origin: {
-                    x: event.clientX,
-                    y: event.clientY,
-                },
+            this.drag.running = true;
+            this.drag.target = event.target.parentNode;
+            this.drag.sticker = this.drag.target.getAttribute('data-sticker');
+            this.drag.origin = {
+                x: event.clientX,
+                y: event.clientY,
             };
 
-            window.dragging.target.classList.add("isDragging");
+            this.drag.target.classList.add("isDragging");
         },
 
         onPointerUp: function(event) {
-            if (! window.isDragging) return;
+            if (! this.drag.running) return;
 
-            // TODO: check for drops on tray
-
+            // TODO: move / make more useful
             function Rect (x, y, w, h) {
                 this.x = x;
                 this.y = y;
@@ -218,28 +222,29 @@ export default {
                 }
             }
 
-            var rect = document.querySelector(".dropzone").getBoundingClientRect();
+            var rect = this.$el.querySelector(".dropzone").getBoundingClientRect();
             var dropzone = new Rect(rect.x, rect.y, rect.width, rect.height);
 
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
 
+            // TODO: check for drops on tray
             if (inDropzone) {
-                this.dropSticker(50, 50, 'chuckle')
+                this.dropSticker(50, 50, this.drag.sticker);
                 // move sticker to stage, create new in tray
             }
 
-            window.dragging.target.classList.remove("isDragging");
-            window.dragging.target.style.left = '0px';
-            window.dragging.target.style.top = '0px';            
+            this.drag.target.classList.remove("isDragging");
+            this.drag.target.style.left = '0px';
+            this.drag.target.style.top = '0px';            
 
-            window.isDragging = false;
+            this.drag.running = false;
         },
 
         onPointerMove: function(event) {
-            if (! window.isDragging) return;
+            if (! this.drag.running) return;
 
-            window.dragging.target.style.left = (event.clientX - window.dragging.origin.x) + 'px';
-            window.dragging.target.style.top = (event.clientY - window.dragging.origin.y) + 'px';
+            this.drag.target.style.left = (event.clientX - this.drag.origin.x) + 'px';
+            this.drag.target.style.top = (event.clientY - this.drag.origin.y) + 'px';
         },
 
         dropSticker: function(x, y, sticker) {
