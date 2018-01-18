@@ -91,7 +91,7 @@ export default {
                 { name: 'chuckle', price: 100 },
                 { name: 'confuzzle', price: 150 },
                 { name: 'pablo', price: 200 },
-                { name: 'irene', price: 250 },
+                { name: 'irene', price: 1000 },
             ],
 
             drag: {
