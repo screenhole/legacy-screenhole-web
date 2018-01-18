@@ -32,6 +32,8 @@ Vue.prototype.$lottie = lottie
 import interact from 'interactjs'
 Vue.prototype.$interact = interact
 
+import pepjs from 'pepjs'
+
 // catch 401 errors and logout
 Vue.axios.interceptors.response.use(function (response) {
     return response;

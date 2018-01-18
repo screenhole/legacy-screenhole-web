@@ -1,5 +1,5 @@
 <template>
-    <div class="grab">
+    <div class="grab" v-bind:class="{'with-tray': stickersTrayVisible }">
         <div class="content">
             <div class="meta" v-bind:class="{'mobile': $mq.mobile}">
                 <router-link class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
@@ -22,17 +22,15 @@
                     </a>
                 </div>
             </div>
-            <router-link class="media" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
+            <router-link class="media dropzone" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-                <div class="stickerStage" ref="stickerStage">
-                    <sticker
-                        v-for="(sticker, index) in stickers"
-                        v-bind:key="sticker.id"
-                        v-bind:sticker="sticker"
-                    />
-                </div>
+                <sticker
+                    v-for="(sticker, index) in stickers"
+                    v-bind:key="sticker.id"
+                    v-bind:sticker="sticker"
+                />
                 <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
             </router-link>
 
@@ -49,7 +47,24 @@
                 <div class="art draggable" ref="stickerChuckle" data-sticker="chuckle">
                     <div class="handle"></div>
                 </div>
+                <div class="spacer"></div>
                 <div class="price">100</div>
+            </div>
+
+            <div class="sticker">
+                <div class="art draggable" ref="stickerConfuzzle" data-sticker="confuzzle">
+                    <div class="handle"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="price">100</div>
+            </div>
+
+            <div class="sticker">
+                <div class="art draggable" ref="stickerPablo" data-sticker="pablo">
+                    <div class="handle"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="price">200</div>
             </div>
         </div>
     </div>
@@ -84,6 +99,8 @@ export default {
 
     data () {
         return {
+            stickersTrayVisible: false,
+
             // 'metadata': {},
             animeStates: {
                 visible: {
@@ -95,7 +112,10 @@ export default {
                     opacity: 0,
                 }
             },
-            'stickers': [],
+            'stickers': [
+                { name: 'chuckle', x: 10, y: 10 },
+                { name: 'confuzzle', x: 20, y: 20 },
+            ],
             'memos': [],
         }
     },
@@ -161,7 +181,7 @@ export default {
         },
 
         dropSticker: function(x, y, sticker) {
-            this.stickers.push({ x: x, y: y })
+            this.stickers.push({ name: sticker, x: x, y: y })
 
             console.log('sticker at:', x, y, sticker)
         },
@@ -187,65 +207,62 @@ export default {
         this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
         this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
 
-        this.$interact('.draggable').draggable({
-            inertia: true,
+        document.addEventListener('pointerdown', function(event) {
+            // console.log(event);
 
-            allowFrom: '.handle',
+            if (! event.target.classList.contains("handle")) return;
+            if (! event.target.parentNode.classList.contains("draggable")) return;
 
-            // restrict: {
-            //     restriction: 'parent',
-            //     endOnly: true,
-            // },
-
-            onmove: (event) => {
-                var target = event.target,
-                    // keep the dragged position in the data-x/data-y attributes
-                    x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-                    y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-                // translate the element
-                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
-                // update the posiion attributes
-                target.setAttribute('data-x', x);
-                target.setAttribute('data-y', y);
-            },
-
-            // onend: function (event) {
-            //     console.log('draggable.onend');
-
-            //     event.target.setAttribute('data-x', 0);
-            //     event.target.setAttribute('data-y', 0);
-            //     event.target.style.transform = 'translate(0px, 0px)';
-            // }
+            window.isDragging = true;
+            window.dragging = {
+                target: event.target.parentNode,
+                origin: {
+                    x: event.clientX,
+                    y: event.clientY,
+                },
+            };
         });
 
-        this.$interact('.media').dropzone({
-            accept: '.draggable',
+        document.addEventListener('pointerup', (event) => {
+            if (! window.isDragging) return;
 
-            // ondragenter: function (event) {
-            //     var draggableElement = event.relatedTarget,
-            //         dropzoneElement = event.target;
-            // },
+            // TODO: check for drops on tray
 
-            // ondropmove: function (event) {
-            //     console.log(event);
-            // },
+            function Rect (x, y, w, h) {
+                this.x = x;
+                this.y = y;
+                this.width = w;
+                this.height = h;
 
-            ondrop: (event) => {
-                var target = event.relatedTarget;
-
-                console.log('dropzone.ondrop');
-
-                var rect = target.getBoundingClientRect();
-
-                // TOOD: where does magic number 10 come from?
-                this.dropSticker(rect.x, rect.y - (rect.height * 0.5) - 10, target.getAttribute('data-sticker'));
-
-                target.setAttribute('data-x', 0);
-                target.setAttribute('data-y', 0);
-                target.style.transform = 'translate(0px, 0px)';
+                this.contains = function (x, y) {
+                    return this.x <= x && x <= this.x + this.width &&
+                           this.y <= y && y <= this.y + this.height;
+                }
             }
+
+            var rect = document.querySelector(".dropzone").getBoundingClientRect();
+            var dropzone = new Rect(rect.x, rect.y, rect.width, rect.height);
+
+            var inDropzone = dropzone.contains(event.clientX, event.clientY);
+
+            if (inDropzone) {
+                this.dropSticker(50, 50, 'chuckle')
+                // move sticker to stage, create new in tray
+                window.dragging.target.style.left = '0px';
+                window.dragging.target.style.top = '0px';
+            } else {
+                window.dragging.target.style.left = '0px';
+                window.dragging.target.style.top = '0px';
+            }
+
+            window.isDragging = false;
+        });
+
+        document.addEventListener('pointermove', function(event) {
+            if (! window.isDragging) return;
+
+            window.dragging.target.style.left = (event.clientX - window.dragging.origin.x) + 'px';
+            window.dragging.target.style.top = (event.clientY - window.dragging.origin.y) + 'px';
         });
 
         if (this.$refs.stickerChuckle) {
@@ -256,6 +273,28 @@ export default {
                 loop: true,
                 autoplay: true,
                 name: "stickerChuckle",
+            });
+        }
+
+        if (this.$refs.stickerConfuzzle) {
+            this.$lottie.loadAnimation({
+                container: this.$refs.stickerConfuzzle,
+                path: require('../assets/animation/stickers/chuckle.json'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                name: "stickerConfuzzle",
+            });
+        }
+
+        if (this.$refs.stickerPablo) {
+            this.$lottie.loadAnimation({
+                container: this.$refs.stickerPablo,
+                path: require('../assets/animation/stickers/pablo.json'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                name: "stickerPablo",
             });
         }
 
@@ -301,6 +340,10 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: row;
+
+    &.with-tray {
+        padding-bottom: 180px;
+    }
 
     & + .grab {
         padding-top: 50px;
@@ -401,6 +444,7 @@ export default {
 
         .media {
             display: inline-block;
+            position: relative;
 
             .grab_image {
                 clear: both;
@@ -409,7 +453,6 @@ export default {
                 border-radius: 5px;
                 transition: all 0.1s ease;
                 max-height: 80vh;
-                margin-bottom: 120px;
                 border: 1px solid rgba(255,255,255,0.1);
 
                 &.mobile {
@@ -419,11 +462,6 @@ export default {
                 &:hover {
                     // border: 1px solid $purple;
                     box-shadow: 0px 0px 0px 5px $purple;
-                }
-            }
-
-            .stickerStage {
-                .sticker {
                 }
             }
         }
@@ -442,10 +480,18 @@ export default {
         z-index: $z-layer-StickerTray;
 
         .sticker {
+            position: relative;
             touch-action: none;
 
+            .spacer {
+                height: 100px;
+                width: 100px;
+            }
+
             .art {
-                position: relative;
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100px;
                 height: 100px;
 
@@ -456,6 +502,7 @@ export default {
                     height: 50px;
                     width: 50px;
                     border-radius: 100px;
+                    // box-shadow: 0px 0px 0px 5px gold;
                 }
             }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="sticker" :style="{ left: sticker.x + 'px', top: sticker.y + 'px' }">
+    <div class="sticker" :style="{ left: sticker.x + '%', top: sticker.y + '%' }">
         <div class="handle"></div>
         <div class="art" ref="art"></div>
     </div>
