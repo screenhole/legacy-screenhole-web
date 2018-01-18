@@ -236,6 +236,8 @@ export default {
 
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
 
+            alert(event.clientY)
+
             // TODO: check for drops on tray
             if (inDropzone) {
                 var percent = dropzone.toPercent(event.clientX - (this.drag.rect.width * 0.5), event.clientY - (this.drag.rect.height * 0.5));
