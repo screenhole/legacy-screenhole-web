@@ -236,7 +236,7 @@ export default {
 
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
 
-            alert(event.clientY)
+            alert(inDropzone)
 
             // TODO: check for drops on tray
             if (inDropzone) {
@@ -269,7 +269,7 @@ export default {
         },
 
         dropSticker: function(x, y, sticker) {
-            console.log('dropSticker:', x, y, sticker)
+            alert('dropSticker: ' + x + ', ' + y + ' ' + sticker)
 
             this.stickers.push({ name: sticker, x: x, y: y });
         },
