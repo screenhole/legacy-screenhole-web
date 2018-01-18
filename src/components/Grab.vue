@@ -200,11 +200,13 @@ export default {
             if (! this.drag.running) return;
 
             // TODO: move / make more useful
-            function Rect (x, y, w, h) {
-                this.x = x;
-                this.y = y;
-                this.width = w;
-                this.height = h;
+            function Rect (rect) {
+                this.rect = rect;
+
+                this.x = rect.left;
+                this.y = rect.top;
+                this.width = rect.width;
+                this.height = rect.height;
 
                 this.contains = function (x, y) {
                     return this.x <= x && x <= this.x + this.width &&
@@ -219,11 +221,8 @@ export default {
                 }
             }
 
-            var dropzoneRect = this.$el.querySelector(".dropzone").getBoundingClientRect();
-            var dropzone = new Rect(dropzoneRect.left, dropzoneRect.top, dropzoneRect.width, dropzoneRect.height);
-
-            var trayRect = this.$refs.stickersTray.getBoundingClientRect();
-            var tray = new Rect(trayRect.left, trayRect.top, trayRect.width, trayRect.height);
+            var dropzone = new Rect(this.$el.querySelector(".dropzone").getBoundingClientRect());
+            var tray = new Rect(this.$refs.stickersTray.getBoundingClientRect());
 
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
             var inTray = tray.contains(event.clientX, event.clientY);
