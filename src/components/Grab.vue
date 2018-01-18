@@ -234,10 +234,10 @@ export default {
             var dropzone = this.$el.querySelector(".dropzone");
             var rect = dropzone.getBoundingClientRect();
 
-            if (! rect.width) rect.width = dropzone.offsetWidth;
-            if (! rect.height) rect.height = dropzone.offsetHeight;
+            // if (! rect.width) rect.width = dropzone.offsetWidth;
+            // if (! rect.height) rect.height = dropzone.offsetHeight;
 
-            var dropzone = new Rect(rect.x, rect.y, rect.width, rect.height);
+            var dropzone = new Rect(rect.left, rect.top, rect.width, rect.height);
 
             alert(event.clientX + ' ' + event.clientY + ' ' + rect.x + ' ' + rect.y + ' ' + rect.width + ' ' + rect.height)
 
