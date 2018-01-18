@@ -263,17 +263,12 @@ export default {
         },
     },
 
-    created: function() {
-        // TODO: only attach once per page
-        document.addEventListener('pointerdown', this.onPointerDown);
-        document.addEventListener('pointerup', this.onPointerUp);
-        document.addEventListener('pointermove', this.onPointerMove);
-    },
-
-    destroyed: function() {
-        document.removeEventListener('pointerdown', this.onPointerDown);
-        document.removeEventListener('pointerup', this.onPointerUp);
-        document.removeEventListener('pointermove', this.onPointerMove);
+    beforeDestroy: function() {
+        if (this.$refs.stickersTray) {
+            document.removeEventListener('pointerdown', this.onPointerDown);
+            document.removeEventListener('pointerup', this.onPointerUp);
+            document.removeEventListener('pointermove', this.onPointerMove);
+        }
     },
 
     mounted: function(){
@@ -282,6 +277,11 @@ export default {
         if (this.$refs.stickersTray) {
             this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
             this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
+
+            // TODO: only attach once per page
+            document.addEventListener('pointerdown', this.onPointerDown);
+            document.addEventListener('pointerup', this.onPointerUp);
+            document.addEventListener('pointermove', this.onPointerMove);
         }
 
         // TODO: make dynamic
