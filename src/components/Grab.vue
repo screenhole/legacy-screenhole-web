@@ -104,11 +104,11 @@ export default {
 
             drag: {
                 running: false,
-                sticker: false,
-                target: event.target.parentNode,
+                sticker: null,
+                target: null,
                 origin: {
-                    x: event.clientX,
-                    y: event.clientY,
+                    x: null,
+                    y: null,
                 },
             },
 
@@ -203,7 +203,7 @@ export default {
                 y: event.clientY,
             };
 
-            this.drag.target.classList.add("isDragging");
+            this.drag.target.classList.add("dragRunning");
         },
 
         onPointerUp: function(event) {
@@ -230,12 +230,20 @@ export default {
             // TODO: check for drops on tray
             if (inDropzone) {
                 this.dropSticker(50, 50, this.drag.sticker);
-                // move sticker to stage, create new in tray
+
+                this.drag.target.style.left = 0;
+                this.drag.target.style.top = 0;
+            } else {
+                this.$anime({
+                    targets: this.drag.target,
+                    top: 0,
+                    left: 0,
+                    duration: 250,
+                    easing: 'easeOutExpo'
+                });
             }
 
-            this.drag.target.classList.remove("isDragging");
-            this.drag.target.style.left = '0px';
-            this.drag.target.style.top = '0px';            
+            this.drag.target.classList.remove("dragRunning");
 
             this.drag.running = false;
         },
@@ -522,7 +530,7 @@ export default {
                 height: 100px;
                 transition: transform 0.2s ease;
 
-                &.isDragging {
+                &.dragRunning {
                     transform: scale(1.3);
                 }
 
