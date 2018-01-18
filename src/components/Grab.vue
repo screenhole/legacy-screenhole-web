@@ -44,28 +44,13 @@
         </div>
 
         <div class="stickersTray" ref="stickersTray" touch-action="none" v-if="buttonStickers && ! ownedByCurrentUser" v-bind:class="{'mobile': $mq.mobile}">
-            <div class="sticker">
-                <div class="art draggable" ref="stickerChuckle" data-sticker="chuckle">
-                    <div class="handle"></div>
-                </div>
-                <div class="spacer"></div>
-                <div class="price">100</div>
-            </div>
 
-            <div class="sticker">
-                <div class="art draggable" ref="stickerConfuzzle" data-sticker="confuzzle">
+            <div class="sticker" v-for="sticker in stickersTray">
+                <div class="art draggable" :data-sticker="sticker.name">
                     <div class="handle"></div>
                 </div>
                 <div class="spacer"></div>
-                <div class="price">100</div>
-            </div>
-
-            <div class="sticker">
-                <div class="art draggable" ref="stickerPablo" data-sticker="pablo">
-                    <div class="handle"></div>
-                </div>
-                <div class="spacer"></div>
-                <div class="price">200</div>
+                <div class="price">{{ sticker.price }}</div>
             </div>
         </div>
     </div>
@@ -102,6 +87,12 @@ export default {
         return {
             stickersTrayVisible: false,
 
+            stickersTray: [
+                { name: 'chuckle', price: 100 },
+                { name: 'confuzzle', price: 150 },
+                { name: 'pablo', price: 200 },
+            ],
+
             drag: {
                 running: false,
                 sticker: null,
@@ -124,11 +115,8 @@ export default {
                     opacity: 0,
                 }
             },
-            'stickers': [
-                { id: '1', name: 'chuckle', x: 10, y: 10 },
-                { id: '2', name: 'confuzzle', x: 20, y: 20 },
-            ],
             'memos': [],
+            'stickers': [],
         }
     },
 
@@ -308,40 +296,15 @@ export default {
             document.addEventListener('pointermove', this.onPointerMove);
         }
 
-        // TODO: make dynamic
-
-        if (this.$refs.stickerChuckle) {
+        this.$refs.stickersTray.querySelectorAll(".sticker .art").forEach((el) => {
             this.$lottie.loadAnimation({
-                container: this.$refs.stickerChuckle,
-                path: require('../assets/animation/stickers/chuckle.json'),
+                container: el,
+                path: require('../assets/animation/stickers/' + el.getAttribute('data-sticker') + '.json'),
                 renderer: 'svg',
                 loop: true,
                 autoplay: true,
-                name: "stickerChuckle",
             });
-        }
-
-        if (this.$refs.stickerConfuzzle) {
-            this.$lottie.loadAnimation({
-                container: this.$refs.stickerConfuzzle,
-                path: require('../assets/animation/stickers/confuzzle.json'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                name: "stickerConfuzzle",
-            });
-        }
-
-        if (this.$refs.stickerPablo) {
-            this.$lottie.loadAnimation({
-                container: this.$refs.stickerPablo,
-                path: require('../assets/animation/stickers/pablo.json'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                name: "stickerPablo",
-            });
-        }
+        });
 
         // this.$http.get(this.grab.image_public_url + ';metadata.json').then((response) => {
         //     this.metadata = response.data;
