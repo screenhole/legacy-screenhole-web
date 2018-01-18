@@ -106,9 +106,10 @@ export default {
                 running: false,
                 sticker: null,
                 target: null,
+                rect: {},
                 origin: {
-                    x: null,
-                    y: null,
+                    x: 0,
+                    y: 0,
                 },
             },
 
@@ -197,6 +198,7 @@ export default {
 
             this.drag.running = true;
             this.drag.target = event.target.parentNode;
+            this.drag.rect = this.drag.target.getBoundingClientRect();
             this.drag.sticker = this.drag.target.getAttribute('data-sticker');
             this.drag.origin = {
                 x: event.clientX,
@@ -220,6 +222,13 @@ export default {
                     return this.x <= x && x <= this.x + this.width &&
                            this.y <= y && y <= this.y + this.height;
                 }
+
+                this.toPercent = function(x, y) {
+                    return {
+                        x: ((x - this.x) / this.width) * 100,
+                        y: ((y - this.y) / this.height) * 100,
+                    };
+                }
             }
 
             var rect = this.$el.querySelector(".dropzone").getBoundingClientRect();
@@ -229,7 +238,9 @@ export default {
 
             // TODO: check for drops on tray
             if (inDropzone) {
-                this.dropSticker(50, 50, this.drag.sticker);
+                var percent = dropzone.toPercent(event.clientX - (this.drag.rect.width * 0.5), event.clientY - (this.drag.rect.height * 0.5));
+
+                this.dropSticker(percent.x, percent.y, this.drag.sticker);
 
                 this.drag.target.style.left = 0;
                 this.drag.target.style.top = 0;
