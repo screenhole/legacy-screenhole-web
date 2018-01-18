@@ -43,8 +43,9 @@
                     <a class="nav" href="/" @click.prevent="logout">log out</a>
                 </template>
 
+                <a class="nav" href="https://scrnhl.tumblr.com">news</a>
                 <a class="nav" href="https://twitter.com/screenhole">twitter</a>
-                <router-link class="nav" to="/wtf">manual</router-link>
+                <router-link class="nav" to="/wtf">wtf</router-link>
             </nav>
 
             <nav class="pages">
@@ -55,8 +56,9 @@
         </template>
 
         <nav class="pages" v-if="! $mq.mobile">
+            <a class="nav" href="https://scrnhl.tumblr.com">news</a>
             <a href="https://twitter.com/screenhole">twitter</a>
-            <router-link to="/wtf">manual</router-link>
+            <router-link to="/wtf">wtf</router-link>
 
             <template v-if="! $auth.check()">
                 <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get&nbsp;invite</a>
