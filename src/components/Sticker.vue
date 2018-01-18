@@ -24,6 +24,26 @@ export default {
             loop: true,
             autoplay: true,
         });
+
+        if (false) {
+            // TODO: spawned animation
+        } else {
+            this.$anime.timeline().add({
+                targets: this.$refs.art,
+                scale: 1.3,
+                duration: 0,
+            })
+            .add({
+                targets: this.$refs.art,
+                scale: 0.7,
+                duration: 200,
+            })
+            .add({
+                targets: this.$refs.art,
+                scale: 1,
+                duration: 500,
+            });
+        }
     },
 }
 </script>
