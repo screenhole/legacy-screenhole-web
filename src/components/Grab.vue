@@ -231,19 +231,10 @@ export default {
                 }
             }
 
-            var dropzone = this.$el.querySelector(".dropzone");
-            var rect = dropzone.getBoundingClientRect();
-
-            // if (! rect.width) rect.width = dropzone.offsetWidth;
-            // if (! rect.height) rect.height = dropzone.offsetHeight;
-
+            var rect = this.$el.querySelector(".dropzone").getBoundingClientRect();
             var dropzone = new Rect(rect.left, rect.top, rect.width, rect.height);
 
-            alert(event.clientX + ' ' + event.clientY + ' ' + rect.x + ' ' + rect.y + ' ' + rect.width + ' ' + rect.height)
-
             var inDropzone = dropzone.contains(event.clientX, event.clientY);
-
-            alert(inDropzone)
 
             // TODO: check for drops on tray
             if (inDropzone) {
@@ -276,7 +267,7 @@ export default {
         },
 
         dropSticker: function(x, y, sticker) {
-            alert('dropSticker: ' + x + ', ' + y + ' ' + sticker)
+            console.log('dropSticker: ' + x + ', ' + y + ' ' + sticker)
 
             this.stickers.push({ name: sticker, x: x, y: y });
         },
