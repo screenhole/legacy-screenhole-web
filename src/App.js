@@ -5,6 +5,7 @@ import Routes from './Routes.js';
 
 import Nav from './components/Nav/Nav';
 import ChommentStream from './views/ChommentStream/ChommentStream';
+import MrHole from './components/MrHole/MrHole';
 
 class App extends Component {
   constructor() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Routes />
         </MainContent>
         <ChommentStream />
+        <MrHole />
       </div>
     );
   }

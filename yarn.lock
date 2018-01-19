@@ -4026,6 +4026,10 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
   dependencies:
     js-tokens "^3.0.0"
 
+lottie-web@^5.1.3:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.1.4.tgz#b8eeec0cb1a4d2d1c7adf078cfd44efdb2e8bd17"
+
 loud-rejection@^1.0.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/loud-rejection/-/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
@@ -5215,6 +5219,13 @@ react-helmet@^5.2.0:
     object-assign "^4.1.1"
     prop-types "^15.5.4"
     react-side-effect "^1.1.0"
+
+react-lottie@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-lottie/-/react-lottie-1.0.0.tgz#7427044ca0799804a77c86efb6b0f65a6c90bb84"
+  dependencies:
+    babel-runtime "^6.26.0"
+    lottie-web "^5.1.3"
 
 react-router-dom@^4.2.2:
   version "4.2.2"
