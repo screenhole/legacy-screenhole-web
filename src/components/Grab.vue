@@ -14,7 +14,7 @@
                         <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
                         <span class="count">{{voiceMemos.length || '&nbsp;'}}</span>
                     </a>
-                    <a class="button" href="#" v-if="buttonStickers" @click.prevent="toggleStickersTray">
+                    <a class="button" href="#" v-if="buttonStickers && $auth.check('admin')" @click.prevent="toggleStickersTray">
                         <img class="icon" src="../assets/img/sticker.svg" alt="Stickers">
                         <span class="count">{{stickerMemos.length || '&nbsp;'}}</span>
                     </a>
@@ -28,7 +28,7 @@
                 grab_id: grab.id
             }}">
                 <sticker-memo
-                    v-if="showStickerMemos"
+                    v-if="showStickerMemos && $auth.check('admin')"
                     v-for="(sticker, index) in stickerMemos"
                     v-bind:key="sticker.id"
                     v-bind:sticker="sticker"
@@ -45,7 +45,7 @@
             />
         </div>
 
-        <div class="stickersTray" ref="stickersTray" touch-action="none" v-if="buttonStickers && ! ownedByCurrentUser" v-bind:class="{'mobile': $mq.mobile}">
+        <div class="stickersTray" ref="stickersTray" touch-action="none" v-if="buttonStickers && $auth.check('admin')" v-bind:class="{'mobile': $mq.mobile}">
 
             <div class="sticker" v-for="sticker in stickersTray">
                 <div class="art draggable" :data-sticker="sticker.name">
