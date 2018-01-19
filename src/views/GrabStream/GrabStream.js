@@ -44,7 +44,6 @@ class GrabStream extends Component {
   render() {
     return (
       <Grabs>
-        {this.state.firstLoad && <h1>First load</h1>}
         <MetaTags />
         {this.state.grabs
           ? this.state.grabs.map(grab => (
