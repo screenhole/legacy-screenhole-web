@@ -1,5 +1,5 @@
 <template>
-    <div class="grab">
+    <div class="grab" v-bind:class="{'with-tray': stickersTrayVisible }">
         <div class="content">
             <div class="meta" v-bind:class="{'mobile': $mq.mobile}">
                 <router-link class="permalink" v-if="grab.user" :to="{ name: 'user-stream', params: {
@@ -10,29 +10,50 @@
                 </router-link>
 
                 <div class="actions">
-                    <a class="button" href="#" @click.prevent="voiceMemo">
+                    <a class="button" href="#" v-if="buttonCall" @click.prevent="createVoiceMemo">
                         <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
-                        <span class="count">{{voiceMemoCount || '&nbsp;'}}</span>
+                        <span class="count">{{voiceMemos.length || '&nbsp;'}}</span>
+                    </a>
+                    <a class="button" href="#" v-if="buttonStickers && $auth.check('admin')" @click.prevent="toggleStickersTray">
+                        <img class="icon" src="../assets/img/sticker.svg" alt="Stickers">
+                        <span class="count">{{stickerMemos.length || '&nbsp;'}}</span>
                     </a>
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
                 </div>
             </div>
-            <router-link v-if="grab.user" :to="{ name: 'grab-permalink', params: {
+            <router-link class="media dropzone" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-              <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
-              <div class="shadow"></div>
+                <sticker-memo
+                    v-if="showStickerMemos"
+                    v-for="(sticker, index) in stickerMemos"
+                    v-bind:key="sticker.id"
+                    v-bind:sticker="sticker"
+                />
+
+                <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
             </router-link>
 
-            <memo
-                v-if="showMemos"
-                v-for="(memo, index) in memos"
+            <voice-memo
+                v-if="showVoiceMemos"
+                v-for="(memo, index) in voiceMemos"
                 v-bind:key="memo.id"
                 v-bind:memo="memo"
             />
+        </div>
+
+        <div class="stickersTray" ref="stickersTray" touch-action="none" v-if="buttonStickers && $auth.check('admin')" v-bind:class="{'mobile': $mq.mobile}">
+
+            <div class="sticker" v-for="sticker in stickersTray">
+                <div class="art draggable" :data-sticker="sticker.name">
+                    <div class="handle"></div>
+                </div>
+                <div class="spacer"></div>
+                <div class="price">{{ sticker.price }}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -41,7 +62,8 @@
 import ActionCable from 'actioncable';
 
 import Avatar from '@/components/Avatar';
-import Memo from '@/components/Memo';
+import VoiceMemo from '@/components/VoiceMemo';
+import StickerMemo from '@/components/StickerMemo';
 
 export default {
     props: {
@@ -49,27 +71,64 @@ export default {
             type: Object,
             required: true,
         },
-        'show-memos': {
+        'show-voice-memos': {
             'default': false,
+        },
+        'show-sticker-memos': {
+            'default': true,
         },
         'button-delete': {
             'default': false,
         },
         'button-call': {
-            'default': false,
+            'default': true,
+        },
+        'button-stickers': {
+            'default': true,
         },
     },
 
     data () {
         return {
+            stickersTrayVisible: false,
+
+            stickersTray: [
+                { name: 'chuckle', price: 100 },
+                { name: 'confuzzle', price: 150 },
+                { name: 'pablo', price: 200 },
+                { name: 'irene', price: 1000 },
+            ],
+
+            drag: {
+                running: false,
+                sticker: null,
+                target: null,
+                rect: {},
+                origin: {
+                    x: 0,
+                    y: 0,
+                },
+            },
+
             // 'metadata': {},
+            animeStates: {
+                visible: {
+                    bottom: '20px',
+                    opacity: 1,
+                },
+                offscreen: {
+                    bottom: '-50px',
+                    opacity: 0,
+                }
+            },
+
             'memos': [],
         }
     },
 
     methods: {
-        voiceMemo: function() {
-            if (! this.showMemos) {
+        createVoiceMemo: function() {
+            if (! this.showVoiceMemos) {
                 return this.$router.push({ name: 'grab-permalink', params: {
                     username: this.grab.user.username,
                     grab_id: this.grab.id
@@ -93,6 +152,35 @@ export default {
             })
         },
 
+        toggleStickersTray: function() {
+            if (! this.showStickerMemos) {
+                return this.$router.push({ name: 'grab-permalink', params: {
+                    username: this.grab.user.username,
+                    grab_id: this.grab.id
+                }})
+            }
+
+            if (this.stickersTrayVisible) {
+                this.$anime({
+                    targets: this.$refs.stickersTray,
+                    bottom: this.animeStates.offscreen.bottom,
+                    opacity: this.animeStates.offscreen.opacity,
+                    duration: 500,
+                    easing: 'easeOutExpo'
+                });
+            } else {
+                this.$anime({
+                    targets: this.$refs.stickersTray,
+                    bottom: this.animeStates.visible.bottom,
+                    opacity: this.animeStates.visible.opacity,
+                    duration: 500,
+                    easing: 'easeOutExpo'
+                });
+            }
+
+            this.stickersTrayVisible = ! this.stickersTrayVisible;
+        },
+
         deleteGrab: function() {
             if (! confirm('Are you sure you want to delete this grab?')) return;
 
@@ -104,13 +192,124 @@ export default {
                 alert(err);
             })
         },
+
+        onPointerDown: function(event) {
+            if (! event.target.classList.contains("handle")) return;
+            if (! event.target.parentNode.classList.contains("draggable")) return;
+
+            this.drag.running = true;
+            this.drag.target = event.target.parentNode;
+            this.drag.rect = this.drag.target.getBoundingClientRect();
+            this.drag.sticker = this.drag.target.getAttribute('data-sticker');
+            this.drag.origin = {
+                x: event.clientX,
+                y: event.clientY,
+            };
+
+            this.drag.target.classList.add("dragRunning");
+        },
+
+        onPointerUp: function(event) {
+            if (! this.drag.running) return;
+
+            // TODO: move / make more useful
+            function Rect (rect) {
+                this.rect = rect;
+
+                this.x = rect.left;
+                this.y = rect.top;
+                this.width = rect.width;
+                this.height = rect.height;
+
+                this.contains = function (x, y) {
+                    return this.x <= x && x <= this.x + this.width &&
+                           this.y <= y && y <= this.y + this.height;
+                }
+
+                this.toPercent = function(x, y) {
+                    return {
+                        x: ((x - this.x) / this.width) * 100,
+                        y: ((y - this.y) / this.height) * 100,
+                    };
+                }
+            }
+
+            var dropzone = new Rect(this.$el.querySelector(".dropzone").getBoundingClientRect());
+            var tray = new Rect(this.$refs.stickersTray.getBoundingClientRect());
+
+            var inDropzone = dropzone.contains(event.clientX, event.clientY);
+            var inTray = tray.contains(event.clientX, event.clientY);
+
+            this.drag.target.classList.remove("dragRunning");
+
+            if (! inTray && inDropzone) {
+                var percent = dropzone.toPercent(event.clientX - (this.drag.rect.width * 0.5), event.clientY - (this.drag.rect.height * 0.5));
+
+                this.dropSticker(percent.x, percent.y, this.drag.sticker);
+
+                this.drag.target.style.left = 0;
+                this.drag.target.style.top = 0;
+                this.drag.target.style.transform = "scale(0)";
+
+                this.$anime({
+                    targets: this.drag.target,
+                    scale: 1,
+                    duration: 1000,
+                    elasticity: 500,
+                }).finished.then(() => {
+                    this.drag.target.style.transform = null;
+                });
+            } else {
+                this.$anime({
+                    targets: this.drag.target,
+                    top: 0,
+                    left: 0,
+                    duration: 500,
+                    elasticity: 300,
+                });
+            }
+
+            this.drag.running = false;
+        },
+
+        onPointerMove: function(event) {
+            if (! this.drag.running) return;
+
+            this.drag.target.style.left = (event.clientX - this.drag.origin.x) + 'px';
+            this.drag.target.style.top = (event.clientY - this.drag.origin.y) + 'px';
+        },
+
+        dropSticker: function(x, y, sticker) {
+            console.log('dropSticker: ' + x + ', ' + y + ' ' + sticker)
+
+            // TODO: figure out how to insert mmediately without conflicting with ActionCable
+            this.$http.post("/grabs/" + this.grab.id + '/memos', {
+                memo: {
+                    pending: false,
+                    variant: 'sticker',
+                    meta: { name: sticker, x: x, y: y },
+                }
+            })
+            .then(function(res){
+                // this.memos.unshift(res.data.memo);
+            }.bind(this))
+            .catch(function(err){
+                alert(err);
+            });
+        },
     },
 
     computed: {
-        voiceMemoCount: function() {
-            return Object.values(this.grab.memos || []).reduce(function(count, memo) {
-                return count + (memo.pending ? 0 : 1);
-            }, 0)
+        voiceMemos: function(){
+            return (this.memos || []).filter(function (memo) {
+                return ! memo.pending && memo.variant == 'voice'
+            })
+        },
+
+        stickerMemos: function(){
+            return (this.memos || []).filter(function (memo) {
+                return ! memo.pending && memo.variant == 'sticker'
+            })
         },
 
         ownedByCurrentUser: function() {
@@ -120,8 +319,37 @@ export default {
         },
     },
 
-    mounted(){
+    beforeDestroy: function() {
+        if (this.$refs.stickersTray) {
+            document.removeEventListener('pointerdown', this.onPointerDown);
+            document.removeEventListener('pointerup', this.onPointerUp);
+            document.removeEventListener('pointermove', this.onPointerMove);
+        }
+    },
+
+    mounted: function(){
+        // copy to root to avoid vue bullshit
         this.memos = this.grab.memos;
+
+        if (this.$refs.stickersTray) {
+            this.$refs.stickersTray.style.bottom = this.animeStates.offscreen.bottom;
+            this.$refs.stickersTray.style.opacity = this.animeStates.offscreen.opacity;
+
+            // TODO: only attach once per page
+            document.addEventListener('pointerdown', this.onPointerDown);
+            document.addEventListener('pointerup', this.onPointerUp);
+            document.addEventListener('pointermove', this.onPointerMove);
+
+            this.$refs.stickersTray.querySelectorAll(".sticker .art").forEach((el) => {
+                this.$lottie.loadAnimation({
+                    container: el,
+                    path: require('../assets/animation/stickers/' + el.getAttribute('data-sticker') + '.json'),
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                });
+            });
+        }
 
         // this.$http.get(this.grab.image_public_url + ';metadata.json').then((response) => {
         //     this.metadata = response.data;
@@ -131,10 +359,12 @@ export default {
             "MemosChannel",
             {
                 received: (data) => {
+                    // only listen for this grab
                     if (data.memo.grab.id != this.grab.id) return;
 
                     var found = false;
 
+                    // if we already have it, just update it in place
                     for (var i=0; i < this.memos.length; i++) {
                         if (this.memos[i].id == data.memo.id) {
                             this.$set(this.memos, i, data.memo);
@@ -143,8 +373,9 @@ export default {
                         }
                     }
 
+                    // if not, add it to front of list
                     if (! found) {
-                        this.grab.memos.unshift(data.memo);
+                        this.memos.unshift(data.memo);
                     }
                 }
             }
@@ -153,7 +384,8 @@ export default {
 
     components: {
         Avatar,
-        Memo,
+        VoiceMemo,
+        StickerMemo,
     },
 }
 </script>
@@ -164,6 +396,10 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: row;
+
+    &.with-tray {
+        padding-bottom: 180px;
+    }
 
     & + .grab {
         padding-top: 50px;
@@ -260,29 +496,95 @@ export default {
                     }
                 }
             }
-
         }
 
+        .media {
+            display: inline-block;
+            position: relative;
+
+            .grab_image {
+                clear: both;
+                display: inline-block;
+                max-width: 100%;
+                border-radius: 5px;
+                transition: all 0.1s ease;
+                max-height: 80vh;
+                border: 1px solid rgba(255,255,255,0.1);
+
+                &.mobile {
+                    max-height: 100%;
+                }
+
+                &:hover {
+                    // border: 1px solid $purple;
+                    box-shadow: 0px 0px 0px 5px $purple;
+                }
+            }
+        }
     }
 
-    .grab_image {
-        clear: both;
-        display: inline-block;
-        max-width: 100%;
+    .stickersTray {
+        position: fixed;
+        bottom: 20px;
+        left: 400px;
+        right: 20px;
+        background: #000;
+        border: 2px solid $purple;
         border-radius: 5px;
-        transition: all 0.1s ease;
-        max-height: 80vh;
-        border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        justify-content: space-evenly;
+        z-index: $z-layer-StickerTray;
+        touch-action: none;
+
+        .sticker {
+            position: relative;
+
+            .spacer {
+                height: 100px;
+                width: 100px;
+            }
+
+            .art {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+
+                &.dragRunning {
+                    transition: transform 0.2s ease;
+                    transform: scale(1.3);
+                }
+
+                .handle {
+                    position: absolute;
+                    top: 25px;
+                    left: 25px;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 100px;
+                    // box-shadow: 0px 0px 0px 5px gold;
+                }
+            }
+
+            .price {
+                color: gold;
+                margin: 0 0 10px 0;
+                text-align: center;
+                text-indent: -5px;
+
+                &:before {
+                    content: url('../assets/img/buttcoin.svg');
+                    width: 0.8em;
+                    height: auto;
+                    display: inline-block;
+                }
+            }
+        }
 
         &.mobile {
-            max-height: 100%;
+            left: 20px;
         }
-
-        &:hover {
-            // border: 1px solid $purple;
-            box-shadow: 0px 0px 0px 5px $purple;
-        }
-
     }
 }
 </style>

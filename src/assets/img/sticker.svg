@@ -1,0 +1,31 @@
+<svg width="25" height="25" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>sticker</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(5 280)">
+<g id="sticker">
+<g id="Ellipse">
+<mask id="mask0_outline_ins">
+<use xlink:href="#path0_fill" fill="white" transform="translate(-5 -280)"/>
+</mask>
+<g mask="url(#mask0_outline_ins)">
+<use xlink:href="#path1_stroke_2x" transform="translate(-5 -280)" fill="#6A40EE"/>
+</g>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path2_stroke" transform="matrix(-1 -1.76893e-16 -8.47833e-17 1 6.46155 -271)" fill="#FFFFFF"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path2_stroke" transform="matrix(-1 -1.76893e-16 -8.47833e-17 1 12 -271)" fill="#FFFFFF"/>
+</g>
+<g id="Ellipse">
+<use xlink:href="#path3_stroke" transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 11 -263)" fill="#E0386B"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 25 12.5C 25 19.4036 19.4036 25 12.5 25C 5.59644 25 0 19.4036 0 12.5C 0 5.59644 5.59644 0 12.5 0C 19.4036 0 25 5.59644 25 12.5Z"/>
+<path id="path1_stroke_2x" d="M 23 12.5C 23 18.299 18.299 23 12.5 23L 12.5 27C 20.5081 27 27 20.5081 27 12.5L 23 12.5ZM 12.5 23C 6.70101 23 2 18.299 2 12.5L -2 12.5C -2 20.5081 4.49187 27 12.5 27L 12.5 23ZM 2 12.5C 2 6.70101 6.70101 2 12.5 2L 12.5 -2C 4.49187 -2 -2 4.49187 -2 12.5L 2 12.5ZM 12.5 2C 18.299 2 23 6.70101 23 12.5L 27 12.5C 27 4.49187 20.5081 -2 12.5 -2L 12.5 2Z"/>
+<path id="path2_stroke" d="M -0.75 2C -0.75 2.41421 -0.414214 2.75 0 2.75C 0.414214 2.75 0.75 2.41421 0.75 2L -0.75 2ZM 2.71154 2C 2.71154 2.41421 3.04733 2.75 3.46154 2.75C 3.87575 2.75 4.21154 2.41421 4.21154 2L 2.71154 2ZM 0.75 2C 0.75 1.20418 1.28723 0.75 1.73077 0.75L 1.73077 -0.75C 0.262555 -0.75 -0.75 0.586677 -0.75 2L 0.75 2ZM 1.73077 0.75C 2.17431 0.75 2.71154 1.20418 2.71154 2L 4.21154 2C 4.21154 0.586677 3.19898 -0.75 1.73077 -0.75L 1.73077 0.75Z"/>
+<path id="path3_stroke" d="M -0.75 3C -0.75 3.41421 -0.414214 3.75 0 3.75C 0.414214 3.75 0.75 3.41421 0.75 3L -0.75 3ZM 6.25 3C 6.25 3.41421 6.58579 3.75 7 3.75C 7.41421 3.75 7.75 3.41421 7.75 3L 6.25 3ZM 0.75 3C 0.75 1.86166 1.86859 0.75 3.5 0.75L 3.5 -0.75C 1.26542 -0.75 -0.75 0.824633 -0.75 3L 0.75 3ZM 3.5 0.75C 5.13141 0.75 6.25 1.86166 6.25 3L 7.75 3C 7.75 0.824633 5.73458 -0.75 3.5 -0.75L 3.5 0.75Z"/>
+</defs>
+</svg>

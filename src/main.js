@@ -29,6 +29,8 @@ Vue.prototype.$anime = anime
 import lottie from 'lottie-web'
 Vue.prototype.$lottie = lottie
 
+import pepjs from 'pepjs'
+
 // catch 401 errors and logout
 Vue.axios.interceptors.response.use(function (response) {
     return response;
