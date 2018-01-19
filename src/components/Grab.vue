@@ -10,12 +10,13 @@
                 </router-link>
 
                 <div class="actions">
-                    <a class="button" href="#" @click.prevent="voiceMemo">
+                    <a class="button" href="#" v-if="buttonCall" @click.prevent="createVoiceMemo">
                         <img class="icon" src="../assets/img/telephone.svg" alt="Call Screenhole">
-                        <span class="count">{{voiceMemoCount || '&nbsp;'}}</span>
+                        <span class="count">{{voiceMemos.length || '&nbsp;'}}</span>
                     </a>
-                    <a class="button" href="#" v-if="buttonStickers && ! ownedByCurrentUser" @click.prevent="toggleStickersTray">
+                    <a class="button" href="#" v-if="buttonStickers" @click.prevent="toggleStickersTray">
                         <img class="icon" src="../assets/img/sticker.svg" alt="Stickers">
+                        <span class="count">{{stickerMemos.length || '&nbsp;'}}</span>
                     </a>
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
@@ -26,8 +27,9 @@
                 username: grab.user.username,
                 grab_id: grab.id
             }}">
-                <sticker
-                    v-for="(sticker, index) in stickers"
+                <sticker-memo
+                    v-if="showStickerMemos"
+                    v-for="(sticker, index) in stickerMemos"
                     v-bind:key="sticker.id"
                     v-bind:sticker="sticker"
                 />
@@ -35,9 +37,9 @@
                 <img class="grab_image" :src="grab.image_public_url" v-bind:class="{'mobile': $mq.mobile}"/>
             </router-link>
 
-            <memo
-                v-if="showMemos"
-                v-for="(memo, index) in memos"
+            <voice-memo
+                v-if="showVoiceMemos"
+                v-for="(memo, index) in voiceMemos"
                 v-bind:key="memo.id"
                 v-bind:memo="memo"
             />
@@ -60,8 +62,8 @@
 import ActionCable from 'actioncable';
 
 import Avatar from '@/components/Avatar';
-import Memo from '@/components/Memo';
-import Sticker from '@/components/Sticker';
+import VoiceMemo from '@/components/VoiceMemo';
+import StickerMemo from '@/components/StickerMemo';
 
 export default {
     props: {
@@ -69,16 +71,19 @@ export default {
             type: Object,
             required: true,
         },
-        'show-memos': {
+        'show-voice-memos': {
+            'default': false,
+        },
+        'show-sticker-memos': {
             'default': false,
         },
         'button-delete': {
             'default': false,
         },
-        'button-stickers': {
+        'button-call': {
             'default': false,
         },
-        'button-call': {
+        'button-stickers': {
             'default': false,
         },
     },
@@ -116,14 +121,14 @@ export default {
                     opacity: 0,
                 }
             },
+
             'memos': [],
-            'stickers': [],
         }
     },
 
     methods: {
-        voiceMemo: function() {
-            if (! this.showMemos) {
+        createVoiceMemo: function() {
+            if (! this.showVoiceMemos) {
                 return this.$router.push({ name: 'grab-permalink', params: {
                     username: this.grab.user.username,
                     grab_id: this.grab.id
@@ -270,15 +275,26 @@ export default {
         dropSticker: function(x, y, sticker) {
             console.log('dropSticker: ' + x + ', ' + y + ' ' + sticker)
 
-            this.stickers.push({ name: sticker, x: x, y: y });
+            // TODO: hit server and insert response
+            this.memos.unshift({
+                pending: false,
+                variant: 'sticker',
+                meta: { name: sticker, x: x, y: y },
+            })
         },
     },
 
     computed: {
-        voiceMemoCount: function() {
-            return Object.values(this.grab.memos || []).reduce(function(count, memo) {
-                return count + (memo.pending ? 0 : 1);
-            }, 0)
+        voiceMemos: function(){
+            return (this.memos || []).filter(function (memo) {
+                return ! memo.pending && memo.variant == 'voice'
+            })
+        },
+
+        stickerMemos: function(){
+            return (this.memos || []).filter(function (memo) {
+                return ! memo.pending && memo.variant == 'sticker'
+            })
         },
 
         ownedByCurrentUser: function() {
@@ -297,6 +313,7 @@ export default {
     },
 
     mounted: function(){
+        // copy to root to avoid vue bullshit
         this.memos = this.grab.memos;
 
         if (this.$refs.stickersTray) {
@@ -327,10 +344,12 @@ export default {
             "MemosChannel",
             {
                 received: (data) => {
+                    // only listen for this grab
                     if (data.memo.grab.id != this.grab.id) return;
 
                     var found = false;
 
+                    // if we already have it, just update it in place
                     for (var i=0; i < this.memos.length; i++) {
                         if (this.memos[i].id == data.memo.id) {
                             this.$set(this.memos, i, data.memo);
@@ -339,8 +358,9 @@ export default {
                         }
                     }
 
+                    // if not, add it to front of list
                     if (! found) {
-                        this.grab.memos.unshift(data.memo);
+                        this.memos.unshift(data.memo);
                     }
                 }
             }
@@ -349,8 +369,8 @@ export default {
 
     components: {
         Avatar,
-        Memo,
-        Sticker,
+        VoiceMemo,
+        StickerMemo,
     },
 }
 </script>
