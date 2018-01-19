@@ -307,17 +307,17 @@ export default {
             document.addEventListener('pointerdown', this.onPointerDown);
             document.addEventListener('pointerup', this.onPointerUp);
             document.addEventListener('pointermove', this.onPointerMove);
-        }
 
-        this.$refs.stickersTray.querySelectorAll(".sticker .art").forEach((el) => {
-            this.$lottie.loadAnimation({
-                container: el,
-                path: require('../assets/animation/stickers/' + el.getAttribute('data-sticker') + '.json'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
+            this.$refs.stickersTray.querySelectorAll(".sticker .art").forEach((el) => {
+                this.$lottie.loadAnimation({
+                    container: el,
+                    path: require('../assets/animation/stickers/' + el.getAttribute('data-sticker') + '.json'),
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                });
             });
-        });
+        }
 
         // this.$http.get(this.grab.image_public_url + ';metadata.json').then((response) => {
         //     this.metadata = response.data;
