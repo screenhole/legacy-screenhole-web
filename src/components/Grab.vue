@@ -28,7 +28,7 @@
                 grab_id: grab.id
             }}">
                 <sticker-memo
-                    v-if="showStickerMemos && $auth.check('admin')"
+                    v-if="showStickerMemos"
                     v-for="(sticker, index) in stickerMemos"
                     v-bind:key="sticker.id"
                     v-bind:sticker="sticker"
@@ -75,7 +75,7 @@ export default {
             'default': false,
         },
         'show-sticker-memos': {
-            'default': false,
+            'default': true,
         },
         'button-delete': {
             'default': false,
@@ -282,13 +282,20 @@ export default {
         dropSticker: function(x, y, sticker) {
             console.log('dropSticker: ' + x + ', ' + y + ' ' + sticker)
 
-            // TODO: hit server and insert response
-            this.memos.unshift({
-                id: Date.now(),
-                pending: false,
-                variant: 'sticker',
-                meta: { name: sticker, x: x, y: y },
+            // TODO: figure out how to insert mmediately without conflicting with ActionCable
+            this.$http.post("/grabs/" + this.grab.id + '/memos', {
+                memo: {
+                    pending: false,
+                    variant: 'sticker',
+                    meta: { name: sticker, x: x, y: y },
+                }
             })
+            .then(function(res){
+                // this.memos.unshift(res.data.memo);
+            }.bind(this))
+            .catch(function(err){
+                alert(err);
+            });
         },
     },
 
