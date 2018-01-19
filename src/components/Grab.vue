@@ -81,10 +81,10 @@ export default {
             'default': false,
         },
         'button-call': {
-            'default': false,
+            'default': true,
         },
         'button-stickers': {
-            'default': false,
+            'default': true,
         },
     },
 
@@ -153,6 +153,13 @@ export default {
         },
 
         toggleStickersTray: function() {
+            if (! this.showStickerMemos) {
+                return this.$router.push({ name: 'grab-permalink', params: {
+                    username: this.grab.user.username,
+                    grab_id: this.grab.id
+                }})
+            }
+
             if (this.stickersTrayVisible) {
                 this.$anime({
                     targets: this.$refs.stickersTray,
@@ -277,6 +284,7 @@ export default {
 
             // TODO: hit server and insert response
             this.memos.unshift({
+                id: Date.now(),
                 pending: false,
                 variant: 'sticker',
                 meta: { name: sticker, x: x, y: y },

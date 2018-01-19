@@ -5,8 +5,6 @@
         :class="{'mobile': $mq.mobile}"
         :show-voice-memos="true"
         :show-sticker-memos="true"
-        :button-call="true"
-        :button-stickers="true"
         :button-delete="true"
     />
 </template>
