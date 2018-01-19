@@ -219,8 +219,8 @@ export default {
     .splitscreen-View {
         overflow: auto;
         height: auto;
-        // -webkit-overflow-scrolling: touch;
-        // -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
 
         flex: 1;
 
