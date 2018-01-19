@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Lottie from 'react-lottie';
 import styled from 'styled-components';
 
-import * as MrHoleData from '../../animations/MrHole.json';
+import * as MrHoleIdle from '../../animations/mr-hole/idle.json';
 
 const defaultOptions = {
   loop: true,
   autoplay: true,
-  animationData: MrHoleData,
+  animationData: MrHoleIdle,
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice'
   }
