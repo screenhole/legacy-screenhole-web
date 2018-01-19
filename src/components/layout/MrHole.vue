@@ -1,5 +1,5 @@
 <template>
-    <div class="mr-hole offscreen">
+    <div class="mr-hole">
         <div ref="character" class="character">
         </div>
     </div>
