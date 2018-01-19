@@ -29,9 +29,6 @@ Vue.prototype.$anime = anime
 import lottie from 'lottie-web'
 Vue.prototype.$lottie = lottie
 
-import interact from 'interactjs'
-Vue.prototype.$interact = interact
-
 import pepjs from 'pepjs'
 
 // catch 401 errors and logout
