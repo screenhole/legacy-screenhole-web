@@ -10,8 +10,8 @@ class UserStream extends Component {
     super();
 
     this.state = {
-      profile: [],
-      grabs: []
+      profile: false,
+      grabs: false
     };
   }
   getGrabs(user_id) {
@@ -58,7 +58,7 @@ class UserStream extends Component {
               </UserBio>
             </UserInfo>
             <UserStats>
-              <Number>1232</Number>
+              <Number>{this.state.profile.stats.grabs}</Number>
               <Label>Grabs</Label>
             </UserStats>
           </ProfileHeader>
@@ -74,7 +74,7 @@ class UserStream extends Component {
                   key={grab.id}
                 />
               ))
-            : 'Loading...'}
+            : 'Loading Grabs...'}
         </GrabsWrapper>
       </Wrapper>
     );
