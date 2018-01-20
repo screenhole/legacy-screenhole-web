@@ -32,7 +32,10 @@ class GrabSingle extends Component {
             <MetaTags
               username={this.state.grab.user.username}
               grab_id={this.state.grab.id}
-              grab_image_url={this.state.grab.image_public_url}
+              grab_image_url={`${
+                this.state.grab.image_public_url
+              };background(dominant)/1200x630,contain.jpeg`}
+              memos_count={this.state.grab.memos.length}
             />
             <Grab
               username={this.state.grab.user.username}
@@ -68,7 +71,12 @@ class MetaTags extends Component {
         />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
-        <meta property="og:url" content={this.props.grab_image_url} />
+        <meta
+          property="og:url"
+          content={`https://screenhole.net/${this.props.username}/${
+            this.props.grab_id
+          }`}
+        />
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
@@ -99,6 +107,10 @@ class MetaTags extends Component {
           content={`Check out this cool Grab from ${this.props.username}.`}
         />
         <meta name="twitter:image" content={this.props.grab_image_url} />
+        <meta name="twitter:label1" value="Voice Memos" />
+        <meta name="twitter:data1" value={this.props.memos_count} />
+        <meta name="twitter:label2" value="Stickers" />
+        <meta name="twitter:data2" value="Sticker count here [wip]" />
       </Helmet>
     );
   }
