@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
 import Avatar from '../../components/User/Avatar';
@@ -43,6 +44,12 @@ class UserStream extends Component {
       <Wrapper>
         {this.state.profile && (
           <ProfileHeader>
+            <MetaTags
+              username={this.state.profile.username}
+              name={this.state.profile.name}
+              gravatar_hash={this.state.profile.gravatar_hash}
+              bio={this.state.profile.bio}
+            />
             <UserInfo>
               <Avatar
                 username={this.state.profile.username}
@@ -155,3 +162,57 @@ const Label = styled.span`
   font-size: 1.25rem;
   color: var(--super-muted-color);
 `;
+
+class MetaTags extends Component {
+  constructor() {
+    super();
+  }
+  render() {
+    return (
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta name="fragment" content="!" />
+        <title>{this.props.name} on SCREENHOLE!</title>
+        <meta name="description" content={this.props.bio} />
+        <meta name="robots" content="index,follow" />
+        <meta name="googlebot" content="index,follow" />
+        <meta
+          property="og:url"
+          content={`https://screenhole.net/${this.props.username}`}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content={`${this.props.name} on SCREENHOLE!`}
+        />
+        <meta
+          property="og:image"
+          content={`https://www.gravatar.com/avatar/${
+            this.props.gravatar_hash
+          }?size=500`}
+        />
+        <meta property="og:description" content={this.props.bio} />
+        <meta property="og:site_name" content="Screenhole" />
+        <meta property="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@screenhole" />
+        <meta name="twitter:creator" content="@screenhole" />
+        <meta
+          name="twitter:url"
+          content={`https://screenhole.net/${this.props.username}`}
+        />
+        <meta
+          name="twitter:title"
+          content={`${this.props.name} on SCREENHOLE!`}
+        />
+        <meta name="twitter:description" content={this.props.bio} />
+        <meta
+          name="twitter:image"
+          content={`https://www.gravatar.com/avatar/${
+            this.props.gravatar_hash
+          }?size=500`}
+        />
+      </Helmet>
+    );
+  }
+}
