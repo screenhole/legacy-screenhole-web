@@ -107,15 +107,15 @@ class MetaTags extends Component {
           name="twitter:description"
           content={`Check out this cool Grab from ${this.props.username}.`}
         />
-        <meta name="twitter:image" content={this.props.grab_image_url} />
+        {/* <meta name="twitter:image" content={this.props.grab_image_url} />
         <meta name="twitter:label1" value="Voice Memos" />
         <meta name="twitter:data1" value={this.props.memos_count} />
         <meta name="twitter:label2" value="Stickers" />
-        <meta name="twitter:data2" value="Sticker count here [wip]" />
+        <meta name="twitter:data2" value="Sticker count here [wip]" /> */}
         {this.props.memos.map((memo, i) => {
           return (
             <meta
-              name={`twitter:label${i + 3}`}
+              name={`twitter:label${i + 1}`}
               value={`${memo.user.username} says:`}
               key={memo.id}
             />
@@ -124,7 +124,7 @@ class MetaTags extends Component {
         {this.props.memos.map((memo, i) => {
           return (
             <meta
-              name={`twitter:data${i + 3}`}
+              name={`twitter:data${i + 1}`}
               value={memo.message}
               key={memo.id}
             />
