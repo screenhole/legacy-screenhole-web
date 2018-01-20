@@ -1,13 +1,157 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
+import Avatar from '../../components/User/Avatar';
+import Grab from '../../components/Grab/Grab';
 
 class UserStream extends Component {
   constructor() {
     super();
+
+    this.state = {
+      profile: [],
+      grabs: []
+    };
+  }
+  getGrabs(user_id) {
+    fetch(`https://api.screenhole.net/users/${user_id}/grabs?page=1`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          grabs: res.grabs
+        });
+      })
+      .catch();
+  }
+  componentDidMount() {
+    const username = this.props.match.params.username;
+
+    fetch(`https://api.screenhole.net/users/${username}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          profile: res.user
+        });
+
+        this.getGrabs(res.user.id);
+      })
+      .catch();
   }
   render() {
-    return <header>this is a user profile m8</header>;
+    return (
+      <Wrapper>
+        {this.state.profile && (
+          <ProfileHeader>
+            <UserInfo>
+              <Avatar
+                username={this.state.profile.username}
+                src={`https://www.gravatar.com/avatar/${
+                  this.state.profile.gravatar_hash
+                }?size=500`}
+              />
+              <UserBio>
+                <h1>{this.state.profile.name}</h1>
+                <h2>@{this.state.profile.username}</h2>
+                <p>{this.state.profile.bio}</p>
+                <Link to="/settings">Edit profile</Link>
+              </UserBio>
+            </UserInfo>
+            <UserStats>
+              <Number>1232</Number>
+              <Label>Grabs</Label>
+            </UserStats>
+          </ProfileHeader>
+        )}
+        <GrabsWrapper>
+          {this.state.grabs
+            ? this.state.grabs.map(grab => (
+                <Grab
+                  username={grab.user.username}
+                  image={grab.image_public_url}
+                  id={grab.id}
+                  gravatar={grab.user.gravatar_hash}
+                  key={grab.id}
+                />
+              ))
+            : 'Loading...'}
+        </GrabsWrapper>
+      </Wrapper>
+    );
   }
 }
 
 export default UserStream;
+
+const Wrapper = styled.div`
+  margin: -1.25rem;
+`;
+
+const GrabsWrapper = styled.div`
+  padding: 3rem;
+`;
+
+const ProfileHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--divider);
+  padding: 2rem 3rem;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+
+  a {
+    flex-shrink: 0;
+  }
+
+  img {
+    width: 6rem;
+    height: 6rem;
+  }
+`;
+
+const UserBio = styled.div`
+  display: block;
+  margin-left: 2rem;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: var(--super-muted-color);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--muted-color);
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+`;
+
+const UserStats = styled.div`
+  text-align: center;
+`;
+
+const Number = styled.span`
+  display: block;
+  font-size: 3.5rem;
+`;
+
+const Label = styled.span`
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  font-size: 1.25rem;
+  color: var(--super-muted-color);
+`;

@@ -23,9 +23,7 @@ class GrabStream extends Component {
     };
   }
   componentWillMount() {
-    if (!window.localStorage.grabs) {
-      getNewGrabs();
-    }
+    getNewGrabs();
   }
   componentWillReceiveProps(nextProps) {
     var routeChanged = nextProps.location !== this.props.location;
@@ -37,9 +35,6 @@ class GrabStream extends Component {
         grabs: JSON.parse(window.localStorage.grabs)
       });
     }
-  }
-  componentWillUnmount() {
-    getNewGrabs();
   }
   render() {
     return (
