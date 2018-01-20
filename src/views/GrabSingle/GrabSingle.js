@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
 
@@ -36,6 +36,7 @@ class GrabSingle extends Component {
                 this.state.grab.image_public_url
               };background(dominant)/1200x630,contain.jpeg`}
               memos_count={this.state.grab.memos.length}
+              memos={this.state.grab.memos}
             />
             <Grab
               username={this.state.grab.user.username}
@@ -111,6 +112,24 @@ class MetaTags extends Component {
         <meta name="twitter:data1" value={this.props.memos_count} />
         <meta name="twitter:label2" value="Stickers" />
         <meta name="twitter:data2" value="Sticker count here [wip]" />
+        {this.props.memos.map((memo, i) => {
+          return (
+            <meta
+              name={`twitter:label${i + 3}`}
+              value={`${memo.user.username} says:`}
+              key={memo.id}
+            />
+          );
+        })}
+        {this.props.memos.map((memo, i) => {
+          return (
+            <meta
+              name={`twitter:data${i + 3}`}
+              value={memo.message}
+              key={memo.id}
+            />
+          );
+        })}
       </Helmet>
     );
   }
