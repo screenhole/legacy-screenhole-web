@@ -49,6 +49,7 @@ class UserStream extends Component {
               name={this.state.profile.name}
               gravatar_hash={this.state.profile.gravatar_hash}
               bio={this.state.profile.bio}
+              grabs={this.state.profile.stats.grabs}
             />
             <UserInfo>
               <Avatar
@@ -194,7 +195,7 @@ class MetaTags extends Component {
         <meta property="og:description" content={this.props.bio} />
         <meta property="og:site_name" content="Screenhole" />
         <meta property="og:locale" content="en_US" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@screenhole" />
         <meta name="twitter:creator" content="@screenhole" />
         <meta
@@ -212,6 +213,8 @@ class MetaTags extends Component {
             this.props.gravatar_hash
           }?size=500`}
         />
+        <meta name="twitter:label1" value="Grabs" />
+        <meta name="twitter:data1" value={this.props.grabs} />
       </Helmet>
     );
   }
