@@ -90,9 +90,8 @@ const Navbar = styled.nav`
 `;
 
 const Logo = styled.img`
-  width: 200px;
+  width: 232px;
   position: relative;
-  top: 1px;
 `;
 
 const Menu = styled.div`
