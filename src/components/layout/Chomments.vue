@@ -32,8 +32,8 @@
                     </a>
                     </template>
                     <template v-else>
-                      <span class="chomment_text" v-html="parseChomment(item.message)">
-                      </span>
+                        <span class="chommentMessageText" v-html="parseChomment(item.message)">
+                        </span>
                     </template>
                 </div>
             </div>
@@ -101,14 +101,15 @@ export default {
         },
 
         parseChomment: function (message) {
-          if (message.match(matchUrl)) {
-            const link = message.match(matchUrl)[0];
-            const messageWithLink = message.replace(matchUrl, `<a href="${link}">${link}</a>`);
+            if (message.match(matchUrl)) {
+                const link = message.match(matchUrl)[0];
 
-            return messageWithLink;
-          } else {
-            return message;
-          }
+                const messageWithLink = message.replace(matchUrl, `<a href="${link}">${link}</a>`);
+
+                return messageWithLink;
+            } else {
+                return message;
+            }
         }
     },
 
@@ -244,14 +245,6 @@ aside {
                 }
             }
 
-            .chomment_text a {
-              color: $bright-green;
-
-                &:visited {
-                  color: $purple;
-                }
-            }
-
             .content {
                 flex-grow: 1;
                 max-width: calc(100% - 45px);
@@ -270,6 +263,20 @@ aside {
                     }
                 }
             }
+        }
+    }
+}
+</style>
+
+<style lang="scss">
+@import "~resources";
+
+.chommentMessageText {
+    a {
+        color: $bright-green;
+
+        &:visited {
+            color: $purple;
         }
     }
 }
