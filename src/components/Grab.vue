@@ -396,6 +396,7 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    overflow-x: hidden;
 
     &.with-tray {
         padding-bottom: 180px;
