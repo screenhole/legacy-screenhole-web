@@ -7,23 +7,23 @@ class Settings extends Component {
       <Wrapper>
         <h1>Settings</h1>
         <InputWrapper>
-          <Input id="email" placeholder="you@email.com" />
+          <Input id="email" placeholder="you@email.com" type="email" />
           <Label htmlFor="email">Email Address</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="username" placeholder="username" />
+          <Input id="username" placeholder="username" type="text" />
           <Label htmlFor="username">Username</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="name" placeholder="Spiderman Jones" />
+          <Input id="name" placeholder="Spiderman Jones" type="text" />
           <Label htmlFor="name">Your name</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="bio" placeholder="Tell us about yerself" />
+          <Input id="bio" placeholder="Tell us about yerself" type="text" />
           <Label htmlFor="bio">Bio</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="password" placeholder="new password" />
+          <Input id="password" placeholder="new password" type="password" />
           <Label htmlFor="password">Leave blank to not change.</Label>
         </InputWrapper>
         <Button>Go!</Button>
