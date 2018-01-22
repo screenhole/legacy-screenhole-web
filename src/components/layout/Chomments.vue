@@ -101,15 +101,18 @@ export default {
         },
 
         parseChomment: function (message) {
+            message = this.$sanitize(message, {
+                allowedTags: [],
+                allowedAttributes: [],
+            });
+
             if (message.match(matchUrl)) {
                 const link = message.match(matchUrl)[0];
 
-                const messageWithLink = message.replace(matchUrl, `<a href="${link}">${link}</a>`);
-
-                return messageWithLink;
-            } else {
-                return message;
+                message = message.replace(matchUrl, `<a href="${link}" target="_blank">${link}</a>`);
             }
+
+            return message;
         }
     },
 
