@@ -32,7 +32,8 @@
                     </a>
                     </template>
                     <template v-else>
-                        {{item.message}}
+                        <span class="chommentMessageText" v-html="parseChomment(item.message)">
+                        </span>
                     </template>
                 </div>
             </div>
@@ -53,6 +54,8 @@ import InfiniteLoading from 'vue-infinite-loading';
 import ActionCable from 'actioncable';
 
 import Avatar from '@/components/Avatar'
+
+const matchUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 
 export default {
     data () {
@@ -96,6 +99,21 @@ export default {
                 }
             });
         },
+
+        parseChomment: function (message) {
+            message = this.$sanitize(message, {
+                allowedTags: [],
+                allowedAttributes: [],
+            });
+
+            if (message.match(matchUrl)) {
+                const link = message.match(matchUrl)[0];
+
+                message = message.replace(matchUrl, `<a href="${link}" target="_blank">${link}</a>`);
+            }
+
+            return message;
+        }
     },
 
     mounted(){
@@ -248,6 +266,20 @@ aside {
                     }
                 }
             }
+        }
+    }
+}
+</style>
+
+<style lang="scss">
+@import "~resources";
+
+.chommentMessageText {
+    a {
+        color: $bright-green;
+
+        &:visited {
+            color: $purple;
         }
     }
 }

@@ -31,6 +31,9 @@ Vue.prototype.$lottie = lottie
 
 import pepjs from 'pepjs'
 
+import sanitizeHTML from 'sanitize-html'
+Vue.prototype.$sanitize = sanitizeHTML
+
 // catch 401 errors and logout
 Vue.axios.interceptors.response.use(function (response) {
     return response;
