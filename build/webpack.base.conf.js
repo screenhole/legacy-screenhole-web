@@ -48,6 +48,14 @@ module.exports = {
         }
       },
       {
+        test: /\.(json)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 1,
+          name: utils.assetsPath('json/[name].[hash:7].[ext]')
+        }
+      },
+      {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {

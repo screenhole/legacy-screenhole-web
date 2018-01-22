@@ -2,13 +2,14 @@
     <header class="splitscreen-Top" v-bind:class="{'mobile': $mq.mobile}">
         <div class="left" v-bind:class="{'mobile': $mq.mobile}">
 
-            <router-link class="logo" to="/" exact>
-                <img src="../../assets/img/logo.svg" alt="SCREENHOLE!">
-            </router-link>
+            <div class="logo">
+                <router-link class="clicker" to="/" exact></router-link>
+                <div class="animation" ref="logo"></div>
+            </div>
 
             <template v-if="$auth.check()">
                 <div class="buttcoin" v-bind:class="{'mobile': $mq.mobile}">
-                    <img class="icon" src="../../assets/img/buttcoin-spin.gif" alt="buttcoin">
+                    <div class="icon" ref="buttcoinIcon"></div>
                     <span>{{ $auth.user().stats.buttcoins }}</span>
                 </div>
             </template>
@@ -42,8 +43,9 @@
                     <a class="nav" href="/" @click.prevent="logout">log out</a>
                 </template>
 
+                <a class="nav" href="https://scrnhl.tumblr.com">news</a>
                 <a class="nav" href="https://twitter.com/screenhole">twitter</a>
-                <router-link class="nav" to="/wtf">manual</router-link>
+                <router-link class="nav" to="/wtf">wtf</router-link>
             </nav>
 
             <nav class="pages">
@@ -54,8 +56,9 @@
         </template>
 
         <nav class="pages" v-if="! $mq.mobile">
+            <a class="nav" href="https://scrnhl.tumblr.com">news</a>
             <a href="https://twitter.com/screenhole">twitter</a>
-            <router-link to="/wtf">manual</router-link>
+            <router-link to="/wtf">wtf</router-link>
 
             <template v-if="! $auth.check()">
                 <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get&nbsp;invite</a>
@@ -101,6 +104,34 @@ export default {
         '$route': function(to, from){
             this.overlayVisible = false;
             this.showDropdown = false;
+        }
+    },
+
+    mounted: function(){
+        if (this.$refs.buttcoinIcon) {
+            this.buttcoinIcon = this.$lottie.loadAnimation({
+                container: this.$refs.buttcoinIcon,
+                path: require('../../assets/animation/buttcoin/spin.json'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                name: "buttcoinIcon",
+            });
+        }
+
+        if (this.$refs.logo) {
+            this.logo = this.$lottie.loadAnimation({
+                container: this.$refs.logo,
+                path: require('../../assets/animation/logo/logo.json'),
+                renderer: 'svg',
+                loop: false,
+                autoplay: false,
+                name: "logo",
+            });
+
+            setTimeout(() => {
+                this.logo.play();
+            }, 1800);
         }
     },
 
@@ -160,7 +191,24 @@ header {
 
       .logo {
         display: block;
-        width: 200px;
+
+        .clicker {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 260px;
+            height: 60px;
+            z-index: $z-layer-PageHeader + 1;
+        }
+
+        .animation {
+            position: absolute;
+            top: -160px;
+            left: -60px;
+            width: 380px;
+            z-index: $z-layer-PageHeader;
+            pointer-events: none;
+        }
       }
 
       .buttcoin {
@@ -169,7 +217,10 @@ header {
         color: white;
 
         .icon {
-          width: 25px;
+            width: 100px;
+            position: relative;
+            left: 30px;
+            align-self: center;
         }
         span {
           font-size: 16px;
