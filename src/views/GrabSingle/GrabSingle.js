@@ -42,6 +42,7 @@ class GrabSingle extends Component {
               username={this.state.grab.user.username}
               image={this.state.grab.image_public_url}
               id={this.state.grab.id}
+              memos={this.state.grab.memos}
               gravatar={this.state.grab.user.gravatar_hash}
               key={this.state.grab.id}
             />

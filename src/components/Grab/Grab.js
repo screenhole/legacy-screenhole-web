@@ -55,6 +55,9 @@ class Grab extends Component {
               </defs>
             </svg>
           </MemoButton>
+          {this.props.memos.length > 0 && (
+            <MemoCount>{this.props.memos.length}</MemoCount>
+          )}
         </UserInfo>
         <Link to={`/${this.props.username}/~${this.props.id}`}>
           <GrabImage
@@ -107,6 +110,10 @@ const MemoButton = styled.button`
   &:hover {
     transform: translateY(-3px);
   }
+`;
+
+const MemoCount = styled.span`
+  color: var(--primary-color);
 `;
 
 const GrabImage = styled.img`

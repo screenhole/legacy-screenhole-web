@@ -71,6 +71,7 @@ const Navbar = styled.nav`
   left: 0;
   right: 0;
   width: 100%;
+  z-index: 100;
   padding: var(--app-padding);
   background-color: var(--nav-bg-color);
   border-bottom: var(--divider);

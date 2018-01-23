@@ -46,6 +46,7 @@ class GrabStream extends Component {
                 username={grab.user.username}
                 image={grab.image_public_url}
                 id={grab.id}
+                memos={grab.memos}
                 gravatar={grab.user.gravatar_hash}
                 key={grab.id}
               />
