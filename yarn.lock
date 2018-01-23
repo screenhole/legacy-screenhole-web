@@ -3917,6 +3917,12 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+linkify-it@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.0.3.tgz#d94a4648f9b1c179d64fa97291268bdb6ce9434f"
+  dependencies:
+    uc.micro "^1.0.1"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -5051,7 +5057,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5219,6 +5225,14 @@ react-helmet@^5.2.0:
     object-assign "^4.1.1"
     prop-types "^15.5.4"
     react-side-effect "^1.1.0"
+
+react-linkify@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/react-linkify/-/react-linkify-0.2.2.tgz#55b99b1cc7244446a0f9bdebbe13b2c30f789e65"
+  dependencies:
+    linkify-it "^2.0.3"
+    prop-types "^15.5.8"
+    tlds "^1.57.0"
 
 react-lottie@^1.0.0:
   version "1.0.0"
@@ -6202,6 +6216,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
+tlds@^1.57.0:
+  version "1.199.0"
+  resolved "https://registry.yarnpkg.com/tlds/-/tlds-1.199.0.tgz#a4fc8c3058216488a80aaaebb427925007e55217"
+
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -6276,6 +6294,10 @@ typedarray@^0.0.6:
 ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
+
+uc.micro@^1.0.1:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.3.tgz#7ed50d5e0f9a9fb0a573379259f2a77458d50192"
 
 uglify-js@3.3.x, uglify-js@^3.0.13:
   version "3.3.5"

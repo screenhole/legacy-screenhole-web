@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Linkify from 'react-linkify';
 import styled from 'styled-components';
 
 import Avatar from '../User/Avatar';
@@ -17,8 +18,12 @@ class Chomment extends Component {
             username={this.props.username}
           />
           <Content>
-            <Link to={`/${this.props.username}`}>{this.props.username}</Link>
-            <Message>{this.props.message}</Message>
+            <Username>
+              <Link to={`/${this.props.username}`}>{this.props.username}</Link>
+            </Username>
+            <Message>
+              <Linkify>{this.props.message}</Linkify>
+            </Message>
           </Content>
         </InnerChomment>
       </Wrapper>
@@ -54,12 +59,32 @@ const Message = styled.p`
   line-height: 1.45;
   font-size: 0.925rem;
   word-break: break-word;
+
+  a {
+    display: inline-flex;
+    color: var(--secondary-color);
+    transition: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
+  }
+
+  a:hover {
+    transform: scale(1.05);
+  }
+
+  a:active {
+    transform: scale(0.98);
+  }
+
+  a:visited {
+    color: var(--primary-color);
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+`;
 
+const Username = styled.span`
   a {
     color: var(--link-color);
     display: inline-block;
