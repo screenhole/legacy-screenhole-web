@@ -212,7 +212,22 @@ export default {
         },
 
         blockUser: function() {
-            alert('You won\'t see their grabs anymore. You can unblock them from settings.');
+            var already_blocked = this.$auth.user().blocked.includes(this.grab.user.id);
+
+            return this.$http.post("/users/" + this.grab.user.id + (already_blocked ? "/unblock" : "/block"))
+            .then(function(){
+                if (already_blocked) {
+                    alert('This user is now unblocked.');
+                } else {
+                    alert('This user is now blocked.');
+                }
+
+                // hard refresh
+                window.location = window.location;
+            }.bind(this))
+            .catch(function(err){
+                alert(err);
+            });
         },
 
         onPointerDown: function(event) {
