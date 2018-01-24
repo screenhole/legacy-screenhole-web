@@ -180,8 +180,15 @@ header {
     &.mobile {
         padding-left: 10px;
 
+        .left {
+            .logo {
+                .animation {
+                    top: -132px;
+                    width: 320px;
+                }
+            }
+        }
     }
-
 
     .left {
       display: flex;
