@@ -21,7 +21,7 @@
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
-                    <a class="button" href="#" v-if="buttonReport && ! ownedByCurrentUser" @click.prevent="reportGrab">
+                    <a class="button" href="#" v-if="buttonReport && inWebView && $auth.check() && ! ownedByCurrentUser" @click.prevent="reportGrab">
                         <!-- <img class="icon" src="../assets/img/report.svg" alt="Report"> -->
                         Report
                     </a>
@@ -91,7 +91,7 @@ export default {
             'default': true,
         },
         'button-report': {
-            'default': false,
+            'default': true,
         }
     },
 
@@ -327,6 +327,10 @@ export default {
             return this.$auth.check()
                 && this.grab.user
                 && this.$auth.user().id == this.grab.user.id
+        },
+
+        inWebView: function(){
+            return /((iPhone|iPod|iPad).*AppleWebKit(?!.*Version)|; wv)/i.test(window.navigator.userAgent);
         },
     },
 

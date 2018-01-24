@@ -4,7 +4,6 @@
             v-for="(grab, index) in grabs"
             v-bind:key="grab.id"
             v-bind:grab="grab"
-            v-bind:button-report="inWebView"
             v-on:remove="grabs.splice(index, 1)"
         />
 
@@ -26,7 +25,6 @@ import Grab from '@/components/Grab';
 export default {
     data () {
         return {
-            inWebView: false,
             current: null,
             page: 1,
             grabs: []
@@ -102,8 +100,6 @@ export default {
     },
 
     mounted(){
-        this.inWebView = /((iPhone|iPod|iPad).*AppleWebKit(?!.*Version)|; wv)/i.test(window.navigator.userAgent);
-
         this.$cable.subscriptions.create(
             "GrabsChannel",
             {
