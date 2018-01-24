@@ -21,6 +21,10 @@
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
+                    <a class="button" href="#" v-if="buttonReport && ! ownedByCurrentUser" @click.prevent="reportGrab">
+                        <!-- <img class="icon" src="../assets/img/report.svg" alt="Report"> -->
+                        Report
+                    </a>
                 </div>
             </div>
             <router-link class="media dropzone" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
@@ -86,6 +90,9 @@ export default {
         'button-stickers': {
             'default': true,
         },
+        'button-report': {
+            'default': false,
+        }
     },
 
     data () {
@@ -191,6 +198,10 @@ export default {
             .catch(function(err){
                 alert(err);
             })
+        },
+
+        reportGrab: function() {
+            alert('Grab reported, thank you.');
         },
 
         onPointerDown: function(event) {
