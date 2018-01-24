@@ -8,10 +8,18 @@ import Buttcoin from '../Buttcoin/Buttcoin';
 const LoggedIn = () => (
   <Fragment>
     <Buttcoin amount="6969" />
-    <a href="https://news.screenhole.net" target="_blank">
+    <a
+      href="https://news.screenhole.net"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       news
     </a>
-    <a href="https://twitter.com/screenhole" target="_blank">
+    <a
+      href="https://twitter.com/screenhole"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       twitter
     </a>
     <NavLink to="/wtf">wtf</NavLink>
@@ -25,16 +33,25 @@ const LoggedIn = () => (
 const Guest = () => (
   <Fragment>
     <Fragment>
-      <a href="https://news.screenhole.net" target="_blank">
+      <a
+        href="https://news.screenhole.net"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         news
       </a>
-      <a href="https://twitter.com/screenhole" target="_blank">
+      <a
+        href="https://twitter.com/screenhole"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         twitter
       </a>
       <NavLink to="/wtf">wtf</NavLink>
       <a
         href="https://twitter.com/pasql/status/928638640368037888"
         target="_blank"
+        rel="noopener noreferrer"
       >
         get invite
       </a>

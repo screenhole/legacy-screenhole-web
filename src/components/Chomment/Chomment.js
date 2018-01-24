@@ -16,14 +16,26 @@ class Chomment extends Component {
           <Avatar
             src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
             username={this.props.username}
+            variant={this.props.variant}
           />
           <Content>
             <Username>
               <Link to={`/${this.props.username}`}>{this.props.username}</Link>
             </Username>
-            <Message>
-              <Linkify>{this.props.message}</Linkify>
-            </Message>
+            {this.props.variant === 'generic' && (
+              <Message>
+                <Linkify properties={{ target: '_blank' }}>
+                  {this.props.message}
+                </Linkify>
+              </Message>
+            )}
+            {this.props.variant === 'voice_memo' && (
+              <Link to={`/grab/~${this.props.reference.id}`}>
+                <Message className="voice-memo-link">
+                  {this.props.message}
+                </Message>
+              </Link>
+            )}
           </Content>
         </InnerChomment>
       </Wrapper>
@@ -61,7 +73,9 @@ const Message = styled.p`
   word-break: break-word;
 
   a {
-    display: inline-flex;
+    display: inline;
+    align-items: center;
+    outline: 0;
     color: var(--secondary-color);
     transition: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
   }
@@ -76,6 +90,15 @@ const Message = styled.p`
 
   a:visited {
     color: var(--primary-color);
+  }
+
+  &.voice-memo-link {
+    color: var(--link-color);
+    display: inline;
+
+    &:hover {
+      border-bottom: var(--divider-width) solid var(--primary-color);
+    }
   }
 `;
 

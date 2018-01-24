@@ -31,6 +31,8 @@ class ChommentStream extends Component {
                   username={chomment.user.username}
                   message={chomment.message}
                   gravatar={chomment.user.gravatar_hash}
+                  variant={chomment.variant}
+                  reference={chomment.cross_ref}
                   key={chomment.id}
                 />
               ))
