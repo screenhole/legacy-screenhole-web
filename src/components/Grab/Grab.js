@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Avatar from '../User/Avatar';
+import VoiceMemo from '../Memo/VoiceMemo';
 
 class Grab extends Component {
   constructor() {
@@ -65,6 +66,20 @@ class Grab extends Component {
             alt={`${this.props.username}’s Grab on Screenhole`}
           />
         </Link>
+        {this.props.showMemos &&
+          this.props.memos.map(memo => {
+            if (!memo.pending && memo.variant === 'voice') {
+              return (
+                <VoiceMemo
+                  key={memo.id}
+                  message={memo.message}
+                  audio={memo.media_public_url}
+                  username={memo.user.username}
+                  gravatar={memo.user.gravatar_hash}
+                />
+              );
+            }
+          })}
       </Wrapper>
     );
   }

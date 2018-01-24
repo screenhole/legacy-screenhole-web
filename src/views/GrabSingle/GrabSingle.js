@@ -44,6 +44,7 @@ class GrabSingle extends Component {
               id={this.state.grab.id}
               memos={this.state.grab.memos}
               gravatar={this.state.grab.user.gravatar_hash}
+              showMemos={true}
               key={this.state.grab.id}
             />
           </span>
