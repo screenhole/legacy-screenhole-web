@@ -208,7 +208,13 @@ export default {
         },
 
         reportGrab: function() {
-            alert('Grab reported, thank you.');
+            return this.$http.post("/grabs/" + this.grab.id + "/report")
+            .then(function(){
+                alert('Grab reported, thank you.');
+            }.bind(this))
+            .catch(function(err){
+                alert(err);
+            });
         },
 
         blockUser: function() {
