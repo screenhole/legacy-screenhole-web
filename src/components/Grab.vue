@@ -91,7 +91,7 @@ export default {
             'default': true,
         },
         'button-report': {
-            'default': true,
+            'default': false,
         }
     },
 

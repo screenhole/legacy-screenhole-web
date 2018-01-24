@@ -6,6 +6,7 @@
         :show-voice-memos="true"
         :show-sticker-memos="true"
         :button-delete="true"
+        :button-report="true"
     />
 </template>
 
