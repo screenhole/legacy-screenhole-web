@@ -73,7 +73,7 @@ const Message = styled.p`
   word-break: break-word;
 
   a {
-    display: inline;
+    display: inline-flex;
     align-items: center;
     outline: 0;
     color: var(--secondary-color);
