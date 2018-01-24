@@ -310,7 +310,7 @@ export default {
             min-height: 100%;
 
             .center
-                max-width: 50%;
+                // max-width: 50%;
                 padding-bottom: 20vh
 
         .title
