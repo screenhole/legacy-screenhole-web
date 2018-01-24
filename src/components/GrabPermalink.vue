@@ -7,6 +7,7 @@
         :show-sticker-memos="true"
         :button-delete="true"
         :button-report="true"
+        :button-block="true"
     />
 </template>
 

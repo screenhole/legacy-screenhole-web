@@ -25,6 +25,10 @@
                         <!-- <img class="icon" src="../assets/img/report.svg" alt="Report"> -->
                         Report
                     </a>
+                    <a class="button" href="#" v-if="buttonBlock && inWebView && $auth.check() && ! ownedByCurrentUser" @click.prevent="blockUser">
+                        <!-- <img class="icon" src="../assets/img/block.svg" alt="Block"> -->
+                        Block
+                    </a>
                 </div>
             </div>
             <router-link class="media dropzone" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
@@ -92,7 +96,10 @@ export default {
         },
         'button-report': {
             'default': false,
-        }
+        },
+        'button-block': {
+            'default': false,
+        },
     },
 
     data () {
@@ -202,6 +209,10 @@ export default {
 
         reportGrab: function() {
             alert('Grab reported, thank you.');
+        },
+
+        blockUser: function() {
+            alert('You won\'t see their grabs anymore. You can unblock them from settings.');
         },
 
         onPointerDown: function(event) {
@@ -330,6 +341,7 @@ export default {
         },
 
         inWebView: function(){
+            // return true;
             return /((iPhone|iPod|iPad).*AppleWebKit(?!.*Version)|; wv)/i.test(window.navigator.userAgent);
         },
     },
