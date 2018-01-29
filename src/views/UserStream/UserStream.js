@@ -46,7 +46,7 @@ class UserStream extends Component {
           <ProfileHeader>
             <MetaTags
               username={this.state.profile.username}
-              name={this.state.profile.name}
+              name={this.state.profile.name || this.state.profile.username}
               gravatar_hash={this.state.profile.gravatar_hash}
               bio={this.state.profile.bio}
               grabs={this.state.profile.stats.grabs}

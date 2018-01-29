@@ -4,37 +4,26 @@ import styled from 'styled-components';
 
 import Grab from './../../components/Grab/Grab';
 
-function getNewGrabs() {
-  fetch(`https://api.screenhole.net/grabs?page=1`)
-    .then(res => res.json())
-    .then(res => {
-      window.localStorage.setItem('grabs', JSON.stringify(res.grabs));
-    })
-    .catch();
-}
-
 class GrabStream extends Component {
   constructor() {
     super();
 
     this.state = {
-      grabs: [],
-      firstLoad: true
+      grabs: []
     };
   }
   componentWillMount() {
-    getNewGrabs();
+    this.getNewGrabs();
   }
-  componentWillReceiveProps(nextProps) {
-    var routeChanged = nextProps.location !== this.props.location;
-    this.setState({ firstLoad: routeChanged });
-  }
-  componentDidMount() {
-    if (window.localStorage.grabs) {
-      this.setState({
-        grabs: JSON.parse(window.localStorage.grabs)
-      });
-    }
+  getNewGrabs() {
+    fetch(`https://api.screenhole.net/grabs?page=1`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          grabs: res.grabs
+        });
+      })
+      .catch();
   }
   render() {
     return (
