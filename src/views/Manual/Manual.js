@@ -66,7 +66,7 @@ class Manual extends Component {
 
           <h2>Buttcoin?</h2>
           <p>
-            It's a craptocurrency. Score Buttcoin by using Screenhole. You can
+            It’s a craptocurrency. Score Buttcoin by using Screenhole. You can
             spend it soon.
           </p>
 
