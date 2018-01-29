@@ -9,7 +9,7 @@ class Manual extends Component {
           <img src="/img/wtf.png" alt="What the actual fuck?" />
           <p>
             Screenhole is an experiment run by{' '}
-            <a href="http://thinko.com">Thinko</a>. It's a place to hang out and
+            <a href="http://thinko.com">Thinko</a>. It’s a place to hang out and
             share "grabs" you take from your Mac or iPhone.
           </p>
           <p>
@@ -21,7 +21,7 @@ class Manual extends Component {
         <section>
           <h1>How do I register?</h1>
           <p>
-            We're not trying to cram this place with a flood of users, so
+            We’re not trying to cram this place with a flood of users, so
             invitations are limited. You can buy an invite code. Think of it
             like a cover fee. There is no&nbsp;warranty!
           </p>
