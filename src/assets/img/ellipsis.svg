@@ -1,0 +1,20 @@
+<svg width="25" height="5" viewBox="0 0 25 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>options</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-1320 183)">
+<g id="options">
+<g id="Rectangle 2">
+<use xlink:href="#path0_fill" transform="translate(1320 -183)" fill="#6A40EE"/>
+</g>
+<g id="Rectangle 2.1">
+<use xlink:href="#path0_fill" transform="translate(1330 -183)" fill="#6A40EE"/>
+</g>
+<g id="Rectangle 2.2">
+<use xlink:href="#path0_fill" transform="translate(1340 -183)" fill="#6A40EE"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 0 2.5C 0 1.11929 1.11929 0 2.5 0L 2.5 0C 3.88071 0 5 1.11929 5 2.5L 5 2.5C 5 3.88071 3.88071 5 2.5 5L 2.5 5C 1.11929 5 0 3.88071 0 2.5L 0 2.5Z"/>
+</defs>
+</svg>

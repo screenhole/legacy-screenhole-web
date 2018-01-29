@@ -21,14 +21,26 @@
                     <a class="button" href="#" v-if="buttonDelete && ownedByCurrentUser" @click.prevent="deleteGrab">
                         <img class="icon" src="../assets/img/trash.svg" alt="Can it!">
                     </a>
-                    <a class="button" href="#" v-if="buttonReport && inWebView && $auth.check() && ! ownedByCurrentUser" @click.prevent="reportGrab">
-                        <!-- <img class="icon" src="../assets/img/report.svg" alt="Report"> -->
-                        Report
-                    </a>
-                    <a class="button" href="#" v-if="buttonBlock && inWebView && $auth.check() && ! ownedByCurrentUser" @click.prevent="blockUser">
-                        <!-- <img class="icon" src="../assets/img/block.svg" alt="Block"> -->
-                        Block
-                    </a>
+
+                    <div class="button" v-if="inWebView && $auth.check() && ! ownedByCurrentUser && (buttonReport || buttonBlock)">
+                      <img class="icon" src="../assets/img/ellipsis.svg" alt="Report and Block" @click.prevent="showDropdown = ! showDropdown">
+
+                      <div class="dropdown" v-bind:class="{ on: showDropdown }">
+                        <ul>
+                          <li v-if="buttonReport">
+                            <a class="button" href="#" @click.prevent="reportGrab">
+                                Report
+                            </a>
+                          </li>
+                          <li v-if="buttonBlock">
+                            <a class="button" href="#" @click.prevent="blockUser">
+                                <span v-if="grab && grab.user && $auth.user().blocked.includes(grab.user.id)">Unblock</span>
+                                <span v-else>Block</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
                 </div>
             </div>
             <router-link class="media dropzone" v-if="grab.user" :to="{ name: 'grab-permalink', params: {
@@ -105,6 +117,7 @@ export default {
     data () {
         return {
             stickersTrayVisible: false,
+            showDropdown: false,
 
             stickersTray: [
                 { name: 'chuckle', price: 100 },
@@ -198,6 +211,8 @@ export default {
         deleteGrab: function() {
             if (! confirm('Are you sure you want to delete this grab?')) return;
 
+            this.showDropdown = false;
+
             return this.$http.delete("/grabs/" + this.grab.id)
             .then(function(){
                 this.$router.push('/');
@@ -208,6 +223,8 @@ export default {
         },
 
         reportGrab: function() {
+            this.showDropdown = false;
+
             return this.$http.post("/grabs/" + this.grab.id + "/report")
             .then(function(){
                 alert('Grab reported, thank you.');
@@ -488,6 +505,8 @@ export default {
                 align-items: center;
 
                 .button {
+                    z-index: $z-layer-PageHeader;
+                    position: relative;
                     display: flex;
                     align-items: center;
                     margin-left: 10px;
@@ -507,6 +526,73 @@ export default {
                     &:hover {
                         border: 0 !important;
                         transform: translateY(-2px);
+                    }
+
+                    .dropdown {
+                        z-index: $z-layer-PageHeader;
+                        position: absolute;
+                        top: 20px;
+                        left: -38px;
+                        width: 100px;
+                        background-color: $purple;
+                        border-radius: 5px;
+                        padding: 0;
+                        margin: 0;
+                        box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
+
+                        opacity: 0;
+                        visibility: hidden;
+                        transform: translateY(-5px);
+
+                        transition: all 400ms ease;
+
+                        &.on {
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateY(0);
+                        }
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: -8px;
+                            right: calc(50% - 8px);
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 0 7.5px 10px 7.5px;
+                            border-color: transparent transparent $purple transparent;
+                        }
+
+                        ul {
+                            margin: 0;
+                            padding: 0;
+                            list-style-type: none;
+                            padding: 15px;
+                            text-align: center;
+
+                            li {
+                                display: block;
+
+                                a {
+                                    opacity: 0.8;
+                                    color: white;
+                                    margin: 0;
+                                    display: block;
+                                    transition: all 0.2s ease;
+
+                                    &:hover {
+                                        opacity: 1;
+                                        text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.45);
+                                        transform: translate(0,-1px);
+                                    }
+                                }
+                            }
+
+                            li + li {
+                                margin-top: 1em;
+                            }
+                        }
                     }
                 }
             }
