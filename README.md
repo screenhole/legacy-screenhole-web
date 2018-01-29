@@ -1,3 +1,61 @@
+# screenhole-web
+
+> screenhole.net frontend
+
+## Setup
+
+```
+yarn install
+```
+
+## Development
+
+Serve with hot reload at [localhost:3000](http://localhost:8080). Uses production API by default.
+
+```
+yarn start
+```
+
+### Staging API
+
+Run the frontend locally, but read from the staging API.
+
+```
+TODO
+```
+
+### Local API
+
+Run the frontend locally, but read from the local API (e.g. `https://screenhole-api.ngrok.io`, which is part of `heroku local`).
+
+```
+TODO
+```
+
+## Build
+
+Build for production with minification. Unlikely you need to do this explicitly, will be run prior to each deploy.
+
+```
+yarn build
+```
+
+## Deploy
+
+Deploy an instance of your current working tree (not just what is committed or pushed to GitHub). Will create a new now.sh subdomain, check command output for details.
+
+Uses production API by default.
+
+```
+yarn deploy
+```
+
+## Promote to Production
+
+Merge to `master` branch. Master is automatically deployed to [screenhole.net](https://screenhole.net/).
+
+*****
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
