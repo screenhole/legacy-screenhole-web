@@ -11,7 +11,11 @@ class Avatar extends Component {
   render() {
     return (
       <Link to={`/${this.props.username}`}>
-        <Image src={this.props.src} alt={this.props.username} />
+        <Image
+          src={this.props.src}
+          alt={this.props.username}
+          className="user-avatar"
+        />
         {this.props.variant === 'voice_memo' && (
           <PhoneIcon>
             <Icon src={phone} />

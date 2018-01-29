@@ -53,7 +53,7 @@ const Wrapper = styled.div`
 const InnerChomment = styled.div`
   display: flex;
 
-  img {
+  .user-avatar {
     background-color: var(--muted-color);
     width: 2.25rem;
     height: 2.25rem;
