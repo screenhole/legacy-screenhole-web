@@ -42,9 +42,7 @@ yarn build
 
 ## Deploy
 
-Deploy an instance of your current working tree (not just what is committed or pushed to GitHub). Will create a new now.sh subdomain, check command output for details.
-
-Uses production API by default.
+Any branch will automatically get a Netlify Deploy Preview, just push it to GitHub. Uses production API by default.
 
 ```
 yarn deploy
