@@ -5,7 +5,7 @@ class Login extends Component {
   render() {
     return (
       <Wrapper>
-        <h1>Log in</h1>
+        <h1>Log In</h1>
         <InputWrapper>
           <Input id="username" placeholder="username" type="text" />
         </InputWrapper>
