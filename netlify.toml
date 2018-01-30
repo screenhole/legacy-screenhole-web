@@ -1,0 +1,4 @@
+[[headers]]
+  for = "/.netlify/*"
+  [headers.values]
+   Access-Control-Allow-Origin = "*"
