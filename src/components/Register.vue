@@ -16,6 +16,10 @@
             <div class="error" v-if="errors.has('code')">{{ errors.first('code') }}</div>
 
             <button class="button" type="submit">GO!</button>
+
+            <div class="error" v-if="$mq.mobile">
+              By registering you agree to the <router-link to="/eula" exact>EULA</router-link>.
+            </div>
         </form>
 
         <div v-if="terminal" v-bind:class="{ flash: terminal }">

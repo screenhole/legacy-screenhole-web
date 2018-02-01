@@ -323,6 +323,9 @@ export default {
             padding: 10px 0 0 0;
             color: $grey-cool;
 
+            a
+              color: $purple;
+
         .input
             width: 300px;
             display: block;

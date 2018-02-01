@@ -10,6 +10,10 @@
             <div class="error" v-if="errors.has('password')">{{ errors.first('password') }}</div>
 
             <button class="button" type="submit">GO!</button>
+
+            <div class="error" v-if="$mq.mobile">
+              By logging in you agree to the <router-link to="/eula" exact>EULA</router-link>.
+            </div>
         </form>
 
         <div v-if="terminal" v-bind:class="{ flash: terminal }">
