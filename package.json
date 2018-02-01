@@ -9,10 +9,7 @@
     "build": "node build/build.js",
     "dev": "node build/dev-server.js",
     "dev:local": "cross-env API_BASE=https://screenhole-api.ngrok.io npm run dev",
-    "dev:stage": "cross-env API_BASE=https://staging-api.screenhole.net npm run dev",
-    "deploy": "now --team screenhole",
-    "deploy:local": "now --team screenhole --name screenhole-web-local -e API_BASE=https://screenhole-api.ngrok.io",
-    "deploy:stage": "now --team screenhole --name screenhole-web-stage -e API_BASE=https://staging-api.screenhole.net"
+    "dev:stage": "cross-env API_BASE=https://staging-api.screenhole.net npm run dev"
   },
   "dependencies": {
     "express": "^4.16.2",
@@ -44,7 +41,6 @@
     "lottie-web": "^5.1.4",
     "node-sass": "^4.7.2",
     "normalize.css": "^7.0.0",
-    "now": "^8.5.4",
     "opn": "^5.1.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
