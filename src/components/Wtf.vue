@@ -10,9 +10,7 @@
 
         <section>
           <h1>How do I register?</h1>
-          <p>We're not trying to cram this place with a flood of users, so invitations are limited. You can buy an invite code. Think of it like a cover fee. There is no&nbsp;warranty!</p>
-
-          <p>Send $4.20 to $thinko on Square Cash or PayPal, and we'll hook you up.</p>
+          <p>We're not trying to cram this place with a flood of users, so invitations are limited. You'll need an invite code to register. If you can't find one, dm <a href="http://twitter.com/screenhole">@screenhole</a> on twitter./p>
         </section>
 
         <section>
@@ -42,7 +40,7 @@
           </p>
           <p>HAVE FUN!</p>
 
-          <p>- Last updated by <a href="/pasquale">@pasquale</a> at 1:25pm, Dec 14, 2017</p>
+          <p>- Last updated by <a href="/pasquale">@pasquale</a> at 2018-02-01 13:40:04 -0500</p>
         </section>
     </div>
 
