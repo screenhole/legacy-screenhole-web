@@ -84,6 +84,12 @@ const Chomments = styled.aside`
   &::-webkit-scrollbar-thumb {
     background-color: var(--primary-color);
   }
+
+  @media (max-width: 790px) {
+    max-width: 100%;
+    background-color: var(--body-bg-color);
+    height: calc(100% - var(--nav-height) * 2);
+  }
 `;
 
 const InnerChomments = styled.div`
@@ -96,6 +102,11 @@ const ChommentInputWrapper = styled.form`
   width: calc(var(--sidebar-width) - 1px);
   bottom: 0;
   left: 0;
+
+  @media (max-width: 790px) {
+    width: 100%;
+    bottom: var(--nav-height);
+  }
 `;
 
 const Input = styled.input`

@@ -98,6 +98,10 @@ const Wrapper = styled.div`
 
 const GrabsWrapper = styled.div`
   padding: 3rem;
+
+  @media (max-width: 1120px) {
+    padding: 1rem;
+  }
 `;
 
 const ProfileHeader = styled.header`
@@ -106,6 +110,12 @@ const ProfileHeader = styled.header`
   justify-content: space-between;
   border-bottom: var(--divider);
   padding: 2rem 3rem;
+  position: relative;
+
+  @media (max-width: 1120px) {
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -119,11 +129,19 @@ const UserInfo = styled.div`
     width: 6rem;
     height: 6rem;
   }
+
+  @media (max-width: 1120px) {
+    flex-direction: column;
+  }
 `;
 
 const UserBio = styled.div`
   display: block;
   margin-left: 2rem;
+  @media (max-width: 1120px) {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
 
   h1 {
     font-size: 2rem;
@@ -150,6 +168,12 @@ const UserBio = styled.div`
 
 const UserStats = styled.div`
   text-align: center;
+
+  @media (max-width: 1120px) {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
 `;
 
 const Number = styled.span`

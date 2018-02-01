@@ -102,6 +102,9 @@ export default Manual;
 const Page = styled.div`
   margin: 0 auto 50px auto;
   padding: 50px;
+  @media (max-width: 790px) {
+    padding: 0;
+  }
   max-width: 1000px;
   section {
     color: #858090;
@@ -124,6 +127,7 @@ const Page = styled.div`
       display: inline-block;
       clear: both;
       background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.15em 0.25em;
     }
     a {
       color: $purple;
