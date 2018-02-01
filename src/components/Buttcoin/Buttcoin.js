@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
+import Lottie from 'react-lottie';
 import styled from 'styled-components';
+
+import * as ButtcoinSpin from '../../animations/buttcoin/spin.json';
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: ButtcoinSpin,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  }
+};
 
 class Buttcoin extends Component {
   constructor() {
@@ -8,7 +20,9 @@ class Buttcoin extends Component {
   render() {
     return (
       <Wrapper>
-        <Coin src="/img/buttcoin-spin.gif" alt="Hold on to your $butt" />
+        <Coin>
+          <Lottie options={defaultOptions} height={100} width={100} />
+        </Coin>
         {this.props.amount && <span>{this.props.amount}</span>}
       </Wrapper>
     );
@@ -27,6 +41,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const Coin = styled.img`
-  height: 1.75rem;
-`;
+const Coin = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+`

@@ -47,7 +47,7 @@ class VoiceMemo extends Component {
               width="0"
               height="0"
               playsInline
-              volume="1"
+              volume={1}
               playing={this.state.playing}
               onEnded={this.controlPlayback.bind(this)}
             />

@@ -65,7 +65,7 @@ class Nav extends Component {
     super();
 
     this.state = {
-      loggedIn: false
+      loggedIn: true
     };
   }
   render() {
