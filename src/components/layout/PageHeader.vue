@@ -22,6 +22,7 @@
                 </a>
 
                 <template v-if="! $auth.check()">
+
                     <router-link class="nav" to="/login">log in</router-link>
                 </template>
 
@@ -59,6 +60,7 @@
             <router-link to="/wtf">wtf</router-link>
 
             <template v-if="! $auth.check()">
+
                 <router-link to="/login">log&nbsp;in</router-link>
             </template>
 
@@ -211,7 +213,7 @@ header {
             width: 380px;
             z-index: $z-layer-PageHeader;
             pointer-events: none;
-        // }
+         }
       }
 
       .buttcoin {
