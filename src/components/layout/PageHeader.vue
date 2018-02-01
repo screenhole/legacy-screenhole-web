@@ -22,8 +22,6 @@
                 </a>
 
                 <template v-if="! $auth.check()">
-                    <a class="nav" href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get invite</a>
-
                     <router-link class="nav" to="/login">log in</router-link>
                 </template>
 
@@ -61,8 +59,6 @@
             <router-link to="/wtf">wtf</router-link>
 
             <template v-if="! $auth.check()">
-                <a href="https://twitter.com/pasql/status/928638640368037888" target="_blank">get&nbsp;invite</a>
-
                 <router-link to="/login">log&nbsp;in</router-link>
             </template>
 
@@ -215,7 +211,7 @@ header {
             width: 380px;
             z-index: $z-layer-PageHeader;
             pointer-events: none;
-        }
+        // }
       }
 
       .buttcoin {
