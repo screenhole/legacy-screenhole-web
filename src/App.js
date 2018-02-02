@@ -51,5 +51,6 @@ const MainContent = styled.main`
 
   @media (max-width: 790px) {
     padding-left: var(--app-padding);
+    padding-bottom: calc(var(--nav-height) * 1.5);
   }
 `;

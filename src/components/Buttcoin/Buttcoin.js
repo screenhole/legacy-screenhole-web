@@ -19,7 +19,7 @@ class Buttcoin extends Component {
   }
   render() {
     return (
-      <Wrapper>
+      <Wrapper className="buttcoin">
         <Coin>
           <Lottie options={defaultOptions} height={100} width={100} />
         </Coin>
@@ -48,4 +48,4 @@ const Coin = styled.div`
   width: 30px;
   height: 30px;
   overflow: hidden;
-`
+`;
