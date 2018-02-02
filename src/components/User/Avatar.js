@@ -5,9 +5,6 @@ import styled from 'styled-components';
 import phone from './icon-phone-chomment.svg';
 
 class Avatar extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Link to={`/${this.props.username}`}>

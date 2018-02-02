@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 class Manual extends Component {
   render() {
@@ -21,14 +22,17 @@ class Manual extends Component {
         <section>
           <h1>How do I register?</h1>
           <p>
-            We’re not trying to cram this place with a flood of users, so
-            invitations are limited. You can buy an invite code. Think of it
-            like a cover fee. There is no&nbsp;warranty!
-          </p>
-
-          <p>
-            Send $4.20 to $thinko on Square Cash or PayPal, and we'll hook you
-            up.
+            We're not trying to cram this place with a flood of users, so
+            invitations are limited. You'll need an invite code to register. If
+            you can't find one, dm{' '}
+            <a
+              href="https://twitter.com/screenhole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @screenhole
+            </a>{' '}
+            on twitter.
           </p>
         </section>
 
@@ -38,8 +42,8 @@ class Manual extends Component {
           <h2>Log in with the Desktop App</h2>
           <p>
             Make sure you have the Desktop app running FIRST, and then{' '}
-            <a href="/login">log in</a> on the web. If you were already logged
-            in on the web, log out and back in again with the desktop app
+            <Link to="/login">log in</Link> on the web. If you were already
+            logged in on the web, log out and back in again with the desktop app
             running. We automatically connect your account!
           </p>
 
@@ -78,8 +82,11 @@ class Manual extends Component {
 
           <h1>Get in touch</h1>
           <p>
-            Since this whole thing is crazy, expect rough edges 🤭 . If you find
-            a bug, or get stuck, email{' '}
+            Since this whole thing is crazy, expect rough edges{' '}
+            <span role="img" aria-label="shhh">
+              🤭
+            </span>{' '}
+            . If you find a bug, or get stuck, email{' '}
             <a href="mailto:screenhole@thinko.com">screenhole@thinko.com</a>,
             and we'll get back to you. If you're technically inclined, you can
             see / file bugs on{' '}
@@ -88,8 +95,8 @@ class Manual extends Component {
           <p>HAVE FUN!</p>
 
           <p>
-            - Last updated by <a href="/pasquale">@pasquale</a> at 1:25pm, Dec
-            14, 2017
+            - Last updated by <a href="/pasquale">@pasquale</a> at 4:20pm, Jan
+            31, 2017
           </p>
         </section>
       </Page>

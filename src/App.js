@@ -10,9 +10,6 @@ import ChommentStream from './views/ChommentStream/ChommentStream';
 import MrHole from './components/MrHole/MrHole';
 
 class App extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <div className="App">

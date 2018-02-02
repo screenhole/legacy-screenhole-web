@@ -64,13 +64,6 @@ const Input = styled.input`
   }
 `;
 
-const Label = styled.label`
-  color: var(--input-color);
-  margin-top: 0.75rem;
-  margin-bottom: 1.25rem;
-  display: block;
-`;
-
 const Button = styled.button`
   display: block;
   width: 100%;

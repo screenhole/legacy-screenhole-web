@@ -6,9 +6,6 @@ import Avatar from '../User/Avatar';
 import VoiceMemo from '../Memo/VoiceMemo';
 
 class Grab extends Component {
-  constructor() {
-    super();
-  }
   showMemoInstructions() {
     alert('Call 1-810-420-8008 and enter 72195');
   }
@@ -49,6 +46,8 @@ class Grab extends Component {
                 />
               );
             }
+
+            return false;
           })}
       </Wrapper>
     );

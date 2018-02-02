@@ -14,9 +14,6 @@ const defaultOptions = {
 };
 
 class Buttcoin extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Wrapper className="buttcoin">

@@ -6,9 +6,6 @@ import Avatar from '../User/Avatar';
 import Buttcoin from '../Buttcoin/Buttcoin';
 
 class LoggedIn extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Fragment>

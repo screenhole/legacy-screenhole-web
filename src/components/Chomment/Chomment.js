@@ -6,9 +6,6 @@ import styled from 'styled-components';
 import Avatar from '../User/Avatar';
 
 class Chomment extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Wrapper>
