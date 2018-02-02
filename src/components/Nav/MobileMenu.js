@@ -23,7 +23,11 @@ class MobileMenu extends Component {
         >
           {hamburgerIcon}
         </HamburgerButton>
-        {this.state.isOpen && <Content>{this.props.children}</Content>}
+        {this.state.isOpen && (
+          <Content onClick={this.handleMenuState.bind(this)}>
+            {this.props.children}
+          </Content>
+        )}
       </Overlay>
     );
   }
