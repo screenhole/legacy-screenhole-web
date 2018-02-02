@@ -83,7 +83,7 @@ class UserStream extends Component {
                   key={grab.id}
                 />
               ))
-            : 'Loading Grabs...'}
+            : 'Searching for this Screenhooligan...'}
         </GrabsWrapper>
       </Wrapper>
     );
