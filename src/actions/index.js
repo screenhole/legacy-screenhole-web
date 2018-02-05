@@ -9,7 +9,6 @@ const URL = 'https://api.screenhole.net';
 export function loginAction({ username, password }, history) {
   return async (dispatch) => {
     try {
-      console.log(username, password);
       const res = await axios.post(`${URL}/users/token`, { auth: { username, password } });
 
       dispatch({ type: AUTHENTICATED });
