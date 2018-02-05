@@ -10,7 +10,7 @@ import MobileMenu from './MobileMenu';
 
 class Nav extends Component {
   render() {
-    const { authenticated } = this.props;
+    const { authenticated, current } = this.props;
 
     return (
       <Navbar>
@@ -23,7 +23,11 @@ class Nav extends Component {
               matches ? (
                 authenticated ? (
                   <MobileMenu>
-                    <LoggedIn username="pasquale" />
+                    <LoggedIn
+                      username={current.username}
+                      gravatar_hash={current.gravatar_hash}
+                      buttcoins={current.stats.buttcoins}
+                    />
                   </MobileMenu>
                 ) : (
                   <MobileMenu>
@@ -31,7 +35,11 @@ class Nav extends Component {
                   </MobileMenu>
                 )
               ) : authenticated ? (
-                <LoggedIn username="pasquale" />
+                <LoggedIn
+                  username={current.username}
+                  gravatar_hash={current.gravatar_hash}
+                  buttcoins={current.stats.buttcoins}
+                />
               ) : (
                 <Guest />
               )
@@ -45,7 +53,8 @@ class Nav extends Component {
 
 function mapStateToProps(state) {
   return {
-    authenticated: state.auth.authenticated
+    authenticated: state.auth.authenticated,
+    current: state.auth.current,
   };
 }
 

@@ -14,7 +14,7 @@ class Grab extends Component {
       <Wrapper>
         <UserInfo>
           <Avatar
-            src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
+            gravatar={this.props.gravatar}
             username={this.props.username}
           />
           <Link to={`/${this.props.username}`} className="grab-username">

@@ -25,7 +25,7 @@ class UserStream extends Component {
       })
       .catch();
   }
-  componentDidMount() {
+  componentWillMount() {
     const username = this.props.match.params.username;
 
     fetch(`https://api.screenhole.net/users/${username}`)
@@ -54,9 +54,8 @@ class UserStream extends Component {
             <UserInfo>
               <Avatar
                 username={this.state.profile.username}
-                src={`https://www.gravatar.com/avatar/${
-                  this.state.profile.gravatar_hash
-                }?size=500`}
+                gravatar={this.state.profile.gravatar_hash}
+                size={500}
               />
               <UserBio>
                 <h1>{this.state.profile.name}</h1>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { loginAction } from '../../actions';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 
 class Login extends Component {
   submit = (values) => {
