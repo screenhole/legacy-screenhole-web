@@ -24,8 +24,9 @@ export function loginAction({ username, password }, history) {
   };
 }
 
-export function logoutAction() {
+export function logoutAction(history) {
   localStorage.clear();
+  history.push('/');
   return {
     type: UNAUTHENTICATED
   };
