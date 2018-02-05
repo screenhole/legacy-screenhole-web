@@ -6,3 +6,7 @@
 [context."screenhole-react"]
   command = "yarn build"
   publish = "build"
+
+[context."react-jwt-auth"]
+  command = "yarn build"
+  publish = "build"
