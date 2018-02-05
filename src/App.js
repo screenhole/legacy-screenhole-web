@@ -10,6 +10,10 @@ import ChommentStream from './views/ChommentStream/ChommentStream';
 import MrHole from './components/MrHole/MrHole';
 
 class App extends Component {
+  componentDidMount() {
+    // this.props.refreshUserTokenAction()
+  }
+
   render() {
     return (
       <div className="App">

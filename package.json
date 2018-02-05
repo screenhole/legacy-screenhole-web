@@ -3,6 +3,7 @@
   "version": "1.0",
   "private": true,
   "dependencies": {
+    "apisauce": "^0.14.3",
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "minireset.css": "^0.0.3",
