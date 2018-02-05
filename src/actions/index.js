@@ -24,3 +24,10 @@ export function loginAction({ username, password }, history) {
     }
   };
 }
+
+export function logoutAction() {
+  localStorage.clear();
+  return {
+    type: UNAUTHENTICATED
+  };
+}

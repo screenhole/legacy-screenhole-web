@@ -12,6 +12,9 @@ import Login from './views/Login/Login';
 import Register from './views/Register/Register';
 import Settings from './views/Settings/Settings';
 
+import RequireAuth from './utils/RequireAuth';
+import RequireNoAuth from './utils/RequireNoAuth';
+
 // Remember that route order matters for proper matching!
 
 class Routes extends Component {
@@ -21,9 +24,9 @@ class Routes extends Component {
         <Route exact path="/" component={GrabStream} />
         <Route exact path="/manual" component={Manual} />
         <Route exact path="/wtf" component={Manual} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/login" component={RequireNoAuth(Login)} />
+        <Route exact path="/register" component={RequireNoAuth(Register)} />
+        <Route exact path="/settings" component={RequireAuth(Settings)} />
 
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/:id" component={GrabSingle} />
