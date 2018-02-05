@@ -94,6 +94,12 @@ export default {
             this.showScrollToTopArrow = this.$refs.middleColumn.scrollTop > threshold;
         },
 
+        gracefulRefresh() {
+          if (window.location.pathname == '/' && this.$refs.middleColumn.scrollTop < 3000) {
+            window.location = '/';
+          }
+        },
+
         throbOn() {
             this.timeline.add({
                 'targets': this.$el.querySelector(".scrollToTop .graphic"),
@@ -136,6 +142,10 @@ export default {
         setTimeout(function () {
             _this.loaded = true;
         }, 500);
+
+        window.ClientRequestsGracefulRefresh = () => {
+          this.gracefulRefresh();
+        }
 
         this.timeline = this.$anime.timeline({
             loop: true
