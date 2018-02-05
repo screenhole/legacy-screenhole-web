@@ -8,8 +8,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
 import registerServiceWorker from './registerServiceWorker';
 
-import { AUTHENTICATED } from './actions';
-import { refreshUserTokenAction } from './actions';
+import { refreshUserTokenAction, userGetCurrent } from './actions';
 import reducers from './reducers';
 
 import App from './App';
@@ -18,13 +17,13 @@ import 'minireset.css';
 import './variables.css';
 import './index.css';
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore, );
+const store = createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 // rehydrate state from localStorage
 if (localStorage.getItem('user_token')) {
-  store.dispatch({ type: AUTHENTICATED });
   store.dispatch(refreshUserTokenAction());
+  store.dispatch(userGetCurrent());
 }
 
 ReactDOM.render(
