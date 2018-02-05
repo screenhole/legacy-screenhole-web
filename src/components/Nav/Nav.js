@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Media from 'react-media';
 
@@ -8,15 +9,8 @@ import LoggedIn from './LoggedIn';
 import MobileMenu from './MobileMenu';
 
 class Nav extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      loggedIn: true
-    };
-  }
   render() {
-    const loggedIn = this.state.loggedIn;
+    const { authenticated } = this.props;
 
     return (
       <Navbar>
@@ -27,7 +21,7 @@ class Nav extends Component {
           <Media query="(max-width: 790px)">
             {matches =>
               matches ? (
-                loggedIn ? (
+                authenticated ? (
                   <MobileMenu>
                     <LoggedIn username="pasquale" />
                   </MobileMenu>
@@ -36,7 +30,7 @@ class Nav extends Component {
                     <Guest />
                   </MobileMenu>
                 )
-              ) : loggedIn ? (
+              ) : authenticated ? (
                 <LoggedIn username="pasquale" />
               ) : (
                 <Guest />
@@ -49,7 +43,13 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated
+  };
+}
+
+export default connect(mapStateToProps)(Nav);
 
 const Navbar = styled.nav`
   position: fixed;

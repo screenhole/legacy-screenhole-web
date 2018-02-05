@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 class Login extends Component {
   submit = (values) => {
-    console.log(values);
     this.props.loginAction(values, this.props.history);
   }
 
