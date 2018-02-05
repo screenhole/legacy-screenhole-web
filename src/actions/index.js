@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user_token')}`;
+
 export const AUTHENTICATED = 'authenticated_user';
 export const UNAUTHENTICATED = 'unauthenticated_user';
 export const AUTHENTICATION_ERROR = 'authentication_error';
@@ -13,7 +15,7 @@ export function loginAction({ username, password }, history) {
 
       dispatch({ type: AUTHENTICATED });
 
-      localStorage.setItem('user_jwt', res.data.jwt);
+      localStorage.setItem('user_token', res.data.jwt);
       history.push('/');
     } catch(error) {
       dispatch({
@@ -29,5 +31,24 @@ export function logoutAction(history) {
   history.push('/');
   return {
     type: UNAUTHENTICATED
+  };
+}
+
+export function refreshUserTokenAction() {
+  return async (dispatch) => {
+    try {
+      console.log('hi');
+
+      const res = await axios.get(`${URL}/users/token/refresh`);
+
+      dispatch({ type: AUTHENTICATED });
+
+      localStorage.setItem('user_token', res.data.jwt);
+    } catch(error) {
+      dispatch({
+        type: AUTHENTICATION_ERROR,
+        payload: 'Invalid email or password'
+      });
+    }
   };
 }

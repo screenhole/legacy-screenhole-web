@@ -9,6 +9,7 @@ import ScrollMemory from 'react-router-scroll-memory';
 import registerServiceWorker from './registerServiceWorker';
 
 import { AUTHENTICATED } from './actions';
+import { refreshUserTokenAction } from './actions';
 import reducers from './reducers';
 
 import App from './App';
@@ -21,8 +22,9 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 // rehydrate state from localStorage
-if (localStorage.getItem('user_jwt')) {
+if (localStorage.getItem('user_token')) {
   store.dispatch({ type: AUTHENTICATED });
+  store.dispatch(refreshUserTokenAction());
 }
 
 ReactDOM.render(
