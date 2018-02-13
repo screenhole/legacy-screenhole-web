@@ -12,11 +12,14 @@ const onSubmit = async values => {
         // save JWT
         localStorage.setItem('user_token', res.data.jwt);
 
+        // await api.get('/users/current')
+
         // TODO: update state without hard reload
+        // TODO: pass thru AuthContainer
         // this.props.history
         window.location = '/';
       } else {
-        localStorage.removeItem('user_token');
+        api.resetLocalStorage();
 
         return { [FORM_ERROR]: "Login Failed" };
       }

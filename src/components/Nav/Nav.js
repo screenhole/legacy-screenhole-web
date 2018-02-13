@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { Subscribe } from 'unstated';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Media from 'react-media';
+
+import AuthContainer from '../../utils/AuthContainer';
 
 import Guest from './Guest';
 import LoggedIn from './LoggedIn';
@@ -9,43 +12,45 @@ import MobileMenu from './MobileMenu';
 
 class Nav extends Component {
   render() {
-    const { authenticated, current } = this.props;
-
     return (
-      <Navbar>
-        <Link to="/">
-          <Logo src="/img/screenhole-logo.svg" alt="SCREENHOLE!" />
-        </Link>
-        <Menu>
-          <Media query="(max-width: 790px)">
-            {matches =>
-              matches ? (
-                authenticated ? (
-                  <MobileMenu>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Navbar>
+            <Link to="/">
+              <Logo src="/img/screenhole-logo.svg" alt="SCREENHOLE!" />
+            </Link>
+            <Menu>
+              <Media query="(max-width: 790px)">
+                {matches =>
+                  matches ? (
+                    auth.state.authenticated && auth.state.current ? (
+                      <MobileMenu>
+                        <LoggedIn
+                          username={auth.state.current.username}
+                          gravatar_hash={auth.state.current.gravatar_hash}
+                          buttcoins={auth.state.current.stats.buttcoins}
+                        />
+                      </MobileMenu>
+                    ) : (
+                      <MobileMenu>
+                        <Guest />
+                      </MobileMenu>
+                    )
+                  ) : auth.state.authenticated && auth.state.current ? (
                     <LoggedIn
-                      username={current.username}
-                      gravatar_hash={current.gravatar_hash}
-                      buttcoins={current.stats.buttcoins}
+                      username={auth.state.current.username}
+                      gravatar_hash={auth.state.current.gravatar_hash}
+                      buttcoins={auth.state.current.stats.buttcoins}
                     />
-                  </MobileMenu>
-                ) : (
-                  <MobileMenu>
+                  ) : (
                     <Guest />
-                  </MobileMenu>
-                )
-              ) : authenticated ? (
-                <LoggedIn
-                  username={current.username}
-                  gravatar_hash={current.gravatar_hash}
-                  buttcoins={current.stats.buttcoins}
-                />
-              ) : (
-                <Guest />
-              )
-            }
-          </Media>
-        </Menu>
-      </Navbar>
+                  )
+                }
+              </Media>
+            </Menu>
+          </Navbar>
+        )}
+      </Subscribe>
     );
   }
 }

@@ -4,15 +4,22 @@ import api from './api';
 
 class AuthContainer extends Container {
   state = {
-    authenticated: api.hasAuthHeader(),
+    authenticated: api.hasAuthHeader,
+    current: api.currentUser,
   };
 
-  authenticate = () => {
-    this.setState({ authenticated: true });
+  authenticate = (user) => {
+    this.setState({
+      authenticated: true,
+      currentUser: user,
+    });
   };
 
   unauthenticate = () => {
-    this.setState({ authenticated: false });
+    this.setState({
+      authenticated: false,
+      currentUser: null,
+    });
   };
 }
 

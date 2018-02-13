@@ -6,8 +6,6 @@ import { Provider, Subscribe } from 'unstated';
 import ScrollMemory from 'react-router-scroll-memory';
 import registerServiceWorker from './registerServiceWorker';
 
-import AuthContainer from './utils/AuthContainer';
-
 import App from './App';
 
 import 'minireset.css';
