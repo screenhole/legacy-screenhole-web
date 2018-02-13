@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 import Chomment from '../../components/Chomment/Chomment';
 
 class ChommentStream extends Component {
@@ -13,8 +15,8 @@ class ChommentStream extends Component {
     };
   }
   componentWillMount() {
-    fetch(`https://api.screenhole.net/chomments?page=1`)
-      .then(res => res.json())
+    api.get(`/chomments`)
+      .then(res => res.data)
       .then(res => {
         this.setState({
           chomments: res.chomments.reverse()

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 import Avatar from '../../components/User/Avatar';
 import Grab from '../../components/Grab/Grab';
 
@@ -15,9 +17,10 @@ class UserStream extends Component {
       grabs: false
     };
   }
+
   getGrabs(user_id) {
-    fetch(`https://api.screenhole.net/users/${user_id}/grabs?page=1`)
-      .then(res => res.json())
+    api.get(`/users/${user_id}/grabs`)
+      .then(res => res.data)
       .then(res => {
         this.setState({
           grabs: res.grabs
@@ -25,11 +28,12 @@ class UserStream extends Component {
       })
       .catch();
   }
+
   componentWillMount() {
     const username = this.props.match.params.username;
 
-    fetch(`https://api.screenhole.net/users/${username}`)
-      .then(res => res.json())
+    api.get(`/users/${username}`)
+      .then(res => res.data)
       .then(res => {
         this.setState({
           profile: res.user
@@ -39,6 +43,7 @@ class UserStream extends Component {
       })
       .catch();
   }
+
   render() {
     return (
       <Wrapper>
