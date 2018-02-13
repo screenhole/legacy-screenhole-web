@@ -31,7 +31,7 @@ class Routes extends Component {
         <Route exact path="/settings" component={RequireAuth(Settings)} />
 
         <Route exact path="/:username" component={UserStream} />
-        <Route exact path="/:username/:id" component={GrabSingle} />
+        <Route exact path="/:username/~:id" component={GrabSingle} />
 
         {/* Special mobile routes to work with NavTabs */}
         <Route exact path="/view/mobile/feed" component={GrabStream} />
