@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Subscribe } from 'unstated';
 import styled from 'styled-components';
+
+import AuthContainer from '../../utils/AuthContainer';
 
 import api from '../../utils/api';
 
@@ -10,9 +13,10 @@ class ChommentStream extends Component {
     super();
 
     this.state = {
-      chomments: false
+      chomments: false,
     };
   }
+
   componentWillMount() {
     api.get(`/chomments`)
       .then(res => {
@@ -23,29 +27,36 @@ class ChommentStream extends Component {
         }
       });
   }
+
   render() {
     return (
-      <Chomments>
-        <InnerChomments>
-          {this.state.chomments
-            ? this.state.chomments.map(chomment => (
-                <Chomment
-                  username={chomment.user.username}
-                  message={chomment.message}
-                  gravatar={chomment.user.gravatar_hash}
-                  variant={chomment.variant}
-                  reference={chomment.cross_ref}
-                  key={chomment.id}
-                />
-              ))
-            : 'Stacking up them Chomments...'}
-        </InnerChomments>
-        {this.props.authenticated &&
-          <ChommentInputWrapper>
-            <Input type="text" placeholder="Type some chomments" />
-          </ChommentInputWrapper>
-        }
-      </Chomments>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Chomments>
+            <InnerChomments>
+              {this.state.chomments
+                ? this.state.chomments.map(chomment => (
+                    <Chomment
+                      username={chomment.user.username}
+                      message={chomment.message}
+                      gravatar={chomment.user.gravatar_hash}
+                      variant={chomment.variant}
+                      reference={chomment.cross_ref}
+                      key={chomment.id}
+                    />
+                  ))
+                : 'Stacking up them Chomments...'}
+            </InnerChomments>
+
+            {auth.state.authenticated &&
+              <ChommentInputWrapper>
+                <Input type="text" placeholder="Type some chomments" />
+              </ChommentInputWrapper>
+            }
+
+          </Chomments>
+        )}
+      </Subscribe>
     );
   }
 }
