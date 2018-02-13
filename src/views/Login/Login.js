@@ -13,7 +13,8 @@ const onSubmit = async values => {
         localStorage.setItem('user_token', res.data.jwt);
 
         // TODO: update state without hard reload
-        document.location = '/';
+        // this.props.history
+        window.location = '/';
       } else {
         localStorage.removeItem('user_token');
 
