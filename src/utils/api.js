@@ -4,18 +4,20 @@ const api = create({
   baseURL: 'https://api.screenhole.net',
 })
 
+api.currentUser = null;
+api.authenticated = false;
+
 api.setCurrentUser = (user) => {
   localStorage.setItem('user_current', JSON.stringify(user));
+
   api.currentUser = user;
 }
 
 api.setAuthHeader = (token) => {
   localStorage.setItem('user_token', token);
   api.setHeader('Authorization', `Bearer ${token}`);
-}
 
-api.hasAuthHeader = () => {
-  localStorage.getItem('user_token') !== null;
+  api.authenticated = !! token;
 }
 
 api.resetLocalStorage = () => {

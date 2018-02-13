@@ -4,7 +4,7 @@ import api from './api';
 
 class AuthContainer extends Container {
   state = {
-    authenticated: api.hasAuthHeader,
+    authenticated: api.authenticated,
     current: api.currentUser,
   };
 
