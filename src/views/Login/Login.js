@@ -41,21 +41,26 @@ class Login extends Component {
           return (
             <form onSubmit={handleSubmit}>
               <div>
-                <label>Username</label>
-                <Field
-                  name="username"
-                  component="input"
-                  placeholder="Username"
-                />
+                <Field name="username">
+                  {({ input, meta }) => (
+                    <div>
+                      <label>Username</label>
+                      <input {...input} type="text" placeholder="Username" />
+                      {meta.error && meta.touched && <span>{meta.error}</span>}
+                    </div>
+                  )}
+                </Field>
               </div>
               <div>
-                <label>Password</label>
-                <Field
-                  name="password"
-                  component="input"
-                  type="password"
-                  placeholder="password"
-                />
+                <Field name="password">
+                  {({ input, meta }) => (
+                    <div>
+                      <label>Password</label>
+                      <input {...input} type="password" placeholder="Password" />
+                      {meta.error && meta.touched && <span>{meta.error}</span>}
+                    </div>
+                  )}
+                </Field>
               </div>
               {submitError && <div className="error">{submitError}</div>}
               <div className="buttons">
