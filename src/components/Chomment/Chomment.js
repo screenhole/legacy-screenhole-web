@@ -11,7 +11,7 @@ class Chomment extends Component {
       <Wrapper>
         <InnerChomment>
           <Avatar
-            src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
+            gravatar={this.props.gravatar}
             username={this.props.username}
             variant={this.props.variant}
           />

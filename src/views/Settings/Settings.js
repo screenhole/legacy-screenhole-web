@@ -1,76 +1,97 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { userGetCurrent } from '../../actions';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 class Settings extends Component {
+  submit = async (values) => {
+    console.log(values);
+
+    // await api.post('/users/current', { auth: values })
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .then(await this.props.userGetCurrent());
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <Wrapper>
+      <Wrapper onSubmit={ handleSubmit(this.submit) }>
         <h1>Settings</h1>
         <InputWrapper>
-          <Input id="email" placeholder="you@email.com" type="email" />
+          <Field component="input" name="email" id="email" placeholder="you@email.com" type="email" />
           <Label htmlFor="email">Email Address</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="username" placeholder="username" type="text" />
+          <Field component="input" name="username" id="username" placeholder="username" type="text" />
           <Label htmlFor="username">Username</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="name" placeholder="Spiderman Jones" type="text" />
+          <Field component="input" name="name" id="name" placeholder="Spiderman Jones" type="text" />
           <Label htmlFor="name">Your name</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="bio" placeholder="Tell us about yerself" type="text" />
+          <Field component="input" name="bio" id="bio" placeholder="Tell us about yerself" type="text" />
           <Label htmlFor="bio">Bio</Label>
         </InputWrapper>
         <InputWrapper>
-          <Input id="password" placeholder="new password" type="password" />
+          <Field component="input" name="password" id="password" placeholder="new password" type="password" />
           <Label htmlFor="password">Leave blank to not change.</Label>
         </InputWrapper>
-        <Button>Go!</Button>
+        <Button type="submit">Go!</Button>
       </Wrapper>
     );
   }
 }
 
-export default Settings;
+Settings = reduxForm({
+  form: 'settings'
+})(Settings)
 
-const Wrapper = styled.div`
+export default connect(null, { userGetCurrent })(Settings);
+
+const Wrapper = styled.form`
   max-width: 320px;
   margin: 0 auto;
 `;
 
 const InputWrapper = styled.div`
   margin: 1rem 0;
-`;
 
-const Input = styled.input`
-  width: 100%;
-  display: block;
-  padding: 0.75rem 0;
-  font-size: 1.75rem;
-  border: 0;
-  border-bottom: 2px solid var(--input-color);
-  background-color: transparent;
-  transition: all 0.2s ease;
-  color: #fff;
-  outline: none;
-
-  &:focus {
+  input {
+    width: 100%;
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1.75rem;
+    border: 0;
+    border-bottom: 2px solid var(--input-color);
+    background-color: transparent;
+    transition: all 0.2s ease;
     color: #fff;
-    border-color: #fff;
-  }
+    outline: none;
 
-  ::-webkit-input-placeholder {
-    color: var(--input-color);
-  }
-  ::-moz-placeholder {
-    color: var(--input-color);
-  }
-  :-ms-input-placeholder {
-    color: var(--input-color);
-  }
-  :-moz-placeholder {
-    color: var(--input-color);
+    &:focus {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    ::-webkit-input-placeholder {
+      color: var(--input-color);
+    }
+    ::-moz-placeholder {
+      color: var(--input-color);
+    }
+    :-ms-input-placeholder {
+      color: var(--input-color);
+    }
+    :-moz-placeholder {
+      color: var(--input-color);
+    }
   }
 `;
 

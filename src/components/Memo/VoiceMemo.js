@@ -23,7 +23,7 @@ class VoiceMemo extends Component {
     return (
       <Wrapper>
         <Avatar
-          src={`https://www.gravatar.com/avatar/${this.props.gravatar}`}
+          gravatar={this.props.gravatar}
           username={this.props.username}
         />
         <MemoBlock theme={playingTheme}>

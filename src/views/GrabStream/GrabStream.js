@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 import Grab from './../../components/Grab/Grab';
 
 class GrabStream extends Component {
@@ -16,14 +18,14 @@ class GrabStream extends Component {
     this.getNewGrabs();
   }
   getNewGrabs() {
-    fetch(`https://api.screenhole.net/grabs?page=1`)
-      .then(res => res.json())
+    api.get(`/grabs`)
       .then(res => {
-        this.setState({
-          grabs: res.grabs
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            grabs: res.data.grabs
+          });
+        }
+      });
   }
   render() {
     return (

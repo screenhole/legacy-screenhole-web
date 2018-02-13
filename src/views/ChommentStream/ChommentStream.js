@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+
+import api from '../../utils/api';
 
 import Chomment from '../../components/Chomment/Chomment';
 
@@ -12,14 +15,14 @@ class ChommentStream extends Component {
     };
   }
   componentWillMount() {
-    fetch(`https://api.screenhole.net/chomments?page=1`)
-      .then(res => res.json())
+    api.get(`/chomments`)
       .then(res => {
-        this.setState({
-          chomments: res.chomments.reverse()
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            chomments: res.data.chomments.reverse()
+          });
+        }
+      });
   }
   render() {
     return (
@@ -38,15 +41,23 @@ class ChommentStream extends Component {
               ))
             : 'Stacking up them Chomments...'}
         </InnerChomments>
-        <ChommentInputWrapper>
-          <Input type="text" placeholder="Type some chomments" />
-        </ChommentInputWrapper>
+        {this.props.authenticated &&
+          <ChommentInputWrapper>
+            <Input type="text" placeholder="Type some chomments" />
+          </ChommentInputWrapper>
+        }
       </Chomments>
     );
   }
 }
 
-export default ChommentStream;
+function mapStateToProps(state) {
+  return {
+    authenticated: state.auth.authenticated
+  };
+}
+
+export default connect(mapStateToProps)(ChommentStream);
 
 const Chomments = styled.aside`
   position: fixed;

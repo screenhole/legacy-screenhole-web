@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 import Avatar from '../../components/User/Avatar';
 import Grab from '../../components/Grab/Grab';
 
@@ -15,30 +17,33 @@ class UserStream extends Component {
       grabs: false
     };
   }
+
   getGrabs(user_id) {
-    fetch(`https://api.screenhole.net/users/${user_id}/grabs?page=1`)
-      .then(res => res.json())
+    api.get(`/users/${user_id}/grabs`)
       .then(res => {
-        this.setState({
-          grabs: res.grabs
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            grabs: res.data.grabs
+          });
+        }
+      });
   }
-  componentDidMount() {
+
+  componentWillMount() {
     const username = this.props.match.params.username;
 
-    fetch(`https://api.screenhole.net/users/${username}`)
-      .then(res => res.json())
+    api.get(`/users/${username}`)
       .then(res => {
-        this.setState({
-          profile: res.user
-        });
+        if (res.ok) {
+          this.setState({
+            profile: res.data.user
+          });
 
-        this.getGrabs(res.user.id);
-      })
-      .catch();
+          this.getGrabs(res.data.user.id);
+        }
+      });
   }
+
   render() {
     return (
       <Wrapper>
@@ -54,9 +59,8 @@ class UserStream extends Component {
             <UserInfo>
               <Avatar
                 username={this.state.profile.username}
-                src={`https://www.gravatar.com/avatar/${
-                  this.state.profile.gravatar_hash
-                }?size=500`}
+                gravatar={this.state.profile.gravatar_hash}
+                size={500}
               />
               <UserBio>
                 <h1>{this.state.profile.name}</h1>

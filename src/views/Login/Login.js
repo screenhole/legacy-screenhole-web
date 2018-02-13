@@ -1,26 +1,55 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
+import { loginAction, userGetCurrent } from '../../actions';
 import styled from 'styled-components';
 
 class Login extends Component {
+  submit = async (values) => {
+    await this.props.loginAction(values, this.props.history);
+    await this.props.userGetCurrent();
+  }
+
+  errorMessage() {
+    if (this.props.errorMessage) {
+      return (
+        <div className="info-red">
+          {this.props.errorMessage}
+        </div>
+      );
+    }
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <Wrapper>
+      <Wrapper onSubmit={ handleSubmit(this.submit) }>
         <h1>Log In</h1>
+        {this.errorMessage()}
         <InputWrapper>
-          <Input id="username" placeholder="username" type="text" />
+          <Field component="input" name="username" placeholder="username" type="text" />
         </InputWrapper>
         <InputWrapper>
-          <Input id="password" placeholder="password" type="password" />
+          <Field component="input" name="password" placeholder="password" type="password" />
         </InputWrapper>
-        <Button>Go!</Button>
+        <Button type="submit">Go!</Button>
       </Wrapper>
     );
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return { errorMessage: state.auth.error };
+}
 
-const Wrapper = styled.div`
+const reduxFormLogin = reduxForm({
+  form: 'login'
+})(Login);
+
+export default connect(mapStateToProps, { loginAction, userGetCurrent })(reduxFormLogin);
+
+const Wrapper = styled.form`
   max-width: 320px;
   margin: 0 auto;
   display: flex;
@@ -31,36 +60,36 @@ const Wrapper = styled.div`
 
 const InputWrapper = styled.div`
   margin: 1rem 0;
-`;
 
-const Input = styled.input`
-  width: 100%;
-  display: block;
-  padding: 0.75rem 0;
-  font-size: 1.75rem;
-  border: 0;
-  border-bottom: 2px solid var(--input-color);
-  background-color: transparent;
-  transition: all 0.2s ease;
-  color: #fff;
-  outline: none;
-
-  &:focus {
+  input {
+    width: 100%;
+    display: block;
+    padding: 0.75rem 0;
+    font-size: 1.75rem;
+    border: 0;
+    border-bottom: 2px solid var(--input-color);
+    background-color: transparent;
+    transition: all 0.2s ease;
     color: #fff;
-    border-color: #fff;
-  }
+    outline: none;
 
-  ::-webkit-input-placeholder {
-    color: var(--input-color);
-  }
-  ::-moz-placeholder {
-    color: var(--input-color);
-  }
-  :-ms-input-placeholder {
-    color: var(--input-color);
-  }
-  :-moz-placeholder {
-    color: var(--input-color);
+    &:focus {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    ::-webkit-input-placeholder {
+      color: var(--input-color);
+    }
+    ::-moz-placeholder {
+      color: var(--input-color);
+    }
+    :-ms-input-placeholder {
+      color: var(--input-color);
+    }
+    :-moz-placeholder {
+      color: var(--input-color);
+    }
   }
 `;
 
