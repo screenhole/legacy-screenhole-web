@@ -13,7 +13,12 @@ export function loginAction({ username, password }, history) {
         if (res.ok) {
           // save JWT
           localStorage.setItem('user_token', res.data.jwt);
+
+          // save current token in redux store
+          dispatch({ type: USER_REFRESH_TOKEN, payload: res.data.jwt });
         } else {
+          localStorage.removeItem('user_token');
+
           dispatch({
             type: AUTHENTICATION_ERROR,
             payload: 'Invalid email or password ' + res.problem
@@ -42,9 +47,11 @@ export function refreshUserTokenAction() {
           // update stored JWT
           localStorage.setItem('user_token', res.data.jwt);
 
-          // save current user in redux store
+          // save current token in redux store
           dispatch({ type: USER_REFRESH_TOKEN, payload: res.data.jwt });
         } else {
+          localStorage.removeItem('user_token');
+
           dispatch({
             type: AUTHENTICATION_ERROR,
             payload: 'Invalid email or password ' + res.problem
@@ -56,6 +63,8 @@ export function refreshUserTokenAction() {
 
 export function userGetCurrent() {
   return async (dispatch) => {
+    if (! api.hasAuthHeader()) return;
+
     await api.get('/users/current')
       .then((res) => {
         if (res.ok) {

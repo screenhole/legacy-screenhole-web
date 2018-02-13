@@ -13,7 +13,7 @@ export default function(state={}, action) {
     case UNAUTHENTICATED:
       return { ...state, authenticated: false, current: {} };
     case AUTHENTICATION_ERROR:
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, authenticated: false, current: {} };
     case USER_GET_CURRENT:
       return { ...state, authenticated: true, current: action.payload };
     case USER_REFRESH_TOKEN:
