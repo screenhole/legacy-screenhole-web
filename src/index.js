@@ -22,8 +22,10 @@ const store = createStoreWithMiddleware(reducers, window.__REDUX_DEVTOOLS_EXTENS
 
 // rehydrate state from localStorage
 if (localStorage.getItem('user_token')) {
-  store.dispatch(refreshUserTokenAction());
-  store.dispatch(userGetCurrent());
+  (async () => {
+    await store.dispatch(refreshUserTokenAction());
+    await store.dispatch(userGetCurrent());
+  })()
 }
 
 ReactDOM.render(

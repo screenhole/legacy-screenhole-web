@@ -13,9 +13,6 @@ export function loginAction({ username, password }, history) {
         if (res.ok) {
           // save JWT
           localStorage.setItem('user_token', res.data.jwt);
-
-          // get current user from JWT
-          dispatch(userGetCurrent());
         } else {
           dispatch({
             type: AUTHENTICATION_ERROR,

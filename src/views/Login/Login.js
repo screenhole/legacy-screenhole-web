@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { loginAction } from '../../actions';
+import { loginAction, userGetCurrent } from '../../actions';
 import styled from 'styled-components';
 
 class Login extends Component {
-  submit = (values) => {
-    this.props.loginAction(values, this.props.history);
+  submit = async (values) => {
+    await this.props.loginAction(values, this.props.history);
+    await this.props.userGetCurrent();
   }
 
   errorMessage() {
@@ -46,7 +47,7 @@ const reduxFormLogin = reduxForm({
   form: 'login'
 })(Login);
 
-export default connect(mapStateToProps, {loginAction})(reduxFormLogin);
+export default connect(mapStateToProps, { loginAction, userGetCurrent })(reduxFormLogin);
 
 const Wrapper = styled.form`
   max-width: 320px;
