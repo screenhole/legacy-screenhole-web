@@ -6,24 +6,30 @@ import styled from 'styled-components';
 import api from '../../utils/api';
 
 const onSubmit = async values => {
-  return await api.post('/users/token', { auth: values })
-    .then((res) => {
-      if (res.ok) {
-        // save JWT
-        localStorage.setItem('user_token', res.data.jwt);
+  const token = await api.post('/users/token', { auth: values });
+  console.log(token);
 
-        // await api.get('/users/current')
+  if (! token.ok) {
+    api.resetLocalStorage();
+    return { [FORM_ERROR]: "Login Failed" };
+  }
 
-        // TODO: update state without hard reload
-        // TODO: pass thru AuthContainer
-        // this.props.history
-        window.location = '/';
-      } else {
-        api.resetLocalStorage();
+  api.setAuthHeader(token.data.jwt);
 
-        return { [FORM_ERROR]: "Login Failed" };
-      }
-    });
+  const currentUser = await api.get('/users/current');
+  console.log(currentUser);
+
+  if (! currentUser.ok) {
+    api.resetLocalStorage();
+    return { [FORM_ERROR]: "Login Failed [2]" };
+  }
+
+  api.setCurrentUser(currentUser.data.user);
+
+  // TODO: update state without hard reload
+  // TODO: pass thru AuthContainer
+  // this.props.history
+  window.location = '/';
 }
 
 class Login extends Component {

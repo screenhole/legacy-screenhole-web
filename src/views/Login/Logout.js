@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
+import api from '../../utils/api';
+
 class Logout extends Component {
   componentWillMount = () => {
-    localStorage.removeItem('user_token');
+    api.resetLocalStorage();
     window.location = '/';
   }
 
