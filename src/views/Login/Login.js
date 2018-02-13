@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { loginAction, userGetCurrent } from '../../actions';
 import styled from 'styled-components';
 
 class Login extends Component {
   submit = async (values) => {
-    await this.props.loginAction(values, this.props.history);
-    await this.props.userGetCurrent();
+    await console.log(values);
+
+    return false;
   }
 
   errorMessage() {
@@ -24,14 +22,14 @@ class Login extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <Wrapper onSubmit={ handleSubmit(this.submit) }>
+      <Wrapper onSubmit={ this.submit }>
         <h1>Log In</h1>
         {this.errorMessage()}
         <InputWrapper>
-          <Field component="input" name="username" placeholder="username" type="text" />
+          <Input name="username" placeholder="username" type="text" />
         </InputWrapper>
         <InputWrapper>
-          <Field component="input" name="password" placeholder="password" type="password" />
+          <Input name="password" placeholder="password" type="password" />
         </InputWrapper>
         <Button type="submit">Go!</Button>
       </Wrapper>
@@ -39,15 +37,7 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
-}
-
-const reduxFormLogin = reduxForm({
-  form: 'login'
-})(Login);
-
-export default connect(mapStateToProps, { loginAction, userGetCurrent })(reduxFormLogin);
+export default Login;
 
 const Wrapper = styled.form`
   max-width: 320px;
@@ -60,36 +50,36 @@ const Wrapper = styled.form`
 
 const InputWrapper = styled.div`
   margin: 1rem 0;
+`;
 
-  input {
-    width: 100%;
-    display: block;
-    padding: 0.75rem 0;
-    font-size: 1.75rem;
-    border: 0;
-    border-bottom: 2px solid var(--input-color);
-    background-color: transparent;
-    transition: all 0.2s ease;
+const Input = styled.input`
+  width: 100%;
+  display: block;
+  padding: 0.75rem 0;
+  font-size: 1.75rem;
+  border: 0;
+  border-bottom: 2px solid var(--input-color);
+  background-color: transparent;
+  transition: all 0.2s ease;
+  color: #fff;
+  outline: none;
+
+  &:focus {
     color: #fff;
-    outline: none;
+    border-color: #fff;
+  }
 
-    &:focus {
-      color: #fff;
-      border-color: #fff;
-    }
-
-    ::-webkit-input-placeholder {
-      color: var(--input-color);
-    }
-    ::-moz-placeholder {
-      color: var(--input-color);
-    }
-    :-ms-input-placeholder {
-      color: var(--input-color);
-    }
-    :-moz-placeholder {
-      color: var(--input-color);
-    }
+  ::-webkit-input-placeholder {
+    color: var(--input-color);
+  }
+  ::-moz-placeholder {
+    color: var(--input-color);
+  }
+  :-ms-input-placeholder {
+    color: var(--input-color);
+  }
+  :-moz-placeholder {
+    color: var(--input-color);
   }
 `;
 

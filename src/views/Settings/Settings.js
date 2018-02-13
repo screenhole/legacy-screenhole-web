@@ -15,32 +15,34 @@ class Settings extends Component {
     //     console.log(res);
     //   })
     //   .then(await this.props.userGetCurrent());
+
+    return false;
   }
 
   render() {
     const { handleSubmit } = this.props;
 
     return (
-      <Wrapper onSubmit={ handleSubmit(this.submit) }>
+      <Wrapper onSubmit={ this.submit }>
         <h1>Settings</h1>
         <InputWrapper>
-          <Field component="input" name="email" id="email" placeholder="you@email.com" type="email" />
+          <Input name="email" id="email" placeholder="you@email.com" type="email" />
           <Label htmlFor="email">Email Address</Label>
         </InputWrapper>
         <InputWrapper>
-          <Field component="input" name="username" id="username" placeholder="username" type="text" />
+          <Input name="username" id="username" placeholder="username" type="text" />
           <Label htmlFor="username">Username</Label>
         </InputWrapper>
         <InputWrapper>
-          <Field component="input" name="name" id="name" placeholder="Spiderman Jones" type="text" />
+          <Input name="name" id="name" placeholder="Spiderman Jones" type="text" />
           <Label htmlFor="name">Your name</Label>
         </InputWrapper>
         <InputWrapper>
-          <Field component="input" name="bio" id="bio" placeholder="Tell us about yerself" type="text" />
+          <Input name="bio" id="bio" placeholder="Tell us about yerself" type="text" />
           <Label htmlFor="bio">Bio</Label>
         </InputWrapper>
         <InputWrapper>
-          <Field component="input" name="password" id="password" placeholder="new password" type="password" />
+          <Input name="password" id="password" placeholder="new password" type="password" />
           <Label htmlFor="password">Leave blank to not change.</Label>
         </InputWrapper>
         <Button type="submit">Go!</Button>
@@ -49,11 +51,7 @@ class Settings extends Component {
   }
 }
 
-Settings = reduxForm({
-  form: 'settings'
-})(Settings)
-
-export default connect(null, { userGetCurrent })(Settings);
+export default Settings;
 
 const Wrapper = styled.form`
   max-width: 320px;
@@ -62,36 +60,36 @@ const Wrapper = styled.form`
 
 const InputWrapper = styled.div`
   margin: 1rem 0;
+`;
 
-  input {
-    width: 100%;
-    display: block;
-    padding: 0.75rem 0;
-    font-size: 1.75rem;
-    border: 0;
-    border-bottom: 2px solid var(--input-color);
-    background-color: transparent;
-    transition: all 0.2s ease;
+const Input = styled.input`
+  width: 100%;
+  display: block;
+  padding: 0.75rem 0;
+  font-size: 1.75rem;
+  border: 0;
+  border-bottom: 2px solid var(--input-color);
+  background-color: transparent;
+  transition: all 0.2s ease;
+  color: #fff;
+  outline: none;
+
+  &:focus {
     color: #fff;
-    outline: none;
+    border-color: #fff;
+  }
 
-    &:focus {
-      color: #fff;
-      border-color: #fff;
-    }
-
-    ::-webkit-input-placeholder {
-      color: var(--input-color);
-    }
-    ::-moz-placeholder {
-      color: var(--input-color);
-    }
-    :-ms-input-placeholder {
-      color: var(--input-color);
-    }
-    :-moz-placeholder {
-      color: var(--input-color);
-    }
+  ::-webkit-input-placeholder {
+    color: var(--input-color);
+  }
+  ::-moz-placeholder {
+    color: var(--input-color);
+  }
+  :-ms-input-placeholder {
+    color: var(--input-color);
+  }
+  :-moz-placeholder {
+    color: var(--input-color);
   }
 `;
 

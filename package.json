@@ -14,15 +14,10 @@
     "react-lottie": "^1.0.0",
     "react-media": "^1.6.1",
     "react-player": "^1.1.1",
-    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-scroll-memory": "^1.0.1",
     "react-scripts": "1.0.17",
-    "redux": "^3.7.2",
-    "redux-auth-wrapper": "^2.0.2",
-    "redux-form": "^7.2.3",
-    "redux-thunk": "^2.2.0",
     "styled-components": "^2.4.0"
   },
   "scripts": {

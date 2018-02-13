@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import api from '../../utils/api';
@@ -51,13 +50,7 @@ class ChommentStream extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated
-  };
-}
-
-export default connect(mapStateToProps)(ChommentStream);
+export default ChommentStream;
 
 const Chomments = styled.aside`
   position: fixed;
