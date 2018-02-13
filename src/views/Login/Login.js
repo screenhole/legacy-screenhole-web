@@ -1,38 +1,72 @@
 import React, { Component } from 'react';
+import { Form, Field } from 'react-final-form'
+import { FORM_ERROR } from 'final-form';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
+const onSubmit = async values => {
+  return await api.post('/users/token', { auth: values })
+    .then((res) => {
+      if (res.ok) {
+        // save JWT
+        localStorage.setItem('user_token', res.data.jwt);
+
+        // TODO: update state without hard reload
+        document.location = '/';
+      } else {
+        localStorage.removeItem('user_token');
+
+        return { [FORM_ERROR]: "Login Failed" };
+      }
+    });
+}
+
 class Login extends Component {
-  submit = async (values) => {
-    await console.log(values);
-
-    return false;
-  }
-
-  errorMessage() {
-    if (this.props.errorMessage) {
-      return (
-        <div className="info-red">
-          {this.props.errorMessage}
-        </div>
-      );
-    }
-  }
-
   render() {
-    const { handleSubmit } = this.props;
-
     return (
-      <Wrapper onSubmit={ this.submit }>
-        <h1>Log In</h1>
-        {this.errorMessage()}
-        <InputWrapper>
-          <Input name="username" placeholder="username" type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <Input name="password" placeholder="password" type="password" />
-        </InputWrapper>
-        <Button type="submit">Go!</Button>
-      </Wrapper>
+      <Form
+        onSubmit={onSubmit}
+        validate={values => {
+          const errors = {};
+          if (!values.username) {
+            errors.username = "Required";
+          }
+          if (!values.password) {
+            errors.password = "Required";
+          }
+          return errors;
+        }}
+        render={({ handleSubmit, submitError, pristine, submitting, values }) => {
+          return (
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>Username</label>
+                <Field
+                  name="username"
+                  component="input"
+                  placeholder="Username"
+                />
+              </div>
+              <div>
+                <label>Password</label>
+                <Field
+                  name="password"
+                  component="input"
+                  type="password"
+                  placeholder="password"
+                />
+              </div>
+              {submitError && <div className="error">{submitError}</div>}
+              <div className="buttons">
+                <button type="submit" disabled={submitting || pristine}>
+                  Go!
+                </button>
+              </div>
+            </form>
+          )
+        }}
+      />
     );
   }
 }
