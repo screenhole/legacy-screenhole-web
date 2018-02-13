@@ -13,35 +13,30 @@ class UserStream extends Component {
     super();
 
     this.state = {
-      profile: false,
+      user: false,
       grabs: false
     };
   }
 
-  getGrabs(user_id) {
-    api.get(`/users/${user_id}/grabs`)
-      .then(res => {
-        if (res.ok) {
-          this.setState({
-            grabs: res.data.grabs
-          });
-        }
-      });
-  }
 
-  componentWillMount() {
+  async componentWillMount() {
     const username = this.props.match.params.username;
 
-    api.get(`/users/${username}`)
-      .then(res => {
-        if (res.ok) {
-          this.setState({
-            profile: res.data.user
-          });
+    const user = await api.get(`/users/${username}`);
 
-          this.getGrabs(res.data.user.id);
-        }
+    if (user.ok) {
+      this.setState({
+        user: user.data.user
       });
+
+      const grabs = await api.get(`/users/${this.state.user.id}/grabs`);
+
+      if (grabs.ok) {
+        this.setState({
+          grabs: grabs.data.grabs
+        });
+      }
+    }
   }
 
   render() {

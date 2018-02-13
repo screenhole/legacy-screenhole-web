@@ -14,19 +14,17 @@ class GrabStream extends Component {
       grabs: []
     };
   }
-  componentWillMount() {
-    this.getNewGrabs();
-  }
-  getNewGrabs() {
-    api.get(`/grabs`)
-      .then(res => {
-        if (res.ok) {
-          this.setState({
-            grabs: res.data.grabs
-          });
-        }
+
+  async componentWillMount() {
+    const grabs = await api.get(`/grabs`);
+
+    if (grabs.ok) {
+      this.setState({
+        grabs: grabs.data.grabs
       });
+    }
   }
+
   render() {
     return (
       <Grabs>

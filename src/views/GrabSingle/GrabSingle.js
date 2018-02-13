@@ -15,15 +15,15 @@ class GrabSingle extends Component {
       currentGrab: grab_id
     };
   }
-  componentWillMount() {
-    api.get(`/grabs/${this.state.currentGrab}`)
-      .then(res => {
-        if (res.ok) {
-          this.setState({
-            grab: res.data.grab
-          });
-        }
+
+  async componentWillMount() {
+    const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+
+    if (grab.ok) {
+      this.setState({
+        grab: grab.data.grab
       });
+    }
   }
   render() {
     return (
