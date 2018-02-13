@@ -17,13 +17,13 @@ class GrabSingle extends Component {
   }
   componentWillMount() {
     api.get(`/grabs/${this.state.currentGrab}`)
-      .then(res => res.data)
       .then(res => {
-        this.setState({
-          grab: res.grab
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            grab: res.data.grab
+          });
+        }
+      });
   }
   render() {
     return (

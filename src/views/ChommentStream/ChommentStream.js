@@ -16,13 +16,13 @@ class ChommentStream extends Component {
   }
   componentWillMount() {
     api.get(`/chomments`)
-      .then(res => res.data)
       .then(res => {
-        this.setState({
-          chomments: res.chomments.reverse()
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            chomments: res.data.chomments.reverse()
+          });
+        }
+      });
   }
   render() {
     return (

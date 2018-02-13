@@ -20,28 +20,28 @@ class UserStream extends Component {
 
   getGrabs(user_id) {
     api.get(`/users/${user_id}/grabs`)
-      .then(res => res.data)
       .then(res => {
-        this.setState({
-          grabs: res.grabs
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            grabs: res.data.grabs
+          });
+        }
+      });
   }
 
   componentWillMount() {
     const username = this.props.match.params.username;
 
     api.get(`/users/${username}`)
-      .then(res => res.data)
       .then(res => {
-        this.setState({
-          profile: res.user
-        });
+        if (res.ok) {
+          this.setState({
+            profile: res.data.user
+          });
 
-        this.getGrabs(res.user.id);
-      })
-      .catch();
+          this.getGrabs(res.data.user.id);
+        }
+      });
   }
 
   render() {

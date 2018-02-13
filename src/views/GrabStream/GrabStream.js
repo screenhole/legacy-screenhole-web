@@ -19,13 +19,13 @@ class GrabStream extends Component {
   }
   getNewGrabs() {
     api.get(`/grabs`)
-      .then(res => res.data)
       .then(res => {
-        this.setState({
-          grabs: res.grabs
-        });
-      })
-      .catch();
+        if (res.ok) {
+          this.setState({
+            grabs: res.data.grabs
+          });
+        }
+      });
   }
   render() {
     return (
