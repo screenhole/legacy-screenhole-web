@@ -4,10 +4,17 @@ import { Field, reduxForm } from 'redux-form';
 import { userGetCurrent } from '../../actions';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 class Settings extends Component {
   submit = async (values) => {
     console.log(values);
-    await this.props.userGetCurrent();
+
+    // await api.post('/users/current', { auth: values })
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .then(await this.props.userGetCurrent());
   }
 
   render() {
