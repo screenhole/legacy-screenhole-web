@@ -11,7 +11,7 @@ export default function(state={}, action) {
     case AUTHENTICATED:
       return { ...state, authenticated: true };
     case UNAUTHENTICATED:
-      return { ...state, authenticated: false };
+      return { ...state, authenticated: false, current: {} };
     case AUTHENTICATION_ERROR:
       return { ...state, error: action.payload };
     case USER_GET_CURRENT:

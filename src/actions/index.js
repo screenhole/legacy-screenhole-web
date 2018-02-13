@@ -28,11 +28,13 @@ export function loginAction({ username, password }, history) {
 
 export function logoutAction(history) {
   // purge storage
-  localStorage.clear();
-  history.push('/');
-  return {
-    type: UNAUTHENTICATED
-  };
+  return (dispatch) => {
+    localStorage.removeItem('user_token');
+    history.push('/');
+    return dispatch({
+      type: UNAUTHENTICATED
+    });
+  }
 }
 
 export function refreshUserTokenAction() {
