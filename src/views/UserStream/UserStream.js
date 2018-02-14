@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ActionCable } from 'react-actioncable-provider'
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
@@ -39,6 +40,17 @@ class UserStream extends Component {
     }
   }
 
+  onReceived = (data) => {
+    if (data.grab.user.id !== this.state.user.id) return;
+
+    this.setState({
+      grabs: [
+        data.grab,
+        ...this.state.grabs
+      ]
+    })
+  }
+
   render() {
     return (
       <Wrapper>
@@ -71,6 +83,7 @@ class UserStream extends Component {
           </ProfileHeader>
         )}
         <GrabsWrapper>
+          <ActionCable channel={{channel: 'GrabsChannel'}} onReceived={this.onReceived} />
           {this.state.grabs
             ? this.state.grabs.map(grab => (
                 <Grab
