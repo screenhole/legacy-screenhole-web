@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 
+import api from '../../utils/api';
+
 import Grab from '../../components/Grab/Grab';
 
 class GrabSingle extends Component {
@@ -10,18 +12,18 @@ class GrabSingle extends Component {
     const grab_id = this.props.match.params.id;
 
     this.state = {
-      currentGrab: grab_id.substr(1) // removes "~"
+      currentGrab: grab_id
     };
   }
-  componentWillMount() {
-    fetch(`https://api.screenhole.net/grabs/${this.state.currentGrab}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          grab: res.grab
-        });
-      })
-      .catch();
+
+  async componentWillMount() {
+    const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+
+    if (grab.ok) {
+      this.setState({
+        grab: grab.data.grab
+      });
+    }
   }
   render() {
     return (

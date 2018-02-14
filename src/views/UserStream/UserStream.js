@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
+import api from '../../utils/api';
+
 import Avatar from '../../components/User/Avatar';
 import Grab from '../../components/Grab/Grab';
 
@@ -11,62 +13,59 @@ class UserStream extends Component {
     super();
 
     this.state = {
-      profile: false,
+      user: false,
       grabs: false
     };
   }
-  getGrabs(user_id) {
-    fetch(`https://api.screenhole.net/users/${user_id}/grabs?page=1`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          grabs: res.grabs
-        });
-      })
-      .catch();
-  }
-  componentDidMount() {
+
+
+  async componentWillMount() {
     const username = this.props.match.params.username;
 
-    fetch(`https://api.screenhole.net/users/${username}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          profile: res.user
-        });
+    const user = await api.get(`/users/${username}`);
 
-        this.getGrabs(res.user.id);
-      })
-      .catch();
+    if (user.ok) {
+      this.setState({
+        user: user.data.user
+      });
+
+      const grabs = await api.get(`/users/${this.state.user.id}/grabs`);
+
+      if (grabs.ok) {
+        this.setState({
+          grabs: grabs.data.grabs
+        });
+      }
+    }
   }
+
   render() {
     return (
       <Wrapper>
-        {this.state.profile && (
+        {this.state.user && (
           <ProfileHeader>
             <MetaTags
-              username={this.state.profile.username}
-              name={this.state.profile.name || this.state.profile.username}
-              gravatar_hash={this.state.profile.gravatar_hash}
-              bio={this.state.profile.bio}
-              grabs={this.state.profile.stats.grabs}
+              username={this.state.user.username}
+              name={this.state.user.name || this.state.user.username}
+              gravatar_hash={this.state.user.gravatar_hash}
+              bio={this.state.user.bio}
+              grabs={this.state.user.stats.grabs}
             />
             <UserInfo>
               <Avatar
-                username={this.state.profile.username}
-                src={`https://www.gravatar.com/avatar/${
-                  this.state.profile.gravatar_hash
-                }?size=500`}
+                username={this.state.user.username}
+                gravatar={this.state.user.gravatar_hash}
+                size={500}
               />
               <UserBio>
-                <h1>{this.state.profile.name}</h1>
-                <h2>@{this.state.profile.username}</h2>
-                <p>{this.state.profile.bio}</p>
+                <h1>{this.state.user.name}</h1>
+                <h2>@{this.state.user.username}</h2>
+                <p>{this.state.user.bio}</p>
                 <Link to="/settings">Edit profile</Link>
               </UserBio>
             </UserInfo>
             <UserStats>
-              <Number>{this.state.profile.stats.grabs}</Number>
+              <Number>{this.state.user.stats.grabs}</Number>
               <Label>Grabs</Label>
             </UserStats>
           </ProfileHeader>

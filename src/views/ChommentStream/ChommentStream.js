@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { Subscribe } from 'unstated';
 import styled from 'styled-components';
+
+import AuthContainer from '../../utils/AuthContainer';
+
+import api from '../../utils/api';
 
 import Chomment from '../../components/Chomment/Chomment';
 
@@ -8,40 +13,49 @@ class ChommentStream extends Component {
     super();
 
     this.state = {
-      chomments: false
+      chomments: false,
     };
   }
-  componentWillMount() {
-    fetch(`https://api.screenhole.net/chomments?page=1`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          chomments: res.chomments.reverse()
-        });
-      })
-      .catch();
+
+  async componentWillMount() {
+    const chomments = await api.get(`/chomments`);
+
+    if (chomments.ok) {
+      this.setState({
+        chomments: chomments.data.chomments.reverse()
+      });
+    }
   }
+
   render() {
     return (
-      <Chomments>
-        <InnerChomments>
-          {this.state.chomments
-            ? this.state.chomments.map(chomment => (
-                <Chomment
-                  username={chomment.user.username}
-                  message={chomment.message}
-                  gravatar={chomment.user.gravatar_hash}
-                  variant={chomment.variant}
-                  reference={chomment.cross_ref}
-                  key={chomment.id}
-                />
-              ))
-            : 'Stacking up them Chomments...'}
-        </InnerChomments>
-        <ChommentInputWrapper>
-          <Input type="text" placeholder="Type some chomments" />
-        </ChommentInputWrapper>
-      </Chomments>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Chomments>
+            <InnerChomments>
+              {this.state.chomments
+                ? this.state.chomments.map(chomment => (
+                    <Chomment
+                      username={chomment.user.username}
+                      message={chomment.message}
+                      gravatar={chomment.user.gravatar_hash}
+                      variant={chomment.variant}
+                      reference={chomment.cross_ref}
+                      key={chomment.id}
+                    />
+                  ))
+                : 'Stacking up them Chomments...'}
+            </InnerChomments>
+
+            {auth.state.authenticated &&
+              <ChommentInputWrapper>
+                <Input type="text" placeholder="Type some chomments" />
+              </ChommentInputWrapper>
+            }
+
+          </Chomments>
+        )}
+      </Subscribe>
     );
   }
 }

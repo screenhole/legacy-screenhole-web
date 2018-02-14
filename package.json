@@ -3,10 +3,14 @@
   "version": "1.0",
   "private": true,
   "dependencies": {
+    "apisauce": "^0.14.3",
+    "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
+    "final-form": "^4.2.0",
     "minireset.css": "^0.0.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-final-form": "^3.1.0",
     "react-helmet": "^5.2.0",
     "react-linkify": "^0.2.2",
     "react-lottie": "^1.0.0",
@@ -16,7 +20,8 @@
     "react-router-dom": "^4.2.2",
     "react-router-scroll-memory": "^1.0.1",
     "react-scripts": "1.0.17",
-    "styled-components": "^2.4.0"
+    "styled-components": "^2.4.0",
+    "unstated": "^1.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

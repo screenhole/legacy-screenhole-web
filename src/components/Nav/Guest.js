@@ -18,13 +18,6 @@ const Guest = () => (
       twitter
     </a>
     <NavLink to="/wtf">wtf</NavLink>
-    <a
-      href="https://twitter.com/pasql/status/928638640368037888"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      get invite
-    </a>
     <NavLink to="/login">log in</NavLink>
   </Fragment>
 );

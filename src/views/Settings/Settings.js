@@ -1,40 +1,112 @@
 import React, { Component } from 'react';
+import { Form, Field } from 'react-final-form'
+import { FORM_ERROR } from 'final-form';
 import styled from 'styled-components';
+
+import api from '../../utils/api';
+
+const onSubmit = async values => {
+  const update = await api.post('/users/current', { auth: values });
+  console.log(update);
+
+  if (! update.ok) {
+    return { [FORM_ERROR]: "Edit Settings Failed" };
+  }
+
+  const currentUser = await api.get('/users/current');
+  console.log(currentUser);
+
+  if (! currentUser.ok) {
+    return { [FORM_ERROR]: "Edit Settings Failed [2]" };
+  }
+
+  api.setCurrentUser(currentUser.data.user);
+
+  // TODO: update state without hard reload
+  // TODO: pass thru AuthContainer
+  // this.props.history
+  window.location = '/';
+}
 
 class Settings extends Component {
   render() {
     return (
-      <Wrapper>
-        <h1>Settings</h1>
-        <InputWrapper>
-          <Input id="email" placeholder="you@email.com" type="email" />
-          <Label htmlFor="email">Email Address</Label>
-        </InputWrapper>
-        <InputWrapper>
-          <Input id="username" placeholder="username" type="text" />
-          <Label htmlFor="username">Username</Label>
-        </InputWrapper>
-        <InputWrapper>
-          <Input id="name" placeholder="Spiderman Jones" type="text" />
-          <Label htmlFor="name">Your name</Label>
-        </InputWrapper>
-        <InputWrapper>
-          <Input id="bio" placeholder="Tell us about yerself" type="text" />
-          <Label htmlFor="bio">Bio</Label>
-        </InputWrapper>
-        <InputWrapper>
-          <Input id="password" placeholder="new password" type="password" />
-          <Label htmlFor="password">Leave blank to not change.</Label>
-        </InputWrapper>
-        <Button>Go!</Button>
-      </Wrapper>
+      <Form
+        onSubmit={onSubmit}
+        initialValues={api.currentUser}
+        validate={values => {
+          const errors = {};
+
+          if (! values.email) {
+            errors.email = "Required";
+          }
+
+          if (! values.username) {
+            errors.username = "Required";
+          }
+
+          return errors;
+        }}
+        render={({ handleSubmit, submitError, pristine, submitting, values }) => {
+          return (
+            <Wrapper onSubmit={handleSubmit}>
+              <h1>Settings</h1>
+
+              <Field name="email">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="email" placeholder="you@email.com" />
+                    <Label>Email {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              <Field name="username">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="text" placeholder="username" />
+                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              <Field name="name">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="text" placeholder="Spiderman Jones" />
+                    <Label>Name {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              <Field name="bio">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="text" placeholder="Tell us about yerself" />
+                    <Label>Bio {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              <Field name="password">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="password" placeholder="new password" />
+                    <Label>Leave blank to not change {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+
+              {submitError && <div className="error">{submitError}</div>}
+
+              <Button type="submit" disabled={submitting}>Go!</Button>
+            </Wrapper>
+          )
+        }}
+      />
     );
   }
 }
 
 export default Settings;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   max-width: 320px;
   margin: 0 auto;
 `;
@@ -79,6 +151,10 @@ const Label = styled.label`
   margin-top: 0.75rem;
   margin-bottom: 1.25rem;
   display: block;
+
+  span {
+    color: red;
+  }
 `;
 
 const Button = styled.button`

@@ -1,26 +1,93 @@
 import React, { Component } from 'react';
+import { Form, Field } from 'react-final-form'
+import { FORM_ERROR } from 'final-form';
 import styled from 'styled-components';
+
+import api from '../../utils/api';
+
+const onSubmit = async values => {
+  const token = await api.post('/users/token', { auth: values });
+  console.log(token);
+
+  if (! token.ok) {
+    api.resetLocalStorage();
+    return { [FORM_ERROR]: "Login Failed" };
+  }
+
+  api.setAuthHeader(token.data.jwt);
+
+  const currentUser = await api.get('/users/current');
+  console.log(currentUser);
+
+  if (! currentUser.ok) {
+    api.resetLocalStorage();
+    return { [FORM_ERROR]: "Login Failed [2]" };
+  }
+
+  api.setCurrentUser(currentUser.data.user);
+
+  if (! /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    window.location = 'screenhole:///jwt/' + token.data.jwt;
+  }
+
+  // wait for screenhole:/// call
+  setTimeout(() => {
+    // TODO: update state without hard reload
+    // TODO: pass thru AuthContainer
+    // this.props.history
+    window.location = '/';
+  }, 250);
+}
 
 class Login extends Component {
   render() {
     return (
-      <Wrapper>
-        <h1>Log In</h1>
-        <InputWrapper>
-          <Input id="username" placeholder="username" type="text" />
-        </InputWrapper>
-        <InputWrapper>
-          <Input id="password" placeholder="password" type="password" />
-        </InputWrapper>
-        <Button>Go!</Button>
-      </Wrapper>
+      <Form
+        onSubmit={onSubmit}
+        validate={values => {
+          const errors = {};
+          if (!values.username) {
+            errors.username = "Required";
+          }
+          if (!values.password) {
+            errors.password = "Required";
+          }
+          return errors;
+        }}
+        render={({ handleSubmit, submitError, pristine, submitting, values }) => {
+          return (
+            <Wrapper onSubmit={handleSubmit}>
+              <h1>Log In</h1>
+
+              <Field name="username">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="text" placeholder="Username" />
+                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              <Field name="password">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="password" placeholder="Password" />
+                    <Label>Password {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              {submitError && <div className="error">{submitError}</div>}
+              <Button type="submit" disabled={submitting}>Go!</Button>
+            </Wrapper>
+          )
+        }}
+      />
     );
   }
 }
 
 export default Login;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   max-width: 320px;
   margin: 0 auto;
   display: flex;
@@ -61,6 +128,17 @@ const Input = styled.input`
   }
   :-moz-placeholder {
     color: var(--input-color);
+  }
+`;
+
+const Label = styled.label`
+  color: var(--input-color);
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  display: block;
+
+  span {
+    color: red;
   }
 `;
 

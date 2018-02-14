@@ -7,9 +7,11 @@ import Buttcoin from '../Buttcoin/Buttcoin';
 
 class LoggedIn extends Component {
   render() {
+    const { buttcoins, username, gravatar_hash } = this.props;
+
     return (
       <Fragment>
-        <Buttcoin amount="6969" />
+        <Buttcoin amount={buttcoins} />
         <a
           href="https://news.screenhole.net"
           target="_blank"
@@ -27,11 +29,11 @@ class LoggedIn extends Component {
         <NavLink to="/wtf">wtf</NavLink>
         <Menu className="nav-dropdown">
           <Avatar
-            src="https://www.gravatar.com/avatar/02c2fdca0586515379d9f6ea895f7bee?size=100&d=https%3A%2F%2Fscreenhole.net%2Fstatic%2Fimg%2Fdefault-avatar.dbeaf7a.png"
-            username={this.props.username}
+            gravatar={gravatar_hash}
+            username={username}
           />
           <Dropdown className="user-nav-dropdown">
-            <Link to={`/${this.props.username}`}>@{this.props.username}</Link>
+            <Link to={`/${username}`}>@{username}</Link>
             <NavLink to="/settings">settings</NavLink>
             <Link to="/logout">log out</Link>
           </Dropdown>
