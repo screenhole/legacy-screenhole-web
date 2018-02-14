@@ -7,6 +7,7 @@ import VoiceMemo from '../Memo/VoiceMemo';
 
 class Grab extends Component {
   showMemoInstructions() {
+    // TODO: make this a real API call
     alert('Call 1-810-420-8008 and enter 72195');
   }
   render() {
