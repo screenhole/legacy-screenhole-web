@@ -15,7 +15,7 @@ class UserStream extends Component {
 
     this.state = {
       user: false,
-      grabs: false
+      grabs: false,
     };
   }
 
@@ -26,14 +26,14 @@ class UserStream extends Component {
 
     if (user.ok) {
       this.setState({
-        user: user.data.user
+        user: user.data.user,
       });
 
       const grabs = await api.get(`/users/${this.state.user.id}/grabs`);
 
       if (grabs.ok) {
         this.setState({
-          grabs: grabs.data.grabs
+          grabs: grabs.data.grabs,
         });
       }
     }
@@ -43,7 +43,7 @@ class UserStream extends Component {
     if (data.grab.user.id !== this.state.user.id) return;
 
     this.setState({
-      grabs: [data.grab, ...this.state.grabs]
+      grabs: [data.grab, ...this.state.grabs],
     });
   };
 
