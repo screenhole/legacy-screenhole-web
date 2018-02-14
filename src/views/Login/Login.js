@@ -49,36 +49,28 @@ class Login extends Component {
         }}
         render={({ handleSubmit, submitError, pristine, submitting, values }) => {
           return (
-            <form onSubmit={handleSubmit}>
-              <div>
-                <Field name="username">
-                  {({ input, meta }) => (
-                    <div>
-                      <label>Username</label>
-                      <input {...input} type="text" placeholder="Username" />
-                      {meta.error && meta.touched && <span>{meta.error}</span>}
-                    </div>
-                  )}
-                </Field>
-              </div>
-              <div>
-                <Field name="password">
-                  {({ input, meta }) => (
-                    <div>
-                      <label>Password</label>
-                      <input {...input} type="password" placeholder="Password" />
-                      {meta.error && meta.touched && <span>{meta.error}</span>}
-                    </div>
-                  )}
-                </Field>
-              </div>
+            <Wrapper onSubmit={handleSubmit}>
+              <Field name="username">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="text" placeholder="Username" />
+                    <Label>Username {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
+              <Field name="password">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input {...input} type="password" placeholder="Password" />
+                    <Label>Password {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                  </InputWrapper>
+                )}
+              </Field>
               {submitError && <div className="error">{submitError}</div>}
-              <div className="buttons">
-                <button type="submit" disabled={submitting || pristine}>
-                  Go!
-                </button>
-              </div>
-            </form>
+              <Button type="submit" disabled={submitting || pristine}>
+                Go!
+              </Button>
+            </Wrapper>
           )
         }}
       />
@@ -129,6 +121,17 @@ const Input = styled.input`
   }
   :-moz-placeholder {
     color: var(--input-color);
+  }
+`;
+
+const Label = styled.label`
+  color: var(--input-color);
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  display: block;
+
+  span {
+    color: red;
   }
 `;
 
