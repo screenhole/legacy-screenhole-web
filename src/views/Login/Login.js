@@ -26,10 +26,17 @@ const onSubmit = async values => {
 
   api.setCurrentUser(currentUser.data.user);
 
-  // TODO: update state without hard reload
-  // TODO: pass thru AuthContainer
-  // this.props.history
-  window.location = '/';
+  if (! /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    window.location = 'screenhole:///jwt/' + token.data.jwt;
+  }
+
+  // wait for screenhole:/// call
+  setTimeout(() => {
+    // TODO: update state without hard reload
+    // TODO: pass thru AuthContainer
+    // this.props.history
+    window.location = '/';
+  }, 250);
 }
 
 class Login extends Component {
