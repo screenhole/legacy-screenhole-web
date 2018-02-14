@@ -15,7 +15,7 @@ class ChommentStream extends Component {
     super();
 
     this.state = {
-      chomments: false,
+      chomments: false
     };
   }
 
@@ -29,23 +29,20 @@ class ChommentStream extends Component {
     }
   }
 
-  onReceived = (data) => {
+  onReceived = data => {
     this.setState({
-      chomments: [
-        ...this.state.chomments,
-        data.chomment
-      ]
-    })
-  }
+      chomments: [...this.state.chomments, data.chomment]
+    });
+  };
 
-  submitMessage = async (values) => {
-    if (! values.message) return;
+  submitMessage = async values => {
+    if (!values.message) return;
 
     let message = values.message;
     values.message = '';
 
-    const res = await api.post("/chomments", { "chomment": { message: message } });
-  }
+    await api.post('/chomments', { chomment: { message: message } });
+  };
 
   render() {
     return (
@@ -53,7 +50,10 @@ class ChommentStream extends Component {
         {auth => (
           <Chomments>
             <InnerChomments>
-              <ActionCable channel={{channel: 'ChommentsChannel'}} onReceived={this.onReceived} />
+              <ActionCable
+                channel={{ channel: 'ChommentsChannel' }}
+                onReceived={this.onReceived}
+              />
               {this.state.chomments
                 ? this.state.chomments.map(chomment => (
                     <Chomment
@@ -68,7 +68,7 @@ class ChommentStream extends Component {
                 : 'Stacking up them Chomments...'}
             </InnerChomments>
 
-            {auth.state.authenticated &&
+            {auth.state.authenticated && (
               <Form
                 onSubmit={this.submitMessage}
                 render={({ handleSubmit, values }) => {
@@ -76,15 +76,18 @@ class ChommentStream extends Component {
                     <ChommentInputWrapper onSubmit={handleSubmit}>
                       <Field name="message">
                         {({ input, meta }) => (
-                          <Input {...input} type="text" placeholder="Type some chomments" />
+                          <Input
+                            {...input}
+                            type="text"
+                            placeholder="Type some chomments"
+                          />
                         )}
                       </Field>
                     </ChommentInputWrapper>
-                  )
-                }
-              }
+                  );
+                }}
               />
-            }
+            )}
           </Chomments>
         )}
       </Subscribe>

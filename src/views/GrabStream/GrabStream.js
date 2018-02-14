@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActionCable } from 'react-actioncable-provider'
+import { ActionCable } from 'react-actioncable-provider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
@@ -8,13 +8,9 @@ import api from '../../utils/api';
 import Grab from './../../components/Grab/Grab';
 
 class GrabStream extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      grabs: []
-    };
-  }
+  state = {
+    grabs: []
+  };
 
   async componentWillMount() {
     const grabs = await api.get(`/grabs`);
@@ -26,20 +22,20 @@ class GrabStream extends Component {
     }
   }
 
-  onReceived = (data) => {
+  onReceived = data => {
     this.setState({
-      grabs: [
-        data.grab,
-        ...this.state.grabs
-      ]
-    })
-  }
+      grabs: [data.grab, ...this.state.grabs]
+    });
+  };
 
   render() {
     return (
       <Grabs>
         <MetaTags />
-        <ActionCable channel={{channel: 'GrabsChannel'}} onReceived={this.onReceived} />
+        <ActionCable
+          channel={{ channel: 'GrabsChannel' }}
+          onReceived={this.onReceived}
+        />
         {this.state.grabs
           ? this.state.grabs.map(grab => (
               <Grab
@@ -64,9 +60,6 @@ const Grabs = styled.div`
 `;
 
 class MetaTags extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Helmet>

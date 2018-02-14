@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActionCable } from 'react-actioncable-provider'
+import { ActionCable } from 'react-actioncable-provider';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
@@ -18,7 +18,6 @@ class UserStream extends Component {
       grabs: false
     };
   }
-
 
   async componentWillMount() {
     const username = this.props.match.params.username;
@@ -40,16 +39,13 @@ class UserStream extends Component {
     }
   }
 
-  onReceived = (data) => {
+  onReceived = data => {
     if (data.grab.user.id !== this.state.user.id) return;
 
     this.setState({
-      grabs: [
-        data.grab,
-        ...this.state.grabs
-      ]
-    })
-  }
+      grabs: [data.grab, ...this.state.grabs]
+    });
+  };
 
   render() {
     return (
@@ -83,7 +79,10 @@ class UserStream extends Component {
           </ProfileHeader>
         )}
         <GrabsWrapper>
-          <ActionCable channel={{channel: 'GrabsChannel'}} onReceived={this.onReceived} />
+          <ActionCable
+            channel={{ channel: 'GrabsChannel' }}
+            onReceived={this.onReceived}
+          />
           {this.state.grabs
             ? this.state.grabs.map(grab => (
                 <Grab
@@ -203,9 +202,6 @@ const Label = styled.span`
 `;
 
 class MetaTags extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Helmet>

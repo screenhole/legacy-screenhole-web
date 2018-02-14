@@ -60,9 +60,6 @@ class GrabSingle extends Component {
 export default GrabSingle;
 
 class MetaTags extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return (
       <Helmet>
