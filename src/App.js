@@ -10,6 +10,13 @@ import ChommentStream from './views/ChommentStream/ChommentStream';
 import MrHole from './components/MrHole/MrHole';
 
 class App extends Component {
+  componentDidMount() {
+    window.ClientRequestsGracefulRefresh = () => {
+      // TODO: check if MainContent is scrolled past a threshold
+      console.log(window.location = window.location);
+    }
+  }
+
   render() {
     return (
       <div className="App">
