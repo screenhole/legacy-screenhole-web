@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Subscribe } from 'unstated';
-import { ActionCable } from 'react-actioncable-provider'
+import { ActionCable } from 'react-actioncable-provider';
+import { Form, Field } from 'react-final-form';
 import styled from 'styled-components';
 
 import AuthContainer from '../../utils/AuthContainer';
@@ -37,6 +38,15 @@ class ChommentStream extends Component {
     })
   }
 
+  submitMessage = async (values) => {
+    if (! values.message) return;
+
+    let message = values.message;
+    values.message = '';
+
+    const res = await api.post("/chomments", { "chomment": { message: message } });
+  }
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
@@ -59,11 +69,22 @@ class ChommentStream extends Component {
             </InnerChomments>
 
             {auth.state.authenticated &&
-              <ChommentInputWrapper>
-                <Input type="text" placeholder="Type some chomments" />
-              </ChommentInputWrapper>
+              <Form
+                onSubmit={this.submitMessage}
+                render={({ handleSubmit, values }) => {
+                  return (
+                    <ChommentInputWrapper onSubmit={handleSubmit}>
+                      <Field name="message">
+                        {({ input, meta }) => (
+                          <Input {...input} type="text" placeholder="Type some chomments" />
+                        )}
+                      </Field>
+                    </ChommentInputWrapper>
+                  )
+                }
+              }
+              />
             }
-
           </Chomments>
         )}
       </Subscribe>
