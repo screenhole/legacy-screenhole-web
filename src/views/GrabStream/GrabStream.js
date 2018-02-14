@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ActionCable } from 'react-actioncable-provider'
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
@@ -25,10 +26,20 @@ class GrabStream extends Component {
     }
   }
 
+  onReceived = (data) => {
+    this.setState({
+      grabs: [
+        data.grab,
+        ...this.state.grabs
+      ]
+    })
+  }
+
   render() {
     return (
       <Grabs>
         <MetaTags />
+        <ActionCable channel={{channel: 'GrabsChannel'}} onReceived={this.onReceived} />
         {this.state.grabs
           ? this.state.grabs.map(grab => (
               <Grab
