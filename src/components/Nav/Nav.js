@@ -28,7 +28,7 @@ class Nav extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Navbar>
-            <Link to="/">
+            <Link className="nav-logo-link" to="/">
               <Logo>
                 <Lottie options={defaultOptions} width={400} />
               </Logo>
@@ -91,15 +91,23 @@ const Navbar = styled.nav`
     flex-shrink: 0;
   }
 
+  .nav-logo-link {
+    display: inline-block;
+    height: var(--nav-height);
+    width: 240px;
+    position: relative;
+  }
+
   [aria-current='true'] {
     color: white;
   }
 `;
 
 const Logo = styled.div`
-  position: fixed;
+  position: absolute;
   top: -10.75rem;
-  left: -4rem;
+  left: -5rem;
+  pointer-events: none;
 `;
 
 const Menu = styled.div`
