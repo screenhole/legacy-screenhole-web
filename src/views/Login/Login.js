@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form'
 import { FORM_ERROR } from 'final-form';
+import Media from 'react-media';
 import styled from 'styled-components';
 
 import api from '../../utils/api';
@@ -77,6 +78,12 @@ class Login extends Component {
               </Field>
               {submitError && <div className="error">{submitError}</div>}
               <Button type="submit" disabled={submitting}>Go!</Button>
+
+              <Media query="(max-width: 791px)">
+                <Label>
+                  By logging in you agree to the <a href="/eula">EULA</a> &amp; <a href="/privacy">Privacy Polilcy</a>.
+                </Label>
+              </Media>
             </Wrapper>
           )
         }}
