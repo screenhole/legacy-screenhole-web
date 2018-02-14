@@ -57,6 +57,8 @@ class Login extends Component {
         render={({ handleSubmit, submitError, pristine, submitting, values }) => {
           return (
             <Wrapper onSubmit={handleSubmit}>
+              <h1>Log In</h1>
+
               <Field name="username">
                 {({ input, meta }) => (
                   <InputWrapper>
