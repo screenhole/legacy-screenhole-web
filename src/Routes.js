@@ -9,12 +9,15 @@ import ChommentStream from './views/ChommentStream/ChommentStream';
 import GrabStream from './views/GrabStream/GrabStream';
 import GrabSingle from './views/GrabSingle/GrabSingle';
 import UserStream from './views/UserStream/UserStream';
-import Manual from './views/Manual/Manual';
 import NotFound from './views/NotFound/NotFound';
 import Login from './views/Login/Login';
 import Logout from './views/Login/Logout';
 import Register from './views/Register/Register';
 import Settings from './views/Settings/Settings';
+
+import Wtf from './views/Static/Wtf';
+import Eula from './views/Static/Eula';
+import Privacy from './views/Static/Privacy';
 
 // Remember that route order matters for proper matching!
 
@@ -23,8 +26,9 @@ class Routes extends Component {
     return (
       <Switch>
         <Route exact path="/" component={GrabStream} />
-        <Route exact path="/manual" component={Manual} />
-        <Route exact path="/wtf" component={Manual} />
+        <Route exact path="/wtf" component={Wtf} />
+        <Route exact path="/eula" component={Eula} />
+        <Route exact path="/privacy" component={Privacy} />
         <PublicRoute exact path="/login" component={Login} />
         <PublicRoute exact path="/register" component={Register} />
         <PrivateRoute exact path="/logout" component={Logout} />

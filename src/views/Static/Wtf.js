@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-class Manual extends Component {
+export default class Wtf extends Component {
   render() {
     return (
       <Page>
@@ -103,8 +103,6 @@ class Manual extends Component {
     );
   }
 }
-
-export default Manual;
 
 const Page = styled.div`
   margin: 0 auto 50px auto;
