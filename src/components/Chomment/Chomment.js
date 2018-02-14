@@ -26,7 +26,7 @@ class Chomment extends Component {
                 </Linkify>
               </Message>
             )}
-            {this.props.variant === 'voice_memo' && (
+            {this.props.variant === 'voice_memo' && this.props.reference && (
               <Link to={`/grab/~${this.props.reference.id}`}>
                 <Message className="voice-memo-link">
                   {this.props.message}
