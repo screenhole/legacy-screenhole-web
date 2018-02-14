@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Subscribe } from 'unstated';
+import { ActionCable } from 'react-actioncable-provider'
 import styled from 'styled-components';
 
 import AuthContainer from '../../utils/AuthContainer';
@@ -27,12 +28,22 @@ class ChommentStream extends Component {
     }
   }
 
+  onReceived = (data) => {
+    this.setState({
+      chomments: [
+        ...this.state.chomments,
+        data.chomment
+      ]
+    })
+  }
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Chomments>
             <InnerChomments>
+              <ActionCable channel={{channel: 'ChommentsChannel'}} onReceived={this.onReceived} />
               {this.state.chomments
                 ? this.state.chomments.map(chomment => (
                     <Chomment

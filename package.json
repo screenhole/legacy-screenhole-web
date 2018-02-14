@@ -9,6 +9,7 @@
     "final-form": "^4.2.0",
     "minireset.css": "^0.0.3",
     "react": "^16.2.0",
+    "react-actioncable-provider": "^1.0.3",
     "react-dom": "^16.2.0",
     "react-final-form": "^3.1.0",
     "react-helmet": "^5.2.0",
