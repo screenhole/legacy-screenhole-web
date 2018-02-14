@@ -5,11 +5,27 @@ import styled from 'styled-components';
 import Avatar from '../User/Avatar';
 import VoiceMemo from '../Memo/VoiceMemo';
 
+import api from '../../utils/api';
+
 class Grab extends Component {
-  showMemoInstructions() {
-    // TODO: make this a real API call
-    alert('Call 1-810-420-8008 and enter 72195');
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      authenticated: api.authenticated,
+      currentUser: api.currentUser,
+    };
   }
+
+  showMemoInstructions = () => {
+    if (this.state.authenticated) {
+      // TODO: make this a real API call
+      alert('Call 1-810-420-8008 and enter 72195');
+    } else {
+      alert('Log in to leave a voice memo!');
+    }
+  }
+
   render() {
     return (
       <Wrapper>
