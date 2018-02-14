@@ -33,6 +33,7 @@ class Settings extends Component {
     return (
       <Form
         onSubmit={onSubmit}
+        initialValues={api.currentUser}
         validate={values => {
           const errors = {};
 
