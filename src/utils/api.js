@@ -6,6 +6,16 @@ const api = create({
   // baseURL: 'https://staging-api.screenhole.net',
 })
 
+// reset on 401 API responses
+api.addResponseTransform(response => {
+  if (! response.ok) {
+    if (response.status === 401) {
+      api.resetLocalStorage();
+      window.location = window.location;
+    }
+  }
+})
+
 api.currentUser = null;
 api.authenticated = false;
 
