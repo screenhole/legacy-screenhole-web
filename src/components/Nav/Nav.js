@@ -3,12 +3,24 @@ import { Subscribe } from 'unstated';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Media from 'react-media';
+import Lottie from 'react-lottie';
+
+import * as LogoExplosion from '../../animations/logo/intro.json';
 
 import AuthContainer from '../../utils/AuthContainer';
 
 import Guest from './Guest';
 import LoggedIn from './LoggedIn';
 import MobileMenu from './MobileMenu';
+
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  animationData: LogoExplosion,
+  rendererSettings: {
+    preserveAspectRatio: 'xMidYMid slice'
+  }
+};
 
 class Nav extends Component {
   render() {
@@ -17,7 +29,9 @@ class Nav extends Component {
         {auth => (
           <Navbar>
             <Link to="/">
-              <Logo src="/img/screenhole-logo.svg" alt="SCREENHOLE!" />
+              <Logo>
+                <Lottie options={defaultOptions} width={400} />
+              </Logo>
             </Link>
             <Menu>
               <Media query="(max-width: 790px)">
@@ -82,9 +96,10 @@ const Navbar = styled.nav`
   }
 `;
 
-const Logo = styled.img`
-  width: 232px;
-  position: relative;
+const Logo = styled.div`
+  position: fixed;
+  top: -10.75rem;
+  left: -4rem;
 `;
 
 const Menu = styled.div`
