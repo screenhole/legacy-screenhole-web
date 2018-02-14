@@ -54,7 +54,7 @@ class Login extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="text" placeholder="Username" />
-                    <Label>Username {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -62,14 +62,12 @@ class Login extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="password" placeholder="Password" />
-                    <Label>Password {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Password {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
               {submitError && <div className="error">{submitError}</div>}
-              <Button type="submit" disabled={submitting || pristine}>
-                Go!
-              </Button>
+              <Button type="submit" disabled={submitting}>Go!</Button>
             </Wrapper>
           )
         }}

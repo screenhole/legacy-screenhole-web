@@ -56,7 +56,7 @@ class Settings extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="email" placeholder="you@email.com" />
-                    <Label>Email {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Email {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -64,7 +64,7 @@ class Settings extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="text" placeholder="username" />
-                    <Label>Username {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -72,7 +72,7 @@ class Settings extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="text" placeholder="Spiderman Jones" />
-                    <Label>Name {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Name {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -80,7 +80,7 @@ class Settings extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="text" placeholder="Tell us about yerself" />
-                    <Label>Bio {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Bio {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -88,16 +88,14 @@ class Settings extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="password" placeholder="new password" />
-                    <Label>Leave blank to not change {meta.error && meta.touched && <span>{meta.error}</span>}</Label>
+                    <Label>Leave blank to not change {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
                   </InputWrapper>
                 )}
               </Field>
 
               {submitError && <div className="error">{submitError}</div>}
 
-              <Button type="submit" disabled={submitting || pristine}>
-                Go!
-              </Button>
+              <Button type="submit" disabled={submitting}>Go!</Button>
             </Wrapper>
           )
         }}
