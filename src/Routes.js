@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Media from 'react-media';
 
+import PrivateRoute from './utils/PrivateRoute';
+
 import ChommentStream from './views/ChommentStream/ChommentStream';
 import GrabStream from './views/GrabStream/GrabStream';
 import GrabSingle from './views/GrabSingle/GrabSingle';
@@ -24,8 +26,8 @@ class Routes extends Component {
         <Route exact path="/wtf" component={Manual} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/logout" component={Logout} />
-        <Route exact path="/settings" component={Settings} />
+        <PrivateRoute exact path="/logout" component={Logout} />
+        <PrivateRoute exact path="/settings" component={Settings} />
 
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/~:id" component={GrabSingle} />
