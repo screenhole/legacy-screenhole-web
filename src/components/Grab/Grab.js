@@ -12,6 +12,7 @@ class Grab extends Component {
     super(props);
 
     this.state = {
+      showDropdown: false,
       authenticated: api.authenticated,
       currentUser: api.currentUser,
     };
@@ -67,6 +68,8 @@ class Grab extends Component {
   blockUser = async () => {
     if (!this.state.authenticated) return;
 
+    this.setState({ showDropdown: false });
+
     let res = await api.post(
       `/users/${this.props.userId}/${
         this.state.isBlocked ? '/unblock' : '/block'
@@ -96,6 +99,8 @@ class Grab extends Component {
 
   reportGrab = async () => {
     let res = await api.post(`/grabs/${this.props.id}/report`);
+
+    this.setState({ showDropdown: false });
 
     if (res.ok) {
       alert('Grab reported, thank you.');
@@ -130,12 +135,21 @@ class Grab extends Component {
           {this.props.showBlockReportDropdown &&
             this.state.authenticated &&
             this.props.username !== this.state.currentUser.username && (
-              <div>
-                <Button onClick={this.blockUser}>
-                  {this.state.isBlocked ? 'Unblock' : 'Block'}
+              <Dropdown>
+                <Button
+                  onClick={() =>
+                    this.setState({ showDropdown: !this.state.showDropdown })
+                  }
+                >
+                  {ellipsisIcon}
                 </Button>
-                <Button onClick={this.reportGrab}>Report</Button>
-              </div>
+                <section className={this.state.showDropdown ? 'on' : 'off'}>
+                  <Button onClick={this.blockUser}>
+                    {this.state.isBlocked ? 'Unblock' : 'Block'}
+                  </Button>
+                  <Button onClick={this.reportGrab}>Report</Button>
+                </section>
+              </Dropdown>
             )}
         </UserInfo>
         <Link to={`/${this.props.username}/~${this.props.id}`}>
@@ -222,6 +236,105 @@ const GrabImage = styled.img`
     box-shadow: 0 0 0 5px var(--primary-color);
   }
 `;
+
+const Dropdown = styled.div`
+  position: relative;
+
+  section {
+    position: absolute;
+    top: 30px;
+    left: -27px;
+    width: 100px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.75);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+
+    transition: all 400ms ease;
+
+    &.on {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: calc(50% - 8px);
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 7.5px 10px 7.5px;
+      border-color: transparent transparent var(--primary-color) transparent;
+    }
+
+    button {
+      opacity: 0.8;
+      color: white;
+      margin: 0;
+      display: block;
+      transition: all 0.2s ease;
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+      font-size: 1rem;
+
+      &:hover {
+        opacity: 1;
+        text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.45);
+        transform: translate(0, -1px);
+      }
+    }
+  }
+`;
+
+const ellipsisIcon = (
+  <svg
+    width="25"
+    height="25"
+    viewBox="0 0 25 5"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <g id="Canvas" transform="translate(-1320 183)">
+      <g id="options">
+        <g id="1_ellipsisIcon">
+          <use
+            xlinkHref="#path0_fill_ellipsisIcon"
+            transform="translate(1320 -183)"
+            fill="#6A40EE"
+          />
+        </g>
+        <g id="2_ellipsisIcon">
+          <use
+            xlinkHref="#path0_fill_ellipsisIcon"
+            transform="translate(1330 -183)"
+            fill="#6A40EE"
+          />
+        </g>
+        <g id="3_ellipsisIcon">
+          <use
+            xlinkHref="#path0_fill_ellipsisIcon"
+            transform="translate(1340 -183)"
+            fill="#6A40EE"
+          />
+        </g>
+      </g>
+    </g>
+    <defs>
+      <path
+        id="path0_fill_ellipsisIcon"
+        d="M 0 2.5C 0 1.11929 1.11929 0 2.5 0L 2.5 0C 3.88071 0 5 1.11929 5 2.5L 5 2.5C 5 3.88071 3.88071 5 2.5 5L 2.5 5C 1.11929 5 0 3.88071 0 2.5L 0 2.5Z"
+      />
+    </defs>
+  </svg>
+);
 
 const deleteIcon = (
   <svg
