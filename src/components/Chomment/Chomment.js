@@ -26,13 +26,14 @@ class Chomment extends Component {
                 </Linkify>
               </Message>
             )}
-            {this.props.variant === 'voice_memo' && this.props.reference && (
-              <Link to={`/grab/~${this.props.reference.id}`}>
-                <Message className="voice-memo-link">
-                  {this.props.message}
-                </Message>
-              </Link>
-            )}
+            {this.props.variant === 'voice_memo' &&
+              this.props.reference && (
+                <Link to={`/grab/~${this.props.reference.id}`}>
+                  <Message className="voice-memo-link">
+                    {this.props.message}
+                  </Message>
+                </Link>
+              )}
           </Content>
         </InnerChomment>
       </Wrapper>
@@ -44,7 +45,7 @@ export default Chomment;
 
 const Wrapper = styled.div`
   display: block;
-  margin: calc(var(--app-padding) / 2) 0;
+  margin: var(--app-padding) 0;
 `;
 
 const InnerChomment = styled.div`
