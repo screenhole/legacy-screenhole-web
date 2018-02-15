@@ -4,12 +4,24 @@ import styled from 'styled-components';
 
 import phone from './icon-phone-chomment.svg';
 
+import defaultAvatar from './default-avatar.png';
+
 class Avatar extends Component {
   gravatar = () => {
-    return 'https://www.gravatar.com/avatar/' + this.props.gravatar
-                + '?size=' + encodeURIComponent(this.props.size || 100)
-                // + '&d=' + encodeURIComponent(origin + require('../assets/img/default-avatar.png'));
-  }
+    let origin =
+      window.location.hostname === 'localhost'
+        ? 'https://screenhole.net'
+        : window.location.origin;
+
+    return (
+      'https://www.gravatar.com/avatar/' +
+      this.props.gravatar +
+      '?size=' +
+      encodeURIComponent(this.props.size || 100) +
+      '&d=' +
+      encodeURIComponent(origin + defaultAvatar)
+    );
+  };
 
   render() {
     return (
