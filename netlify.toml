@@ -3,6 +3,6 @@
   [headers.values]
    Access-Control-Allow-Origin = "*"
 
-[context."vue-snapshot"]
+[context."old"]
   command = "npm run build"
   publish = "dist"
