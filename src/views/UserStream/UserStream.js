@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { ActionCable } from 'react-actioncable-provider';
 import { Link } from 'react-router-dom';
 import Helmet from 'react-helmet';
@@ -14,30 +15,38 @@ class UserStream extends Component {
     super();
 
     this.state = {
-      user: false,
-      grabs: false,
+      hasMore: false, // wait for async componentWillMount
+      user: null,
+      grabs: [],
     };
   }
 
   async componentWillMount() {
-    const username = this.props.match.params.username;
-
-    const user = await api.get(`/users/${username}`);
+    const user = await api.get(`/users/${this.props.match.params.username}`);
 
     if (user.ok) {
       this.setState({
+        hasMore: true,
         user: user.data.user,
       });
-
-      const grabs = await api.get(`/users/${this.state.user.id}/grabs`);
-
-      if (grabs.ok) {
-        this.setState({
-          grabs: grabs.data.grabs,
-        });
-      }
     }
   }
+
+  loadMore = async page => {
+    let res = await api.get(`/users/${this.state.user.id}/grabs?page=${page}`);
+
+    if (!res.ok) {
+      return this.setState({ hasMore: false });
+    }
+
+    this.setState({
+      grabs: [...this.state.grabs, ...res.data.grabs],
+    });
+
+    if (!res.data.meta.next_page) {
+      this.setState({ hasMore: false });
+    }
+  };
 
   onReceived = data => {
     if (data.grab.user.id !== this.state.user.id) return;
@@ -48,6 +57,21 @@ class UserStream extends Component {
   };
 
   render() {
+    let grabs = [];
+
+    this.state.grabs.map((grab, i) =>
+      grabs.push(
+        <Grab
+          username={grab.user.username}
+          image={grab.image_public_url}
+          id={grab.id}
+          memos={grab.memos}
+          gravatar={grab.user.gravatar_hash}
+          key={i}
+        />,
+      ),
+    );
+
     return (
       <Wrapper>
         {this.state.user && (
@@ -83,18 +107,18 @@ class UserStream extends Component {
             channel={{ channel: 'GrabsChannel' }}
             onReceived={this.onReceived}
           />
-          {this.state.grabs
-            ? this.state.grabs.map(grab => (
-                <Grab
-                  username={grab.user.username}
-                  image={grab.image_public_url}
-                  id={grab.id}
-                  memos={grab.memos}
-                  gravatar={grab.user.gravatar_hash}
-                  key={grab.id}
-                />
-              ))
-            : 'Searching for this Screenhooligan...'}
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadMore}
+            hasMore={this.state.hasMore}
+            loader={
+              <div className="loader" key="loader">
+                Loading...
+              </div>
+            }
+          >
+            {grabs}
+          </InfiniteScroll>
         </GrabsWrapper>
       </Wrapper>
     );
