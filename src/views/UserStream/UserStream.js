@@ -15,6 +15,9 @@ class UserStream extends Component {
     super();
 
     this.state = {
+      authenticated: api.authenticated,
+      currentUser: api.currentUser,
+
       hasMore: false, // wait for async componentWillMount
       user: null,
       grabs: [],
@@ -93,7 +96,11 @@ class UserStream extends Component {
                 <h1>{this.state.user.name}</h1>
                 <h2>@{this.state.user.username}</h2>
                 <p>{this.state.user.bio}</p>
-                <Link to="/settings">Edit profile</Link>
+
+                {this.state.authenticated &&
+                  this.state.user.id === this.state.currentUser.id && (
+                    <Link to="/settings">Edit profile</Link>
+                  )}
               </UserBio>
             </UserInfo>
             <UserStats>
