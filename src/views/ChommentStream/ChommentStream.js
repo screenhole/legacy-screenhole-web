@@ -51,7 +51,7 @@ class ChommentStream extends Component {
   render() {
     let chomments = [];
 
-    this.state.chomments.map(chomment => {
+    this.state.chomments.map(chomment =>
       chomments.push(
         <Chomment
           username={chomment.user.username}
@@ -61,8 +61,8 @@ class ChommentStream extends Component {
           reference={chomment.cross_ref}
           key={chomment.id}
         />,
-      );
-    });
+      ),
+    );
 
     return (
       <Subscribe to={[AuthContainer]}>
