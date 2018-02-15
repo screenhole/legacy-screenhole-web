@@ -11,29 +11,21 @@ import Grab from './../../components/Grab/Grab';
 class GrabStream extends Component {
   state = {
     hasMore: true,
-    nextPage: null,
     grabs: [],
   };
 
-  loadMore = async () => {
-    let url = '/grabs';
-
-    if (this.state.nextPage) {
-      url += `?page=${this.state.nextPage}`;
-    }
-
-    let res = await api.get(url);
+  loadMore = async page => {
+    let res = await api.get(`/grabs?page=${page}`);
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
     }
 
-    if (res.data.meta.next_page) {
-      this.setState({
-        grabs: [...this.state.grabs, ...res.data.grabs],
-        nextPage: res.data.meta.next_page,
-      });
-    } else {
+    this.setState({
+      grabs: [...this.state.grabs, ...res.data.grabs],
+    });
+
+    if (!res.data.meta.next_page) {
       this.setState({ hasMore: false });
     }
   };
