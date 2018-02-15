@@ -17,10 +17,17 @@ class Grab extends Component {
     };
   }
 
-  showMemoInstructions = () => {
+  showMemoInstructions = async () => {
     if (this.state.authenticated) {
-      // TODO: make this a real API call
-      alert('Call 1-810-420-8008 and enter 72195');
+      let res = await api.post(`/grabs/${this.props.id}/memos`, {
+        memo: { variant: 'voice' },
+      });
+
+      if (res.ok) {
+        alert(`Call 1-810-420-8008 and enter: ${res.data.memo.calling_code}`);
+      } else {
+        alert('Could not create voice memo. Try again.');
+      }
     } else {
       alert('Log in to leave a voice memo!');
     }
