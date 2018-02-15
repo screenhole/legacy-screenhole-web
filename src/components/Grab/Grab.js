@@ -15,6 +15,10 @@ class Grab extends Component {
       authenticated: api.authenticated,
       currentUser: api.currentUser,
     };
+
+    this.state.isBlocked = this.state.currentUser.blocked.includes(
+      this.props.userId,
+    );
   }
 
   voiceMemos = () => {
@@ -30,22 +34,25 @@ class Grab extends Component {
   };
 
   showMemoInstructions = async () => {
-    if (this.state.authenticated) {
-      let res = await api.post(`/grabs/${this.props.id}/memos`, {
-        memo: { variant: 'voice' },
-      });
-
-      if (res.ok) {
-        alert(`Call 1-810-420-8008 and enter: ${res.data.memo.calling_code}`);
-      } else {
-        alert('Could not create voice memo. Try again.');
-      }
-    } else {
+    if (!this.state.authenticated) {
       alert('Log in to leave a voice memo!');
+      return;
+    }
+
+    let res = await api.post(`/grabs/${this.props.id}/memos`, {
+      memo: { variant: 'voice' },
+    });
+
+    if (res.ok) {
+      alert(`Call 1-810-420-8008 and enter: ${res.data.memo.calling_code}`);
+    } else {
+      alert('Could not create voice memo. Try again.');
     }
   };
 
   deleteGrab = async () => {
+    if (!this.state.authenticated) return;
+
     if (!window.confirm('Are you sure you want to delete this grab?')) return;
 
     let res = await api.delete(`/grabs/${this.props.id}`);
@@ -55,6 +62,36 @@ class Grab extends Component {
     } else {
       alert('Sorry, could not delete grab. Try again.');
     }
+  };
+
+  blockUser = async () => {
+    if (!this.state.authenticated) return;
+
+    let res = await api.post(
+      `/users/${this.props.userId}/${
+        this.state.isBlocked ? '/unblock' : '/block'
+      }`,
+    );
+
+    if (!res.ok) {
+      alert('Sorry, could not block user. Try again.');
+      return;
+    }
+
+    if (this.state.isBlocked) {
+      alert('This user is now unblocked.');
+    } else {
+      alert('This user is now blocked.');
+    }
+
+    // update cache currentUser
+    const currentUser = await api.get('/users/current');
+    if (currentUser.ok) {
+      api.setCurrentUser(currentUser.data.user);
+    }
+
+    // hard refresh
+    window.location = window.location;
   };
 
   render() {
@@ -78,6 +115,14 @@ class Grab extends Component {
             this.state.authenticated &&
             this.props.username === this.state.currentUser.username && (
               <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
+            )}
+
+          {this.props.showBlockReportDropdown &&
+            this.state.authenticated &&
+            this.props.username !== this.state.currentUser.username && (
+              <Button onClick={this.blockUser}>
+                {this.state.isBlocked ? 'Unblock' : 'Block'}
+              </Button>
             )}
         </UserInfo>
         <Link to={`/${this.props.username}/~${this.props.id}`}>

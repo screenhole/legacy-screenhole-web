@@ -25,6 +25,7 @@ class GrabSingle extends Component {
       });
     }
   }
+
   render() {
     return (
       <article>
@@ -41,6 +42,7 @@ class GrabSingle extends Component {
             />
             <Grab
               username={this.state.grab.user.username}
+              userId={this.state.grab.user.id}
               image={this.state.grab.image_public_url}
               id={this.state.grab.id}
               memos={this.state.grab.memos}
@@ -48,7 +50,7 @@ class GrabSingle extends Component {
               showMemos={true}
               key={this.state.grab.id}
               showDelete={true}
-              showDropdown={true}
+              showBlockReportDropdown={true}
             />
           </span>
         ) : (
