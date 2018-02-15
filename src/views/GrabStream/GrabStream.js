@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { ActionCable } from 'react-actioncable-provider';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
@@ -9,26 +10,56 @@ import Grab from './../../components/Grab/Grab';
 
 class GrabStream extends Component {
   state = {
-    grabs: []
+    hasMore: true,
+    nextPage: null,
+    grabs: [],
   };
 
-  async componentWillMount() {
-    const grabs = await api.get(`/grabs`);
+  loadMore = async () => {
+    let url = '/grabs';
 
-    if (grabs.ok) {
-      this.setState({
-        grabs: grabs.data.grabs
-      });
+    if (this.state.nextPage) {
+      url += `?page=${this.state.nextPage}`;
     }
-  }
+
+    let res = await api.get(url);
+
+    if (!res.ok) {
+      return this.setState({ hasMore: false });
+    }
+
+    if (res.data.meta.next_page) {
+      this.setState({
+        grabs: [...this.state.grabs, ...res.data.grabs],
+        nextPage: res.data.meta.next_page,
+      });
+    } else {
+      this.setState({ hasMore: false });
+    }
+  };
 
   onReceived = data => {
     this.setState({
-      grabs: [data.grab, ...this.state.grabs]
+      grabs: [data.grab, ...this.state.grabs],
     });
   };
 
   render() {
+    let grabs = [];
+
+    this.state.grabs.map(grab =>
+      grabs.push(
+        <Grab
+          username={grab.user.username}
+          image={grab.image_public_url}
+          id={grab.id}
+          memos={grab.memos}
+          gravatar={grab.user.gravatar_hash}
+          key={grab.id}
+        />,
+      ),
+    );
+
     return (
       <Grabs>
         <MetaTags />
@@ -36,18 +67,19 @@ class GrabStream extends Component {
           channel={{ channel: 'GrabsChannel' }}
           onReceived={this.onReceived}
         />
-        {this.state.grabs
-          ? this.state.grabs.map(grab => (
-              <Grab
-                username={grab.user.username}
-                image={grab.image_public_url}
-                id={grab.id}
-                memos={grab.memos}
-                gravatar={grab.user.gravatar_hash}
-                key={grab.id}
-              />
-            ))
-          : 'Loading...'}
+
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={this.loadMore}
+          hasMore={this.state.hasMore}
+          loader={
+            <div className="loader" key="loader">
+              Loading...
+            </div>
+          }
+        >
+          {grabs}
+        </InfiniteScroll>
       </Grabs>
     );
   }
