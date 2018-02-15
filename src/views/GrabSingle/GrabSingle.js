@@ -12,7 +12,7 @@ class GrabSingle extends Component {
     const grab_id = this.props.match.params.id;
 
     this.state = {
-      currentGrab: grab_id
+      currentGrab: grab_id,
     };
   }
 
@@ -21,7 +21,7 @@ class GrabSingle extends Component {
 
     if (grab.ok) {
       this.setState({
-        grab: grab.data.grab
+        grab: grab.data.grab,
       });
     }
   }
@@ -47,6 +47,8 @@ class GrabSingle extends Component {
               gravatar={this.state.grab.user.gravatar_hash}
               showMemos={true}
               key={this.state.grab.id}
+              showDelete={true}
+              showDropdown={true}
             />
           </span>
         ) : (
