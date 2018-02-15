@@ -1,6 +1,6 @@
 # screenhole-web
 
-> screenhole.net frontend
+> Snapshot of Vue screenhole.net frontend prior to React switchover.
 
 ## Setup
 
