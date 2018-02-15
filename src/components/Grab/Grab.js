@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Media from 'react-media';
 import styled from 'styled-components';
 
 import Avatar from '../User/Avatar';
@@ -135,21 +136,23 @@ class Grab extends Component {
           {this.props.showBlockReportDropdown &&
             this.state.authenticated &&
             this.props.username !== this.state.currentUser.username && (
-              <Dropdown>
-                <Button
-                  onClick={() =>
-                    this.setState({ showDropdown: !this.state.showDropdown })
-                  }
-                >
-                  {ellipsisIcon}
-                </Button>
-                <section className={this.state.showDropdown ? 'on' : 'off'}>
-                  <Button onClick={this.blockUser}>
-                    {this.state.isBlocked ? 'Unblock' : 'Block'}
+              <Media query="(max-width: 791px)">
+                <Dropdown>
+                  <Button
+                    onClick={() =>
+                      this.setState({ showDropdown: !this.state.showDropdown })
+                    }
+                  >
+                    {ellipsisIcon}
                   </Button>
-                  <Button onClick={this.reportGrab}>Report</Button>
-                </section>
-              </Dropdown>
+                  <section className={this.state.showDropdown ? 'on' : 'off'}>
+                    <Button onClick={this.blockUser}>
+                      {this.state.isBlocked ? 'Unblock' : 'Block'}
+                    </Button>
+                    <Button onClick={this.reportGrab}>Report</Button>
+                  </section>
+                </Dropdown>
+              </Media>
             )}
         </UserInfo>
         <Link to={`/${this.props.username}/~${this.props.id}`}>
