@@ -17,6 +17,18 @@ class Grab extends Component {
     };
   }
 
+  voiceMemos = () => {
+    return (this.props.memos || []).filter(function(memo) {
+      return !memo.pending && memo.variant === 'voice';
+    });
+  };
+
+  stickerMemos = () => {
+    return (this.props.memos || []).filter(function(memo) {
+      return !memo.pending && memo.variant === 'sticker';
+    });
+  };
+
   showMemoInstructions = async () => {
     if (this.state.authenticated) {
       let res = await api.post(`/grabs/${this.props.id}/memos`, {
@@ -58,8 +70,8 @@ class Grab extends Component {
           </Link>
 
           <Button onClick={this.showMemoInstructions}>{memoIcon}</Button>
-          {this.props.memos.length > 0 && (
-            <Count>{this.props.memos.length}</Count>
+          {this.voiceMemos().length > 0 && (
+            <Count>{this.voiceMemos().length}</Count>
           )}
 
           {this.props.showDelete &&
@@ -75,7 +87,7 @@ class Grab extends Component {
           />
         </Link>
         {this.props.showMemos &&
-          this.props.memos.map(memo => {
+          this.voiceMemos().map(memo => {
             if (!memo.pending && memo.variant === 'voice') {
               return (
                 <VoiceMemo
