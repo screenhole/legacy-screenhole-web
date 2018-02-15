@@ -2,3 +2,7 @@
   for = "/.netlify/*"
   [headers.values]
    Access-Control-Allow-Origin = "*"
+
+[context."vue-snapshot"]
+  command = "npm run build"
+  publish = "dist"
