@@ -48,7 +48,7 @@ class ChommentStream extends Component {
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
-          <Chomments>
+          <Chomments authenticated={auth.state.authenticated}>
             <InnerChomments>
               <ActionCable
                 channel={{ channel: 'ChommentsChannel' }}
@@ -106,7 +106,8 @@ const Chomments = styled.aside`
   max-width: var(--sidebar-width);
   box-shadow: inset -1px 0 0 0 var(--divider-color);
   padding: var(--app-padding);
-  padding-bottom: 4rem;
+  padding-bottom: ${props =>
+    props.authenticated ? '4rem' : 'calc(var(--app-padding) / 2)'};
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
