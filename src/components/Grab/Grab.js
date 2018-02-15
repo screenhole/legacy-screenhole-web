@@ -94,6 +94,16 @@ class Grab extends Component {
     window.location = window.location;
   };
 
+  reportGrab = async () => {
+    let res = await api.post(`/grabs/${this.props.id}/report`);
+
+    if (res.ok) {
+      alert('Grab reported, thank you.');
+    } else {
+      alert('Sorry, could not report grab. Try again.');
+    }
+  };
+
   render() {
     return (
       <Wrapper>
@@ -120,9 +130,12 @@ class Grab extends Component {
           {this.props.showBlockReportDropdown &&
             this.state.authenticated &&
             this.props.username !== this.state.currentUser.username && (
-              <Button onClick={this.blockUser}>
-                {this.state.isBlocked ? 'Unblock' : 'Block'}
-              </Button>
+              <div>
+                <Button onClick={this.blockUser}>
+                  {this.state.isBlocked ? 'Unblock' : 'Block'}
+                </Button>
+                <Button onClick={this.reportGrab}>Report</Button>
+              </div>
             )}
         </UserInfo>
         <Link to={`/${this.props.username}/~${this.props.id}`}>
