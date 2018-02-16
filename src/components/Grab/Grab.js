@@ -18,9 +18,13 @@ class Grab extends Component {
       currentUser: api.currentUser,
     };
 
-    this.state.isBlocked = !this.state.authenticated
-      ? false
-      : this.state.currentUser.blocked.includes(this.props.userId);
+    this.state.isBlocked = false;
+
+    if (this.state.authenticated && this.state.currentUser) {
+      this.state.isBlocked = this.state.currentUser.blocked.includes(
+        this.props.userId,
+      );
+    }
   }
 
   voiceMemos = () => {
