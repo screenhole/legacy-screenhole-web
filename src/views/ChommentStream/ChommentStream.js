@@ -16,7 +16,7 @@ import loader from '../../images/loader.gif';
 class ChommentStream extends Component {
   state = {
     hasMore: true,
-    chomments: []
+    chomments: [],
   };
 
   loadMore = async page => {
@@ -27,7 +27,7 @@ class ChommentStream extends Component {
     }
 
     this.setState({
-      chomments: [...this.state.chomments, ...res.data.chomments]
+      chomments: [...this.state.chomments, ...res.data.chomments],
     });
 
     if (!res.data.meta.next_page) {
@@ -37,7 +37,7 @@ class ChommentStream extends Component {
 
   onReceived = data => {
     this.setState({
-      chomments: [data.chomment, ...this.state.chomments]
+      chomments: [data.chomment, ...this.state.chomments],
     });
   };
 
@@ -62,8 +62,8 @@ class ChommentStream extends Component {
           variant={chomment.variant}
           reference={chomment.cross_ref}
           key={chomment.id}
-        />
-      )
+        />,
+      ),
     );
 
     return (
@@ -101,7 +101,7 @@ class ChommentStream extends Component {
                             {...input}
                             type="text"
                             placeholder="Type some chomments"
-                            autocomplete="off"
+                            autoComplete="off"
                           />
                         )}
                       </Field>

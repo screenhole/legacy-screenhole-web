@@ -74,8 +74,8 @@ class Login extends Component {
                       {...input}
                       type="text"
                       placeholder="Username"
-                      autocorrect="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
                       spellcheck="false"
                     />
                     <Label>
@@ -95,9 +95,9 @@ class Login extends Component {
                       {...input}
                       type="password"
                       placeholder="Password"
-                      autocorrect="off"
-                      autocomplete="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoComplete="off"
+                      autoCapitalize="off"
                       spellcheck="false"
                     />
                     <Label>

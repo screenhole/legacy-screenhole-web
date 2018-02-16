@@ -76,8 +76,8 @@ class Register extends Component {
                       {...input}
                       type="email"
                       placeholder="Email"
-                      autocorrect="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
                       spellcheck="false"
                     />
                     <Label>
@@ -111,10 +111,10 @@ class Register extends Component {
                       {...input}
                       type="password"
                       placeholder="Password"
-                      autocorrect="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
                       spellcheck="false"
-                      autocomplete="off"
+                      autoComplete="off"
                     />
                     <Label>
                       Password{' '}
@@ -133,10 +133,10 @@ class Register extends Component {
                       {...input}
                       type="input"
                       placeholder="Invite Code"
-                      autocorrect="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
                       spellcheck="false"
-                      autocomplete="off"
+                      autoComplete="off"
                     />
                     <Label>
                       Invite Code{' '}

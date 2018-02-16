@@ -65,8 +65,8 @@ class Settings extends Component {
                       {...input}
                       type="email"
                       placeholder="you@email.com"
-                      autocapitalize="off"
-                      autocorrect="off"
+                      autoCapitalize="off"
+                      autoCorrect="off"
                     />
                     <Label>
                       Email{' '}
@@ -85,8 +85,8 @@ class Settings extends Component {
                       {...input}
                       type="text"
                       placeholder="username"
-                      autocorrect="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
                     />
                     <Label>
                       Username{' '}
@@ -123,7 +123,7 @@ class Settings extends Component {
                       {...input}
                       type="text"
                       placeholder="Tell us about yerself"
-                      autocomplete="off"
+                      autoComplete="off"
                     />
                     <Label>
                       Bio{' '}
@@ -142,10 +142,10 @@ class Settings extends Component {
                       {...input}
                       type="password"
                       placeholder="new password"
-                      autocorrect="off"
-                      autocapitalize="off"
+                      autoCorrect="off"
+                      autoCapitalize="off"
                       spellcheck="false"
-                      autocomplete="off"
+                      autoComplete="off"
                     />
                     <Label>
                       Leave blank to not change{' '}
