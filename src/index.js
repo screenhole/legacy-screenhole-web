@@ -6,7 +6,7 @@ import { Provider as UnstatedProvider } from 'unstated';
 import { ActionCableProvider } from 'react-actioncable-provider';
 import Analytics from 'react-router-ga';
 import ScrollMemory from 'react-router-scroll-memory';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 
 import api from './utils/api';
 
@@ -36,3 +36,4 @@ ReactDOM.render(
 
 // Not now
 // registerServiceWorker();
+unregister();
