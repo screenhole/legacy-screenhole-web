@@ -1,0 +1,22 @@
+:root {
+  --body-bg-color: #000;
+  --primary-color: #6a40ee;
+  --secondary-color: #3ae06e;
+  --buttcoin-color: #ffd655;
+  --link-color: #ccc;
+  --muted-color: #868091;
+  --super-muted-color: #3c3548;
+  --input-color: #324840;
+
+  --nav-bg-color: var(--body-bg-color);
+
+  --app-padding: 1.25rem;
+
+  --divider-width: 1px;
+  --divider-color: #3c3548;
+  --divider: var(--divider-width) solid var(--divider-color);
+
+  --nav-height: 3.75rem;
+
+  --sidebar-width: 23.75rem;
+}
