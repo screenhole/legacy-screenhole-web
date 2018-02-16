@@ -35,22 +35,17 @@ class UserStream extends Component {
     }
   }
 
-  async componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.match.params.username !== nextProps.match.params.username) {
+      // clear instantly, so its responsive
       this.setState({
         hasMore: false,
         user: null,
         grabs: [],
       });
 
-      const user = await api.get(`/users/${nextProps.match.params.username}`);
-
-      if (user.ok) {
-        this.setState({
-          hasMore: true,
-          user: user.data.user,
-        });
-      }
+      // hard reload, since the InfiniteScroll current page doesn't reset
+      window.location.pathname = `/${nextProps.match.params.username}`;
     }
   }
 
