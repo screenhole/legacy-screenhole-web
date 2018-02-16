@@ -7,15 +7,9 @@ import api from '../../utils/api';
 import Grab from '../../components/Grab/Grab';
 
 class GrabSingle extends Component {
-  constructor(props) {
-    super(props);
-
-    const grab_id = this.props.match.params.id;
-
-    this.state = {
-      currentGrab: grab_id,
-    };
-  }
+  state = {
+    currentGrab: this.props.match.params.id,
+  };
 
   async componentWillMount() {
     const grab = await api.get(`/grabs/${this.state.currentGrab}`);
@@ -24,6 +18,22 @@ class GrabSingle extends Component {
       this.setState({
         grab: grab.data.grab,
       });
+    }
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.setState({
+        grab: null,
+      });
+
+      const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+
+      if (grab.ok) {
+        this.setState({
+          grab: grab.data.grab,
+        });
+      }
     }
   }
 
