@@ -161,7 +161,7 @@ class Grab extends Component {
         </UserInfo>
         <Link to={`/${this.props.username}/~${this.props.id}`}>
           <GrabImage
-            src={this.props.image}
+            src={`${this.props.image};1000x1000,fit.png`}
             alt={`${this.props.username}’s Grab on Screenhole`}
           />
         </Link>
