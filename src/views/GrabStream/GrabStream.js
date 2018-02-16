@@ -8,6 +8,8 @@ import api from '../../utils/api';
 
 import Grab from './../../components/Grab/Grab';
 
+import loader from '../../images/loader.gif';
+
 class GrabStream extends Component {
   state = {
     hasMore: true,
@@ -66,7 +68,7 @@ class GrabStream extends Component {
           hasMore={this.state.hasMore}
           loader={
             <div className="loader" key="loader">
-              Loading...
+              <img src={loader} alt="loading..." />
             </div>
           }
         >

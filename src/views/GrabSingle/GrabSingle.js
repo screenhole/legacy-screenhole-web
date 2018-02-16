@@ -6,6 +6,8 @@ import api from '../../utils/api';
 
 import Grab from '../../components/Grab/Grab';
 
+import loader from '../../images/loader.gif';
+
 class GrabSingle extends Component {
   state = {
     currentGrab: this.props.match.params.id,
@@ -65,7 +67,7 @@ class GrabSingle extends Component {
             />
           </span>
         ) : (
-          'Loading...'
+          <img src={loader} alt="loading..." />
         )}
       </Wrapper>
     );

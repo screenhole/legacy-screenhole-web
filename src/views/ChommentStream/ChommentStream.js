@@ -11,6 +11,8 @@ import api from '../../utils/api';
 
 import Chomment from '../../components/Chomment/Chomment';
 
+import loader from '../../images/loader.gif';
+
 class ChommentStream extends Component {
   state = {
     hasMore: true,
@@ -80,7 +82,7 @@ class ChommentStream extends Component {
               useWindow={false}
               loader={
                 <div className="loader" key="loader">
-                  Loading...
+                  <img src={loader} alt="loading..." />
                 </div>
               }
             >

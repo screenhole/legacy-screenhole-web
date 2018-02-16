@@ -10,6 +10,8 @@ import api from '../../utils/api';
 import Avatar from '../../components/User/Avatar';
 import Grab from '../../components/Grab/Grab';
 
+import loader from '../../images/loader.gif';
+
 class UserStream extends Component {
   constructor() {
     super();
@@ -134,7 +136,7 @@ class UserStream extends Component {
             hasMore={this.state.hasMore}
             loader={
               <div className="loader" key="loader">
-                Loading...
+                <img src={loader} alt="loading..." />
               </div>
             }
           >
