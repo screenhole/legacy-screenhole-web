@@ -6,12 +6,12 @@ class MobileMenu extends Component {
     super();
 
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
   }
   handleMenuState() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     });
   }
   render() {
@@ -65,10 +65,6 @@ const HamburgerButton = styled.button`
   z-index: 5000;
   top: 0.25rem;
   right: 0.25rem;
-
-  svg use {
-    transition: 0.25s ease all;
-  }
 
   svg use:last-of-type {
     ${'' /* Required for safari 🤷️ */} transform: rotate(0deg) translate(0px, 12px);
