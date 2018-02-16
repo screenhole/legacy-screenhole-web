@@ -18,9 +18,7 @@ import './index.css';
 
 ReactDOM.render(
   <UnstatedProvider>
-    <ActionCableProvider
-      url={`${api.getBaseURL().replace('http', 'ws')}/cable`}
-    >
+    <ActionCableProvider url="wss://api.screenhole.com/cable">
       <Router>
         <Analytics id="UA-108383158-1" debug={false}>
           <div>
@@ -31,7 +29,7 @@ ReactDOM.render(
       </Router>
     </ActionCableProvider>
   </UnstatedProvider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
 
 // Not now
