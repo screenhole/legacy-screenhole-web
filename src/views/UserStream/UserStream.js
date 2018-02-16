@@ -113,7 +113,7 @@ class UserStream extends Component {
                 <h2>@{this.state.user.username}</h2>
                 <p>{this.state.user.bio}</p>
 
-                {this.state.authenticated &&
+                {this.state.currentUser &&
                   this.state.user.id === this.state.currentUser.id && (
                     <Link to="/settings">Edit profile</Link>
                   )}

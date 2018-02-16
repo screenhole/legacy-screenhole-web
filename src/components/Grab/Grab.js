@@ -20,7 +20,7 @@ class Grab extends Component {
 
     this.state.isBlocked = false;
 
-    if (this.state.authenticated && this.state.currentUser) {
+    if (this.state.currentUser) {
       this.state.isBlocked = this.state.currentUser.blocked.includes(
         this.props.userId,
       );
@@ -132,13 +132,13 @@ class Grab extends Component {
           )}
 
           {this.props.showDelete &&
-            this.state.authenticated &&
+            this.state.currentUser &&
             this.props.username === this.state.currentUser.username && (
               <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
             )}
 
           {this.props.showBlockReportDropdown &&
-            this.state.authenticated &&
+            this.state.currentUser &&
             this.props.username !== this.state.currentUser.username && (
               <Media query="(max-width: 791px)">
                 <Dropdown>
