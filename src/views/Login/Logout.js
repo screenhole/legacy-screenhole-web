@@ -6,12 +6,10 @@ class Logout extends Component {
   componentWillMount = () => {
     api.resetLocalStorage();
     window.location = '/';
-  }
+  };
 
   render() {
-    return (
-      <div />
-    );
+    return <div />;
   }
 }
 
