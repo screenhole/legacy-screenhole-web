@@ -31,6 +31,8 @@ ReactDOM.render(
       </Router>
     </ActionCableProvider>
   </UnstatedProvider>,
-  document.getElementById('app'),
+  document.getElementById('app')
 );
-registerServiceWorker();
+
+// Not now
+// registerServiceWorker();
