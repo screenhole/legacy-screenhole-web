@@ -13,7 +13,7 @@ import loader from '../../images/loader.gif';
 class GrabStream extends Component {
   state = {
     hasMore: true,
-    grabs: [],
+    grabs: []
   };
 
   loadMore = async page => {
@@ -24,7 +24,7 @@ class GrabStream extends Component {
     }
 
     this.setState({
-      grabs: [...this.state.grabs, ...res.data.grabs],
+      grabs: [...this.state.grabs, ...res.data.grabs]
     });
 
     if (!res.data.meta.next_page) {
@@ -34,7 +34,7 @@ class GrabStream extends Component {
 
   onReceived = data => {
     this.setState({
-      grabs: [data.grab, ...this.state.grabs],
+      grabs: [data.grab, ...this.state.grabs]
     });
   };
 
@@ -50,8 +50,8 @@ class GrabStream extends Component {
           memos={grab.memos}
           gravatar={grab.user.gravatar_hash}
           key={grab.id}
-        />,
-      ),
+        />
+      )
     );
 
     return (
@@ -84,7 +84,10 @@ export default GrabStream;
 const Grabs = styled.div`
   display: block;
   margin: -1.25rem;
-  padding: 3rem;
+  padding: 1rem 1.25rem;
+  @media (min-width: 791px) {
+    padding: 3rem;
+  }
 `;
 
 class MetaTags extends Component {
