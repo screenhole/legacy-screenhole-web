@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Field } from 'react-final-form'
+import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import Media from 'react-media';
 import styled from 'styled-components';
@@ -10,16 +10,16 @@ const onSubmit = async values => {
   const register = await api.post('/users', { auth: values });
   console.log(register);
 
-  if (! register.ok) {
+  if (!register.ok) {
     api.resetLocalStorage();
-    return { [FORM_ERROR]: "Registration Failed" };
+    return { [FORM_ERROR]: 'Registration Failed' };
   }
 
   api.setAuthHeader(register.data.meta.jwt);
 
   api.setCurrentUser(register.data.user);
 
-  if (! /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+  if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
     window.location = 'screenhole:///jwt/' + register.data.meta.jwt;
   }
 
@@ -30,7 +30,7 @@ const onSubmit = async values => {
     // this.props.history
     window.location = '/';
   }, 250);
-}
+};
 
 class Register extends Component {
   render() {
@@ -41,24 +41,30 @@ class Register extends Component {
           const errors = {};
 
           if (!values.email) {
-            errors.email = "Required";
+            errors.email = 'Required';
           }
 
           if (!values.username) {
-            errors.username = "Required";
+            errors.username = 'Required';
           }
 
           if (!values.password) {
-            errors.password = "Required";
+            errors.password = 'Required';
           }
 
           if (!values.code) {
-            errors.code = "Required";
+            errors.code = 'Required';
           }
 
           return errors;
         }}
-        render={({ handleSubmit, submitError, pristine, submitting, values }) => {
+        render={({
+          handleSubmit,
+          submitError,
+          pristine,
+          submitting,
+          values,
+        }) => {
           return (
             <Wrapper onSubmit={handleSubmit}>
               <h1>Register</h1>
@@ -66,8 +72,21 @@ class Register extends Component {
               <Field name="email">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="email" placeholder="Email" />
-                    <Label>Email {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="email"
+                      placeholder="Email"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    />
+                    <Label>
+                      Email{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -75,37 +94,74 @@ class Register extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="text" placeholder="Username" />
-                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Label>
+                      Username{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               <Field name="password">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="password" placeholder="Password" />
-                    <Label>Password {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="password"
+                      placeholder="Password"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      autocomplete="off"
+                    />
+                    <Label>
+                      Password{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               <Field name="code">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="input" placeholder="Invite Code" />
-                    <Label>Invite Code {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="input"
+                      placeholder="Invite Code"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      autocomplete="off"
+                    />
+                    <Label>
+                      Invite Code{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
 
               {submitError && <div className="error">{submitError}</div>}
-              <Button type="submit" disabled={submitting}>Go!</Button>
+              <Button type="submit" disabled={submitting}>
+                Go!
+              </Button>
 
               <Media query="(max-width: 791px)">
                 <Label>
-                  By registering you agree to the <a href="/eula">EULA</a> &amp; <a href="/privacy">Privacy Polilcy</a>
+                  By registering you agree to the <a href="/eula">EULA</a> &amp;{' '}
+                  <a href="/privacy">Privacy Polilcy</a>
                 </Label>
               </Media>
             </Wrapper>
-          )
+          );
         }}
       />
     );

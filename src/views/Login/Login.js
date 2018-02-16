@@ -70,7 +70,14 @@ class Login extends Component {
               <Field name="username">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="text" placeholder="Username" />
+                    <Input
+                      {...input}
+                      type="text"
+                      placeholder="Username"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    />
                     <Label>
                       Username{' '}
                       {(meta.error || meta.submitError) &&
@@ -84,7 +91,15 @@ class Login extends Component {
               <Field name="password">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="password" placeholder="Password" />
+                    <Input
+                      {...input}
+                      type="password"
+                      placeholder="Password"
+                      autocorrect="off"
+                      autocomplete="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                    />
                     <Label>
                       Password{' '}
                       {(meta.error || meta.submitError) &&

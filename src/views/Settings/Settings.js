@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Field } from 'react-final-form'
+import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import styled from 'styled-components';
 
@@ -9,15 +9,15 @@ const onSubmit = async values => {
   const update = await api.post('/users/current', { auth: values });
   console.log(update);
 
-  if (! update.ok) {
-    return { [FORM_ERROR]: "Edit Settings Failed" };
+  if (!update.ok) {
+    return { [FORM_ERROR]: 'Edit Settings Failed' };
   }
 
   const currentUser = await api.get('/users/current');
   console.log(currentUser);
 
-  if (! currentUser.ok) {
-    return { [FORM_ERROR]: "Edit Settings Failed [2]" };
+  if (!currentUser.ok) {
+    return { [FORM_ERROR]: 'Edit Settings Failed [2]' };
   }
 
   api.setCurrentUser(currentUser.data.user);
@@ -26,7 +26,7 @@ const onSubmit = async values => {
   // TODO: pass thru AuthContainer
   // this.props.history
   window.location = '/';
-}
+};
 
 class Settings extends Component {
   render() {
@@ -37,17 +37,23 @@ class Settings extends Component {
         validate={values => {
           const errors = {};
 
-          if (! values.email) {
-            errors.email = "Required";
+          if (!values.email) {
+            errors.email = 'Required';
           }
 
-          if (! values.username) {
-            errors.username = "Required";
+          if (!values.username) {
+            errors.username = 'Required';
           }
 
           return errors;
         }}
-        render={({ handleSubmit, submitError, pristine, submitting, values }) => {
+        render={({
+          handleSubmit,
+          submitError,
+          pristine,
+          submitting,
+          values,
+        }) => {
           return (
             <Wrapper onSubmit={handleSubmit}>
               <h1>Settings</h1>
@@ -55,49 +61,110 @@ class Settings extends Component {
               <Field name="email">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="email" placeholder="you@email.com" />
-                    <Label>Email {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="email"
+                      placeholder="you@email.com"
+                      autocapitalize="off"
+                      autocorrect="off"
+                    />
+                    <Label>
+                      Email{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               <Field name="username">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="text" placeholder="username" />
-                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="text"
+                      placeholder="username"
+                      autocorrect="off"
+                      autocapitalize="off"
+                    />
+                    <Label>
+                      Username{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               <Field name="name">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="text" placeholder="Spiderman Jones" />
-                    <Label>Name {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="text"
+                      placeholder="Spiderman Jones"
+                    />
+                    <Label>
+                      Name{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               <Field name="bio">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="text" placeholder="Tell us about yerself" />
-                    <Label>Bio {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="text"
+                      placeholder="Tell us about yerself"
+                      autocomplete="off"
+                    />
+                    <Label>
+                      Bio{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               <Field name="password">
                 {({ input, meta }) => (
                   <InputWrapper>
-                    <Input {...input} type="password" placeholder="new password" />
-                    <Label>Leave blank to not change {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Input
+                      {...input}
+                      type="password"
+                      placeholder="new password"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      autocomplete="off"
+                    />
+                    <Label>
+                      Leave blank to not change{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
 
               {submitError && <div className="error">{submitError}</div>}
 
-              <Button type="submit" disabled={submitting}>Go!</Button>
+              <Button type="submit" disabled={submitting}>
+                Go!
+              </Button>
             </Wrapper>
-          )
+          );
         }}
       />
     );
