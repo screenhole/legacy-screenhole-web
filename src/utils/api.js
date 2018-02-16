@@ -1,7 +1,8 @@
 import { create } from 'apisauce';
 
 const api = create({
-  baseURL: 'https://api.screenhole.net',
+  baseURL: '/api',
+  // baseURL: 'https://api.screenhole.net',
   // baseURL: 'https://screenhole-api.ngrok.io',
   // baseURL: 'https://staging-api.screenhole.net',
 });
