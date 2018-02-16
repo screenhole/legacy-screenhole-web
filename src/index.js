@@ -3,7 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider as UnstatedProvider } from 'unstated';
-import { ActionCableProvider } from 'react-actioncable-provider'
+import { ActionCableProvider } from 'react-actioncable-provider';
+import Analytics from 'react-router-ga';
 import ScrollMemory from 'react-router-scroll-memory';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -17,15 +18,19 @@ import './index.css';
 
 ReactDOM.render(
   <UnstatedProvider>
-    <ActionCableProvider url={`${api.getBaseURL().replace('http', 'ws')}/cable`}>
+    <ActionCableProvider
+      url={`${api.getBaseURL().replace('http', 'ws')}/cable`}
+    >
       <Router>
-        <div>
-          <ScrollMemory />
-          <App />
-        </div>
+        <Analytics id="UA-108383158-1" debug={false}>
+          <div>
+            <ScrollMemory />
+            <App />
+          </div>
+        </Analytics>
       </Router>
     </ActionCableProvider>
   </UnstatedProvider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );
 registerServiceWorker();
