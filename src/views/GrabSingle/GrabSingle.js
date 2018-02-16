@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
+import styled from 'styled-components';
 
 import api from '../../utils/api';
 
@@ -28,7 +29,7 @@ class GrabSingle extends Component {
 
   render() {
     return (
-      <article>
+      <Wrapper>
         {this.state.grab ? (
           <span>
             <MetaTags
@@ -56,12 +57,18 @@ class GrabSingle extends Component {
         ) : (
           'Loading...'
         )}
-      </article>
+      </Wrapper>
     );
   }
 }
 
 export default GrabSingle;
+
+const Wrapper = styled.article`
+  display: block;
+  margin: -1.25rem;
+  padding: 3rem;
+`;
 
 class MetaTags extends Component {
   render() {
