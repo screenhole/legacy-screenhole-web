@@ -35,6 +35,25 @@ class UserStream extends Component {
     }
   }
 
+  async componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.username !== nextProps.match.params.username) {
+      this.setState({
+        hasMore: false,
+        user: null,
+        grabs: [],
+      });
+
+      const user = await api.get(`/users/${nextProps.match.params.username}`);
+
+      if (user.ok) {
+        this.setState({
+          hasMore: true,
+          user: user.data.user,
+        });
+      }
+    }
+  }
+
   loadMore = async page => {
     let res = await api.get(`/users/${this.state.user.id}/grabs?page=${page}`);
 
