@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Field } from 'react-final-form'
+import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import Media from 'react-media';
 import styled from 'styled-components';
@@ -10,9 +10,9 @@ const onSubmit = async values => {
   const token = await api.post('/users/token', { auth: values });
   console.log(token);
 
-  if (! token.ok) {
+  if (!token.ok) {
     api.resetLocalStorage();
-    return { [FORM_ERROR]: "Login Failed" };
+    return { [FORM_ERROR]: 'Login Failed' };
   }
 
   api.setAuthHeader(token.data.jwt);
@@ -20,14 +20,15 @@ const onSubmit = async values => {
   const currentUser = await api.get('/users/current');
   console.log(currentUser);
 
-  if (! currentUser.ok) {
+  if (!currentUser.ok) {
     api.resetLocalStorage();
-    return { [FORM_ERROR]: "Login Failed [2]" };
+    return { [FORM_ERROR]: 'Login Failed [2]' };
   }
 
   api.setCurrentUser(currentUser.data.user);
 
-  if (! /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+  if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    console.log('sent jwt:///');
     window.location = 'screenhole:///jwt/' + token.data.jwt;
   }
 
@@ -38,7 +39,7 @@ const onSubmit = async values => {
     // this.props.history
     window.location = '/';
   }, 250);
-}
+};
 
 class Login extends Component {
   render() {
@@ -48,14 +49,20 @@ class Login extends Component {
         validate={values => {
           const errors = {};
           if (!values.username) {
-            errors.username = "Required";
+            errors.username = 'Required';
           }
           if (!values.password) {
-            errors.password = "Required";
+            errors.password = 'Required';
           }
           return errors;
         }}
-        render={({ handleSubmit, submitError, pristine, submitting, values }) => {
+        render={({
+          handleSubmit,
+          submitError,
+          pristine,
+          submitting,
+          values,
+        }) => {
           return (
             <Wrapper onSubmit={handleSubmit}>
               <h1>Log In</h1>
@@ -64,7 +71,13 @@ class Login extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="text" placeholder="Username" />
-                    <Label>Username {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Label>
+                      Username{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
@@ -72,20 +85,29 @@ class Login extends Component {
                 {({ input, meta }) => (
                   <InputWrapper>
                     <Input {...input} type="password" placeholder="Password" />
-                    <Label>Password {(meta.error || meta.submitError) && meta.touched && <span>{(meta.error || meta.submitError)}</span>}</Label>
+                    <Label>
+                      Password{' '}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
                   </InputWrapper>
                 )}
               </Field>
               {submitError && <div className="error">{submitError}</div>}
-              <Button type="submit" disabled={submitting}>Go!</Button>
+              <Button type="submit" disabled={submitting}>
+                Go!
+              </Button>
 
               <Media query="(max-width: 791px)">
                 <Label>
-                  By logging in you agree to the <a href="/eula">EULA</a> &amp; <a href="/privacy">Privacy Polilcy</a>.
+                  By logging in you agree to the <a href="/eula">EULA</a> &amp;{' '}
+                  <a href="/privacy">Privacy Polilcy</a>.
                 </Label>
               </Media>
             </Wrapper>
-          )
+          );
         }}
       />
     );
