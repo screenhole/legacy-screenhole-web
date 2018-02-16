@@ -26,19 +26,29 @@ api.setCurrentUser = user => {
 };
 
 api.setAuthHeader = token => {
-  localStorage.setItem('user_token', token);
+  localStorage.setItem('default_auth_token', token);
   api.setHeader('Authorization', `Bearer ${token}`);
 
   api.authenticated = !!token;
 };
 
 api.resetLocalStorage = () => {
-  localStorage.removeItem('user_token');
+  localStorage.removeItem('default_auth_token');
   localStorage.removeItem('user_current');
 };
 
+// TEMP: migrate from user_token to default_auth_token
 if (localStorage.getItem('user_token')) {
-  api.setAuthHeader(localStorage.getItem('user_token'));
+  localStorage.setItem(
+    'default_auth_token',
+    localStorage.getItem('user_token'),
+  );
+
+  localStorage.removeItem('user_token');
+}
+
+if (localStorage.getItem('default_auth_token')) {
+  api.setAuthHeader(localStorage.getItem('default_auth_token'));
 }
 
 if (localStorage.getItem('user_current')) {
