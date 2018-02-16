@@ -91,7 +91,7 @@ class MetaTags extends Component {
         <title>{this.props.username}’s Grab on SCREENHOLE!</title>
         <meta
           name="description"
-          content={`Check out this cool Grab from ${this.props.username}.`}
+          content={`Check out this cool grab from ${this.props.username}.`}
         />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
@@ -109,7 +109,7 @@ class MetaTags extends Component {
         <meta property="og:image" content={this.props.grab_image_url} />
         <meta
           property="og:description"
-          content={`Check out this cool Grab from ${this.props.username}.`}
+          content={`Check out this cool grab from ${this.props.username}.`}
         />
         <meta property="og:site_name" content="Screenhole" />
         <meta property="og:locale" content="en_US" />
@@ -128,7 +128,7 @@ class MetaTags extends Component {
         />
         <meta
           name="twitter:description"
-          content={`Check out this cool Grab from ${this.props.username}.`}
+          content={`Check out this cool grab from ${this.props.username}.`}
         />
         {/* <meta name="twitter:image" content={this.props.grab_image_url} />
         <meta name="twitter:label1" value="Voice Memos" />
