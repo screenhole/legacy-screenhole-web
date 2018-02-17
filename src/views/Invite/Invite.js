@@ -5,8 +5,8 @@ import Lottie from 'react-lottie';
 import * as MrHoleInvite from '../../animations/mr-hole/spit.json';
 
 const defaultOptions = {
-  loop: true,
-  autoplay: true,
+  loop: false,
+  autoplay: false,
   animationData: MrHoleInvite,
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice',
@@ -19,7 +19,7 @@ export default class Invite extends Component {
       <div>
         <h1>Throw your buds in the hole</h1>
         <Animation>
-          <Lottie options={defaultOptions} height={600} width={600} />
+          <Lottie options={defaultOptions} height={500} width={500} />
         </Animation>
       </div>
     );
@@ -28,7 +28,7 @@ export default class Invite extends Component {
 
 const Animation = styled.div`
   position: fixed;
-  right: 358px;
-  top: -54px;
+  right: 369px;
+  top: -40px;
   z-index: 999999;
 `;
