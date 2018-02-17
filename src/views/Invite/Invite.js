@@ -5,8 +5,8 @@ import Lottie from 'react-lottie';
 import * as MrHoleInvite from '../../animations/mr-hole/spit.json';
 
 const defaultOptions = {
-  loop: false,
-  autoplay: false,
+  loop: true,
+  autoplay: true,
   animationData: MrHoleInvite,
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice',
