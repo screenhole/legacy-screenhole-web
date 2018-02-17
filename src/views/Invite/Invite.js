@@ -18,8 +18,17 @@ export default class Invite extends Component {
     return (
       <div>
         <h1>Throw your buds in the hole</h1>
-        <Lottie options={defaultOptions} height={600} width={600} />
+        <Animation>
+          <Lottie options={defaultOptions} height={600} width={600} />
+        </Animation>
       </div>
     );
   }
 }
+
+const Animation = styled.div`
+  position: fixed;
+  right: 358px;
+  top: -54px;
+  z-index: 999999;
+`;
