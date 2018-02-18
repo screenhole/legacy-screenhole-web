@@ -165,7 +165,8 @@ const Chomments = styled.aside`
     max-width: 100%;
     background-color: var(--body-bg-color);
     height: calc(100% - var(--nav-height) * 2);
-    ${'' /* -webkit-overflow-scrolling: touch; */};
+    -webkit-overflow-scrolling: touch;
+    box-shadow: none;
   }
 `;
 
