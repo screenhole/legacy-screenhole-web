@@ -19,7 +19,7 @@ const onSubmit = async values => {
 
   api.setCurrentUser(register.data.user);
 
-  if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+  if (true || !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
     window.location = 'screenhole:///jwt/' + register.data.meta.jwt;
   }
 

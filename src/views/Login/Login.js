@@ -27,7 +27,7 @@ const onSubmit = async values => {
 
   api.setCurrentUser(currentUser.data.user);
 
-  if (!/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+  if (true || !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
     console.log('sent jwt:///');
     window.location = 'screenhole:///jwt/' + token.data.jwt;
   }
