@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Helmet from 'react-helmet';
 
 export default class Download extends Component {
   render() {
@@ -12,6 +13,22 @@ export default class Download extends Component {
           <h2>No seriously</h2>
           <p>You should download it</p>
         </section>
+        <Helmet>
+          {/* Drop meta tags in here */}
+          <title>Download the apps!</title>
+          <meta name="description" content="<description of this page>" />
+          <meta property="og:title" content="Download the apps!" />
+          <meta property="og:url" content="https://screenhole.net/download" />
+          <meta
+            property="og:description"
+            content="<description of this page>"
+          />
+          {/* Make the url for this image absolute */}
+          <meta property="og:image" content="<url for the image>" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@screenhole" />
+          <meta name="twitter:creator" content="@screenhole" />
+        </Helmet>
       </Page>
     );
   }
