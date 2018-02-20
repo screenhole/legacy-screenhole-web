@@ -18,6 +18,7 @@ import Settings from './views/Settings/Settings';
 import Wtf from './views/Static/Wtf';
 import Eula from './views/Static/Eula';
 import Privacy from './views/Static/Privacy';
+import Download from './views/Static/Download';
 
 // Remember that route order matters for proper matching!
 
@@ -29,6 +30,7 @@ class Routes extends Component {
         <Route exact path="/wtf" component={Wtf} />
         <Route exact path="/eula" component={Eula} />
         <Route exact path="/privacy" component={Privacy} />
+        <Route exact path="/download" component={Download} />
         <PublicRoute exact path="/login" component={Login} />
         <PublicRoute exact path="/register" component={Register} />
         <PrivateRoute exact path="/logout" component={Logout} />
