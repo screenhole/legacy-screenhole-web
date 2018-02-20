@@ -5,16 +5,27 @@
 ## Setup
 
 ```
+npm install
+```
+
+Gotta use NPM to avoid `node-gyp` build errors on the first run.
+
+#### If you're pulling changes and want to install new packages:
+```
+# To install all packages
 yarn install
+
+# To add a new one (works like `npm install`)
+yarn add <packageName>
 ```
 
 ## Development
 
-Serve with hot reload at [localhost:3000](http://localhost:8080). Uses production API by default.
-
 ```
 yarn start
 ```
+
+It should open up [localhost:3000](http://localhost:3000) in your browser. Reloads the app when saving changes. Uses production API by default.
 
 ### Staging API
 
