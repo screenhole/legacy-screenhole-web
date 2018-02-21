@@ -9,7 +9,7 @@ export default class apps extends Component {
             <Page>
                 <section>
                     <h1>Download the apps</h1>
-                    <p>Use our apps to post to post grabs to the 'hole.</p>
+                    <p>Use our apps to post grabs to the 'hole.</p>
                     <img
                         class="download"
                         src="/img/apps.png"
