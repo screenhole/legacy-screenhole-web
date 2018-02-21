@@ -18,7 +18,7 @@ import './index.css';
 
 ReactDOM.render(
   <UnstatedProvider>
-    <ActionCableProvider url="wss://api.screenhole.com/cable">
+    <ActionCableProvider url={`${api.websocketURL}/cable`}>
       <Router>
         <Analytics id="UA-108383158-1" debug={false}>
           <div>

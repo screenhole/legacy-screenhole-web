@@ -7,6 +7,9 @@ const api = create({
   // baseURL: 'https://staging-api.screenhole.net',
 });
 
+api.websocketURL = 'wss://api.screenhole.net';
+// api.websocketURL = 'wss://screenhole-api.ngrok.io';
+
 // reset on 401 API responses
 api.addResponseTransform(response => {
   if (!response.ok) {
