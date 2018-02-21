@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Lottie from 'react-lottie';
+import { ActionCable } from 'react-actioncable-provider';
 import styled from 'styled-components';
 
 import * as ButtcoinSpin from '../../animations/buttcoin/spin.json';
@@ -9,14 +10,24 @@ const defaultOptions = {
   autoplay: true,
   animationData: ButtcoinSpin,
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice'
-  }
+    preserveAspectRatio: 'xMidYMid slice',
+  },
 };
 
 class Buttcoin extends Component {
+  onReceived = data => {
+    if (data.buttcoin.user.username != this.props.username) return;
+
+    console.log(data);
+  };
+
   render() {
     return (
       <Wrapper className="buttcoin">
+        <ActionCable
+          channel={{ channel: 'ButtcoinsChannel' }}
+          onReceived={this.onReceived}
+        />
         <Coin>
           <Lottie options={defaultOptions} height={100} width={100} />
         </Coin>
