@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Media from 'react-media';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Media from "react-media";
+import styled from "styled-components";
 
-import Avatar from '../User/Avatar';
-import VoiceMemo from '../Memo/VoiceMemo';
+import Avatar from "../User/Avatar";
+import VoiceMemo from "../Memo/VoiceMemo";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
 class Grab extends Component {
   constructor(props) {
@@ -29,44 +29,44 @@ class Grab extends Component {
 
   voiceMemos = () => {
     return (this.props.memos || []).filter(function(memo) {
-      return !memo.pending && memo.variant === 'voice';
+      return !memo.pending && memo.variant === "voice";
     });
   };
 
   stickerMemos = () => {
     return (this.props.memos || []).filter(function(memo) {
-      return !memo.pending && memo.variant === 'sticker';
+      return !memo.pending && memo.variant === "sticker";
     });
   };
 
   showMemoInstructions = async () => {
     if (!this.state.authenticated) {
-      alert('Log in to leave a voice memo!');
+      alert("Log in to leave a voice memo!");
       return;
     }
 
     let res = await api.post(`/grabs/${this.props.id}/memos`, {
-      memo: { variant: 'voice' },
+      memo: { variant: "voice" },
     });
 
     if (res.ok) {
       alert(`Call 1-810-420-8008 and enter: ${res.data.memo.calling_code}`);
     } else {
-      alert('Could not create voice memo. Try again.');
+      alert("Could not create voice memo. Try again.");
     }
   };
 
   deleteGrab = async () => {
     if (!this.state.authenticated) return;
 
-    if (!window.confirm('Are you sure you want to delete this grab?')) return;
+    if (!window.confirm("Are you sure you want to delete this grab?")) return;
 
     let res = await api.delete(`/grabs/${this.props.id}`);
 
     if (res.ok) {
-      window.location = '/';
+      window.location = "/";
     } else {
-      alert('Sorry, could not delete grab. Try again.');
+      alert("Sorry, could not delete grab. Try again.");
     }
   };
 
@@ -77,23 +77,23 @@ class Grab extends Component {
 
     let res = await api.post(
       `/users/${this.props.userId}/${
-        this.state.isBlocked ? '/unblock' : '/block'
+        this.state.isBlocked ? "/unblock" : "/block"
       }`,
     );
 
     if (!res.ok) {
-      alert('Sorry, could not block user. Try again.');
+      alert("Sorry, could not block user. Try again.");
       return;
     }
 
     if (this.state.isBlocked) {
-      alert('This user is now unblocked.');
+      alert("This user is now unblocked.");
     } else {
-      alert('This user is now blocked.');
+      alert("This user is now blocked.");
     }
 
     // update cache currentUser
-    const currentUser = await api.get('/users/current');
+    const currentUser = await api.get("/users/current");
     if (currentUser.ok) {
       api.setCurrentUser(currentUser.data.user);
     }
@@ -108,15 +108,15 @@ class Grab extends Component {
     this.setState({ showDropdown: false });
 
     if (res.ok) {
-      alert('Grab reported, thank you.');
+      alert("Grab reported, thank you.");
     } else {
-      alert('Sorry, could not report grab. Try again.');
+      alert("Sorry, could not report grab. Try again.");
     }
   };
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper data-grab-index={this.props.index}>
         <UserInfo>
           <Avatar
             gravatar={this.props.gravatar}
@@ -149,9 +149,9 @@ class Grab extends Component {
                   >
                     {ellipsisIcon}
                   </Button>
-                  <section className={this.state.showDropdown ? 'on' : 'off'}>
+                  <section className={this.state.showDropdown ? "on" : "off"}>
                     <Button onClick={this.blockUser}>
-                      {this.state.isBlocked ? 'Unblock' : 'Block'}
+                      {this.state.isBlocked ? "Unblock" : "Block"}
                     </Button>
                     <Button onClick={this.reportGrab}>Report</Button>
                   </section>
@@ -167,7 +167,7 @@ class Grab extends Component {
         </Link>
         {this.props.showMemos &&
           this.voiceMemos().map(memo => {
-            if (!memo.pending && memo.variant === 'voice') {
+            if (!memo.pending && memo.variant === "voice") {
               return (
                 <VoiceMemo
                   key={memo.id}
@@ -271,7 +271,7 @@ const Dropdown = styled.div`
     }
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: -8px;
       right: calc(50% - 8px);

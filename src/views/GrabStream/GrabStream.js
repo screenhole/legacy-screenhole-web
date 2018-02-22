@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { ActionCable } from 'react-actioncable-provider';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import { ActionCable } from "react-actioncable-provider";
+import Helmet from "react-helmet";
+import styled from "styled-components";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
-import Grab from './../../components/Grab/Grab';
+import Grab from "./../../components/Grab/Grab";
 
-import loader from '../../images/loader.gif';
+import loader from "../../images/loader.gif";
 
 class GrabStream extends Component {
   state = {
     hasMore: true,
-    grabs: []
+    grabs: [],
   };
 
   loadMore = async page => {
@@ -24,7 +24,7 @@ class GrabStream extends Component {
     }
 
     this.setState({
-      grabs: [...this.state.grabs, ...res.data.grabs]
+      grabs: [...this.state.grabs, ...res.data.grabs],
     });
 
     if (!res.data.meta.next_page) {
@@ -34,14 +34,14 @@ class GrabStream extends Component {
 
   onReceived = data => {
     this.setState({
-      grabs: [data.grab, ...this.state.grabs]
+      grabs: [data.grab, ...this.state.grabs],
     });
   };
 
   render() {
     let grabs = [];
 
-    this.state.grabs.map(grab =>
+    this.state.grabs.map((grab, index) =>
       grabs.push(
         <Grab
           username={grab.user.username}
@@ -50,15 +50,16 @@ class GrabStream extends Component {
           memos={grab.memos}
           gravatar={grab.user.gravatar_hash}
           key={grab.id}
-        />
-      )
+          index={index}
+        />,
+      ),
     );
 
     return (
       <Grabs>
         <MetaTags />
         <ActionCable
-          channel={{ channel: 'GrabsChannel' }}
+          channel={{ channel: "GrabsChannel" }}
           onReceived={this.onReceived}
         />
 
