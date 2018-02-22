@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import styled from "styled-components";
 
 class MobileMenu extends Component {
   constructor() {
@@ -16,10 +16,10 @@ class MobileMenu extends Component {
   }
   render() {
     return (
-      <Overlay className={this.state.isOpen ? 'menu-open' : null}>
+      <Overlay className={this.state.isOpen ? "menu-open" : null}>
         <HamburgerButton
           onClick={this.handleMenuState.bind(this)}
-          className={this.state.isOpen ? 'menu-open' : null}
+          className={this.state.isOpen ? "menu-open" : null}
         >
           {hamburgerIcon}
         </HamburgerButton>
@@ -66,8 +66,12 @@ const HamburgerButton = styled.button`
   top: 0.25rem;
   right: 0.25rem;
 
+  svg use:first-of-type {
+    transform: rotate(0deg) translate(0px, 0px);
+  }
+
   svg use:last-of-type {
-    ${'' /* Required for safari 🤷️ */} transform: rotate(0deg) translate(0px, 12px);
+    ${"" /* Required for safari 🤷️ */} transform: rotate(0deg) translate(0px, 12px);
   }
 
   &.menu-open {
@@ -156,7 +160,7 @@ const Content = styled.div`
     }
 
     &::after {
-      content: '';
+      content: "";
       display: none;
     }
   }
