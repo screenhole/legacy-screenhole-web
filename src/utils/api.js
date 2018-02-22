@@ -1,7 +1,7 @@
-import { create } from 'apisauce';
+import { create } from "apisauce";
 
 const apiEndpoint =
-  process.env.NODE_ENV === 'production' ? '/api' : 'https://api.screenhole.net';
+  process.env.NODE_ENV === "production" ? "/api" : "https://api.screenhole.net";
 
 const api = create({
   baseURL: apiEndpoint,
@@ -11,7 +11,7 @@ const api = create({
   // baseURL: 'https://staging-api.screenhole.net',
 });
 
-api.websocketURL = 'wss://api.screenhole.net';
+api.websocketURL = "wss://api.screenhole.net";
 // api.websocketURL = 'wss://screenhole-api.ngrok.io';
 
 // reset on 401 API responses
@@ -28,39 +28,39 @@ api.currentUser = null;
 api.authenticated = false;
 
 api.setCurrentUser = user => {
-  localStorage.setItem('user_current', JSON.stringify(user));
+  localStorage.setItem("user_current", JSON.stringify(user));
 
   api.currentUser = user;
 };
 
 api.setAuthHeader = token => {
-  localStorage.setItem('default_auth_token', token);
-  api.setHeader('Authorization', `Bearer ${token}`);
+  localStorage.setItem("default_auth_token", token);
+  api.setHeader("Authorization", `Bearer ${token}`);
 
   api.authenticated = !!token;
 };
 
 api.resetLocalStorage = () => {
-  localStorage.removeItem('default_auth_token');
-  localStorage.removeItem('user_current');
+  localStorage.removeItem("default_auth_token");
+  localStorage.removeItem("user_current");
 };
 
 // TEMP: migrate from user_token to default_auth_token
-if (localStorage.getItem('user_token')) {
+if (localStorage.getItem("user_token")) {
   localStorage.setItem(
-    'default_auth_token',
-    localStorage.getItem('user_token'),
+    "default_auth_token",
+    localStorage.getItem("user_token"),
   );
 
-  localStorage.removeItem('user_token');
+  localStorage.removeItem("user_token");
 }
 
-if (localStorage.getItem('default_auth_token')) {
-  api.setAuthHeader(localStorage.getItem('default_auth_token'));
+if (localStorage.getItem("default_auth_token")) {
+  api.setAuthHeader(localStorage.getItem("default_auth_token"));
 }
 
-if (localStorage.getItem('user_current')) {
-  api.setCurrentUser(JSON.parse(localStorage.getItem('user_current')));
+if (localStorage.getItem("user_current")) {
+  api.setCurrentUser(JSON.parse(localStorage.getItem("user_current")));
 }
 
 export default api;
