@@ -10,8 +10,8 @@ const defaultOptions = {
   autoplay: true,
   animationData: ButtcoinSpin,
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
-  },
+    preserveAspectRatio: 'xMidYMid slice'
+  }
 };
 
 class Buttcoin extends Component {
@@ -31,7 +31,7 @@ class Buttcoin extends Component {
         <Coin>
           <Lottie options={defaultOptions} height={100} width={100} />
         </Coin>
-        {this.props.amount && <span>{this.props.amount}</span>}
+        {this.props.amount && <span>{this.props.amount.toLocaleString()}</span>}
       </Wrapper>
     );
   }
