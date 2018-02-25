@@ -116,7 +116,7 @@ class Grab extends Component {
 
   render() {
     return (
-      <Wrapper data-grab-index={this.props.index}>
+      <Wrapper>
         <UserInfo>
           <Avatar
             gravatar={this.props.gravatar}

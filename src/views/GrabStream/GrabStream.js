@@ -3,18 +3,35 @@ import InfiniteScroll from "react-infinite-scroller";
 import { ActionCable } from "react-actioncable-provider";
 import Helmet from "react-helmet";
 import styled from "styled-components";
+import VisibilitySensor from "react-visibility-sensor";
+import KeyHandler, { KEYPRESS } from "react-key-handler";
 
 import api from "../../utils/api";
 
 import Grab from "./../../components/Grab/Grab";
+import BackToTop from "../../components/Nav/BackToTop";
 
 import loader from "../../images/loader.gif";
 
+import * as Scroll from "react-scroll";
+// I have no idea how this works but it works well...
+// Somehow using scrollTo with Element doesn’t work with Scroll.animateScroll 🤷️
+const scroller = Scroll.animateScroll;
+const elementScroller = Scroll.scroller;
+const Element = Scroll.Element;
+
 class GrabStream extends Component {
-  state = {
-    hasMore: true,
-    grabs: [],
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hasMore: true,
+      grabs: [],
+      seenGrabIndex: 0,
+    };
+
+    this.scrollUp = this.scrollUp.bind(this);
+  }
 
   loadMore = async page => {
     let res = await api.get(`/grabs?page=${page}`);
@@ -38,26 +55,78 @@ class GrabStream extends Component {
     });
   };
 
+  scrollUp() {
+    scroller.scrollTo(0, {
+      duration: 750,
+      delay: 100,
+      smooth: "easeInOutCubic",
+    });
+  }
+
+  scrollToGrab(index) {
+    elementScroller.scrollTo(`GrabStream-Grab-${index}`, {
+      duration: 750,
+      delay: 0,
+      smooth: "easeInOutCubic",
+      offset: -70,
+    });
+  }
+
+  scrollToNextGrab() {
+    this.scrollToGrab(this.state.seenGrabIndex + 1);
+  }
+
+  scrollToPreviousGrab() {
+    if (this.state.seenGrabIndex > 0) {
+      this.scrollToGrab(this.state.seenGrabIndex - 1);
+    }
+  }
+
+  checkGrabVisibility(index) {
+    if (this.state.grabs !== []) {
+      this.setState({
+        seenGrabIndex: index,
+      });
+    }
+  }
+
   render() {
     let grabs = [];
 
-    this.state.grabs.map((grab, index) =>
+    this.state.grabs.map((grab, index) => {
       grabs.push(
-        <Grab
-          username={grab.user.username}
-          image={grab.image_public_url}
-          id={grab.id}
-          memos={grab.memos}
-          gravatar={grab.user.gravatar_hash}
+        <VisibilitySensor
+          onChange={this.checkGrabVisibility.bind(this, index)}
           key={grab.id}
-          index={index}
-        />,
-      ),
-    );
+        >
+          <Element name={`GrabStream-Grab-${index}`}>
+            <Grab
+              username={grab.user.username}
+              image={grab.image_public_url}
+              id={grab.id}
+              memos={grab.memos}
+              gravatar={grab.user.gravatar_hash}
+              index={index}
+            />
+          </Element>
+        </VisibilitySensor>,
+      );
+    });
 
     return (
-      <Grabs>
+      <Grabs id="GrabStream">
         <MetaTags />
+        <BackToTop onClick={this.scrollUp} />
+        <KeyHandler
+          keyEventName={KEYPRESS}
+          keyValue="j"
+          onKeyHandle={this.scrollToNextGrab.bind(this)}
+        />
+        <KeyHandler
+          keyEventName={KEYPRESS}
+          keyValue="k"
+          onKeyHandle={this.scrollToPreviousGrab.bind(this)}
+        />
         <ActionCable
           channel={{ channel: "GrabsChannel" }}
           onReceived={this.onReceived}

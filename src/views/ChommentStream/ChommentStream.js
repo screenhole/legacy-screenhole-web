@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { Subscribe } from 'unstated';
-import { ActionCable } from 'react-actioncable-provider';
-import { Form, Field } from 'react-final-form';
-import styled from 'styled-components';
+import React, { Component, Fragment } from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import { Subscribe } from "unstated";
+import { ActionCable } from "react-actioncable-provider";
+import { Form, Field } from "react-final-form";
+import styled from "styled-components";
+import Media from "react-media";
+import * as Scroll from "react-scroll";
 
-import AuthContainer from '../../utils/AuthContainer';
+import AuthContainer from "../../utils/AuthContainer";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
-import Chomment from '../../components/Chomment/Chomment';
+import Chomment from "../../components/Chomment/Chomment";
+import BackToTop from "../../components/Nav/BackToTop";
 
-import loader from '../../images/loader.gif';
+import loader from "../../images/loader.gif";
+
+let scroller = Scroll.animateScroll;
 
 class ChommentStream extends Component {
   state = {
@@ -45,10 +50,19 @@ class ChommentStream extends Component {
     if (!values.message) return;
 
     let message = values.message;
-    values.message = '';
+    values.message = "";
 
-    await api.post('/chomments', { chomment: { message: message } });
+    await api.post("/chomments", { chomment: { message: message } });
   };
+
+  scrollUp() {
+    scroller.scrollTo(0, {
+      duration: 750,
+      delay: 100,
+      smooth: "easeInOutCubic",
+      containerId: "ChommentStream",
+    });
+  }
 
   render() {
     let chomments = [];
@@ -67,52 +81,68 @@ class ChommentStream extends Component {
     );
 
     return (
-      <Subscribe to={[AuthContainer]}>
-        {auth => (
-          <Chomments authenticated={auth.state.authenticated}>
-            <ActionCable
-              channel={{ channel: 'ChommentsChannel' }}
-              onReceived={this.onReceived}
-            />
-            <InfiniteScroll
-              element="section"
-              pageStart={0}
-              loadMore={this.loadMore}
-              hasMore={this.state.hasMore}
-              useWindow={false}
-              loader={
-                <div className="loader" key="loader">
-                  <img src={loader} alt="loading..." />
-                </div>
-              }
+      <Fragment>
+        <Subscribe to={[AuthContainer]}>
+          {auth => (
+            <Chomments
+              id="ChommentStream"
+              authenticated={auth.state.authenticated}
             >
-              {chomments}
-            </InfiniteScroll>
-
-            {auth.state.authenticated && (
-              <Form
-                onSubmit={this.submitMessage}
-                render={({ handleSubmit, values }) => {
-                  return (
-                    <ChommentInputWrapper onSubmit={handleSubmit}>
-                      <Field name="message">
-                        {({ input, meta }) => (
-                          <Input
-                            {...input}
-                            type="text"
-                            placeholder="Type some chomments"
-                            autoComplete="off"
-                          />
-                        )}
-                      </Field>
-                    </ChommentInputWrapper>
-                  );
-                }}
+              <ActionCable
+                channel={{ channel: "ChommentsChannel" }}
+                onReceived={this.onReceived}
               />
-            )}
-          </Chomments>
-        )}
-      </Subscribe>
+              <InfiniteScroll
+                element="section"
+                pageStart={0}
+                loadMore={this.loadMore}
+                hasMore={this.state.hasMore}
+                useWindow={false}
+                loader={
+                  <div className="loader" key="loader">
+                    <img src={loader} alt="loading..." />
+                  </div>
+                }
+              >
+                {chomments}
+              </InfiniteScroll>
+
+              {auth.state.authenticated && (
+                <Form
+                  onSubmit={this.submitMessage}
+                  render={({ handleSubmit, values }) => {
+                    return (
+                      <ChommentInputWrapper onSubmit={handleSubmit}>
+                        <Field name="message">
+                          {({ input, meta }) => (
+                            <Input
+                              {...input}
+                              type="text"
+                              placeholder="Type some chomments"
+                              autoComplete="off"
+                            />
+                          )}
+                        </Field>
+                      </ChommentInputWrapper>
+                    );
+                  }}
+                />
+              )}
+            </Chomments>
+          )}
+        </Subscribe>
+        {/* Show Chomments back to top arrow on mobile */}
+        <Media query="(min-width: 791px)">
+          {matches =>
+            matches ? null : (
+              <BackToTop
+                className="ChommentStream--BackToTop"
+                onClick={this.scrollUp.bind(this)}
+              />
+            )
+          }
+        </Media>
+      </Fragment>
     );
   }
 }
@@ -129,7 +159,7 @@ const Chomments = styled.aside`
   box-shadow: inset -1px 0 0 0 var(--divider-color);
   padding: var(--app-padding);
   padding-top: ${props =>
-    props.authenticated ? '4rem' : 'calc(var(--app-padding) / 2)'};
+    props.authenticated ? "4rem" : "calc(var(--app-padding) / 2)"};
   display: flex;
   flex-direction: column;
   overflow: auto;
