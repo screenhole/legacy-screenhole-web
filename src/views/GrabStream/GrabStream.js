@@ -65,7 +65,7 @@ class GrabStream extends Component {
 
   scrollToGrab(index) {
     elementScroller.scrollTo(`GrabStream-Grab-${index}`, {
-      duration: 750,
+      duration: 500,
       delay: 0,
       smooth: "easeInOutCubic",
       offset: -70,
