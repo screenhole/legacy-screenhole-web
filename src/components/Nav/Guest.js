@@ -19,6 +19,7 @@ const Guest = () => (
     </a>
     <NavLink to="/wtf">wtf</NavLink>
     <NavLink to="/apps">apps</NavLink>
+    <NavLink to="/register">register</NavLink>
     <NavLink to="/login">log in</NavLink>
   </Fragment>
 );
