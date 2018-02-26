@@ -1,14 +1,35 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Linkify from 'react-linkify';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Linkify from "react-linkify";
+import styled from "styled-components";
+import emojiRegex from "emoji-regex";
 
-import Avatar from '../User/Avatar';
+import Avatar from "../User/Avatar";
+
+const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
 
 class Chomment extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      chommentClass: null,
+    };
+  }
+  componentWillMount() {
+    const catchEmoji = emojiRegex();
+    let match;
+    while ((match = catchEmoji.exec(this.props.message))) {
+      if (this.props.message.match(maxAmountOfOnlyEmoji)) {
+        this.setState({
+          chommentClass: "BigEmojiChomment",
+        });
+      }
+    }
+  }
   render() {
     return (
-      <Wrapper>
+      <Wrapper className={this.state.chommentClass}>
         <InnerChomment>
           <Avatar
             gravatar={this.props.gravatar}
@@ -19,14 +40,14 @@ class Chomment extends Component {
             <Username>
               <Link to={`/${this.props.username}`}>{this.props.username}</Link>
             </Username>
-            {this.props.variant === 'generic' && (
-              <Message>
-                <Linkify properties={{ target: '_blank' }}>
+            {this.props.variant === "generic" && (
+              <Message className="ChommentMessage">
+                <Linkify properties={{ target: "_blank" }}>
                   {this.props.message}
                 </Linkify>
               </Message>
             )}
-            {this.props.variant === 'voice_memo' &&
+            {this.props.variant === "voice_memo" &&
               this.props.reference && (
                 <Link to={`/grab/~${this.props.reference.id}`}>
                   <Message className="voice-memo-link">
@@ -46,6 +67,12 @@ export default Chomment;
 const Wrapper = styled.div`
   display: block;
   margin: var(--app-padding) 0;
+
+  &.BigEmojiChomment {
+    .ChommentMessage {
+      font-size: 2rem;
+    }
+  }
 `;
 
 const InnerChomment = styled.div`
