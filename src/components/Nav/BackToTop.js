@@ -24,8 +24,8 @@ const Button = styled.button`
   border-radius: 100%;
   border: none;
   outline: none;
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   user-select: none;
   transition: 0.15s ease transform;
   box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.35);
@@ -53,7 +53,7 @@ const Wrapper = styled.div`
     .headroom {
       position: fixed;
       top: 0;
-      right: calc(var(--app-padding) + 0.1rem);
+      right: var(--app-padding);
       z-index: 1;
       transition: 0.25s 0.05s ease-in-out transform;
     }
@@ -82,11 +82,6 @@ const Wrapper = styled.div`
       transform: translateX(-50%);
       z-index: 5;
       transition: 0.25s 0.05s ease-in-out transform;
-    }
-
-    button {
-      width: 2.5rem;
-      height: 2.5rem;
     }
   }
 `;
