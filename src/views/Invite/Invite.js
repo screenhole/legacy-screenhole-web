@@ -20,6 +20,20 @@ export default class Invite extends Component {
               or Donald Trump.
             </p>
           </section>
+          <section>
+            <a class="generate" href="#">
+              Create invite for 200
+            </a>
+          </section>
+          <section class="invite-codes">
+            <h2>Your Invite Codes:</h2>
+
+            <div class="codes">
+              <a href="#">screenhole.net/invite/epfiso</a>
+              <a href="#">screenhole.net/invite/covfefe</a>
+              <a href="#">screenhole.net/invite/epfiso2</a>
+            </div>
+          </section>
         </div>
       </Page>
     );
@@ -38,7 +52,7 @@ const Page = styled.div`
   }
 
   section {
-    height: 500px;
+    padding: 50px 0;
     max-width: 640px;
     color: var(--muted-color);
     line-height: 175%;
@@ -52,6 +66,36 @@ const Page = styled.div`
     }
     p {
       margin-top: 2em;
+    }
+
+    .generate {
+      color: var(--buttcoin-color);
+      font-size: 30px;
+      font-weight: bold;
+      border: 3px solid var(--buttcoin-color);
+      padding: 15px 20px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      display: inline-block;
+
+      &:hover {
+        border-color: white;
+        color: white;
+        }
+      &:active {
+        transform: scale(0.95);
+
+      }
+      }
+    }
+    h2 {
+      font-size: 25px;
+    }
+    .codes {
+      margin-top: 2em;
+      a {
+        display: block;
+      }
     }
   }
 `;
