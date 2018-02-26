@@ -29,6 +29,7 @@ const Button = styled.button`
   user-select: none;
   transition: 0.15s ease transform;
   box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.35);
+  cursor: pointer;
   @media (pointer: fine) {
     &:hover {
       transform: scale(1.1);
