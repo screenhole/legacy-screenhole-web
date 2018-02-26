@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { ActionCable } from 'react-actioncable-provider';
-import { Link } from 'react-router-dom';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import { ActionCable } from "react-actioncable-provider";
+import { Link } from "react-router-dom";
+import Helmet from "react-helmet";
+import styled from "styled-components";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
-import Avatar from '../../components/User/Avatar';
-import Grab from '../../components/Grab/Grab';
+import Avatar from "../../components/User/Avatar";
+import Grab from "../../components/Grab/Grab";
 
-import loader from '../../images/loader.gif';
+import loader from "../../images/loader.gif";
 
 class UserStream extends Component {
   constructor() {
@@ -127,7 +127,7 @@ class UserStream extends Component {
         )}
         <GrabsWrapper>
           <ActionCable
-            channel={{ channel: 'GrabsChannel' }}
+            channel={{ channel: "GrabsChannel" }}
             onReceived={this.onReceived}
           />
           <InfiniteScroll

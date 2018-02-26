@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { Subscribe } from 'unstated';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Media from 'react-media';
-import Lottie from 'react-lottie';
+import React, { Component } from "react";
+import { Subscribe } from "unstated";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Media from "react-media";
+import Lottie from "react-lottie";
 
-import * as LogoExplosion from '../../animations/logo/intro.json';
+import * as LogoExplosion from "../../animations/logo/intro.json";
 
-import AuthContainer from '../../utils/AuthContainer';
+import AuthContainer from "../../utils/AuthContainer";
 
-import Guest from './Guest';
-import LoggedIn from './LoggedIn';
-import MobileMenu from './MobileMenu';
+import Guest from "./Guest";
+import LoggedIn from "./LoggedIn";
+import MobileMenu from "./MobileMenu";
 
 const defaultOptions = {
   loop: false,
   autoplay: true,
   animationData: LogoExplosion,
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice'
-  }
+    preserveAspectRatio: "xMidYMid slice",
+  },
 };
 
 class Nav extends Component {
@@ -98,7 +98,7 @@ const Navbar = styled.nav`
     position: relative;
   }
 
-  [aria-current='true'] {
+  [aria-current="true"] {
     color: white;
   }
 `;

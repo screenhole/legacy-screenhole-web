@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
 class Logout extends Component {
   componentWillMount = () => {
     api.resetLocalStorage();
-    window.location = '/';
+    window.location = "/";
   };
 
   render() {
