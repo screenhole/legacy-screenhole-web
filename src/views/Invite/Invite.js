@@ -1,37 +1,41 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import Buttcoin from "../../components/Buttcoin/Buttcoin";
+
 export default class Invite extends Component {
   render() {
     return (
       <Page>
         <div>
           <section>
-            <h1>Invite yer friends to the 'hole</h1>
+            <h1>Invite yer friends to the ’hole</h1>
             <p>
-              An invite costs <span class="buttcoin">200 buttcoins</span>. Once
-              you generate an invite, share the code, or the link with a friend,
-              and they can join Screenhole. We'll keep track of who you invite,
-              to make sure your friends are nice! Screenhole is a jerk free
-              zone, so let's keep them out.
+              An invite costs <span className="buttcoin">200 buttcoins</span>.
+              Once you generate an invite, share the code, or the link with a
+              friend, and they can join Screenhole. We’ll keep track of who you
+              invite to make sure your friends are nice! Screenhole is a jerk
+              free zone, so let's keep them out.
             </p>
-            <p class="small">
+            <p className="small">
               Please do not give invites to Mark Zuckerberg, Logan / Jake Paul,
               or Donald Trump.
             </p>
           </section>
           <section>
-            <a class="generate" href="#">
-              Create invite for 200
+            <a className="generate" href="#">
+              Create invite for
+              <Buttcoin />
+              200
             </a>
           </section>
-          <section class="invite-codes">
+          <section className="invite-codes">
             <h2>Your Invite Codes:</h2>
 
-            <div class="codes">
-              <a href="#">screenhole.net/invite/epfiso</a>
-              <a href="#">screenhole.net/invite/covfefe</a>
-              <a href="#">screenhole.net/invite/epfiso2</a>
+            <div className="codes">
+              <a href="#">screenhole.net/register/epfiso</a>
+              <a href="#">screenhole.net/register/covfefe</a>
+              <a href="#">screenhole.net/register/epfiso2</a>
             </div>
           </section>
         </div>
@@ -69,6 +73,8 @@ const Page = styled.div`
     }
 
     .generate {
+      display: inline-flex;
+      align-items: center;
       color: var(--buttcoin-color);
       font-size: 30px;
       font-weight: bold;
@@ -76,16 +82,20 @@ const Page = styled.div`
       padding: 15px 20px;
       border-radius: 10px;
       transition: all 0.2s ease;
-      display: inline-block;
+
+      .buttcoin {
+        position: relative;
+        top: -1px;
+        margin-left: 0.25em;
+        margin-right: 0.15em;
+      }
 
       &:hover {
         border-color: white;
         color: white;
-        }
+      }
       &:active {
         transform: scale(0.95);
-
-      }
       }
     }
     h2 {
