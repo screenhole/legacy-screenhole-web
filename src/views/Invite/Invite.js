@@ -1,34 +1,43 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import Lottie from 'react-lottie';
-
-import * as MrHoleInvite from '../../animations/mr-hole/spit.json';
-
-const defaultOptions = {
-  loop: true,
-  autoplay: true,
-  animationData: MrHoleInvite,
-  rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice',
-  },
-};
+import React, { Component } from "react";
+import styled from "styled-components";
 
 export default class Invite extends Component {
   render() {
     return (
-      <div>
-        <h1>Throw your buds in the hole</h1>
-        <Animation>
-          <Lottie options={defaultOptions} height={500} width={500} />
-        </Animation>
-      </div>
+      <Page>
+        <div>
+          <section>
+            <h1>Invite yer friends to the 'hole</h1>
+            <p>
+              An invite will cost you <span class="buttcoin">200 buttcoin</span>.{" "}
+            </p>
+          </section>
+        </div>
+      </Page>
     );
   }
 }
 
-const Animation = styled.div`
-  position: fixed;
-  right: 369px;
-  top: -40px;
-  z-index: 999999;
+const Page = styled.div`
+  margin: 0 auto 50px auto;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  @media (max-width: 790px) {
+    padding: 0;
+  }
+
+  section {
+    height: 500px;
+    max-width: 640px;
+    color: var(--muted-color);
+    .buttcoin {
+      color: var(--buttcoin-color);
+    }
+    p {
+      margin-top: 2em;
+    }
+  }
 `;

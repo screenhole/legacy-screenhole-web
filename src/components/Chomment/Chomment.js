@@ -101,7 +101,7 @@ const Message = styled.p`
     display: inline-flex;
     align-items: center;
     outline: 0;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     transition: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
   }
 
@@ -118,11 +118,13 @@ const Message = styled.p`
   }
 
   &.voice-memo-link {
-    color: var(--link-color);
+    color: var(--primary-color);
     display: inline;
+    transition: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
 
     &:hover {
       border-bottom: var(--divider-width) solid var(--primary-color);
+      transform: scale(1.05);
     }
   }
 `;
