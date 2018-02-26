@@ -4,7 +4,7 @@ import { ActionCable } from "react-actioncable-provider";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 import VisibilitySensor from "react-visibility-sensor";
-import KeyHandler, { KEYPRESS } from "react-key-handler";
+import KeyHandler, { KEYUP } from "react-key-handler";
 
 import api from "../../utils/api";
 
@@ -118,12 +118,12 @@ class GrabStream extends Component {
         <MetaTags />
         <BackToTop onClick={this.scrollUp} />
         <KeyHandler
-          keyEventName={KEYPRESS}
+          keyEventName={KEYUP}
           keyValue="j"
           onKeyHandle={this.scrollToNextGrab.bind(this)}
         />
         <KeyHandler
-          keyEventName={KEYPRESS}
+          keyEventName={KEYUP}
           keyValue="k"
           onKeyHandle={this.scrollToPreviousGrab.bind(this)}
         />
