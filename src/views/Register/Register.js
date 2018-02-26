@@ -137,6 +137,7 @@ class Register extends Component {
                       autoCapitalize="off"
                       spellcheck="false"
                       autoComplete="off"
+                      value={this.props.match.params.code || input.value}
                     />
                     <Label>
                       Invite Code{" "}
