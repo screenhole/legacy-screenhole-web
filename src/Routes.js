@@ -31,7 +31,7 @@ class Routes extends Component {
         <Route exact path="/eula" component={Eula} />
         <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/apps" component={Apps} />
-        <PublicRoute exact path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
         <PublicRoute exact path="/register" component={Register} />
         <PrivateRoute exact path="/logout" component={Logout} />
         <PrivateRoute exact path="/settings" component={Settings} />
