@@ -45,16 +45,6 @@ api.resetLocalStorage = () => {
   localStorage.removeItem("user_current");
 };
 
-// TEMP: migrate from user_token to default_auth_token
-if (localStorage.getItem("user_token")) {
-  localStorage.setItem(
-    "default_auth_token",
-    localStorage.getItem("user_token"),
-  );
-
-  localStorage.removeItem("user_token");
-}
-
 if (localStorage.getItem("default_auth_token")) {
   api.setAuthHeader(localStorage.getItem("default_auth_token"));
 }
