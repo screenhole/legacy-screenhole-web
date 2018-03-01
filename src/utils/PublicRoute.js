@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
-import api from './api';
+import api from "./api";
 
 const PublicRoute = ({ component: Component, ...rest }) => (
   <Route

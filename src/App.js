@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
-import Media from 'react-media';
+import React, { Component, Fragment } from "react";
+import styled from "styled-components";
+import Media from "react-media";
 
-import Routes from './Routes.js';
+import Routes from "./Routes.js";
 
-import Nav from './components/Nav/Nav';
-import NavTabs from './components/Nav/NavTabs';
-import ChommentStream from './views/ChommentStream/ChommentStream';
-import MrHole from './components/MrHole/MrHole';
+import Nav from "./components/Nav/Nav";
+import NavTabs from "./components/Nav/NavTabs";
+import ChommentStream from "./views/ChommentStream/ChommentStream";
+import MrHole from "./components/MrHole/MrHole";
 
 class App extends Component {
   componentDidMount() {

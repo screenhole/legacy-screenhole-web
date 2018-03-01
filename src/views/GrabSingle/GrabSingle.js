@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import Helmet from "react-helmet";
+import styled from "styled-components";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
-import Grab from '../../components/Grab/Grab';
+import Grab from "../../components/Grab/Grab";
 
-import loader from '../../images/loader.gif';
+import loader from "../../images/loader.gif";
 
 class GrabSingle extends Component {
   state = {

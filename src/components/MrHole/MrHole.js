@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import Lottie from 'react-lottie';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import Lottie from "react-lottie";
+import styled from "styled-components";
 
-import * as MrHoleIdle from '../../animations/mr-hole/idle.json';
+import * as MrHoleIdle from "../../animations/mr-hole/idle.json";
 
 const defaultOptions = {
   loop: true,
   autoplay: true,
   animationData: MrHoleIdle,
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice'
-  }
+    preserveAspectRatio: "xMidYMid slice",
+  },
 };
 
 class MrHole extends Component {

@@ -1,6 +1,6 @@
-import { Container } from 'unstated';
+import { Container } from "unstated";
 
-import api from './api';
+import api from "./api";
 
 class AuthContainer extends Container {
   state = {
@@ -8,7 +8,7 @@ class AuthContainer extends Container {
     current: api.currentUser,
   };
 
-  authenticate = (user) => {
+  authenticate = user => {
     this.setState({
       authenticated: true,
       currentUser: user,

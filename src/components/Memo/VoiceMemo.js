@@ -1,31 +1,28 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ReactPlayer from 'react-player';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import ReactPlayer from "react-player";
+import styled from "styled-components";
 
-import Avatar from '../User/Avatar';
+import Avatar from "../User/Avatar";
 
 class VoiceMemo extends Component {
   constructor() {
     super();
 
     this.state = {
-      playing: false
+      playing: false,
     };
   }
   controlPlayback() {
     this.setState({
-      playing: !this.state.playing
+      playing: !this.state.playing,
     });
   }
   render() {
-    const playingTheme = this.state.playing ? 'playing' : 'paused';
+    const playingTheme = this.state.playing ? "playing" : "paused";
     return (
       <Wrapper>
-        <Avatar
-          gravatar={this.props.gravatar}
-          username={this.props.username}
-        />
+        <Avatar gravatar={this.props.gravatar} username={this.props.username} />
         <MemoBlock theme={playingTheme}>
           <div>
             <Link to={`/${this.props.username}`}>
@@ -72,9 +69,9 @@ const Wrapper = styled.div`
 
 const MemoBlock = styled.div`
   background-color: ${props =>
-    props.theme === 'playing'
-      ? 'var(--secondary-color)'
-      : 'var(--primary-color)'};
+    props.theme === "playing"
+      ? "var(--secondary-color)"
+      : "var(--primary-color)"};
   border-radius: 2.125rem;
   padding: 1rem 1.125rem;
   padding-right: 4rem;
@@ -108,11 +105,11 @@ const PlayerControls = styled.button`
   border: none;
   outline: none;
   color: ${props =>
-    props.theme === 'playing' ? '#fff' : 'var(--body-bg-color)'};
+    props.theme === "playing" ? "#fff" : "var(--body-bg-color)"};
   background-color: ${props =>
-    props.theme === 'playing'
-      ? 'var(--body-bg-color)'
-      : 'var(--secondary-color)'};
+    props.theme === "playing"
+      ? "var(--body-bg-color)"
+      : "var(--secondary-color)"};
   display: flex;
   align-items: center;
   justify-content: center;

@@ -6,8 +6,8 @@ import Avatar from "../User/Avatar";
 import Buttcoin from "../Buttcoin/Buttcoin";
 
 class LoggedIn extends Component {
-    render() {
-        const { buttcoins, username, gravatar_hash } = this.props;
+  render() {
+    const { buttcoins, username, gravatar_hash } = this.props;
 
     return (
       <Fragment>
@@ -72,7 +72,7 @@ const Dropdown = styled.div`
   transform-origin: 80% -20%;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -8px;
     right: 10px;

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 class NavTabs extends Component {
   render() {
@@ -26,7 +26,7 @@ const Container = styled.nav`
   height: var(--nav-height);
   background-image: linear-gradient(to top, #000 10%, rgba(0, 0, 0, 0) 100%);
 
-  [aria-current='true'] {
+  [aria-current="true"] {
     color: #fff;
   }
 `;

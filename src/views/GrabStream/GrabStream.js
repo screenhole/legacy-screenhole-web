@@ -1,20 +1,31 @@
-import React, { Component } from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import { ActionCable } from 'react-actioncable-provider';
-import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import { ActionCable } from "react-actioncable-provider";
+import Helmet from "react-helmet";
+import styled from "styled-components";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
-import Grab from './../../components/Grab/Grab';
+import Grab from "./../../components/Grab/Grab";
+import BackToTop from "../../components/Nav/BackToTop";
 
-import loader from '../../images/loader.gif';
+import loader from "../../images/loader.gif";
+
+import * as Scroll from "react-scroll";
+
+const scroller = Scroll.animateScroll;
 
 class GrabStream extends Component {
-  state = {
-    hasMore: true,
-    grabs: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hasMore: true,
+      grabs: [],
+    };
+
+    this.scrollUp = this.scrollUp.bind(this);
+  }
 
   loadMore = async page => {
     let res = await api.get(`/grabs?page=${page}`);
@@ -24,7 +35,7 @@ class GrabStream extends Component {
     }
 
     this.setState({
-      grabs: [...this.state.grabs, ...res.data.grabs]
+      grabs: [...this.state.grabs, ...res.data.grabs],
     });
 
     if (!res.data.meta.next_page) {
@@ -34,31 +45,41 @@ class GrabStream extends Component {
 
   onReceived = data => {
     this.setState({
-      grabs: [data.grab, ...this.state.grabs]
+      grabs: [data.grab, ...this.state.grabs],
     });
   };
+
+  scrollUp() {
+    scroller.scrollTo(0, {
+      duration: 750,
+      delay: 100,
+      smooth: "easeInOutCubic",
+    });
+  }
 
   render() {
     let grabs = [];
 
-    this.state.grabs.map(grab =>
+    this.state.grabs.map((grab, index) => {
       grabs.push(
         <Grab
           username={grab.user.username}
           image={grab.image_public_url}
           id={grab.id}
+          key={grab.id}
           memos={grab.memos}
           gravatar={grab.user.gravatar_hash}
-          key={grab.id}
-        />
-      )
-    );
+          index={index}
+        />,
+      );
+    });
 
     return (
-      <Grabs>
+      <Grabs id="GrabStream">
         <MetaTags />
+        <BackToTop onClick={this.scrollUp} />
         <ActionCable
-          channel={{ channel: 'GrabsChannel' }}
+          channel={{ channel: "GrabsChannel" }}
           onReceived={this.onReceived}
         />
 

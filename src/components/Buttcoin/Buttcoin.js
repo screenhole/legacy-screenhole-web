@@ -3,15 +3,15 @@ import Lottie from 'react-lottie';
 import { ActionCable } from 'react-actioncable-provider';
 import styled from 'styled-components';
 
-import * as ButtcoinSpin from '../../animations/buttcoin/spin.json';
+import * as ButtcoinSpin from "../../animations/buttcoin/spin.json";
 
 const defaultOptions = {
   loop: true,
   autoplay: true,
   animationData: ButtcoinSpin,
   rendererSettings: {
-    preserveAspectRatio: 'xMidYMid slice'
-  }
+    preserveAspectRatio: "xMidYMid slice",
+  },
 };
 
 class Buttcoin extends Component {
