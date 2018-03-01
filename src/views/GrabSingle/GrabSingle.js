@@ -91,7 +91,7 @@ class MetaTags extends Component {
       <Helmet>
         <meta charSet="utf-8" />
         <meta name="fragment" content="!" />
-        <title>{this.props.username}’s Grab on SCREENHOLE!</title>
+        <title>{this.props.username}’s grab on SCREENHOLE!</title>
         <meta
           name="description"
           content={`Check out this cool grab from ${this.props.username}.`}
@@ -127,7 +127,7 @@ class MetaTags extends Component {
         />
         <meta
           name="twitter:title"
-          content={`${this.props.username}’s Grab on SCREENHOLE!`}
+          content={`${this.props.username}’s grab on SCREENHOLE!`}
         />
         <meta
           name="twitter:description"
