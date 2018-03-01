@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Helmet from "react-helmet";
 
 export default class apps extends Component {

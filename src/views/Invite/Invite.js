@@ -1,45 +1,92 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Subscribe } from "unstated";
+
+import AuthContainer from "../../utils/AuthContainer";
 
 import Buttcoin from "../../components/Buttcoin/Buttcoin";
 
+const BUTTCOIN_INVITE_PRICE = 200;
+
 export default class Invite extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      inviteGenerated: false,
+    };
+  }
+  generateInvite = () => {
+    this.setState({
+      inviteGenerated: true,
+    });
+  };
   render() {
     return (
-      <Page>
-        <div>
-          <section>
-            <h1>Invite yer friends to the ’hole</h1>
-            <p>
-              An invite costs <span className="buttcoin">200 buttcoins</span>.
-              Once you generate an invite, share the code, or the link with a
-              friend, and they can join Screenhole. We’ll keep track of who you
-              invite to make sure your friends are nice! Screenhole is a jerk
-              free zone, so let's keep them out.
-            </p>
-            <p className="small">
-              Please do not give invites to Mark Zuckerberg, Logan / Jake Paul,
-              or Donald Trump.
-            </p>
-          </section>
-          <section>
-            <a className="generate" href="#">
-              Create invite for
-              <Buttcoin />
-              200
-            </a>
-          </section>
-          <section className="invite-codes">
-            <h2>Your Invite Codes:</h2>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Page>
+            <div>
+              <section>
+                <h1>Invite yer friends to the ’hole</h1>
+                <p>
+                  An invite costs{" "}
+                  <span className="buttcoin">
+                    {BUTTCOIN_INVITE_PRICE} buttcoins
+                  </span>. Once you generate an invite, share the code, or the
+                  link with a friend, and they can join Screenhole. We’ll keep
+                  track of who you invite to make sure your friends are nice!
+                  Screenhole is a jerk free zone, so let's keep them out.
+                </p>
+                <p className="small">
+                  Please do not give invites to Mark Zuckerberg, Logan / Jake
+                  Paul, or Donald Trump.
+                </p>
+              </section>
+              <section>
+                {auth.state.current.stats.buttcoins < BUTTCOIN_INVITE_PRICE ? (
+                  <p className="buttcoin">
+                    You need {BUTTCOIN_INVITE_PRICE} buttcoins to generate
+                    invites. <br />Earn some more and come back here.
+                  </p>
+                ) : (
+                  <button
+                    className="generate"
+                    onClick={this.generateInvite.bind(this)}
+                  >
+                    Create invite for
+                    <Buttcoin />
+                    200
+                  </button>
+                )}
+                {this.state.inviteGenerated && (
+                  <NewInvite>
+                    Send this link to someone:
+                    <textarea
+                      readOnly
+                      onClick={e => {
+                        e.target.focus();
+                        e.target.select();
+                      }}
+                    >
+                      https://screenhole.net/register/420blazeit
+                    </textarea>
+                  </NewInvite>
+                )}
+              </section>
+              <section className="invite-codes">
+                <h2>Your Invite Links:</h2>
 
-            <div className="codes">
-              <a href="#">screenhole.net/register/epfiso</a>
-              <a href="#">screenhole.net/register/covfefe</a>
-              <a href="#">screenhole.net/register/epfiso2</a>
+                <div className="codes">
+                  <p>screenhole.net/register/epfiso</p>
+                  <p>screenhole.net/register/covfefe</p>
+                  <p>screenhole.net/register/epfiso2</p>
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
-      </Page>
+          </Page>
+        )}
+      </Subscribe>
     );
   }
 }
@@ -56,7 +103,7 @@ const Page = styled.div`
   }
 
   section {
-    padding: 50px 0;
+    padding: 3rem 0;
     max-width: 640px;
     color: var(--muted-color);
     line-height: 175%;
@@ -73,6 +120,9 @@ const Page = styled.div`
     }
 
     .generate {
+      background: transparent;
+      cursor: pointer;
+      outline: 0;
       display: inline-flex;
       align-items: center;
       color: var(--buttcoin-color);
@@ -103,9 +153,34 @@ const Page = styled.div`
     }
     .codes {
       margin-top: 2em;
-      a {
+      p {
         display: block;
+        margin: 0.25rem;
       }
     }
+  }
+`;
+
+const NewInvite = styled.div`
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: #fff;
+
+  textarea {
+    user-select: all;
+    display: block;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    background-color: var(--body-bg-color);
+    color: #fff;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+    outline: none;
+    resize: none;
   }
 `;
