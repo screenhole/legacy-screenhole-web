@@ -6,6 +6,7 @@
     "apisauce": "^0.14.3",
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
+    "che-react-number-easing": "^0.1.2",
     "emoji-regex": "^6.5.1",
     "final-form": "^4.2.0",
     "minireset.css": "^0.0.3",

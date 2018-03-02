@@ -1352,6 +1352,14 @@ chardet@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
 
+che-react-number-easing@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/che-react-number-easing/-/che-react-number-easing-0.1.2.tgz#926fd44afada6e8aedd30122ec8852618260db1d"
+  dependencies:
+    eases "^1.0.8"
+    prop-types "^15.6.0"
+    react "^16.1.0"
+
 chokidar@^1.6.0, chokidar@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
@@ -2068,6 +2076,10 @@ duplexer2@^0.1.4:
 duplexer@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"
+
+eases@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/eases/-/eases-1.0.8.tgz#f1f5069a6b6ed2ea510f9c6110398d63efe9aee6"
 
 ecc-jsbn@~0.1.1:
   version "0.1.1"
@@ -5754,7 +5766,7 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react@^16.1.1, react@^16.2.0:
+react@^16.1.0, react@^16.1.1, react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:

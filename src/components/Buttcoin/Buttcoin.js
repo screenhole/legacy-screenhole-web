@@ -3,6 +3,7 @@ import Lottie from "react-lottie";
 import { ActionCable } from "react-actioncable-provider";
 import { Subscribe } from "unstated";
 import styled from "styled-components";
+import NumberEasing from "che-react-number-easing";
 
 import AuthContainer from "../../utils/AuthContainer";
 import * as ButtcoinSpin from "../../animations/buttcoin/spin.json";
@@ -34,7 +35,13 @@ class Buttcoin extends Component {
               <Lottie options={defaultOptions} height={100} width={100} />
             </Coin>
             {this.props.amount && (
-              <span>{this.props.amount.toLocaleString()}</span>
+              <NumberEasing
+                value={this.props.amount}
+                ease="quintInOut"
+                precision={0}
+                speed={1000}
+                useLocaleString={true}
+              />
             )}
           </Wrapper>
         )}
