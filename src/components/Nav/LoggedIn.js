@@ -11,7 +11,7 @@ class LoggedIn extends Component {
 
     return (
       <Fragment>
-        <Buttcoin amount={buttcoins} />
+        <Buttcoin amount={buttcoins} username={username} />
         <a
           href="https://news.screenhole.net"
           target="_blank"
