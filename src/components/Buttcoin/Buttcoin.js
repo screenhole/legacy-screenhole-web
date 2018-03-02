@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Lottie from 'react-lottie';
-import { ActionCable } from 'react-actioncable-provider';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import Lottie from "react-lottie";
+import { ActionCable } from "react-actioncable-provider";
+import styled from "styled-components";
 
 import * as ButtcoinSpin from "../../animations/buttcoin/spin.json";
 
@@ -16,7 +16,7 @@ const defaultOptions = {
 
 class Buttcoin extends Component {
   onReceived = data => {
-    if (data.buttcoin.user.username != this.props.username) return;
+    if (data.buttcoin.user.username !== this.props.username) return;
 
     console.log(data);
   };
@@ -25,7 +25,7 @@ class Buttcoin extends Component {
     return (
       <Wrapper className="buttcoin">
         <ActionCable
-          channel={{ channel: 'ButtcoinsChannel' }}
+          channel={{ channel: "ButtcoinsChannel" }}
           onReceived={this.onReceived}
         />
         <Coin>
