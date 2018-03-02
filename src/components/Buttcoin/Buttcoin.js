@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Lottie from "react-lottie";
 import { ActionCable } from "react-actioncable-provider";
+import { Subscribe } from "unstated";
 import styled from "styled-components";
 
+import AuthContainer from "../../utils/AuthContainer";
 import * as ButtcoinSpin from "../../animations/buttcoin/spin.json";
 
 const defaultOptions = {
@@ -15,24 +17,28 @@ const defaultOptions = {
 };
 
 class Buttcoin extends Component {
-  onReceived = data => {
-    if (data.buttcoin.user.username !== this.props.username) return;
-
-    console.log(data);
-  };
-
   render() {
     return (
-      <Wrapper className="buttcoin">
-        <ActionCable
-          channel={{ channel: "ButtcoinsChannel" }}
-          onReceived={this.onReceived}
-        />
-        <Coin>
-          <Lottie options={defaultOptions} height={100} width={100} />
-        </Coin>
-        {this.props.amount && <span>{this.props.amount.toLocaleString()}</span>}
-      </Wrapper>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Wrapper className="buttcoin">
+            <ActionCable
+              channel={{ channel: "ButtcoinsChannel" }}
+              onReceived={data => {
+                if (data.buttcoin.user.username !== this.props.username) return;
+
+                auth.updateButtcoins(data.buttcoin.balance);
+              }}
+            />
+            <Coin>
+              <Lottie options={defaultOptions} height={100} width={100} />
+            </Coin>
+            {this.props.amount && (
+              <span>{this.props.amount.toLocaleString()}</span>
+            )}
+          </Wrapper>
+        )}
+      </Subscribe>
     );
   }
 }

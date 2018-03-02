@@ -42,7 +42,7 @@ class Nav extends Component {
                         <LoggedIn
                           username={auth.state.current.username}
                           gravatar_hash={auth.state.current.gravatar_hash}
-                          buttcoins={auth.state.current.stats.buttcoins}
+                          buttcoins={auth.state.buttcoins}
                         />
                       </MobileMenu>
                     ) : (
@@ -54,7 +54,7 @@ class Nav extends Component {
                     <LoggedIn
                       username={auth.state.current.username}
                       gravatar_hash={auth.state.current.gravatar_hash}
-                      buttcoins={auth.state.current.stats.buttcoins}
+                      buttcoins={auth.state.buttcoins}
                     />
                   ) : (
                     <Guest />

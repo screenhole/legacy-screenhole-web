@@ -6,6 +6,7 @@ class AuthContainer extends Container {
   state = {
     authenticated: api.authenticated,
     current: api.currentUser,
+    buttcoins: api.currentUser ? api.currentUser.stats.buttcoins : 0,
   };
 
   authenticate = user => {
@@ -20,6 +21,19 @@ class AuthContainer extends Container {
       authenticated: false,
       currentUser: null,
     });
+  };
+
+  updateButtcoins = amount => {
+    this.setState({
+      buttcoins: amount,
+    });
+
+    // Hacky hack right now 👀
+    // Modify the object with new buttcoin count
+    const userData = this.state.current;
+    userData.stats.buttcoins = amount;
+    // Inject it into localStorage so it stays between reloads
+    window.localStorage.setItem("user_current", JSON.stringify(userData));
   };
 }
 
