@@ -27,15 +27,21 @@ export default class apps extends Component {
         <Helmet>
           {/* Drop meta tags in here */}
           <title>Download the apps!</title>
-          <meta name="description" content="<description of this page>" />
+          <meta
+            name="description"
+            content="Use our apps to post grabs to Screenhole!"
+          />
           <meta property="og:title" content="Download the apps!" />
           <meta property="og:url" content="https://screenhole.net/download" />
           <meta
             property="og:description"
-            content="<description of this page>"
+            content="Use our apps to post grabs to Screenhole!"
           />
           {/* Make the url for this image absolute */}
-          <meta property="og:image" content="<url for the image>" />
+          <meta
+            property="og:image"
+            content="https://screenhole.net/img/apps-og.png"
+          />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@screenhole" />
           <meta name="twitter:creator" content="@screenhole" />
