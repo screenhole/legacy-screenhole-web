@@ -118,7 +118,8 @@ const Coin = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
+  margin: 0 -25px;
+  width: 80px;
   height: 30px;
-  overflow: hidden;
+  overflow: visible;
 `;
