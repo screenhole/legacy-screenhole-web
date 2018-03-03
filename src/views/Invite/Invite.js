@@ -1,26 +1,75 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { Subscribe } from "unstated";
+import TimeAgo from "react-timeago";
+import Clipboard from "clipboard";
 
+import api from "../../utils/api";
 import AuthContainer from "../../utils/AuthContainer";
 
 import Buttcoin from "../../components/Buttcoin/Buttcoin";
-
-const BUTTCOIN_INVITE_PRICE = 200;
 
 export default class Invite extends Component {
   constructor() {
     super();
 
     this.state = {
+      codeCopied: false,
       inviteGenerated: false,
+      inviteLink: false,
+      invites: false,
+      BUTTCOIN_INVITE_PRICE: "",
+      inviteButtonLocked: false,
     };
   }
-  generateInvite = () => {
+  generateInvite = async () => {
     this.setState({
-      inviteGenerated: true,
+      inviteButtonLocked: true,
     });
+
+    let generatedInvite = await api.post(`/invites`);
+
+    if (generatedInvite.ok) {
+      let invites = await api.get(`/invites`);
+
+      if (invites.ok) {
+        this.setState({
+          codeCopied: false,
+          inviteGenerated: true,
+          inviteLink: `https://screenhole.net/register/${
+            generatedInvite.data.invite.code
+          }`,
+          invites: invites.data.invites.reverse(),
+          inviteButtonLocked: false,
+        });
+      }
+    }
   };
+  componentWillMount() {
+    this.loadData();
+
+    const clipboard = new Clipboard(".copy-to-clipboard");
+  }
+  loadData = async () => {
+    let invites = await api.get(`/invites`);
+    let buttcoin = await api.get(`/invites/price`);
+
+    if (invites.ok) {
+      this.setState({ invites: invites.data.invites });
+    }
+
+    if (buttcoin.ok) {
+      this.setState({
+        BUTTCOIN_INVITE_PRICE: buttcoin.data.price,
+      });
+    }
+  };
+  handleCopyButtonState() {
+    this.setState({
+      codeCopied: true,
+    });
+  }
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
@@ -32,7 +81,7 @@ export default class Invite extends Component {
                 <p>
                   An invite costs{" "}
                   <span className="buttcoin">
-                    {BUTTCOIN_INVITE_PRICE} buttcoins
+                    {this.state.BUTTCOIN_INVITE_PRICE} buttcoins
                   </span>. Once you generate an invite, share the code, or the
                   link with a friend, and they can join Screenhole. We’ll keep
                   track of who you invite to make sure your friends are nice!
@@ -44,44 +93,85 @@ export default class Invite extends Component {
                 </p>
               </section>
               <section>
-                {auth.state.current.stats.buttcoins < BUTTCOIN_INVITE_PRICE ? (
+                {auth.state.current.stats.buttcoins <
+                this.state.BUTTCOIN_INVITE_PRICE ? (
                   <p className="buttcoin">
-                    You need {BUTTCOIN_INVITE_PRICE} buttcoins to generate
-                    invites. <br />Earn some more and come back here.
+                    You need {this.state.BUTTCOIN_INVITE_PRICE} buttcoins to
+                    generate invites. <br />Earn some more and come back here.
                   </p>
                 ) : (
                   <button
                     className="generate"
+                    disabled={this.state.inviteButtonLocked}
                     onClick={this.generateInvite.bind(this)}
                   >
-                    Create invite for
+                    Create {this.state.inviteGenerated ? "another" : null}{" "}
+                    invite for
                     <Buttcoin />
-                    200
+                    {this.state.BUTTCOIN_INVITE_PRICE}
                   </button>
                 )}
                 {this.state.inviteGenerated && (
-                  <NewInvite>
+                  <NewInvite
+                    className={this.state.codeCopied ? "copied" : null}
+                  >
+                    <strong>Invite created!</strong>
+                    <br />
                     Send this link to someone:
                     <textarea
+                      id="new-code-generated"
                       readOnly
+                      rows="1"
+                      value={this.state.inviteLink}
                       onClick={e => {
                         e.target.focus();
                         e.target.select();
                       }}
+                    />
+                    <button
+                      className="copy-to-clipboard"
+                      data-clipboard-target="#new-code-generated"
+                      onClick={this.handleCopyButtonState.bind(this)}
                     >
-                      https://screenhole.net/register/420blazeit
-                    </textarea>
+                      {this.state.codeCopied ? (
+                        <span>{checkIcon} Copied</span>
+                      ) : (
+                        "Copy to clipboard"
+                      )}
+                    </button>
                   </NewInvite>
                 )}
               </section>
               <section className="invite-codes">
-                <h2>Your Invite Links:</h2>
+                <h2>Your Invite Codes:</h2>
 
-                <div className="codes">
-                  <p>screenhole.net/register/epfiso</p>
-                  <p>screenhole.net/register/covfefe</p>
-                  <p>screenhole.net/register/epfiso2</p>
-                </div>
+                <ol className="codes">
+                  {this.state.invites &&
+                    this.state.invites.map(invite => (
+                      <li key={invite.code}>
+                        <strong>{invite.code}</strong>
+                        <time>
+                          Created <TimeAgo date={invite.created_at} />
+                        </time>
+                        <span className="redeemer">
+                          {invite.invited !== null ? (
+                            <span>
+                              <span className="checked">{checkIcon}</span>
+                              Invited
+                              <Link to={`/${invite.invited}`}>
+                                 @{invite.invited}
+                              </Link>
+                            </span>
+                          ) : (
+                            <span>Not used yet</span>
+                          )}
+                        </span>
+                      </li>
+                    ))}
+                  {this.state.invites.length < 1 && (
+                    <p>None yet. Generate one above.</p>
+                  )}
+                </ol>
               </section>
             </div>
           </Page>
@@ -133,6 +223,12 @@ const Page = styled.div`
       border-radius: 10px;
       transition: all 0.2s ease;
 
+      &[disabled],
+      &:disabled {
+        opacity: 0.35;
+        cursor: wait;
+      }
+
       .buttcoin {
         position: relative;
         top: -1px;
@@ -152,22 +248,75 @@ const Page = styled.div`
       font-size: 25px;
     }
     .codes {
-      margin-top: 2em;
+      margin: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      padding: 0;
+
+      li {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          margin-bottom: 0.5rem;
+          padding-bottom: 0.5rem;
+        }
+      }
+
       p {
         display: block;
         margin: 0.25rem;
       }
+
+      time,
+      .redeemer {
+        font-size: 0.875rem;
+        user-select: none;
+      }
+
+      strong {
+        font-weight: 700;
+        color: #fff;
+      }
+    }
+
+    .redeemer span {
+      display: flex;
+      align-items: center;
+    }
+
+    .checked {
+      color: var(--secondary-color);
+      margin-right: 3px;
     }
   }
 `;
 
 const NewInvite = styled.div`
-  background-color: var(--primary-color);
-  border-radius: 3px;
+  background-color: var(--buttcoin-color);
+  border-radius: 8px;
   padding: 1.5rem;
   margin-top: 2rem;
   font-size: 1.5rem;
-  color: #fff;
+  color: #000;
+  transition: 0.15s ease all;
+  transform-origin: top center;
+  animation: revealHeight 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+
+  &.copied {
+    background-color: var(--secondary-color);
+
+    .copy-to-clipboard {
+      background-color: var(--secondary-color);
+      pointer-events: none;
+      cursor: default;
+      color: #000;
+      padding-left: 0;
+    }
+  }
 
   textarea {
     user-select: all;
@@ -178,9 +327,54 @@ const NewInvite = styled.div`
     color: #fff;
     font-size: 1.25rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     width: 100%;
     outline: none;
     resize: none;
   }
+
+  .copy-to-clipboard {
+    border: none;
+    outline: none;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: 0.15s ease all;
+
+    &:hover {
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+  }
 `;
+
+const checkIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+  >
+    <g>
+      <polygon
+        fill="currentColor"
+        points="12.4,6 11,4.6 7,8.6 5,6.6 3.6,8 7,11.4 "
+      />
+    </g>
+  </svg>
+);

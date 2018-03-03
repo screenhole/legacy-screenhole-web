@@ -7,6 +7,7 @@
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "che-react-number-easing": "^0.1.2",
+    "clipboard": "^2.0.0",
     "emoji-regex": "^6.5.1",
     "final-form": "^4.2.0",
     "minireset.css": "^0.0.3",
@@ -26,6 +27,7 @@
     "react-router-ga": "^1.0.0",
     "react-scripts": "1.0.17",
     "react-scroll": "^1.7.7",
+    "react-timeago": "^3.4.3",
     "styled-components": "^2.4.0",
     "unstated": "^1.0.3"
   },
