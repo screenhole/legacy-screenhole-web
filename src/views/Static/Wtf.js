@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 
 export default class Wtf extends Component {
   render() {
@@ -91,8 +92,9 @@ export default class Wtf extends Component {
           </p>
           <p>HAVE FUN!</p>
           <p>
-            - Last updated by <a href="/pasquale">@pasquale</a> at 2018-02-21
-            17:49:56 -0500
+            - Last updated by <a href="/pasquale">@pasquale</a>{" "}
+            <TimeAgo date="2018-02-21
+            17:49:56 -0500" />
           </p>
         </section>
       </Page>
