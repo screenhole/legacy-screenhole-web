@@ -104,6 +104,8 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   color: var(--buttcoin-color);
+  ${"" /* Prevents elements from shifting */} font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
 
   span {
     margin-left: 0.35rem;
