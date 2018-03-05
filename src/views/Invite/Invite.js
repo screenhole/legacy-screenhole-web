@@ -85,7 +85,7 @@ export default class Invite extends Component {
                   </span>. Once you generate an invite, share the code, or the
                   link with a friend, and they can join Screenhole. We’ll keep
                   track of who you invite to make sure your friends are nice!
-                  Screenhole is a jerk free zone, so let's keep them out.
+                  Screenhole is a jerk free zone, so let’s keep them out.
                 </p>
                 <p className="small">
                   Please do not give invites to Mark Zuckerberg, Logan / Jake
@@ -158,8 +158,8 @@ export default class Invite extends Component {
                             <span>
                               <span className="checked">{checkIcon}</span>
                               Invited
-                              <Link to={`/${invite.invited}`}>
-                                 @{invite.invited}
+                              <Link to={`/${invite.invited.username}`}>
+                                 @{invite.invited.username}
                               </Link>
                             </span>
                           ) : (
