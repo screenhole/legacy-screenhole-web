@@ -56,7 +56,7 @@ export default class Invite extends Component {
     let buttcoin = await api.get(`/invites/price`);
 
     if (invites.ok) {
-      this.setState({ invites: invites.data.invites });
+      this.setState({ invites: invites.data.invites.reverse() });
     }
 
     if (buttcoin.ok) {
