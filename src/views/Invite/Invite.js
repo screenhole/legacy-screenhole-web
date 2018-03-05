@@ -149,7 +149,19 @@ export default class Invite extends Component {
                   {this.state.invites &&
                     this.state.invites.map(invite => (
                       <li key={invite.code}>
-                        <strong>{invite.code}</strong>
+                        <strong>
+                          {invite.code}
+                          {invite.invited === null && (
+                            <CopyToClipboardButton
+                              className="copy-to-clipboard"
+                              data-clipboard-text={`https://screenhole.net/register/${
+                                invite.code
+                              }`}
+                            >
+                              Copy
+                            </CopyToClipboardButton>
+                          )}
+                        </strong>
                         <time>
                           Created <TimeAgo date={invite.created_at} />
                         </time>
@@ -258,11 +270,17 @@ const Page = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-between;
+        flex-flow: wrap;
 
         &:not(:last-child) {
           border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           margin-bottom: 0.5rem;
           padding-bottom: 0.5rem;
+        }
+
+        > * {
+          width: 33%;
+          min-width: 200px;
         }
       }
 
@@ -277,15 +295,27 @@ const Page = styled.div`
         user-select: none;
       }
 
+      time {
+        @media (min-width: 1120px) {
+          text-align: center;
+        }
+      }
+
       strong {
         font-weight: 700;
         color: #fff;
+        display: flex;
+        align-items: center;
+        width: 200px;
       }
     }
 
     .redeemer span {
       display: flex;
       align-items: center;
+      @media (min-width: 1120px) {
+        justify-content: flex-end;
+      }
     }
 
     .checked {
@@ -378,3 +408,28 @@ const checkIcon = (
     </g>
   </svg>
 );
+
+const CopyToClipboardButton = styled.button`
+  outline: none;
+  background: none;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  position: relative;
+  top: -1px;
+  cursor: pointer;
+  transition: 0.15s ease all;
+
+  &:hover {
+    border-color: currentColor;
+    color: var(--secondary-color);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
