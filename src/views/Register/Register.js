@@ -58,6 +58,9 @@ class Register extends Component {
 
           return errors;
         }}
+        initialValues={{
+          code: this.props.match.params.code,
+        }}
         render={({
           handleSubmit,
           submitError,
@@ -128,12 +131,7 @@ class Register extends Component {
               </Field>
 
               {this.props.match.params.code && (
-                <Field
-                  component="input"
-                  type="hidden"
-                  name="code"
-                  value={this.props.match.params.code}
-                />
+                <Field component="input" type="hidden" name="code" />
               )}
 
               {!this.props.match.params.code && (
