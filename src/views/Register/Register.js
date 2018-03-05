@@ -132,7 +132,7 @@ class Register extends Component {
                   component="input"
                   type="hidden"
                   name="code"
-                  value={this.props.match.params.code || input.value}
+                  value={this.props.match.params.code}
                 />
               )}
 
