@@ -126,39 +126,41 @@ class Register extends Component {
                   </InputWrapper>
                 )}
               </Field>
-              <Field name="code">
-                {({ input, meta }) => (
-                  {!this.props.match.params.code &&
-                  <InputWrapper>
-                    <Input
-                      {...input}
-                      type="input"
-                      placeholder="Invite Code"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellcheck="false"
-                      autoComplete="off"
-                      value={this.props.match.params.code || input.value}
-                    />
-                    <Label>
-                      Invite Code{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
-                    </Label>
-                  </InputWrapper>
-                  }
-                  
-                  {this.props.match.params.code &&
-                    <Input
-                      {...input}
-                      type="hidden"
-                      value={this.props.match.params.code || input.value}
-                    />
-                  }
-                )}
-              </Field>
+
+              {this.props.match.params.code && (
+                <Field
+                  component="input"
+                  type="hidden"
+                  name="code"
+                  value={this.props.match.params.code || input.value}
+                />
+              )}
+
+              {!this.props.match.params.code && (
+                <Field name="code">
+                  {({ input, meta }) => (
+                    <InputWrapper>
+                      <Input
+                        {...input}
+                        type="input"
+                        placeholder="Invite Code"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellcheck="false"
+                        autoComplete="off"
+                        value={this.props.match.params.code || input.value}
+                      />
+                      <Label>
+                        Invite Code{" "}
+                        {(meta.error || meta.submitError) &&
+                          meta.touched && (
+                            <span>{meta.error || meta.submitError}</span>
+                          )}
+                      </Label>
+                    </InputWrapper>
+                  )}
+                </Field>
+              )}
 
               {submitError && <div className="error">{submitError}</div>}
               <Button type="submit" disabled={submitting}>
