@@ -128,6 +128,7 @@ class Register extends Component {
               </Field>
               <Field name="code">
                 {({ input, meta }) => (
+                  {!this.props.match.params.code &&
                   <InputWrapper>
                     <Input
                       {...input}
@@ -137,7 +138,6 @@ class Register extends Component {
                       autoCapitalize="off"
                       spellcheck="false"
                       autoComplete="off"
-                      disabled={this.props.match.params.code}
                       value={this.props.match.params.code || input.value}
                     />
                     <Label>
@@ -148,6 +148,15 @@ class Register extends Component {
                         )}
                     </Label>
                   </InputWrapper>
+                  }
+                  
+                  {this.props.match.params.code &&
+                    <Input
+                      {...input}
+                      type="hidden"
+                      value={this.props.match.params.code || input.value}
+                    />
+                  }
                 )}
               </Field>
 
