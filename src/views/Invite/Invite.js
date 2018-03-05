@@ -149,7 +149,11 @@ export default class Invite extends Component {
                   {this.state.invites &&
                     this.state.invites.map(invite => (
                       <li key={invite.code}>
-                        <strong>
+                        <strong
+                          className={
+                            invite.invited !== null ? "strike-it" : null
+                          }
+                        >
                           {invite.code}
                           {invite.invited === null && (
                             <CopyToClipboardButton
@@ -323,6 +327,23 @@ const Page = styled.div`
       margin-right: 3px;
     }
   }
+
+  .strike-it {
+    color: var(--muted-color) !important;
+    position: relative;
+
+    &::after {
+      content: "";
+      width: calc(100% + 1rem);
+      height: 3px;
+      background-color: var(--body-bg-color);
+      border-radius: 3px;
+      position: absolute;
+      left: -0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 `;
 
 const NewInvite = styled.div`
@@ -413,7 +434,7 @@ const CopyToClipboardButton = styled.button`
   outline: none;
   background: none;
   border: 2px solid currentColor;
-  border-radius: 3px;
+  border-radius: 4px;
   color: var(--primary-color);
   font-size: 0.75rem;
   text-transform: uppercase;
