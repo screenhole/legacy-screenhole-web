@@ -25,7 +25,7 @@ export default class Wtf extends Component {
           <p>
             We're not trying to cram this place with a flood of users, so
             invitations are limited. You'll need an invite code to register. If
-            you can't find one, dm{" "}
+            you can’t find one, dm{" "}
             <a
               href="https://twitter.com/screenhole"
               target="_blank"
