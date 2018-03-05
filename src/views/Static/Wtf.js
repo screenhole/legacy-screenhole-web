@@ -15,7 +15,7 @@ export default class Wtf extends Component {
             share "grabs" you take from your Mac or iPhone.
           </p>
           <p>
-            There's no drag &amp; drop, or editing. You can only post grabs with
+            There’s no drag &amp; drop, or editing. You can only post grabs with
             our fun apps. We encourage you to post as much as you like.
           </p>
         </section>
@@ -23,8 +23,8 @@ export default class Wtf extends Component {
         <section>
           <h1>How do I register?</h1>
           <p>
-            We're not trying to cram this place with a flood of users, so
-            invitations are limited. You'll need an invite code to register. If
+            We’re not trying to cram this place with a flood of users, so
+            invitations are limited. You’ll need an invite code to register. If
             you can’t find one, dm{" "}
             <a
               href="https://twitter.com/screenhole"
@@ -76,7 +76,7 @@ export default class Wtf extends Component {
           <h2>Set your Avatar</h2>
           <p>
             Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>.
-            We'll let you manually set it in your profile soon.
+            We’ll let you manually set it in your profile soon.
           </p>
           <h1>Get in touch</h1>
           <p>
@@ -86,7 +86,7 @@ export default class Wtf extends Component {
             </span>{" "}
             . If you find a bug, or get stuck, email{" "}
             <a href="mailto:screenhole@thinko.com">screenhole@thinko.com</a>,
-            and we'll get back to you. If you're technically inclined, you can
+            and we’ll get back to you. If you’re technically inclined, you can
             see / file bugs on{" "}
             <a href="https://github.com/yothinko/screenhole/issues">github</a>.
           </p>
