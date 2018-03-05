@@ -15,6 +15,7 @@ import Logout from "./views/Login/Logout";
 import Register from "./views/Register/Register";
 import Settings from "./views/Settings/Settings";
 
+import Invite from "./views/Invite/Invite";
 import Wtf from "./views/Static/Wtf";
 import Eula from "./views/Static/Eula";
 import Privacy from "./views/Static/Privacy";
@@ -31,8 +32,12 @@ class Routes extends Component {
         <Route exact path="/eula" component={Eula} />
         <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/apps" component={Apps} />
+
         <Route exact path="/login" component={Login} />
         <PublicRoute exact path="/register" component={Register} />
+        <PublicRoute exact path="/register/:code" component={Register} />
+
+        <PrivateRoute exact path="/invite" component={Invite} />
         <PrivateRoute exact path="/logout" component={Logout} />
         <PrivateRoute exact path="/settings" component={Settings} />
 

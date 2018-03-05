@@ -58,6 +58,9 @@ class Register extends Component {
 
           return errors;
         }}
+        initialValues={{
+          code: this.props.match.params.code,
+        }}
         render={({
           handleSubmit,
           submitError,
@@ -126,28 +129,36 @@ class Register extends Component {
                   </InputWrapper>
                 )}
               </Field>
-              <Field name="code">
-                {({ input, meta }) => (
-                  <InputWrapper>
-                    <Input
-                      {...input}
-                      type="input"
-                      placeholder="Invite Code"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellcheck="false"
-                      autoComplete="off"
-                    />
-                    <Label>
-                      Invite Code{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
-                    </Label>
-                  </InputWrapper>
-                )}
-              </Field>
+
+              {this.props.match.params.code && (
+                <Field component="input" type="hidden" name="code" />
+              )}
+
+              {!this.props.match.params.code && (
+                <Field name="code">
+                  {({ input, meta }) => (
+                    <InputWrapper>
+                      <Input
+                        {...input}
+                        type="input"
+                        placeholder="Invite Code"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellcheck="false"
+                        autoComplete="off"
+                        value={this.props.match.params.code || input.value}
+                      />
+                      <Label>
+                        Invite Code{" "}
+                        {(meta.error || meta.submitError) &&
+                          meta.touched && (
+                            <span>{meta.error || meta.submitError}</span>
+                          )}
+                      </Label>
+                    </InputWrapper>
+                  )}
+                </Field>
+              )}
 
               {submitError && <div className="error">{submitError}</div>}
               <Button type="submit" disabled={submitting}>
