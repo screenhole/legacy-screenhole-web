@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Avatar from "../User/Avatar";
 import VoiceMemo from "../Memo/VoiceMemo";
+import Tooltip from "../Tooltip/Tooltip";
 
 import api from "../../utils/api";
 
@@ -126,15 +127,23 @@ class Grab extends Component {
             {this.props.username}
           </Link>
 
-          <Button onClick={this.showMemoInstructions}>{memoIcon}</Button>
-          {this.voiceMemos().length > 0 && (
-            <Count>{this.voiceMemos().length}</Count>
-          )}
+          <Tooltip title="Call Mr. Hole and leave a voice memo on this grab">
+            <Button onClick={this.showMemoInstructions}>{memoIcon}</Button>
+            {this.voiceMemos().length > 0 && (
+              <Count>{this.voiceMemos().length}</Count>
+            )}
+          </Tooltip>
+
+          <Tooltip title="Leave a chomment on this grab">
+            <Button>{chommentIcon}</Button>
+          </Tooltip>
 
           {this.props.showDelete &&
             this.state.currentUser &&
             this.props.username === this.state.currentUser.username && (
-              <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
+              <Tooltip title="Delete this grab" theme="danger">
+                <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
+              </Tooltip>
             )}
 
           {this.props.showBlockReportDropdown &&
@@ -190,6 +199,11 @@ export default Grab;
 
 const Wrapper = styled.article`
   margin-bottom: 4rem;
+
+  .tooltip-button {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -422,5 +436,21 @@ const memoIcon = (
         d="M.003.937A.845.845 0 0 1 .85 0h.178c5.347.848 9.58 5.09 10.381 10.446v.045c.09.447-.312.893-.757.982-.446.09-.936-.268-.98-.759A10.695 10.695 0 0 0 .76 1.786.867.867 0 0 1 .003.937z"
       />
     </defs>
+  </svg>
+);
+
+const chommentIcon = (
+  <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fillRule="evenodd">
+      <path
+        d="M3.846 2c-.917 0-1.142.043-1.368.164a.727.727 0 0 0-.314.314c-.12.226-.164.45-.164 1.368v11.308c0 .917.043 1.142.164 1.368.075.14.174.239.314.314.226.12.45.164 1.368.164h16.308c.917 0 1.142-.043 1.368-.164a.727.727 0 0 0 .314-.314c.12-.226.164-.45.164-1.368V3.846c0-.917-.043-1.142-.164-1.368a.727.727 0 0 0-.314-.314c-.226-.12-.45-.164-1.368-.164H3.846zm14.868 17l-2.373 3.692a1 1 0 0 1-1.682 0L12.286 19h-8.44c-1.337 0-1.822-.14-2.311-.4A2.726 2.726 0 0 1 .4 17.464C.139 16.976 0 16.491 0 15.155V3.844c0-1.336.14-1.821.4-2.31A2.726 2.726 0 0 1 1.536.4C2.024.139 2.509 0 3.845 0h16.31c1.336 0 1.821.14 2.31.4.49.262.873.646 1.134 1.135.262.489.401.974.401 2.31v11.31c0 1.336-.14 1.821-.4 2.31a2.726 2.726 0 0 1-1.135 1.134c-.489.262-.974.401-2.31.401h-1.44zM13.5 17l2 3 2-3h-4z"
+        fill="#6A40EE"
+        fillRule="nonzero"
+      />
+      <path
+        d="M5 6h14a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2M5 11h9a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2"
+        fill="#6FDC7B"
+      />
+    </g>
   </svg>
 );
