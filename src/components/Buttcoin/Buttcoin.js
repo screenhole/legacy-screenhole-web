@@ -104,6 +104,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   color: var(--buttcoin-color);
+  font-family: 'Menlo', monospace;
 
   span {
     margin-left: 0.35rem;
