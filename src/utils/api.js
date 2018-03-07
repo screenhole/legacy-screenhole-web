@@ -4,11 +4,11 @@ const apiEndpoint =
   process.env.NODE_ENV === "production" ? "/api" : "https://api.screenhole.net";
 
 const api = create({
-  baseURL: apiEndpoint,
+  // baseURL: apiEndpoint,
   // baseURL: '/api',
   // baseURL: 'https://api.screenhole.net',
   // baseURL: 'https://screenhole-api.ngrok.io',
-  // baseURL: 'https://staging-api.screenhole.net',
+  baseURL: "https://staging-api.screenhole.net",
 });
 
 api.websocketURL = "wss://api.screenhole.net";

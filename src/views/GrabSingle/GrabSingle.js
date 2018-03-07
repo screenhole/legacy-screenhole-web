@@ -64,6 +64,7 @@ class GrabSingle extends Component {
               key={this.state.grab.id}
               showDelete={true}
               showBlockReportDropdown={true}
+              variant="single"
             />
           </span>
         ) : (
