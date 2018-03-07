@@ -68,6 +68,11 @@ class Grab extends Component {
   };
 
   showTextMemoField = () => {
+    if (!this.state.authenticated) {
+      alert("Log in to leave a text memo!");
+      return;
+    }
+
     this.setState({
       textMemoField: !this.state.textMemoField,
     });
