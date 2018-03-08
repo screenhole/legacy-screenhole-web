@@ -168,17 +168,7 @@ class Grab extends Component {
               <Link to={`/${this.props.username}`} className="grab-username">
                 {this.props.username}
               </Link>
-            </UserInfo>
-            <Link
-              to={`/${this.props.username}/~${this.props.id}`}
-              className="grab-image-link"
-            >
-              <GrabImage
-                src={`${this.props.image};1000x1000,fit.png`}
-                alt={`${this.props.username}’s Grab on Screenhole`}
-              />
-            </Link>
-            <GrabActions>
+
               <Tooltip
                 className="tooltip-button"
                 title="Call Mr. Hole and leave a voice memo on this grab"
@@ -232,7 +222,16 @@ class Grab extends Component {
                     </Dropdown>
                   </Media>
                 )}
-            </GrabActions>
+            </UserInfo>
+            <Link
+              to={`/${this.props.username}/~${this.props.id}`}
+              className="grab-image-link"
+            >
+              <GrabImage
+                src={`${this.props.image};1000x1000,fit.png`}
+                alt={`${this.props.username}’s Grab on Screenhole`}
+              />
+            </Link>
             {this.props.showMemos &&
               this.voiceMemos().map(memo => {
                 if (!memo.pending && memo.variant === "voice") {
@@ -345,12 +344,6 @@ const UserInfo = styled.div`
       border-color: #fff;
     }
   }
-`;
-
-const GrabActions = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 0.75rem;
 `;
 
 const Button = styled.button`
