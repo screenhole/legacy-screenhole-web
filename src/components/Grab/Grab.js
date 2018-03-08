@@ -168,7 +168,17 @@ class Grab extends Component {
               <Link to={`/${this.props.username}`} className="grab-username">
                 {this.props.username}
               </Link>
-
+            </UserInfo>
+            <Link
+              to={`/${this.props.username}/~${this.props.id}`}
+              className="grab-image-link"
+            >
+              <GrabImage
+                src={`${this.props.image};1000x1000,fit.png`}
+                alt={`${this.props.username}’s Grab on Screenhole`}
+              />
+            </Link>
+            <GrabActions>
               <Tooltip
                 className="tooltip-button"
                 title="Call Mr. Hole and leave a voice memo on this grab"
@@ -222,47 +232,7 @@ class Grab extends Component {
                     </Dropdown>
                   </Media>
                 )}
-            </UserInfo>
-            {auth.state.authenticated &&
-              this.state.textMemoField && (
-                <Form
-                  onSubmit={this.submitMessage}
-                  render={({ handleSubmit, values }) => {
-                    return (
-                      <ChommentInputWrapper onSubmit={handleSubmit}>
-                        <Field name="message">
-                          {({ input, meta }) => (
-                            <Fragment>
-                              <Input
-                                {...input}
-                                type="text"
-                                placeholder="Type yer memo"
-                                autoComplete="off"
-                                autoFocus
-                              />
-                              <ChommentCost>
-                                Hit enter to post for{" "}
-                                <span className="butt-value">
-                                  {input.value.length} buttcoin
-                                </span>
-                              </ChommentCost>
-                            </Fragment>
-                          )}
-                        </Field>
-                      </ChommentInputWrapper>
-                    );
-                  }}
-                />
-              )}
-            <Link
-              to={`/${this.props.username}/~${this.props.id}`}
-              className="grab-image-link"
-            >
-              <GrabImage
-                src={`${this.props.image};1000x1000,fit.png`}
-                alt={`${this.props.username}’s Grab on Screenhole`}
-              />
-            </Link>
+            </GrabActions>
             {this.props.showMemos &&
               this.voiceMemos().map(memo => {
                 if (!memo.pending && memo.variant === "voice") {
@@ -295,6 +265,38 @@ class Grab extends Component {
 
                 return false;
               })}
+            {auth.state.authenticated &&
+              this.state.textMemoField && (
+                <Form
+                  className="grab-text-memo-form"
+                  onSubmit={this.submitMessage}
+                  render={({ handleSubmit, values }) => {
+                    return (
+                      <ChommentInputWrapper onSubmit={handleSubmit}>
+                        <Field name="message">
+                          {({ input, meta }) => (
+                            <Fragment>
+                              <Input
+                                {...input}
+                                type="text"
+                                placeholder="Type yer memo"
+                                autoComplete="off"
+                                autoFocus
+                              />
+                              <ChommentCost>
+                                Hit enter to post for{" "}
+                                <span className="butt-value">
+                                  {input.value.length} buttcoin
+                                </span>
+                              </ChommentCost>
+                            </Fragment>
+                          )}
+                        </Field>
+                      </ChommentInputWrapper>
+                    );
+                  }}
+                />
+              )}
           </Wrapper>
         )}
       </Subscribe>
@@ -320,11 +322,8 @@ const Wrapper = styled.article`
     align-self: flex-start;
   }
 
-  &[data-variant="single"] {
-    .grab-image-link {
-      order: -1;
-      margin-bottom: 1rem;
-    }
+  form {
+    margin-top: 1rem;
   }
 `;
 
@@ -346,6 +345,12 @@ const UserInfo = styled.div`
       border-color: #fff;
     }
   }
+`;
+
+const GrabActions = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem;
 `;
 
 const Button = styled.button`
