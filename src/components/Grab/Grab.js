@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Media from "react-media";
 import styled from "styled-components";
+import { ActionCable } from "react-actioncable-provider";
 import { Subscribe } from "unstated";
 import { Form, Field } from "react-final-form";
 
@@ -32,6 +33,12 @@ class Grab extends Component {
       );
     }
   }
+
+  onReceived = data => {
+    if (data.memo.grab.id !== this.props.id) return;
+
+    console.log(data);
+  };
 
   voiceMemos = () => {
     return (this.props.memos || []).filter(function(memo) {
@@ -161,6 +168,10 @@ class Grab extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Wrapper data-variant={this.props.variant}>
+            <ActionCable
+              channel={{ channel: "MemosChannel" }}
+              onReceived={this.onReceived}
+            />
             <UserInfo>
               <Avatar
                 gravatar={this.props.gravatar}
