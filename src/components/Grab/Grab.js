@@ -21,6 +21,7 @@ class Grab extends Component {
       authenticated: api.authenticated,
       currentUser: api.currentUser,
       textMemoField: this.props.variant === "single" ? true : false,
+      memos: this.props.memos.reverse(),
     };
 
     this.state.isBlocked = false;
@@ -151,7 +152,7 @@ class Grab extends Component {
     });
 
     this.setState({
-      textMemoField: false,
+      textMemoField: this.props.variant === "single" ? true : false,
     });
   };
 
@@ -232,38 +233,6 @@ class Grab extends Component {
                 alt={`${this.props.username}’s Grab on Screenhole`}
               />
             </Link>
-            {this.props.showMemos &&
-              this.voiceMemos().map(memo => {
-                if (!memo.pending && memo.variant === "voice") {
-                  return (
-                    <Memo
-                      key={memo.id}
-                      message={memo.message}
-                      audio={memo.media_public_url}
-                      username={memo.user.username}
-                      gravatar={memo.user.gravatar_hash}
-                    />
-                  );
-                }
-
-                return false;
-              })}
-            {this.props.showMemos &&
-              this.textMemos().map(memo => {
-                if (!memo.pending && memo.variant === "chomment") {
-                  return (
-                    <Memo
-                      key={memo.id}
-                      message={memo.message}
-                      username={memo.user.username}
-                      gravatar={memo.user.gravatar_hash}
-                      variant="chomment"
-                    />
-                  );
-                }
-
-                return false;
-              })}
             {auth.state.authenticated &&
               this.state.textMemoField && (
                 <Form
@@ -296,6 +265,34 @@ class Grab extends Component {
                   }}
                 />
               )}
+            {this.props.showMemos &&
+              this.state.memos.map(memo => {
+                if (!memo.pending && memo.variant === "voice") {
+                  return (
+                    <Memo
+                      key={memo.id}
+                      message={memo.message}
+                      audio={memo.media_public_url}
+                      username={memo.user.username}
+                      gravatar={memo.user.gravatar_hash}
+                    />
+                  );
+                }
+
+                if (!memo.pending && memo.variant === "chomment") {
+                  return (
+                    <Memo
+                      key={memo.id}
+                      message={memo.message}
+                      username={memo.user.username}
+                      gravatar={memo.user.gravatar_hash}
+                      variant="chomment"
+                    />
+                  );
+                }
+
+                return false;
+              })}
           </Wrapper>
         )}
       </Subscribe>
