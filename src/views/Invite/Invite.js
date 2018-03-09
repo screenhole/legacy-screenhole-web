@@ -81,7 +81,8 @@ export default class Invite extends Component {
                 <p>
                   An invite costs{" "}
                   <span className="buttcoin">
-                    {this.state.BUTTCOIN_INVITE_PRICE} buttcoins
+                    {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}{" "}
+                    buttcoins
                   </span>. Once you generate an invite, share the code, or the
                   link with a friend, and they can join Screenhole. We’ll keep
                   track of who you invite to make sure your friends are nice!
@@ -96,8 +97,9 @@ export default class Invite extends Component {
                 {auth.state.current.stats.buttcoins <
                 this.state.BUTTCOIN_INVITE_PRICE ? (
                   <p className="buttcoin">
-                    You need {this.state.BUTTCOIN_INVITE_PRICE} buttcoins to
-                    generate invites. <br />Earn some more and come back here.
+                    You need {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}{" "}
+                    buttcoins to generate invites. <br />Earn some more and come
+                    back here.
                   </p>
                 ) : (
                   <button
@@ -108,7 +110,7 @@ export default class Invite extends Component {
                     Create {this.state.inviteGenerated ? "another" : null}{" "}
                     invite for
                     <Buttcoin />
-                    {this.state.BUTTCOIN_INVITE_PRICE}
+                    {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}
                   </button>
                 )}
                 {this.state.inviteGenerated && (
