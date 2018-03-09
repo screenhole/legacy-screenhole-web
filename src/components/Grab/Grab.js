@@ -276,7 +276,10 @@ class Grab extends Component {
                                   <span>
                                     Hit enter to post for{" "}
                                     <span className="butt-value">
-                                      {input.value.length} buttcoin
+                                      <span className="butt-coin">
+                                        {input.value.length}
+                                      </span>{" "}
+                                      buttcoin
                                     </span>
                                   </span>
                                 )}
@@ -284,8 +287,10 @@ class Grab extends Component {
                                   <span>
                                     You’re short{" "}
                                     <span className="butt-value-negative">
-                                      {input.value.length -
-                                        auth.state.buttcoins}{" "}
+                                      <span className="butt-coin">
+                                        {input.value.length -
+                                          auth.state.buttcoins}
+                                      </span>{" "}
                                       buttcoin.
                                     </span>{" "}
                                     Delete some characters.
@@ -653,5 +658,9 @@ const ChommentCost = styled.div`
 
   .butt-value-negative {
     color: var(--danger-color);
+  }
+
+  .butt-coin {
+    font-family: "Menlo", monospace;
   }
 `;
