@@ -37,23 +37,27 @@ class Grab extends Component {
   onReceived = data => {
     if (data.memo.grab.id !== this.props.id) return;
 
-    console.log(data);
+    if (data.memo.pending) return;
+
+    this.setState({
+      memos: [data.memo, ...this.state.memos],
+    });
   };
 
   voiceMemos = () => {
-    return (this.props.memos || []).filter(function(memo) {
+    return (this.state.memos || []).filter(function(memo) {
       return !memo.pending && memo.variant === "voice";
     });
   };
 
   textMemos = () => {
-    return (this.props.memos || []).filter(function(memo) {
+    return (this.state.memos || []).filter(function(memo) {
       return !memo.pending && memo.variant === "chomment";
     });
   };
 
   stickerMemos = () => {
-    return (this.props.memos || []).filter(function(memo) {
+    return (this.state.memos || []).filter(function(memo) {
       return !memo.pending && memo.variant === "sticker";
     });
   };
