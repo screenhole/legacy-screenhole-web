@@ -11,13 +11,18 @@ export default class apps extends Component {
           <p>Use our apps to post grabs to the ’hole.</p>
           <img class="download" src="/img/apps.png" alt="iPhone App" />
           <p class="links">
-            <a href="http://appstore.com/screenhole" target="_blank">
+            <a
+              href="http://appstore.com/screenhole"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               iPhone
             </a>{" "}
             /{" "}
             <a
               href="https://rink.hockeyapp.net/apps/df7fde32da044e62980cfb683cb7d0b9"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Macintosh
             </a>

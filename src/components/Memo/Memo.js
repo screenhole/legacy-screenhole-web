@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import Avatar from "../User/Avatar";
 
-class VoiceMemo extends Component {
+export default class Memo extends Component {
   constructor() {
     super();
 
@@ -23,39 +23,41 @@ class VoiceMemo extends Component {
     return (
       <Wrapper>
         <Avatar gravatar={this.props.gravatar} username={this.props.username} />
-        <MemoBlock theme={playingTheme}>
+        <MemoBlock theme={playingTheme} data-variant={this.props.variant}>
           <div>
             <Link to={`/${this.props.username}`}>
-              <Username>{this.props.username}:</Username>
+              <Username data-variant={this.props.variant}>
+                {this.props.username}:
+              </Username>
             </Link>
             <Message>{this.props.message}</Message>
           </div>
-          <AudioPlayer>
-            <PlayerControls
-              onClick={this.controlPlayback.bind(this)}
-              theme={playingTheme}
-            >
-              {this.state.playing ? pauseIcon : playIcon}
-            </PlayerControls>
+          {this.props.audio && (
+            <AudioPlayer>
+              <PlayerControls
+                onClick={this.controlPlayback.bind(this)}
+                theme={playingTheme}
+              >
+                {this.state.playing ? pauseIcon : playIcon}
+              </PlayerControls>
 
-            {/* This player is hidden. It’s controlled by the button above. */}
-            <ReactPlayer
-              url={this.props.audio}
-              width="0"
-              height="0"
-              playsInline
-              volume={1}
-              playing={this.state.playing}
-              onEnded={this.controlPlayback.bind(this)}
-            />
-          </AudioPlayer>
+              {/* This player is hidden. It’s controlled by the button above. */}
+              <ReactPlayer
+                url={this.props.audio}
+                width="0"
+                height="0"
+                playsInline
+                volume={1}
+                playing={this.state.playing}
+                onEnded={this.controlPlayback.bind(this)}
+              />
+            </AudioPlayer>
+          )}
         </MemoBlock>
       </Wrapper>
     );
   }
 }
-
-export default VoiceMemo;
 
 const Wrapper = styled.div`
   display: flex;
@@ -81,17 +83,28 @@ const MemoBlock = styled.div`
   display: flex;
   position: relative;
   transition: 0.25s ease all;
+
+  &[data-variant="chomment"] {
+    background-color: #121212;
+    color: #fff;
+    padding-right: 1.125rem;
+  }
 `;
 
 const Username = styled.span`
   color: var(--body-bg-color);
   display: inline;
   margin-right: 0.5em;
+
+  &[data-variant="chomment"] {
+    color: #fff;
+  }
 `;
 
 const Message = styled.p`
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
   display: inline;
+  word-break: break-word;
 `;
 
 const AudioPlayer = styled.div`

@@ -1,12 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Media from "react-media";
 import styled from "styled-components";
+import { ActionCable } from "react-actioncable-provider";
+import { Subscribe } from "unstated";
+import { Form, Field } from "react-final-form";
+
+import AuthContainer from "../../utils/AuthContainer";
+import api from "../../utils/api";
 
 import Avatar from "../User/Avatar";
-import VoiceMemo from "../Memo/VoiceMemo";
-
-import api from "../../utils/api";
+import Memo from "../Memo/Memo";
+import Tooltip from "../Tooltip/Tooltip";
 
 class Grab extends Component {
   constructor(props) {
@@ -16,6 +21,8 @@ class Grab extends Component {
       showDropdown: false,
       authenticated: api.authenticated,
       currentUser: api.currentUser,
+      textMemoField: this.props.variant === "single" ? true : false,
+      memos: this.props.memos.reverse(),
     };
 
     this.state.isBlocked = false;
@@ -27,14 +34,30 @@ class Grab extends Component {
     }
   }
 
+  onReceived = data => {
+    if (data.memo.grab.id !== this.props.id) return;
+
+    if (data.memo.pending) return;
+
+    this.setState({
+      memos: [data.memo, ...this.state.memos],
+    });
+  };
+
   voiceMemos = () => {
-    return (this.props.memos || []).filter(function(memo) {
+    return (this.state.memos || []).filter(function(memo) {
       return !memo.pending && memo.variant === "voice";
     });
   };
 
+  textMemos = () => {
+    return (this.state.memos || []).filter(function(memo) {
+      return !memo.pending && memo.variant === "chomment";
+    });
+  };
+
   stickerMemos = () => {
-    return (this.props.memos || []).filter(function(memo) {
+    return (this.state.memos || []).filter(function(memo) {
       return !memo.pending && memo.variant === "sticker";
     });
   };
@@ -54,6 +77,17 @@ class Grab extends Component {
     } else {
       alert("Could not create voice memo. Try again.");
     }
+  };
+
+  showTextMemoField = () => {
+    if (!this.state.authenticated) {
+      alert("Log in to leave a text memo!");
+      return;
+    }
+
+    this.setState({
+      textMemoField: !this.state.textMemoField,
+    });
   };
 
   deleteGrab = async () => {
@@ -114,74 +148,194 @@ class Grab extends Component {
     }
   };
 
+  submitMessage = async values => {
+    if (!values.message) return;
+
+    let message = values.message;
+    values.message = "";
+
+    await api.post(`/grabs/${this.props.id}/memos`, {
+      memo: {
+        variant: "chomment",
+        message: message,
+        pending: false,
+      },
+    });
+
+    this.setState({
+      textMemoField: this.props.variant === "single" ? true : false,
+    });
+  };
+
   render() {
     return (
-      <Wrapper>
-        <UserInfo>
-          <Avatar
-            gravatar={this.props.gravatar}
-            username={this.props.username}
-          />
-          <Link to={`/${this.props.username}`} className="grab-username">
-            {this.props.username}
-          </Link>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Wrapper data-variant={this.props.variant}>
+            <ActionCable
+              channel={{ channel: "MemosChannel" }}
+              onReceived={this.onReceived}
+            />
+            <UserInfo>
+              <Avatar
+                gravatar={this.props.gravatar}
+                username={this.props.username}
+              />
+              <Link to={`/${this.props.username}`} className="grab-username">
+                {this.props.username}
+              </Link>
 
-          <Button onClick={this.showMemoInstructions}>{memoIcon}</Button>
-          {this.voiceMemos().length > 0 && (
-            <Count>{this.voiceMemos().length}</Count>
-          )}
+              <Tooltip
+                className="tooltip-button"
+                title="Call Mr. Hole and leave a voice memo on this grab"
+              >
+                <Button onClick={this.showMemoInstructions}>{memoIcon}</Button>
+                {this.voiceMemos().length > 0 && (
+                  <Count>{this.voiceMemos().length}</Count>
+                )}
+              </Tooltip>
 
-          {this.props.showDelete &&
-            this.state.currentUser &&
-            this.props.username === this.state.currentUser.username && (
-              <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
-            )}
+              <Tooltip
+                className="tooltip-button"
+                title="Leave a chomment on this grab"
+              >
+                <Button onClick={this.showTextMemoField}>{chommentIcon}</Button>
+                {this.textMemos().length > 0 && (
+                  <Count>{this.textMemos().length}</Count>
+                )}
+              </Tooltip>
 
-          {this.props.showBlockReportDropdown &&
-            this.state.currentUser &&
-            this.props.username !== this.state.currentUser.username && (
-              <Media query="(max-width: 791px)">
-                <Dropdown>
-                  <Button
-                    onClick={() =>
-                      this.setState({ showDropdown: !this.state.showDropdown })
-                    }
-                  >
-                    {ellipsisIcon}
-                  </Button>
-                  <section className={this.state.showDropdown ? "on" : "off"}>
-                    <Button onClick={this.blockUser}>
-                      {this.state.isBlocked ? "Unblock" : "Block"}
-                    </Button>
-                    <Button onClick={this.reportGrab}>Report</Button>
-                  </section>
-                </Dropdown>
-              </Media>
-            )}
-        </UserInfo>
-        <Link to={`/${this.props.username}/~${this.props.id}`}>
-          <GrabImage
-            src={`${this.props.image};1000x1000,fit.png`}
-            alt={`${this.props.username}’s Grab on Screenhole`}
-          />
-        </Link>
-        {this.props.showMemos &&
-          this.voiceMemos().map(memo => {
-            if (!memo.pending && memo.variant === "voice") {
-              return (
-                <VoiceMemo
-                  key={memo.id}
-                  message={memo.message}
-                  audio={memo.media_public_url}
-                  username={memo.user.username}
-                  gravatar={memo.user.gravatar_hash}
+              {this.props.showDelete &&
+                this.state.currentUser &&
+                this.props.username === this.state.currentUser.username && (
+                  <Tooltip title="Delete this grab" theme="danger">
+                    <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
+                  </Tooltip>
+                )}
+
+              {this.props.showBlockReportDropdown &&
+                this.state.currentUser &&
+                this.props.username !== this.state.currentUser.username && (
+                  <Media query="(max-width: 791px)">
+                    <Dropdown>
+                      <Button
+                        onClick={() =>
+                          this.setState({
+                            showDropdown: !this.state.showDropdown,
+                          })
+                        }
+                      >
+                        {ellipsisIcon}
+                      </Button>
+                      <section
+                        className={this.state.showDropdown ? "on" : "off"}
+                      >
+                        <Button onClick={this.blockUser}>
+                          {this.state.isBlocked ? "Unblock" : "Block"}
+                        </Button>
+                        <Button onClick={this.reportGrab}>Report</Button>
+                      </section>
+                    </Dropdown>
+                  </Media>
+                )}
+            </UserInfo>
+            <Link
+              to={`/${this.props.username}/~${this.props.id}`}
+              className="grab-image-link"
+            >
+              <GrabImage
+                src={`${this.props.image};1000x1000,fit.png`}
+                alt={`${this.props.username}’s Grab on Screenhole`}
+              />
+            </Link>
+            {auth.state.authenticated &&
+              this.state.textMemoField && (
+                <Form
+                  className="grab-text-memo-form"
+                  onSubmit={this.submitMessage}
+                  render={({ handleSubmit, values }) => {
+                    return (
+                      <ChommentInputWrapper onSubmit={handleSubmit}>
+                        <Field name="message">
+                          {({ input, meta }) => (
+                            <Fragment>
+                              <Input
+                                {...input}
+                                type="text"
+                                placeholder="Type yer memo"
+                                autoComplete="off"
+                                autoFocus
+                                className={
+                                  input.value.length > auth.state.buttcoins
+                                    ? "needs-more-buttcoin"
+                                    : null
+                                }
+                              />
+                              <ChommentCost>
+                                {input.value.length <= auth.state.buttcoins && (
+                                  <span>
+                                    Hit enter to post for{" "}
+                                    <span className="butt-value">
+                                      <span className="butt-coin">
+                                        {input.value.length}
+                                      </span>{" "}
+                                      buttcoin
+                                    </span>
+                                  </span>
+                                )}
+                                {input.value.length > auth.state.buttcoins && (
+                                  <span>
+                                    You’re short{" "}
+                                    <span className="butt-value-negative">
+                                      <span className="butt-coin">
+                                        {input.value.length -
+                                          auth.state.buttcoins}
+                                      </span>{" "}
+                                      buttcoin.
+                                    </span>{" "}
+                                    Delete some characters.
+                                  </span>
+                                )}
+                              </ChommentCost>
+                            </Fragment>
+                          )}
+                        </Field>
+                      </ChommentInputWrapper>
+                    );
+                  }}
                 />
-              );
-            }
+              )}
+            {this.props.showMemos &&
+              this.state.memos.map(memo => {
+                if (!memo.pending && memo.variant === "voice") {
+                  return (
+                    <Memo
+                      key={memo.id}
+                      message={memo.message}
+                      audio={memo.media_public_url}
+                      username={memo.user.username}
+                      gravatar={memo.user.gravatar_hash}
+                    />
+                  );
+                }
 
-            return false;
-          })}
-      </Wrapper>
+                if (!memo.pending && memo.variant === "chomment") {
+                  return (
+                    <Memo
+                      key={memo.id}
+                      message={memo.message}
+                      username={memo.user.username}
+                      gravatar={memo.user.gravatar_hash}
+                      variant="chomment"
+                    />
+                  );
+                }
+
+                return false;
+              })}
+          </Wrapper>
+        )}
+      </Subscribe>
     );
   }
 }
@@ -190,6 +344,23 @@ export default Grab;
 
 const Wrapper = styled.article`
   margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+
+  .tooltip-button {
+    display: flex !important;
+    align-items: center;
+    user-select: none;
+  }
+
+  .grab-image-link {
+    display: inline-flex;
+    align-self: flex-start;
+  }
+
+  form {
+    margin-top: 1rem;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -230,13 +401,14 @@ const Button = styled.button`
 
 const Count = styled.span`
   color: var(--primary-color);
+  font-family: "Menlo", monospace;
 `;
 
 const GrabImage = styled.img`
   max-width: 100%;
   border-radius: 5px;
   transition: all 0.1s ease;
-  max-height: 80vh;
+  max-height: 65vh;
   border: 1px solid hsla(0, 0%, 100%, 0.1);
 
   &:hover {
@@ -424,3 +596,71 @@ const memoIcon = (
     </defs>
   </svg>
 );
+
+const chommentIcon = (
+  <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fillRule="evenodd">
+      <path
+        d="M3.846 2c-.917 0-1.142.043-1.368.164a.727.727 0 0 0-.314.314c-.12.226-.164.45-.164 1.368v11.308c0 .917.043 1.142.164 1.368.075.14.174.239.314.314.226.12.45.164 1.368.164h16.308c.917 0 1.142-.043 1.368-.164a.727.727 0 0 0 .314-.314c.12-.226.164-.45.164-1.368V3.846c0-.917-.043-1.142-.164-1.368a.727.727 0 0 0-.314-.314c-.226-.12-.45-.164-1.368-.164H3.846zm14.868 17l-2.373 3.692a1 1 0 0 1-1.682 0L12.286 19h-8.44c-1.337 0-1.822-.14-2.311-.4A2.726 2.726 0 0 1 .4 17.464C.139 16.976 0 16.491 0 15.155V3.844c0-1.336.14-1.821.4-2.31A2.726 2.726 0 0 1 1.536.4C2.024.139 2.509 0 3.845 0h16.31c1.336 0 1.821.14 2.31.4.49.262.873.646 1.134 1.135.262.489.401.974.401 2.31v11.31c0 1.336-.14 1.821-.4 2.31a2.726 2.726 0 0 1-1.135 1.134c-.489.262-.974.401-2.31.401h-1.44zM13.5 17l2 3 2-3h-4z"
+        fill="#6A40EE"
+        fillRule="nonzero"
+      />
+      <path
+        d="M5 6h14a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2M5 11h9a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2"
+        fill="#6FDC7B"
+      />
+    </g>
+  </svg>
+);
+
+const ChommentInputWrapper = styled.form`
+  display: block;
+  width: 100%;
+`;
+
+const Input = styled.input`
+  height: 100%;
+  width: 100%;
+  max-width: 580px;
+  font-size: 1rem;
+  color: #fff;
+  margin-top: 0.25rem;
+  border-radius: 40rem;
+  border: 1px solid var(--super-muted-color);
+  background-color: var(--body-bg-color);
+  transform: translateZ(0);
+  padding: 1rem;
+  transition: 0.2s ease all;
+
+  &:focus {
+    outline: none;
+    background-color: #111;
+  }
+
+  &.needs-more-buttcoin {
+    border-color: var(--danger-color);
+  }
+`;
+
+const ChommentCost = styled.div`
+  font-size: 0.75rem;
+  color: var(--muted-color);
+  display: block;
+  max-width: 580px;
+  text-align: right;
+  margin-top: 0.35rem;
+  margin-bottom: 1rem;
+  padding-right: 1rem;
+
+  .butt-value {
+    color: var(--buttcoin-color);
+  }
+
+  .butt-value-negative {
+    color: var(--danger-color);
+  }
+
+  .butt-coin {
+    font-family: "Menlo", monospace;
+  }
+`;

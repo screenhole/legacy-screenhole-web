@@ -8,7 +8,7 @@ const api = create({
   // baseURL: '/api',
   // baseURL: 'https://api.screenhole.net',
   // baseURL: 'https://screenhole-api.ngrok.io',
-  // baseURL: 'https://staging-api.screenhole.net',
+  // baseURL: "https://staging-api.screenhole.net",
 });
 
 api.websocketURL = "wss://api.screenhole.net";
