@@ -265,12 +265,32 @@ class Grab extends Component {
                                 placeholder="Type yer memo"
                                 autoComplete="off"
                                 autoFocus
+                                className={
+                                  input.value.length > auth.state.buttcoins
+                                    ? "needs-more-buttcoin"
+                                    : null
+                                }
                               />
                               <ChommentCost>
-                                Hit enter to post for{" "}
-                                <span className="butt-value">
-                                  {input.value.length} buttcoin
-                                </span>
+                                {input.value.length <= auth.state.buttcoins && (
+                                  <span>
+                                    Hit enter to post for{" "}
+                                    <span className="butt-value">
+                                      {input.value.length} buttcoin
+                                    </span>
+                                  </span>
+                                )}
+                                {input.value.length > auth.state.buttcoins && (
+                                  <span>
+                                    You’re short{" "}
+                                    <span className="butt-value-negative">
+                                      {input.value.length -
+                                        auth.state.buttcoins}{" "}
+                                      buttcoin.
+                                    </span>{" "}
+                                    Delete some characters.
+                                  </span>
+                                )}
                               </ChommentCost>
                             </Fragment>
                           )}
@@ -376,6 +396,7 @@ const Button = styled.button`
 
 const Count = styled.span`
   color: var(--primary-color);
+  font-family: "Menlo", monospace;
 `;
 
 const GrabImage = styled.img`
@@ -610,6 +631,10 @@ const Input = styled.input`
     outline: none;
     background-color: #111;
   }
+
+  &.needs-more-buttcoin {
+    border-color: var(--danger-color);
+  }
 `;
 
 const ChommentCost = styled.div`
@@ -624,5 +649,9 @@ const ChommentCost = styled.div`
 
   .butt-value {
     color: var(--buttcoin-color);
+  }
+
+  .butt-value-negative {
+    color: var(--danger-color);
   }
 `;

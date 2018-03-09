@@ -87,6 +87,7 @@ const MemoBlock = styled.div`
   &[data-variant="chomment"] {
     background-color: #121212;
     color: #fff;
+    padding-right: 1.125rem;
   }
 `;
 
