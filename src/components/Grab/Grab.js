@@ -167,6 +167,10 @@ class Grab extends Component {
     });
   };
 
+  cancelSubmit = e => {
+    e.preventDefault();
+  };
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
@@ -245,7 +249,7 @@ class Grab extends Component {
             >
               <GrabImage
                 src={`${this.props.image};1000x1000,fit.png`}
-                alt={`${this.props.username}’s Grab on Screenhole`}
+                alt={`${this.props.username}’s grab on Screenhole`}
               />
             </Link>
             {auth.state.authenticated &&
@@ -254,8 +258,26 @@ class Grab extends Component {
                   className="grab-text-memo-form"
                   onSubmit={this.submitMessage}
                   render={({ handleSubmit, values }) => {
+                    // Assign zero length or it will be undefined due
+                    // to the input not being used and having no value
+                    let messageLength = 0;
+
+                    if (values.message) {
+                      // Assign actual length once user starts typing
+                      messageLength = values.message.length;
+                    }
+
                     return (
-                      <ChommentInputWrapper onSubmit={handleSubmit}>
+                      <ChommentInputWrapper
+                        onSubmit={
+                          // Check if message length is larger than
+                          // user’s buttcoin balance
+                          // Submit the form if more buttcoin than msg length
+                          messageLength > auth.state.buttcoins
+                            ? this.cancelSubmit.bind(this)
+                            : handleSubmit
+                        }
+                      >
                         <Field name="message">
                           {({ input, meta }) => (
                             <Fragment>
