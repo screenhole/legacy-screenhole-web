@@ -344,18 +344,11 @@ export default Grab;
 
 const Wrapper = styled.article`
   margin-bottom: 4rem;
-  display: flex;
-  flex-direction: column;
 
   .tooltip-button {
     display: flex !important;
     align-items: center;
     user-select: none;
-  }
-
-  .grab-image-link {
-    display: inline-flex;
-    align-self: flex-start;
   }
 
   form {
