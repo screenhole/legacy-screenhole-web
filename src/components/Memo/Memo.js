@@ -22,14 +22,19 @@ export default class Memo extends Component {
     const playingTheme = this.state.playing ? "playing" : "paused";
     return (
       <Wrapper>
-        <Avatar gravatar={this.props.gravatar} username={this.props.username} />
+        <UserInfo>
+          <Avatar
+            gravatar={this.props.gravatar}
+            username={this.props.username}
+          />
+          <Link to={`/${this.props.username}`} className="memo-username">
+            <Username data-variant={this.props.variant}>
+              {this.props.username}:
+            </Username>
+          </Link>
+        </UserInfo>
         <MemoBlock theme={playingTheme} data-variant={this.props.variant}>
           <div>
-            <Link to={`/${this.props.username}`}>
-              <Username data-variant={this.props.variant}>
-                {this.props.username}:
-              </Username>
-            </Link>
             <Message>{this.props.message}</Message>
           </div>
           {this.props.audio && (
@@ -60,12 +65,39 @@ export default class Memo extends Component {
 }
 
 const Wrapper = styled.div`
+  margin-top: 1.5rem;
   display: flex;
-  margin-top: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
 
   > a {
     flex-shrink: 0;
     margin-right: 0.5rem;
+  }
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  position: relative;
+
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    position: absolute;
+    transform: translateY(1.75rem) translateX(-1rem);
+    z-index: 2;
+  }
+
+  .memo-username {
+    font-size: 0.75rem;
+    padding-left: 1.25rem;
+
+    span {
+      color: var(--muted-color) !important;
+    }
   }
 `;
 
