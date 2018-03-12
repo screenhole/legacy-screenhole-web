@@ -76,7 +76,7 @@ class Chomment extends Component {
               )}
             {this.state.includedLink &&
               this.state.linkMeta.image && (
-                <ExpandedLink href={this.state.linkMeta.url}>
+                <ExpandedLink href={this.state.linkMeta.url} target="_blank">
                   {this.state.linkMeta.image && (
                     <img
                       src={this.state.linkMeta.image}
