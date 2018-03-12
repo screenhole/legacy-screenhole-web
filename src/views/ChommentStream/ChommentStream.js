@@ -206,6 +206,7 @@ const ChommentInputWrapper = styled.form`
   width: calc(var(--sidebar-width) - 1px);
   top: var(--nav-height);
   left: 0;
+  z-index: 4;
 
   @media (max-width: 790px) {
     width: 100%;

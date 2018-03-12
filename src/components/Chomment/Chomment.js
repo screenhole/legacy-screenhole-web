@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Linkify from "react-linkify";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
+import getUrls from "get-urls";
 
 import Avatar from "../User/Avatar";
 
@@ -14,17 +15,35 @@ class Chomment extends Component {
 
     this.state = {
       chommentClass: null,
+      includedLink: false,
+      linkMeta: {},
     };
   }
   componentWillMount() {
     const catchEmoji = emojiRegex();
-    let match;
-    while ((match = catchEmoji.exec(this.props.message))) {
+    let emojiMatch;
+
+    while ((emojiMatch = catchEmoji.exec(this.props.message))) {
       if (this.props.message.match(maxAmountOfOnlyEmoji)) {
         this.setState({
           chommentClass: "BigEmojiChomment",
         });
       }
+    }
+  }
+  componentDidMount() {
+    let linkMatch = getUrls(this.props.message); // returns a Set (ES6)
+    let matchedUrl = linkMatch.values().next().value;
+
+    if (matchedUrl) {
+      fetch(`https://screenhole-svc-og.now.sh/?url=${matchedUrl}`)
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            includedLink: true,
+            linkMeta: data,
+          });
+        });
     }
   }
   render() {
@@ -54,6 +73,25 @@ class Chomment extends Component {
                     {this.props.message}
                   </Message>
                 </Link>
+              )}
+            {this.state.includedLink &&
+              this.state.linkMeta.image && (
+                <ExpandedLink href={this.state.linkMeta.url}>
+                  {this.state.linkMeta.image && (
+                    <img
+                      src={this.state.linkMeta.image}
+                      alt={this.state.linkMeta.title}
+                      className="chomment-rich-img"
+                    />
+                  )}
+
+                  <span className="chomment-rich-title">
+                    {this.state.linkMeta.logo && (
+                      <img src={this.state.linkMeta.logo} />
+                    )}
+                    {this.state.linkMeta.title}
+                  </span>
+                </ExpandedLink>
               )}
           </Content>
         </InnerChomment>
@@ -145,6 +183,66 @@ const Username = styled.span`
     &:hover {
       color: #fff;
       border-bottom: 1px solid var(--primary-color);
+    }
+  }
+`;
+
+const ExpandedLink = styled.a`
+  position: relative;
+  width: 100%;
+  height: 5rem;
+  border-radius: 5px;
+  background-color: #121212;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 3px var(--primary-color);
+  transition: 0.15s ease all;
+
+  &::before {
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.25) 120%
+    );
+    z-index: 2;
+  }
+
+  &:hover {
+    transform: scale(1.025);
+    box-shadow: 0 0 0 3px var(--secondary-color);
+  }
+
+  .chomment-rich-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+  }
+
+  .chomment-rich-title {
+    color: #fff;
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 0.5rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-right: 0.5rem;
+      border-radius: 5px;
     }
   }
 `;
