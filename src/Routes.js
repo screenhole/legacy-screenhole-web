@@ -41,7 +41,7 @@ class Routes extends Component {
         <PrivateRoute exact path="/invite" component={Invite} />
         <PrivateRoute exact path="/logout" component={Logout} />
         <PrivateRoute exact path="/settings" component={Settings} />
-        <PrivateRoute exact path="/activity" component={Activity} />
+        <PrivateRoute exact path="/sup" component={Activity} />
 
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/~:id" component={GrabSingle} />

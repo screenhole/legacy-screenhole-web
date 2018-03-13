@@ -8,7 +8,7 @@ export default class ActivityBadge extends Component {
   render() {
     return (
       <Tooltip title="My ’holebox">
-        <Link to="/activity">
+        <Link to="/sup">
           <Badge>69</Badge>
         </Link>
       </Tooltip>

@@ -38,8 +38,8 @@ export default class Activity extends Component {
                   autoDraw
                   autoDrawDuration={1500}
                   autoDrawEasing="cubic-bezier(0.23, 1, 0.32, 1)"
-                  width="240"
-                  height="60"
+                  width={240}
+                  height={60}
                 />
               </Chart>
             </Column>
@@ -48,60 +48,54 @@ export default class Activity extends Component {
         <section>
           <h2>Activity</h2>
           <ActivityStream>
-            <li>
+            <ActivityItem>
               <ActivityInfo>
                 <p>
-                  <span>
-                    New chomment on <Link to="">your grab</Link> for
-                  </span>
-                  <Buttcoin amount={79} />
+                  New chomment on <Link to="">your grab</Link>
                 </p>
-                <time>2 minutes ago</time>
+                <Memo
+                  key={0}
+                  message="Send me 0.6 $butt and I will send you 6 $butt back"
+                  username="jacob"
+                  gravatar="jacob"
+                  variant="chomment"
+                />
               </ActivityInfo>
-              <Memo
-                key={0}
-                message="Send me 0.6 $butt and I will send you 6 $butt back"
-                username="jacob"
-                gravatar="jacob"
-                variant="chomment"
-              />
-            </li>
-            <li>
+              <Buttcoin amount={79} />
+              <time>2 minutes ago</time>
+            </ActivityItem>
+            <ActivityItem>
               <ActivityInfo>
                 <p>
-                  <span>
-                    New mention on <Link to="">@jacob’s grab</Link> for
-                  </span>
-                  <Buttcoin amount={11} />
+                  New chomment on <Link to="">your grab</Link>
                 </p>
-                <time>2 minutes ago</time>
+                <Memo
+                  key={0}
+                  message="Send me 0.6 $butt and I will send you 6 $butt back"
+                  username="jacob"
+                  gravatar="jacob"
+                  variant="chomment"
+                />
               </ActivityInfo>
-              <Memo
-                key={1}
-                message="tite @mrhole"
-                username="pasquale"
-                gravatar="pasquale"
-                variant="chomment"
-              />
-            </li>
-            <li>
+              <Buttcoin amount={79} />
+              <time>2 minutes ago</time>
+            </ActivityItem>
+            <ActivityItem>
               <ActivityInfo>
                 <p>
-                  <span>
-                    New voice memo on <Link to="">your grab</Link> for
-                  </span>
-                  <Buttcoin amount={2000} />
+                  New chomment on <Link to="">your grab</Link>
                 </p>
-                <time>2 minutes ago</time>
+                <Memo
+                  key={0}
+                  message="Send me 0.6 $butt and I will send you 6 $butt back"
+                  username="jacob"
+                  gravatar="jacob"
+                  variant="chomment"
+                />
               </ActivityInfo>
-              <Memo
-                key={2}
-                message="I like bug butts and I cannot lie"
-                username="jacob"
-                gravatar="jacob"
-                audio="whoops.mp3"
-              />
-            </li>
+              <Buttcoin amount={79} />
+              <time>2 minutes ago</time>
+            </ActivityItem>
           </ActivityStream>
         </section>
       </View>
@@ -115,6 +109,7 @@ const View = styled.div`
   section {
     margin-top: 1rem;
     padding: 1rem 0;
+    max-width: 1200px;
   }
 
   section:first-of-type {
@@ -176,25 +171,32 @@ const ActivityStream = styled.ul`
   }
 `;
 
-const ActivityInfo = styled.div`
+const ActivityItem = styled.li`
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-
-  p {
-    color: var(--muted-color);
-    display: flex;
-    align-items: center;
-
-    > span {
-      margin-right: 0.5rem;
-    }
-  }
+  flex-wrap: wrap;
 
   time {
     font-size: 0.875rem;
     color: var(--muted-color);
     flex-shrink: 0;
+    text-align: right;
+  }
+
+  time,
+  .buttcoin {
+    padding-top: 2rem;
+    padding-right: 1rem;
+  }
+
+  .buttcoin {
+    padding-left: 1rem;
+  }
+`;
+
+const ActivityInfo = styled.div`
+  > p {
+    color: var(--muted-color);
   }
 `;
