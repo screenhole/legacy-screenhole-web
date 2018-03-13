@@ -7,6 +7,7 @@ import ReactPlayer from "react-player";
 import NumberEasing from "che-react-number-easing";
 
 import AuthContainer from "../../utils/AuthContainer";
+
 import * as ButtcoinSpin from "../../animations/buttcoin/spin.json";
 import * as ButtcoinToot from "../../animations/buttcoin/toot.json";
 import * as cashRegisterSequence from "../../sounds/buttcoin-cash-register-sequence.mp3";
@@ -105,6 +106,7 @@ const Wrapper = styled.div`
   align-items: center;
   color: var(--buttcoin-color);
   font-family: "Menlo", monospace;
+  position: relative;
 
   span {
     margin-left: 0.35rem;
