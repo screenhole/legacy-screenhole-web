@@ -4,6 +4,7 @@ import Trend from "react-trend";
 import { Link } from "react-router-dom";
 
 import Memo from "../../components/Memo/Memo";
+import Buttcoin from "../../components/Buttcoin/Buttcoin";
 
 export default class Activity extends Component {
   render() {
@@ -50,7 +51,10 @@ export default class Activity extends Component {
             <li>
               <ActivityInfo>
                 <p>
-                  New chomment on <Link to="">your grab</Link>
+                  <span>
+                    New chomment on <Link to="">your grab</Link> for
+                  </span>
+                  <Buttcoin amount={79} />
                 </p>
                 <time>2 minutes ago</time>
               </ActivityInfo>
@@ -65,7 +69,10 @@ export default class Activity extends Component {
             <li>
               <ActivityInfo>
                 <p>
-                  New mention on <Link to="">@jacob’s grab</Link>
+                  <span>
+                    New mention on <Link to="">@jacob’s grab</Link> for
+                  </span>
+                  <Buttcoin amount={11} />
                 </p>
                 <time>2 minutes ago</time>
               </ActivityInfo>
@@ -80,7 +87,10 @@ export default class Activity extends Component {
             <li>
               <ActivityInfo>
                 <p>
-                  New voice memo on <Link to="">your grab</Link>
+                  <span>
+                    New voice memo on <Link to="">your grab</Link> for
+                  </span>
+                  <Buttcoin amount={2000} />
                 </p>
                 <time>2 minutes ago</time>
               </ActivityInfo>
@@ -174,6 +184,12 @@ const ActivityInfo = styled.div`
 
   p {
     color: var(--muted-color);
+    display: flex;
+    align-items: center;
+
+    > span {
+      margin-right: 0.5rem;
+    }
   }
 
   time {
