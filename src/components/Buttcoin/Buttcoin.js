@@ -74,9 +74,9 @@ class Buttcoin extends Component {
               <Fragment>
                 <NumberEasing
                   value={this.props.amount}
-                  ease="elasticOut"
+                  ease="quintOut" // available options https://github.com/mattdesl/eases/blob/master/index.js
                   precision={0}
-                  speed={6500}
+                  speed={5000}
                   useLocaleString={true}
                 />
                 {/* Sound needs to be preloaded manually */}
@@ -104,7 +104,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   color: var(--buttcoin-color);
-  font-family: 'Menlo', monospace;
+  font-family: "Menlo", monospace;
 
   span {
     margin-left: 0.35rem;
