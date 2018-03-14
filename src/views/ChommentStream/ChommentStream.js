@@ -193,6 +193,8 @@ const Chomments = styled.aside`
 
   @media (max-width: 790px) {
     max-width: 100%;
+    height: calc(90vh - var(--nav-height));
+    -webkit-overflow-scrolling: touch;
     background-color: var(--body-bg-color);
     box-shadow: none;
   }
