@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
+import Linkify from "react-linkify";
 
 import Avatar from "../User/Avatar";
 
@@ -30,7 +31,11 @@ export default class Memo extends Component {
                 {this.props.username}:
               </Username>
             </Link>
-            <Message>{this.props.message}</Message>
+            <Message>
+              <Linkify properties={{ target: "_blank" }}>
+                {this.props.message}
+              </Linkify>
+            </Message>
           </div>
           {this.props.audio && (
             <AudioPlayer>
