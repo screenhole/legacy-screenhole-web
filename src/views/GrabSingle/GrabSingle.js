@@ -80,6 +80,7 @@ export default GrabSingle;
 const Wrapper = styled.article`
   display: block;
   margin: -1.25rem;
+  margin-bottom: 3rem;
   padding: 1rem 1.25rem;
   @media (min-width: 791px) {
     padding: 3rem;
