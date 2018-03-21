@@ -118,14 +118,14 @@ class MetaTags extends Component {
         <meta charSet="utf-8" />
         <meta name="fragment" content="!" />
         <title>SCREENHOLE!</title>
-        <meta name="description" content="Cram your stuff in my hole!" />
+        <meta name="description" content="all the grabs from the fall down the screenhole" />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
         <meta property="og:url" content="https://screenhole.net" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="SCREENHOLE!" />
         <meta property="og:image" content="" />
-        <meta property="og:description" content="Cram your stuff in my hole!" />
+        <meta property="og:description" content="all the grabs from the fall down the screenhole" />
         <meta property="og:site_name" content="Screenhole" />
         <meta property="og:locale" content="en_US" />
         <meta name="twitter:card" content="summary_large_image" />
