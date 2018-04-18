@@ -1606,7 +1606,11 @@ core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0, core-js@^2.5.0:
+core-js@^2.4.0:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.5.tgz#b14dde936c640c0579a6b50cabcc132dd6127e3b"
+
+core-js@^2.5.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
 
@@ -1876,8 +1880,8 @@ deep-is@~0.1.3:
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
 deepmerge@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.0.1.tgz#25c1c24f110fb914f80001b925264dd77f3f4312"
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.1.0.tgz#511a54fff405fc346f0240bb270a3e9533a31102"
 
 default-require-extensions@^1.0.0:
   version "1.0.0"
@@ -2695,8 +2699,8 @@ filled-array@^1.0.0:
   resolved "https://registry.yarnpkg.com/filled-array/-/filled-array-1.1.0.tgz#c3c4f6c663b923459a9aa29912d2d031f1507f84"
 
 final-form@^4.2.0:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.2.1.tgz#f3ec1d871b4b89115bf03c1fcb89455efe7a347d"
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.5.2.tgz#f8a9518784bdc2f72e71548a42b04c640963ca49"
 
 finalhandler@1.1.0:
   version "1.1.0"
@@ -3352,9 +3356,15 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
 
-iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
+iconv-lite@0.4.19, iconv-lite@^0.4.17:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
+
+iconv-lite@~0.4.13:
+  version "0.4.21"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.21.tgz#c47f8733d02171189ebc4a400f3218d348094798"
+  dependencies:
+    safer-buffer "^2.1.0"
 
 icss-replace-symbols@^1.1.0:
   version "1.1.0"
@@ -4361,8 +4371,8 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
     js-tokens "^3.0.0"
 
 lottie-web@^5.1.3:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.1.4.tgz#b8eeec0cb1a4d2d1c7adf078cfd44efdb2e8bd17"
+  version "5.1.10"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.1.10.tgz#d360b7cddd792ea4248ecc56d5122a468c86b243"
 
 loud-rejection@^1.0.0:
   version "1.6.0"
@@ -5403,8 +5413,8 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
 prettier@^1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.10.2.tgz#1af8356d1842276a99a5b5529c82dd9e9ad3cc93"
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.12.1.tgz#c1ad20e803e7749faf905a409d2367e06bbe7325"
 
 prettierrc@^0.0.0-5:
   version "0.0.0-5"
@@ -5464,9 +5474,17 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
+prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
+  version "15.6.1"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.3.1"
@@ -5634,8 +5652,8 @@ react-dev-utils@^4.2.1:
     text-table "0.2.0"
 
 react-dom@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.2.tgz#cb90f107e09536d683d84ed5d4888e9640e0e4df"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -5647,8 +5665,8 @@ react-error-overlay@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
 
 react-final-form@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-final-form/-/react-final-form-3.1.0.tgz#79711cd54631354981562cac3f924f786be2c232"
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/react-final-form/-/react-final-form-3.3.1.tgz#dbe40eec853a9c451e5a8deb3b02d948a2fb7e3c"
 
 react-headroom@^2.2.2:
   version "2.2.2"
@@ -5668,8 +5686,8 @@ react-helmet@^5.2.0:
     react-side-effect "^1.1.0"
 
 react-infinite-scroller@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.1.3.tgz#c4230024bc237ce876c76b2e38d77dc1f6aabb26"
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.1.4.tgz#176b1a9ca8fdff53eeb34f648c7b0d446459d61b"
   dependencies:
     prop-types "^15.5.8"
 
@@ -5682,8 +5700,8 @@ react-linkify@^0.2.2:
     tlds "^1.57.0"
 
 react-lottie@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-lottie/-/react-lottie-1.0.0.tgz#7427044ca0799804a77c86efb6b0f65a6c90bb84"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-lottie/-/react-lottie-1.1.0.tgz#9d7ddd1d9df8fd0d1323c257b03ee317bbee6a63"
   dependencies:
     babel-runtime "^6.26.0"
     lottie-web "^5.1.3"
@@ -5697,8 +5715,8 @@ react-media@^1.6.1:
     prop-types "^15.5.10"
 
 react-player@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-1.2.0.tgz#f420b21f1bc5c0c15c7b839917f70264536483d0"
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-1.4.0.tgz#f22c108cbcbb402b7a570fe172a0df1d02c6e9ad"
   dependencies:
     deepmerge "^2.0.1"
     load-script "^1.0.0"
@@ -5775,8 +5793,8 @@ react-scripts@1.0.17:
     fsevents "1.1.2"
 
 react-scroll@^1.7.7:
-  version "1.7.7"
-  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.7.tgz#948c40c9a189b62bf4a53ee0fd50e5d89d37260a"
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.8.tgz#45d8bd0f3fb104a7a1c3adb358e3a742a7091409"
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
@@ -5804,9 +5822,18 @@ react-trend@^1.2.4:
   dependencies:
     prop-types "^15.5.8"
 
-react@^16.1.0, react@^16.1.1, react@^16.2.0:
+react@^16.1.0, react@^16.1.1:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react@^16.2.0:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6186,6 +6213,10 @@ rx-lite@*, rx-lite@^4.0.8:
 safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
+
+safer-buffer@^2.1.0:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
 sane@~1.6.0:
   version "1.6.0"
@@ -6905,8 +6936,8 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
 
 unstated@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/unstated/-/unstated-1.0.3.tgz#fd1719686051acd1c0bda1a6e2fa6162a50ff604"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/unstated/-/unstated-1.2.0.tgz#5c57cc077473d2cce411ec0930da285cef3df306"
   dependencies:
     create-react-context "^0.1.5"
 
@@ -7171,9 +7202,13 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.19"
 
-whatwg-fetch@2.0.3, whatwg-fetch@>=0.10.0:
+whatwg-fetch@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
+
+whatwg-fetch@>=0.10.0:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
 whatwg-url@^4.3.0:
   version "4.8.0"

@@ -12,6 +12,7 @@ const api = create({
 });
 
 api.websocketURL = "wss://api.screenhole.net";
+// api.websocketURL = "wss://staging-api.screenhole.net";
 // api.websocketURL = 'wss://screenhole-api.ngrok.io';
 
 // reset on 401 API responses

@@ -2,11 +2,37 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Trend from "react-trend";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 
 import Memo from "../../components/Memo/Memo";
 import Buttcoin from "../../components/Buttcoin/Buttcoin";
 
+import api from "../../utils/api";
+
 export default class Activity extends Component {
+  state = {
+    notes: [],
+    hasMore: true,
+    loading: true,
+  };
+
+  async componentWillMount() {
+    let res = await api.get(`/sup`);
+
+    if (!res.ok) {
+      return this.setState({ hasMore: false });
+    }
+
+    this.setState({
+      notes: [...this.state.notes, ...res.data.notes.reverse()],
+      loading: false,
+    });
+
+    if (!res.data.meta.next_page) {
+      this.setState({ hasMore: false, loading: false });
+    }
+  }
+
   render() {
     return (
       <View>
@@ -48,54 +74,37 @@ export default class Activity extends Component {
         <section>
           <h2>Activity</h2>
           <ActivityStream>
-            <ActivityItem>
-              <ActivityInfo>
-                <p>
-                  New chomment on <Link to="">your grab</Link>
-                </p>
-                <Memo
-                  key={0}
-                  message="Send me 0.6 $butt and I will send you 6 $butt back"
-                  username="jacob"
-                  gravatar="jacob"
-                  variant="chomment"
-                />
-              </ActivityInfo>
-              <Buttcoin amount={79} />
-              <time>2 minutes ago</time>
-            </ActivityItem>
-            <ActivityItem>
-              <ActivityInfo>
-                <p>
-                  New chomment on <Link to="">your grab</Link>
-                </p>
-                <Memo
-                  key={0}
-                  message="Send me 0.6 $butt and I will send you 6 $butt back"
-                  username="jacob"
-                  gravatar="jacob"
-                  variant="chomment"
-                />
-              </ActivityInfo>
-              <Buttcoin amount={79} />
-              <time>2 minutes ago</time>
-            </ActivityItem>
-            <ActivityItem>
-              <ActivityInfo>
-                <p>
-                  New chomment on <Link to="">your grab</Link>
-                </p>
-                <Memo
-                  key={0}
-                  message="Send me 0.6 $butt and I will send you 6 $butt back"
-                  username="jacob"
-                  gravatar="jacob"
-                  variant="chomment"
-                />
-              </ActivityInfo>
-              <Buttcoin amount={79} />
-              <time>2 minutes ago</time>
-            </ActivityItem>
+            {this.state.notes.reverse().map(note => (
+              <ActivityItem key={note.id}>
+                <ActivityInfo>
+                  <p>
+                    New {note.cross_ref_type}
+                    {note.meta.grab_id ? (
+                      <span>
+                        {" "}
+                        on{" "}
+                        <Link to={`/grab/~${note.meta.grab_id}`}>
+                          your grab
+                        </Link>
+                      </span>
+                    ) : (
+                      <span> mentioning you</span>
+                    )}
+                  </p>
+                  <Memo
+                    message={note.meta.summary}
+                    username={note.actor.username}
+                    gravatar={note.actor.gravatar_hash}
+                    variant={note.variant}
+                    audio={note.cross_ref.media_public_url}
+                  />
+                </ActivityInfo>
+                {note.meta.buttcoin_earned && (
+                  <Buttcoin amount={note.meta.buttcoin_earned} />
+                )}
+                <TimeAgo date={note.created_at} />
+              </ActivityItem>
+            ))}
           </ActivityStream>
         </section>
       </View>
@@ -147,11 +156,12 @@ const View = styled.div`
 const Table = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const Column = styled.div`
   display: inline-block;
-  min-width: 240px;
+  min-width: 200px;
   margin-bottom: 0.5rem;
 
   p {
@@ -173,8 +183,8 @@ const ActivityStream = styled.ul`
 
 const ActivityItem = styled.li`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 
   time {

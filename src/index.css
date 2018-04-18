@@ -62,6 +62,10 @@ a:hover {
   color: var(--secondary-color);
 }
 
+[aria-label="animation"] {
+  outline: none;
+}
+
 @keyframes jellyReveal {
   0% {
     transform: matrix3d(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);

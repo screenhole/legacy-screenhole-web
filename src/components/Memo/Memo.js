@@ -94,6 +94,13 @@ const MemoBlock = styled.div`
     color: #fff;
     padding-right: 1.125rem;
   }
+
+  &[data-variant="at_reply"] {
+    background-color: var(--body-bg-color);
+    color: #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    padding-right: 1.125rem;
+  }
 `;
 
 const Username = styled.span`
@@ -101,7 +108,8 @@ const Username = styled.span`
   display: inline;
   margin-right: 0.5em;
 
-  &[data-variant="chomment"] {
+  &[data-variant="chomment"],
+  &[data-variant="at_reply"] {
     color: #fff;
   }
 `;
