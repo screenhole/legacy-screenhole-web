@@ -7,9 +7,9 @@ import Tooltip from "../Tooltip/Tooltip";
 export default class ActivityBadge extends Component {
   render() {
     return (
-      <Tooltip title="My ’holebox">
+      <Tooltip title="sup with you">
         <Link to="/sup">
-          <Badge>69</Badge>
+          <Badge>SUP?</Badge>
         </Link>
       </Tooltip>
     );

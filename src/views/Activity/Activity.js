@@ -3,9 +3,12 @@ import styled from "styled-components";
 import Trend from "react-trend";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
+import InfiniteScroll from "react-infinite-scroller";
 
 import Memo from "../../components/Memo/Memo";
 import Buttcoin from "../../components/Buttcoin/Buttcoin";
+
+import loader from "../../images/loader.gif";
 
 import api from "../../utils/api";
 
@@ -16,22 +19,22 @@ export default class Activity extends Component {
     loading: true,
   };
 
-  async componentWillMount() {
-    let res = await api.get(`/sup`);
+  loadMore = async page => {
+    let res = await api.get(`/sup?page=${page}`);
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
     }
 
     this.setState({
-      notes: [...this.state.notes, ...res.data.notes.reverse()],
+      notes: [...this.state.notes, ...res.data.notes],
       loading: false,
     });
 
     if (!res.data.meta.next_page) {
       this.setState({ hasMore: false, loading: false });
     }
-  }
+  };
 
   render() {
     return (
@@ -74,37 +77,55 @@ export default class Activity extends Component {
         <section>
           <h2>Activity</h2>
           <ActivityStream>
-            {this.state.notes.reverse().map(note => (
-              <ActivityItem key={note.id}>
-                <ActivityInfo>
-                  <p>
-                    New {note.cross_ref_type}
-                    {note.meta.grab_id ? (
-                      <span>
-                        {" "}
-                        on{" "}
-                        <Link to={`/grab/~${note.meta.grab_id}`}>
-                          your grab
-                        </Link>
-                      </span>
-                    ) : (
-                      <span> mentioning you</span>
-                    )}
-                  </p>
-                  <Memo
-                    message={note.meta.summary}
-                    username={note.actor.username}
-                    gravatar={note.actor.gravatar_hash}
-                    variant={note.variant}
-                    audio={note.cross_ref.media_public_url}
-                  />
-                </ActivityInfo>
-                {note.meta.buttcoin_earned && (
-                  <Buttcoin amount={note.meta.buttcoin_earned} />
-                )}
-                <TimeAgo date={note.created_at} />
-              </ActivityItem>
-            ))}
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadMore}
+              hasMore={this.state.hasMore}
+              loader={
+                <div className="loader" key="loader">
+                  <img src={loader} alt="loading..." />
+                </div>
+              }
+            >
+              {this.state.notes.map(note => (
+                <ActivityItem key={note.id}>
+                  <ActivityInfo>
+                    <p>
+                      {/* When you leave a memo on your own stuff */}
+                      {/* You mentioned yourself. Good thing it’s here or you might have missed it. */}
+                      {/* It’s this annoying bag of bones again. */}
+                      {/* Here’s some news for ya... */}
+                      {/* Some people wanted to use Screenhole as their online diary, so here’s a chomment you left on your own grab. */}
+                      New {note.cross_ref_type}
+                      {note.meta.grab_id ? (
+                        <span>
+                          {" "}
+                          on{" "}
+                          <Link to={`/grab/~${note.meta.grab_id}`}>
+                            your grab
+                          </Link>
+                        </span>
+                      ) : (
+                        <span> mentioning you</span>
+                      )}
+                      {/* @ralph left a voice memo on your grab */}
+                      {/* @ralph mentioned you in a chomment */}
+                    </p>
+                    <Memo
+                      message={note.meta.summary}
+                      username={note.actor.username}
+                      gravatar={note.actor.gravatar_hash}
+                      variant={note.variant}
+                      audio={note.cross_ref.media_public_url}
+                    />
+                  </ActivityInfo>
+                  {note.meta.buttcoin_earned && (
+                    <Buttcoin amount={note.meta.buttcoin_earned} />
+                  )}
+                  <TimeAgo date={note.created_at} />
+                </ActivityItem>
+              ))}
+            </InfiniteScroll>
           </ActivityStream>
         </section>
       </View>
