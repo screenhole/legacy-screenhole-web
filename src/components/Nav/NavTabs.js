@@ -36,7 +36,7 @@ const Container = styled.nav`
   }
 
   .match-size {
-    width: 35px;
+    width: 34px;
     transform: scale(1.425);
     transform-origin: center;
     position: relative;
