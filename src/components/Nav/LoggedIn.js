@@ -14,13 +14,6 @@ class LoggedIn extends Component {
       <Fragment>
         <Buttcoin amount={buttcoins} username={username} />
         <a
-          href="https://news.screenhole.net"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          news
-        </a>
-        <a
           href="https://twitter.com/screenhole"
           target="_blank"
           rel="noopener noreferrer"
