@@ -101,6 +101,12 @@ const Navbar = styled.nav`
   [aria-current="true"] {
     color: white;
   }
+
+  .activity-badge-nav {
+    @media (max-width: 790px) {
+      display: none !important;
+    }
+  }
 `;
 
 const Logo = styled.div`

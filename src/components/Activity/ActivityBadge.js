@@ -7,7 +7,7 @@ import Tooltip from "../Tooltip/Tooltip";
 export default class ActivityBadge extends Component {
   render() {
     return (
-      <Tooltip title="sup with you">
+      <Tooltip title="sup with you" className="activity-badge-nav">
         <Link to="/sup">
           <Badge>SUP?</Badge>
         </Link>
