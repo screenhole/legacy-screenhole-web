@@ -26,11 +26,13 @@ export default class Memo extends Component {
         <Avatar gravatar={this.props.gravatar} username={this.props.username} />
         <MemoBlock theme={playingTheme} data-variant={this.props.variant}>
           <div>
-            <Link to={`/${this.props.username}`}>
-              <Username data-variant={this.props.variant}>
-                {this.props.username}:
-              </Username>
-            </Link>
+            {!this.props.hideUsername && (
+              <Link to={`/${this.props.username}`}>
+                <Username data-variant={this.props.variant}>
+                  {this.props.username}:
+                </Username>
+              </Link>
+            )}
             <Message>
               <Linkify properties={{ target: "_blank" }}>
                 {this.props.message}
@@ -94,6 +96,13 @@ const MemoBlock = styled.div`
     color: #fff;
     padding-right: 1.125rem;
   }
+
+  &[data-variant="at_reply"] {
+    background-color: var(--body-bg-color);
+    color: #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    padding-right: 1.125rem;
+  }
 `;
 
 const Username = styled.span`
@@ -101,7 +110,8 @@ const Username = styled.span`
   display: inline;
   margin-right: 0.5em;
 
-  &[data-variant="chomment"] {
+  &[data-variant="chomment"],
+  &[data-variant="at_reply"] {
     color: #fff;
   }
 `;

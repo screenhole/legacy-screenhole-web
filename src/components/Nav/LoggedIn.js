@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Avatar from "../User/Avatar";
 import Buttcoin from "../Buttcoin/Buttcoin";
+import ActivityBadge from "../Activity/ActivityBadge";
 
 class LoggedIn extends Component {
   render() {
@@ -28,6 +29,7 @@ class LoggedIn extends Component {
         </a>
         <NavLink to="/wtf">wtf</NavLink>
         <NavLink to="/apps">apps</NavLink>
+        <ActivityBadge />
         <Menu className="nav-dropdown">
           <Avatar gravatar={gravatar_hash} username={username} />
           <Dropdown className="user-nav-dropdown">
@@ -46,7 +48,7 @@ export default LoggedIn;
 
 const Menu = styled.div`
   position: relative;
-  padding-left: 3rem;
+  padding-left: 2rem;
   padding-bottom: 1rem;
   top: 0.5rem;
 

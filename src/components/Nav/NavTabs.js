@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+import { chommentIcon } from "../Grab/Grab";
+
 class NavTabs extends Component {
   render() {
     return (
       <Container>
-        <NavLink to="/view/mobile/chomments">{chommentsIcon}</NavLink>
+        <NavLink to="/view/mobile/chomments" className="match-size">
+          {chommentIcon}
+        </NavLink>
         <NavLink to="/view/mobile/feed">{feedIcon}</NavLink>
+        <NavLink to="/sup">{supIcon}</NavLink>
       </Container>
     );
   }
@@ -29,9 +34,16 @@ const Container = styled.nav`
   [aria-current="true"] {
     color: #fff;
   }
+
+  .match-size {
+    transform: scale(1.425);
+    transform-origin: center;
+    position: relative;
+    top: 2px;
+  }
 `;
 
-const chommentsIcon = (
+const supIcon = (
   <svg width="34" height="34" xmlns="http://www.w3.org/2000/svg">
     <g fill="none" fillRule="evenodd">
       <path

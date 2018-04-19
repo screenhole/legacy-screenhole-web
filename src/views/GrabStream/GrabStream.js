@@ -104,11 +104,6 @@ export default GrabStream;
 
 const Grabs = styled.div`
   display: block;
-  margin: -1.25rem;
-  padding: 1rem 1.25rem;
-  @media (min-width: 791px) {
-    padding: 3rem;
-  }
 `;
 
 class MetaTags extends Component {

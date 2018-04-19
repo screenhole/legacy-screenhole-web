@@ -52,6 +52,11 @@ const MainContent = styled.main`
   width: 100%;
   padding: var(--app-padding);
   padding-left: calc(var(--app-padding) + var(--sidebar-width));
+  @media (min-width: 791px) {
+    padding: 3rem;
+    padding-top: var(--app-padding);
+    padding-left: calc(3rem + var(--sidebar-width));
+  }
 
   @media (max-width: 790px) {
     padding-left: var(--app-padding);

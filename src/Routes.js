@@ -14,6 +14,7 @@ import Login from "./views/Login/Login";
 import Logout from "./views/Login/Logout";
 import Register from "./views/Register/Register";
 import Settings from "./views/Settings/Settings";
+import Activity from "./views/Activity/Activity";
 
 import Invite from "./views/Invite/Invite";
 import Wtf from "./views/Static/Wtf";
@@ -40,6 +41,7 @@ class Routes extends Component {
         <PrivateRoute exact path="/invite" component={Invite} />
         <PrivateRoute exact path="/logout" component={Logout} />
         <PrivateRoute exact path="/settings" component={Settings} />
+        <PrivateRoute exact path="/sup" component={Activity} />
 
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/~:id" component={GrabSingle} />
