@@ -26,11 +26,13 @@ export default class Memo extends Component {
         <Avatar gravatar={this.props.gravatar} username={this.props.username} />
         <MemoBlock theme={playingTheme} data-variant={this.props.variant}>
           <div>
-            <Link to={`/${this.props.username}`}>
-              <Username data-variant={this.props.variant}>
-                {this.props.username}:
-              </Username>
-            </Link>
+            {!this.props.hideUsername && (
+              <Link to={`/${this.props.username}`}>
+                <Username data-variant={this.props.variant}>
+                  {this.props.username}:
+                </Username>
+              </Link>
+            )}
             <Message>
               <Linkify properties={{ target: "_blank" }}>
                 {this.props.message}

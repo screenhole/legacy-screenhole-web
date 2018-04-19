@@ -58,8 +58,10 @@ a {
   background-color: transparent;
 }
 
-a:hover {
-  color: var(--secondary-color);
+@media (pointer: fine) {
+  a:hover {
+    color: var(--secondary-color);
+  }
 }
 
 [aria-label="animation"] {

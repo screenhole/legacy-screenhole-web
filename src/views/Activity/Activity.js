@@ -1,22 +1,25 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import Trend from "react-trend";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import InfiniteScroll from "react-infinite-scroller";
+import * as Scroll from "react-scroll";
+
+import api from "../../utils/api";
 
 import Memo from "../../components/Memo/Memo";
 import Buttcoin from "../../components/Buttcoin/Buttcoin";
+import BackToTop from "../../components/Nav/BackToTop";
 
 import loader from "../../images/loader.gif";
 
-import api from "../../utils/api";
+const scroller = Scroll.animateScroll;
 
 export default class Activity extends Component {
   state = {
     notes: [],
     hasMore: true,
-    loading: true,
   };
 
   loadMore = async page => {
@@ -28,17 +31,25 @@ export default class Activity extends Component {
 
     this.setState({
       notes: [...this.state.notes, ...res.data.notes],
-      loading: false,
     });
 
     if (!res.data.meta.next_page) {
-      this.setState({ hasMore: false, loading: false });
+      this.setState({ hasMore: false });
     }
+  };
+
+  scrollUp = () => {
+    scroller.scrollTo(0, {
+      duration: 750,
+      delay: 100,
+      smooth: "easeInOutCubic",
+    });
   };
 
   render() {
     return (
       <View>
+        <BackToTop onClick={this.scrollUp} />
         <h1>SUP?</h1>
         <section>
           <h2>Your daily buttcoin digestif</h2>
@@ -90,45 +101,70 @@ export default class Activity extends Component {
               {this.state.notes.map(note => (
                 <ActivityItem key={note.id}>
                   <ActivityInfo>
-                    <p>
-                      {/* When you leave a memo on your own stuff */}
-                      {/* You mentioned yourself. Good thing it’s here or you might have missed it. */}
-                      {/* It’s this annoying bag of bones again. */}
-                      {/* Here’s some news for ya... */}
-                      {/* Some people wanted to use Screenhole as their online diary, so here’s a chomment you left on your own grab. */}
-                      New {note.cross_ref_type}
-                      {note.meta.grab_id ? (
-                        <span>
-                          {" "}
-                          on{" "}
-                          <Link to={`/grab/~${note.meta.grab_id}`}>
-                            your grab
-                          </Link>
-                        </span>
-                      ) : (
-                        <span> mentioning you</span>
-                      )}
-                      {/* @ralph left a voice memo on your grab */}
-                      {/* @ralph mentioned you in a chomment */}
-                    </p>
+                    <ActivityLink grab_id={note.meta.grab_id}>
+                      <p>
+                        {/* User */}
+                        @{note.actor.username}
+                        {/* Action */}
+                        {note.variant === "voice_memo" && (
+                          <span> left a voice memo </span>
+                        )}
+                        {note.variant === "chomment" && (
+                          <span> left a chomment </span>
+                        )}
+                        {note.variant === "at_reply" && (
+                          <span> mentioned you in a chomment </span>
+                        )}
+                        {/* Type */}
+                        {note.meta.grab_id && <span>on your grab</span>}
+                      </p>
+                    </ActivityLink>
+                    {/* When you leave a memo on your own stuff */}
+                    {/* You mentioned yourself. Good thing it’s here or you might have missed it. */}
+                    {/* It’s this annoying bag of bones again. */}
+                    {/* Here’s some news for ya... */}
+                    {/* Some people wanted to use Screenhole as their online diary, so here’s a chomment you left on your own grab. */}
                     <Memo
                       message={note.meta.summary}
                       username={note.actor.username}
                       gravatar={note.actor.gravatar_hash}
                       variant={note.variant}
                       audio={note.cross_ref.media_public_url}
+                      hideUsername={true}
                     />
                   </ActivityInfo>
-                  {note.meta.buttcoin_earned && (
-                    <Buttcoin amount={note.meta.buttcoin_earned} />
-                  )}
-                  <TimeAgo date={note.created_at} />
+                  <ActivityMeta>
+                    {note.meta.buttcoin_earned && (
+                      <Buttcoin amount={note.meta.buttcoin_earned} />
+                    )}
+                    <ActivityLink
+                      grab_id={note.meta.grab_id}
+                      className="activity-timestamp"
+                    >
+                      <TimeAgo date={note.created_at} />
+                    </ActivityLink>
+                  </ActivityMeta>
                 </ActivityItem>
               ))}
             </InfiniteScroll>
           </ActivityStream>
         </section>
       </View>
+    );
+  }
+}
+
+class ActivityLink extends Component {
+  render() {
+    return (
+      <Fragment>
+        {this.props.grab_id && (
+          <Link to={`/grab/~${this.props.grab_id}`} {...this.props}>
+            {this.props.children}
+          </Link>
+        )}
+        {!this.props.grab_id && this.props.children}
+      </Fragment>
     );
   }
 }
@@ -182,7 +218,7 @@ const Table = styled.div`
 
 const Column = styled.div`
   display: inline-block;
-  min-width: 200px;
+  min-width: 160px;
   margin-bottom: 0.5rem;
 
   p {
@@ -204,26 +240,40 @@ const ActivityStream = styled.ul`
 
 const ActivityItem = styled.li`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
 
-  time {
+  time,
+  .activity-timestamp {
     font-size: 0.875rem;
     color: var(--muted-color);
     flex-shrink: 0;
-    text-align: right;
   }
 
   time,
-  .buttcoin {
+  .buttcoin,
+  .activity-timestamp {
     padding-top: 2rem;
     padding-right: 1rem;
   }
 
+  .activity-timestamp time {
+    padding-right: 0;
+  }
+
   .buttcoin {
     padding-left: 1rem;
+    padding-right: 2rem;
   }
+`;
+
+const ActivityMeta = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  flex-grow: 1;
 `;
 
 const ActivityInfo = styled.div`
