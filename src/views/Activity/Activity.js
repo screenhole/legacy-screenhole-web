@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
+import { ActionCable } from "react-actioncable-provider";
 import Trend from "react-trend";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import InfiniteScroll from "react-infinite-scroller";
 import * as Scroll from "react-scroll";
+import NumberEasing from "che-react-number-easing";
 
 import api from "../../utils/api";
 
@@ -17,10 +19,37 @@ import loader from "../../images/loader.gif";
 const scroller = Scroll.animateScroll;
 
 export default class Activity extends Component {
-  state = {
-    notes: [],
-    hasMore: true,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      notes: [],
+      hasMore: true,
+      buttcoins: {
+        earned: 0,
+        spent: 0,
+        profit: 0,
+      },
+      trends: false,
+    };
+  }
+
+  async componentWillMount() {
+    let buttcoinStats = await api.get(`/buttcoins`);
+    let buttcoinTrends = await api.get(`/buttcoins/trends`);
+
+    let trendsData = buttcoinTrends.data;
+    let trends = new Array();
+
+    for (let i in trendsData) {
+      trends.push(trendsData[i].profit);
+    }
+
+    this.setState({
+      buttcoins: buttcoinStats.data,
+      trends: trends,
+    });
+  }
 
   loadMore = async page => {
     let res = await api.get(`/sup?page=${page}`);
@@ -38,6 +67,12 @@ export default class Activity extends Component {
     }
   };
 
+  onReceived = data => {
+    this.setState({
+      notes: [data, ...this.state.notes],
+    });
+  };
+
   scrollUp = () => {
     scroller.scrollTo(0, {
       duration: 750,
@@ -50,37 +85,75 @@ export default class Activity extends Component {
     return (
       <View>
         <BackToTop onClick={this.scrollUp} />
+        {/* DISABLED DUE TO DATA STRUCTURE MISMATCH */}
+        {/* https://gist.github.com/pugson/0858859bdeab3d78aea661dd90139df1 */}
+        {/* <ActionCable
+          channel={{ channel: "NotesChannel" }}
+          onReceived={this.onReceived}
+        /> */}
         <h1>SUP?</h1>
         <section>
           <h2>Your daily buttcoin digestif</h2>
           <Table>
             <Column>
               <h3>Earned</h3>
-              <p className="positive">7,234</p>
+              <p className="positive">
+                <NumberEasing
+                  value={Number(this.state.buttcoins.earned)}
+                  ease="quintOut" // available options https://github.com/mattdesl/eases/blob/master/index.js
+                  precision={0}
+                  speed={3000}
+                  useLocaleString={true}
+                />
+              </p>
             </Column>
             <Column>
               <h3>Spent</h3>
-              <p className="negative">2,452</p>
+              <p className="negative">
+                <NumberEasing
+                  value={Number(this.state.buttcoins.spent)}
+                  ease="quintOut" // available options https://github.com/mattdesl/eases/blob/master/index.js
+                  precision={0}
+                  speed={5000}
+                  useLocaleString={true}
+                />
+              </p>
             </Column>
             <Column>
               <h3>Profit</h3>
-              <p className="positive">4,782</p>
+              <p
+                className={
+                  Number(this.state.buttcoins.profit) < 0
+                    ? "negative"
+                    : "positive"
+                }
+              >
+                <NumberEasing
+                  value={Number(this.state.buttcoins.profit)}
+                  ease="quintOut" // available options https://github.com/mattdesl/eases/blob/master/index.js
+                  precision={0}
+                  speed={6500}
+                  useLocaleString={true}
+                />
+              </p>
             </Column>
             <Column>
               <Chart>
-                <Trend
-                  data={[12, 10, 8, 2, 9, 16, 12, 6, 5, 8, 12, 21]}
-                  stroke="#3ae06e"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  smooth
-                  radius={2}
-                  autoDraw
-                  autoDrawDuration={1500}
-                  autoDrawEasing="cubic-bezier(0.23, 1, 0.32, 1)"
-                  width={240}
-                  height={60}
-                />
+                {this.state.trends && (
+                  <Trend
+                    data={this.state.trends}
+                    stroke="#3ae06e"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    smooth
+                    radius={2}
+                    autoDraw
+                    autoDrawDuration={6500}
+                    autoDrawEasing="cubic-bezier(0.23, 1, 0.32, 1)"
+                    width={240}
+                    height={60}
+                  />
+                )}
               </Chart>
             </Column>
           </Table>
