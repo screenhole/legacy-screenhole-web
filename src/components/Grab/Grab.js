@@ -284,7 +284,7 @@ class Grab extends Component {
                               <Input
                                 {...input}
                                 type="text"
-                                placeholder="Type yer memo"
+                                placeholder="Type yer chomment"
                                 autoComplete="off"
                                 autoFocus
                                 className={
@@ -296,7 +296,7 @@ class Grab extends Component {
                               <ChommentCost>
                                 {input.value.length <= auth.state.buttcoins && (
                                   <span>
-                                    Hit enter to post for{" "}
+                                    Hit enter to chomment for{" "}
                                     <span className="butt-value">
                                       <span className="butt-coin">
                                         {input.value.length}
