@@ -10,6 +10,7 @@
     "clipboard": "^2.0.0",
     "emoji-regex": "^6.5.1",
     "final-form": "^4.2.0",
+    "get-urls": "^7.2.0",
     "minireset.css": "^0.0.3",
     "react": "^16.2.0",
     "react-actioncable-provider": "^1.0.3",
