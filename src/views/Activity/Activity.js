@@ -41,14 +41,20 @@ export default class Activity extends Component {
     let trendsData = buttcoinTrends.data;
     let trends = new Array();
 
-    for (let i in trendsData) {
-      trends.push(trendsData[i].profit);
+    if (trendsData !== undefined && trendsData.data !== undefined) {
+      for (let i in trendsData) {
+        trends.push(trendsData[i].profit);
+      }
+      this.setState({
+        buttcoins: buttcoinStats.data,
+        trends: trends,
+      });
+    } else {
+      this.setState({
+        buttcoins: buttcoinStats.data,
+        trends: false,
+      });
     }
-
-    this.setState({
-      buttcoins: buttcoinStats.data,
-      trends: trends,
-    });
   }
 
   loadMore = async page => {
