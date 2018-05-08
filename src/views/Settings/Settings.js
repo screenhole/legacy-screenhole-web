@@ -157,6 +157,28 @@ class Settings extends Component {
                   </InputWrapper>
                 )}
               </Field>
+              <Field name="password_confirmation">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Input
+                      {...input}
+                      type="password"
+                      placeholder="new password confirmation"
+                      autoCorrect="off"
+                      autoCapitalize="off"
+                      spellcheck="false"
+                      autoComplete="off"
+                    />
+                    <Label>
+                      Leave blank to not change{" "}
+                      {(meta.error || meta.submitError) &&
+                        meta.touched && (
+                          <span>{meta.error || meta.submitError}</span>
+                        )}
+                    </Label>
+                  </InputWrapper>
+                )}
+              </Field>
 
               {submitError && <div className="error">{submitError}</div>}
 
