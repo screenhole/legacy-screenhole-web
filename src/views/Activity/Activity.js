@@ -208,7 +208,7 @@ export default class Activity extends Component {
                       username={note.actor.username}
                       gravatar={note.actor.gravatar_hash}
                       variant={note.variant}
-                      audio={note.cross_ref.media_public_url}
+                      audio={note.cross_ref && !note.cross_ref.pending ? note.cross_ref.media_public_url : null}
                       hideUsername={true}
                     />
                   </ActivityInfo>
