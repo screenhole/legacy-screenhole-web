@@ -203,24 +203,14 @@ export default class Activity extends Component {
                     {/* It’s this annoying bag of bones again. */}
                     {/* Here’s some news for ya... */}
                     {/* Some people wanted to use Screenhole as their online diary, so here’s a chomment you left on your own grab. */}
-                    {note.cross_ref && !note.cross_ref.pending ? (
-                      <Memo
-                        message={note.meta.summary}
-                        username={note.actor.username}
-                        gravatar={note.actor.gravatar_hash}
-                        variant={note.variant}
-                        audio={note.cross_ref.media_public_url}
-                        hideUsername={true}
-                      />
-                    ) : (
-                      <Memo
-                        message={note.meta.summary}
-                        username={note.actor.username}
-                        gravatar={note.actor.gravatar_hash}
-                        variant={note.variant}
-                        hideUsername={true}
-                      />
-                    )}
+                    <Memo
+                      message={note.meta.summary}
+                      username={note.actor.username}
+                      gravatar={note.actor.gravatar_hash}
+                      variant={note.variant}
+                      audio={note.cross_ref && !note.cross_ref.pending ? note.cross_ref.media_public_url : null}
+                      hideUsername={true}
+                    />
                   </ActivityInfo>
                   <ActivityMeta>
                     {note.meta.buttcoin_earned && (
