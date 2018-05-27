@@ -76,6 +76,7 @@ class ChommentStream extends Component {
           variant={chomment.variant}
           reference={chomment.cross_ref}
           key={chomment.id}
+          created_at={chomment.created_at}
         />,
       ),
     );

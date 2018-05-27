@@ -18,21 +18,36 @@ const defaultOptions = {
 };
 
 class MrHole extends Component {
+  state = {
+    visible: true,
+  };
+
   goToInvites = () => {
     this.props.history.push("/invite");
   };
+
+  hideDatBoi = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
-          <HoleBoye>
-            <Lottie options={defaultOptions} height={200} width={200} />
-            {auth.state.current && (
-              <TalkBubble onClick={this.goToInvites}>
-                Psst, wanna invite someone to Screenhole?
-              </TalkBubble>
+          <span>
+            {this.state.visible && (
+              <HoleBoye onClick={this.hideDatBoi}>
+                <Lottie options={defaultOptions} height={200} width={200} />
+                {auth.state.current && (
+                  <TalkBubble onClick={this.goToInvites}>
+                    Psst, wanna invite someone to Screenhole?
+                  </TalkBubble>
+                )}
+              </HoleBoye>
             )}
-          </HoleBoye>
+          </span>
         )}
       </Subscribe>
     );
@@ -46,8 +61,6 @@ const HoleBoye = styled.div`
   bottom: -3rem;
   right: -3.15rem;
   z-index: 9999;
-  pointer-events: none;
-  touch-action: none;
 `;
 
 const TalkBubble = styled.div`

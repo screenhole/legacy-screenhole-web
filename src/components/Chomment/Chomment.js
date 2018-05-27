@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 import Linkify from "react-linkify";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
@@ -37,9 +38,14 @@ class Chomment extends Component {
             variant={this.props.variant}
           />
           <Content>
-            <Username>
-              <Link to={`/${this.props.username}`}>{this.props.username}</Link>
-            </Username>
+            <UsernameTimeWrapper>
+              <Username>
+                <Link to={`/${this.props.username}`}>
+                  {this.props.username}
+                </Link>
+              </Username>
+              <TimeAgo date={this.props.created_at} />
+            </UsernameTimeWrapper>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
                 <Linkify properties={{ target: "_blank" }}>
@@ -146,5 +152,17 @@ const Username = styled.span`
       color: #fff;
       border-bottom: 1px solid var(--primary-color);
     }
+  }
+`;
+
+const UsernameTimeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  time {
+    font-size: 0.75rem;
+    color: var(--super-muted-color);
   }
 `;
