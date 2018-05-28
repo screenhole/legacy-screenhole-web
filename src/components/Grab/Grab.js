@@ -357,6 +357,7 @@ class Grab extends Component {
                       message={memo.message}
                       username={memo.user.username}
                       gravatar={memo.user.gravatar_hash}
+                      created_at={memo.created_at}
                       variant="chomment"
                     />
                   );

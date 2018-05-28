@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import Linkify from "react-linkify";
+import TimeAgo from "react-timeago";
 
 import Avatar from "../User/Avatar";
 
@@ -34,10 +35,14 @@ export default class Memo extends Component {
               </Link>
             )}
             <Message>
-              <Linkify properties={{ target: "_blank" }}>
+              <Linkify
+                className="memo-message"
+                properties={{ target: "_blank" }}
+              >
                 {this.props.message}
               </Linkify>
             </Message>
+            <TimeAgo date={this.props.created_at} />
           </div>
           {this.props.audio && (
             <AudioPlayer>
@@ -102,6 +107,13 @@ const MemoBlock = styled.div`
     color: #fff;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
     padding-right: 1.125rem;
+  }
+
+  time {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
   }
 `;
 

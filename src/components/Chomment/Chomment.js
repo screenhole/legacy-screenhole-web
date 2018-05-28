@@ -5,7 +5,7 @@ import Linkify from "react-linkify";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
 
-import Avatar from "../User/Avatar";
+import Memo from "../Memo/Memo";
 
 const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
 
@@ -17,6 +17,7 @@ class Chomment extends Component {
       chommentClass: null,
     };
   }
+
   componentWillMount() {
     const catchEmoji = emojiRegex();
     let match;
@@ -28,41 +29,28 @@ class Chomment extends Component {
       }
     }
   }
+
   render() {
     return (
       <Wrapper className={this.state.chommentClass}>
-        <InnerChomment>
-          <Avatar
-            gravatar={this.props.gravatar}
+        {this.props.variant === "generic" && (
+          <Memo
+            message={this.props.message}
             username={this.props.username}
-            variant={this.props.variant}
+            gravatar={this.props.gravatar}
+            created_at={this.props.created_at}
+            variant="chomment"
           />
-          <Content>
-            <UsernameTimeWrapper>
-              <Username>
-                <Link to={`/${this.props.username}`}>
-                  {this.props.username}
-                </Link>
-              </Username>
-              <TimeAgo date={this.props.created_at} />
-            </UsernameTimeWrapper>
-            {this.props.variant === "generic" && (
-              <Message className="ChommentMessage">
-                <Linkify properties={{ target: "_blank" }}>
-                  {this.props.message}
-                </Linkify>
-              </Message>
-            )}
-            {this.props.variant === "voice_memo" &&
-              this.props.reference && (
-                <Link to={`/grab/~${this.props.reference.id}`}>
-                  <Message className="voice-memo-link">
-                    {this.props.message}
-                  </Message>
-                </Link>
-              )}
-          </Content>
-        </InnerChomment>
+        )}
+        {this.props.variant === "voice_memo" && (
+          <Memo
+            message={this.props.message}
+            username={this.props.username}
+            gravatar={this.props.gravatar}
+            created_at={this.props.created_at}
+            variant="voice"
+          />
+        )}
       </Wrapper>
     );
   }
@@ -72,97 +60,20 @@ export default Chomment;
 
 const Wrapper = styled.div`
   display: block;
-  margin: var(--app-padding) 0;
-
-  &.BigEmojiChomment {
-    .ChommentMessage {
+  ${"" /* margin: var(--app-padding) 0; */} &.BigEmojiChomment {
+    .memo-message {
       font-size: 2rem;
     }
   }
-`;
-
-const InnerChomment = styled.div`
-  display: flex;
 
   .user-avatar {
-    background-color: var(--muted-color);
-    width: 2.25rem;
-    height: 2.25rem;
-    flex-shrink: 0;
-    margin-right: 0.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
-  a {
-    flex-shrink: 0;
-  }
-`;
-
-const Message = styled.p`
-  color: var(--muted-color);
-  line-height: 1.45;
-  font-size: 0.925rem;
-  word-break: break-word;
-
-  a {
-    display: inline-flex;
-    align-items: center;
-    outline: 0;
-    color: var(--primary-color);
-    transition: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
-  }
-
-  a:hover {
-    transform: scale(1.05);
-  }
-
-  a:active {
-    transform: scale(0.98);
-  }
-
-  a:visited {
-    color: var(--primary-color);
-  }
-
-  &.voice-memo-link {
-    color: var(--primary-color);
-    display: inline;
-    transition: 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) all;
-
-    &:hover {
-      border-bottom: var(--divider-width) solid var(--primary-color);
-      transform: scale(1.05);
-    }
-  }
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Username = styled.span`
-  a {
-    color: var(--link-color);
-    display: inline-block;
-    align-self: flex-start;
-    border-bottom: 1px solid transparent;
-    margin-bottom: 0.15em;
-
-    &:hover {
-      color: #fff;
-      border-bottom: 1px solid var(--primary-color);
-    }
-  }
-`;
-
-const UsernameTimeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-
-  time {
-    font-size: 0.75rem;
-    color: var(--super-muted-color);
+  .memo-message {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.25;
   }
 `;
