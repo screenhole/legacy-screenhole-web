@@ -38,14 +38,9 @@ class Chomment extends Component {
             variant={this.props.variant}
           />
           <Content>
-            <UsernameTimeWrapper>
-              <Username>
-                <Link to={`/${this.props.username}`}>
-                  {this.props.username}
-                </Link>
-              </Username>
-              <TimeAgo date={this.props.created_at} />
-            </UsernameTimeWrapper>
+            <Username>
+              <Link to={`/${this.props.username}`}>{this.props.username}</Link>
+            </Username>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
                 <Linkify properties={{ target: "_blank" }}>
@@ -63,6 +58,7 @@ class Chomment extends Component {
               )}
           </Content>
         </InnerChomment>
+        <TimeAgo date={this.props.created_at} />
       </Wrapper>
     );
   }
@@ -78,6 +74,12 @@ const Wrapper = styled.div`
     .ChommentMessage {
       font-size: 2rem;
     }
+  }
+
+  time {
+    font-size: 0.75rem;
+    color: var(--super-muted-color);
+    padding-left: 2.75rem;
   }
 `;
 

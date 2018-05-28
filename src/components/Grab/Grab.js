@@ -415,6 +415,7 @@ const UserInfo = styled.div`
   .user-info-together {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
 
   time {

@@ -97,9 +97,17 @@ const MemoBlock = styled.div`
   transition: 0.25s ease all;
 
   &[data-variant="chomment"] {
-    background-color: #121212;
-    color: #fff;
-    padding-right: 1.125rem;
+    background-color: transparent;
+    color: var(--muted-color);
+    padding: 0;
+
+    p {
+      display: block;
+    }
+
+    time {
+      color: var(--super-muted-color);
+    }
   }
 
   &[data-variant="at_reply"] {
@@ -112,7 +120,6 @@ const MemoBlock = styled.div`
   time {
     display: block;
     font-size: 0.75rem;
-    margin-top: 0.5rem;
     color: rgba(255, 255, 255, 0.5);
   }
 `;
