@@ -393,6 +393,9 @@ const UserInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.75rem;
+  @media (max-width: 400px), (min-width: 790px) and (max-width: 840px) {
+    flex-wrap: wrap;
+  }
 
   a {
     flex-shrink: 0;
@@ -423,6 +426,7 @@ const UserInfo = styled.div`
     color: var(--super-muted-color);
     text-align: right;
     flex-shrink: 0;
+    margin: 0.5rem 0;
   }
 `;
 
@@ -522,6 +526,9 @@ const HorizontalDivider = styled.div`
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
   margin: 0 1rem;
+  @media (max-width: 400px), (min-width: 790px) and (max-width: 840px) {
+    display: none;
+  }
 `;
 
 const ellipsisIcon = (
