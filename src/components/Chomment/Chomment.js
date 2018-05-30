@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import TimeAgo from "react-timeago";
 import Linkify from "react-linkify";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
@@ -57,6 +58,7 @@ class Chomment extends Component {
               )}
           </Content>
         </InnerChomment>
+        <TimeAgo date={this.props.created_at} />
       </Wrapper>
     );
   }
@@ -72,6 +74,12 @@ const Wrapper = styled.div`
     .ChommentMessage {
       font-size: 2rem;
     }
+  }
+
+  time {
+    font-size: 0.75rem;
+    color: var(--super-muted-color);
+    padding-left: 2.75rem;
   }
 `;
 
@@ -146,5 +154,17 @@ const Username = styled.span`
       color: #fff;
       border-bottom: 1px solid var(--primary-color);
     }
+  }
+`;
+
+const UsernameTimeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  time {
+    font-size: 0.75rem;
+    color: var(--super-muted-color);
   }
 `;

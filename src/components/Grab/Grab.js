@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { ActionCable } from "react-actioncable-provider";
 import { Subscribe } from "unstated";
 import { Form, Field } from "react-final-form";
+import TimeAgo from "react-timeago";
 
 import AuthContainer from "../../utils/AuthContainer";
 import api from "../../utils/api";
@@ -181,67 +182,75 @@ class Grab extends Component {
               onReceived={this.onReceived}
             />
             <UserInfo>
-              <Avatar
-                gravatar={this.props.gravatar}
-                username={this.props.username}
-              />
-              <Link to={`/${this.props.username}`} className="grab-username">
-                {this.props.username}
-              </Link>
+              <div className="user-info-together">
+                <Avatar
+                  gravatar={this.props.gravatar}
+                  username={this.props.username}
+                />
+                <Link to={`/${this.props.username}`} className="grab-username">
+                  {this.props.username}
+                </Link>
 
-              <Tooltip
-                className="tooltip-button"
-                title="Call Mr. Hole and leave a voice memo on this grab"
-              >
-                <Button onClick={this.showMemoInstructions}>{memoIcon}</Button>
-                {this.voiceMemos().length > 0 && (
-                  <Count>{this.voiceMemos().length}</Count>
-                )}
-              </Tooltip>
+                <Tooltip
+                  className="tooltip-button"
+                  title="Call Mr. Hole and leave a voice memo on this grab"
+                >
+                  <Button onClick={this.showMemoInstructions}>
+                    {memoIcon}
+                  </Button>
+                  {this.voiceMemos().length > 0 && (
+                    <Count>{this.voiceMemos().length}</Count>
+                  )}
+                </Tooltip>
 
-              <Tooltip
-                className="tooltip-button"
-                title="Leave a chomment on this grab"
-              >
-                <Button onClick={this.showTextMemoField}>{chommentIcon}</Button>
-                {this.textMemos().length > 0 && (
-                  <Count>{this.textMemos().length}</Count>
-                )}
-              </Tooltip>
+                <Tooltip
+                  className="tooltip-button"
+                  title="Leave a chomment on this grab"
+                >
+                  <Button onClick={this.showTextMemoField}>
+                    {chommentIcon}
+                  </Button>
+                  {this.textMemos().length > 0 && (
+                    <Count>{this.textMemos().length}</Count>
+                  )}
+                </Tooltip>
 
-              {this.props.showDelete &&
-                this.state.currentUser &&
-                this.props.username === this.state.currentUser.username && (
-                  <Tooltip title="Delete this grab" theme="danger">
-                    <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
-                  </Tooltip>
-                )}
+                {this.props.showDelete &&
+                  this.state.currentUser &&
+                  this.props.username === this.state.currentUser.username && (
+                    <Tooltip title="Delete this grab" theme="danger">
+                      <Button onClick={this.deleteGrab}>{deleteIcon}</Button>
+                    </Tooltip>
+                  )}
 
-              {this.props.showBlockReportDropdown &&
-                this.state.currentUser &&
-                this.props.username !== this.state.currentUser.username && (
-                  <Media query="(max-width: 791px)">
-                    <Dropdown>
-                      <Button
-                        onClick={() =>
-                          this.setState({
-                            showDropdown: !this.state.showDropdown,
-                          })
-                        }
-                      >
-                        {ellipsisIcon}
-                      </Button>
-                      <section
-                        className={this.state.showDropdown ? "on" : "off"}
-                      >
-                        <Button onClick={this.blockUser}>
-                          {this.state.isBlocked ? "Unblock" : "Block"}
+                {this.props.showBlockReportDropdown &&
+                  this.state.currentUser &&
+                  this.props.username !== this.state.currentUser.username && (
+                    <Media query="(max-width: 791px)">
+                      <Dropdown>
+                        <Button
+                          onClick={() =>
+                            this.setState({
+                              showDropdown: !this.state.showDropdown,
+                            })
+                          }
+                        >
+                          {ellipsisIcon}
                         </Button>
-                        <Button onClick={this.reportGrab}>Report</Button>
-                      </section>
-                    </Dropdown>
-                  </Media>
-                )}
+                        <section
+                          className={this.state.showDropdown ? "on" : "off"}
+                        >
+                          <Button onClick={this.blockUser}>
+                            {this.state.isBlocked ? "Unblock" : "Block"}
+                          </Button>
+                          <Button onClick={this.reportGrab}>Report</Button>
+                        </section>
+                      </Dropdown>
+                    </Media>
+                  )}
+              </div>
+              <HorizontalDivider />
+              <TimeAgo date={this.props.created_at} />
             </UserInfo>
             <Link
               to={`/${this.props.username}/~${this.props.id}`}
@@ -348,6 +357,7 @@ class Grab extends Component {
                       message={memo.message}
                       username={memo.user.username}
                       gravatar={memo.user.gravatar_hash}
+                      created_at={memo.created_at}
                       variant="chomment"
                     />
                   );
@@ -381,7 +391,15 @@ const Wrapper = styled.article`
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 0.75rem;
+  @media (max-width: 400px), (min-width: 790px) and (max-width: 840px) {
+    flex-wrap: wrap;
+  }
+
+  a {
+    flex-shrink: 0;
+  }
 
   .grab-username {
     padding: 5px 10px;
@@ -395,6 +413,20 @@ const UserInfo = styled.div`
     &:hover {
       border-color: #fff;
     }
+  }
+
+  .user-info-together {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  time {
+    font-size: 0.875rem;
+    color: var(--super-muted-color);
+    text-align: right;
+    flex-shrink: 0;
+    margin: 0.5rem 0;
   }
 `;
 
@@ -486,6 +518,16 @@ const Dropdown = styled.div`
         transform: translate(0, -1px);
       }
     }
+  }
+`;
+
+const HorizontalDivider = styled.div`
+  width: 70%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 0 1rem;
+  @media (max-width: 400px), (min-width: 790px) and (max-width: 840px) {
+    display: none;
   }
 `;
 
