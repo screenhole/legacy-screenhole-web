@@ -30,7 +30,8 @@ export default class Memo extends Component {
             {!this.props.hideUsername && (
               <Link to={`/${this.props.username}`}>
                 <Username data-variant={this.props.variant}>
-                  {this.props.username}:
+                  {this.props.username}
+                  {this.props.audio && ':'}
                 </Username>
               </Link>
             )}
