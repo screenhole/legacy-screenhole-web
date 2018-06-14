@@ -262,10 +262,8 @@ class Grab extends Component {
                 alt={`${this.props.username}’s grab on Screenhole`}
               />
             </Link>
-            {this.state.description ? (
+            {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
-            ) : (
-              ""
             )}
             {auth.state.authenticated &&
               this.state.textMemoField && (
