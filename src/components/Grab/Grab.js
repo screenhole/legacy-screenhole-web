@@ -24,6 +24,7 @@ class Grab extends Component {
       currentUser: api.currentUser,
       textMemoField: this.props.variant === "single" ? true : false,
       memos: this.props.memos.reverse(),
+      description: this.props.description || null,
     };
 
     this.state.isBlocked = false;
@@ -261,6 +262,11 @@ class Grab extends Component {
                 alt={`${this.props.username}’s grab on Screenhole`}
               />
             </Link>
+            {this.state.description ? (
+              <GrabDescription>{this.state.description}</GrabDescription>
+            ) : (
+              ""
+            )}
             {auth.state.authenticated &&
               this.state.textMemoField && (
                 <Form
@@ -461,6 +467,13 @@ const GrabImage = styled.img`
   &:hover {
     box-shadow: 0 0 0 5px var(--primary-color);
   }
+`;
+
+const GrabDescription = styled.p`
+  color: var(--muted-color);
+  line-height: 1.45;
+  font-size: 0.925rem;
+  word-break: break-word;
 `;
 
 const Dropdown = styled.div`

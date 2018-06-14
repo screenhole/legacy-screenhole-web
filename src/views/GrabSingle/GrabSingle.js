@@ -66,6 +66,7 @@ class GrabSingle extends Component {
               showBlockReportDropdown={true}
               variant="single"
               created_at={this.state.grab.created_at}
+              description={this.state.grab.description}
             />
           </span>
         ) : (
