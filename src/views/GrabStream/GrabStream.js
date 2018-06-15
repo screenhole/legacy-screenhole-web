@@ -71,6 +71,7 @@ class GrabStream extends Component {
           gravatar={grab.user.gravatar_hash}
           index={index}
           created_at={grab.created_at}
+          description={grab.description}
         />,
       );
     });
