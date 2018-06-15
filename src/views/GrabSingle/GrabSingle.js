@@ -92,7 +92,7 @@ class MetaTags extends Component {
         <title>{this.props.username}’s grab on SCREENHOLE!</title>
         <meta
           name="description"
-          content={`Check out this cool grab from ${this.props.username}.`}
+          content={this.state.grab.description || `Check out this cool grab from ${this.props.username}.`}
         />
         <meta name="robots" content="index,follow" />
         <meta name="googlebot" content="index,follow" />
@@ -110,7 +110,7 @@ class MetaTags extends Component {
         <meta property="og:image" content={this.props.grab_image_url} />
         <meta
           property="og:description"
-          content={`Check out this cool grab from ${this.props.username}.`}
+          content={this.state.grab.description || `Check out this cool grab from ${this.props.username}.`}
         />
         <meta property="og:site_name" content="Screenhole" />
         <meta property="og:locale" content="en_US" />
@@ -129,13 +129,9 @@ class MetaTags extends Component {
         />
         <meta
           name="twitter:description"
-          content={`Check out this cool grab from ${this.props.username}.`}
+          content={this.state.grab.description || `Check out this cool grab from ${this.props.username}.`}
         />
-        {/* <meta name="twitter:image" content={this.props.grab_image_url} />
-        <meta name="twitter:label1" value="Voice Memos" />
-        <meta name="twitter:data1" value={this.props.memos_count} />
-        <meta name="twitter:label2" value="Stickers" />
-        <meta name="twitter:data2" value="Sticker count here [wip]" /> */}
+        <meta name="twitter:image" content={this.props.grab_image_url} />
         {this.props.memos.map((memo, i) => {
           return (
             <meta
