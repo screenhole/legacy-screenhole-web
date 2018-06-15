@@ -474,7 +474,7 @@ const GrabDescription = styled.p`
   word-break: break-word;
   display: block;
   clear: both;
-  max-width: 140px;
+  max-width: 580px;
   padding: 10px;
   margin-top: 15px;
   border-left: 3px solid #6448e5;
