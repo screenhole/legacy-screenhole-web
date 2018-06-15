@@ -468,10 +468,16 @@ const GrabImage = styled.img`
 `;
 
 const GrabDescription = styled.p`
-  color: var(--muted-color);
+  color: #ffffff;
   line-height: 1.45;
   font-size: 0.925rem;
   word-break: break-word;
+  display: block;
+  clear: both;
+  max-width: 140px;
+  padding: 10px;
+  margin-top: 15px;
+  border-left: 3px solid #6448e5;
 `;
 
 const Dropdown = styled.div`
