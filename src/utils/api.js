@@ -1,7 +1,18 @@
 import { create } from "apisauce";
 
-const apiEndpoint =
-  process.env.NODE_ENV === "production" ? "/api" : "https://api.screenhole.net";
+const calculateApiEndpoint = () => {
+  if (process.env.NODE_ENV === 'production') {
+    return '/api';
+  }
+
+  if (process.env.REACT_APP_API_ENDPOINT) {
+    return process.env.REACT_APP_API_ENDPOINT;
+  }
+
+  return 'https://api.screenhole.net';
+}
+
+const apiEndpoint = calculateApiEndpoint();
 
 const api = create({
   baseURL: apiEndpoint,
