@@ -15,20 +15,38 @@ import "minireset.css";
 import "./variables.css";
 import "./index.css";
 
-ReactDOM.render(
-  <UnstatedProvider>
-    <ActionCableProvider url={`${api.websocketURL}/cable`}>
-      <Router>
-        <Analytics id="UA-108383158-1" debug={false}>
-          <div>
-            <App />
-          </div>
-        </Analytics>
-      </Router>
-    </ActionCableProvider>
-  </UnstatedProvider>,
-  document.getElementById("app"),
-);
+class ScreenholeWeb extends React.Component {
+  render() {
+    let { authenticated } = api;
+
+    var cableSocketUrl;
+
+    if (authenticated && api.headers) {
+      let token = api.headers.Authorization.split(/ /)[1];
+      token = btoa(token);
+      cableSocketUrl = `${api.websocketURL}/cable/${token}`;
+    } else {
+      let token = btoa("guest");
+      cableSocketUrl = `${api.websocketURL}/cable/${token}`;
+    }
+
+    return (
+      <UnstatedProvider>
+        <ActionCableProvider url={cableSocketUrl}>
+          <Router>
+            <Analytics id="UA-108383158-1" debug={false}>
+              <div>
+                <App />
+              </div>
+            </Analytics>
+          </Router>
+        </ActionCableProvider>
+      </UnstatedProvider>
+    );
+  }
+}
+
+ReactDOM.render(<ScreenholeWeb />, document.getElementById("app"));
 
 // Not now
 // registerServiceWorker();
