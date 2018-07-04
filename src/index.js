@@ -24,10 +24,10 @@ class ScreenholeWeb extends React.Component {
     if (authenticated && api.headers) {
       let token = api.headers.Authorization.split(/ /)[1];
       token = btoa(token);
-      cableSocketUrl = `${api.websocketURL}/cable/${token}`;
+      cableSocketUrl = `${api.websocketURL}/cable?token=${token}`;
     } else {
       let token = btoa("guest");
-      cableSocketUrl = `${api.websocketURL}/cable/${token}`;
+      cableSocketUrl = `${api.websocketURL}/cable?token=${token}`;
     }
 
     return (
