@@ -25,6 +25,10 @@ export default class apps extends Component {
               rel="noopener noreferrer"
             >
               Macintosh
+            </a>{" "}
+            /{" "}
+            <a href="/beta" target="_blank" rel="noopener noreferrer">
+              (Macintosh Beta 😅)
             </a>
           </p>
         </section>
