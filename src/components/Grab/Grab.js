@@ -25,7 +25,7 @@ class Grab extends Component {
       textMemoField: this.props.variant === "single" ? true : false,
       memos: this.props.memos.reverse(),
       description: this.props.description || null,
-      gtype: this.props.gtype || "image",
+      media_type: this.props.media_type || "image",
     };
 
     this.state.isBlocked = false;
@@ -175,17 +175,10 @@ class Grab extends Component {
   };
 
   render() {
+    const { media_type } = this.state;
     var grabMedia;
 
-    switch (this.state.gtype) {
-      case "image":
-        grabMedia = (
-          <GrabImage
-            src={`${this.props.image};1000x1000,fit.png`}
-            alt={`${this.props.username}’s grab on Screenhole`}
-          />
-        );
-        break;
+    switch (media_type) {
       case "recording":
         grabMedia = (
           <video width="400" controls="controls" preload="metadata">

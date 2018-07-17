@@ -68,7 +68,7 @@ class GrabSingle extends Component {
               variant="single"
               created_at={this.state.grab.created_at}
               description={this.state.grab.description}
-              gtype={this.state.grab.gtype}
+              media_type={this.state.grab.media_type}
             />
           </span>
         ) : (

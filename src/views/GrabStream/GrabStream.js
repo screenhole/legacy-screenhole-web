@@ -72,7 +72,7 @@ class GrabStream extends Component {
           index={index}
           created_at={grab.created_at}
           description={grab.description}
-          gtype={grab.gtype}
+          media_type={grab.media_type}
         />,
       );
     });
