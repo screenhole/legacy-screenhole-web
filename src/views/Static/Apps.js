@@ -9,28 +9,34 @@ export default class apps extends Component {
         <section>
           <h1>Download the apps</h1>
           <p>Use our apps to post grabs to the ’hole.</p>
-          <img class="download" src="/img/apps.png" alt="iPhone App" />
-          <p class="links">
-            <a
-              href="http://appstore.com/screenhole"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              iPhone
-            </a>{" "}
-            /{" "}
-            <a
-              href="https://rink.hockeyapp.net/apps/df7fde32da044e62980cfb683cb7d0b9"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Macintosh
-            </a>{" "}
-            /{" "}
-            <a href="/beta" target="_blank" rel="noopener noreferrer">
-              (Macintosh Beta 😅)
-            </a>
-          </p>
+          <img className="download" src="/img/apps.png" alt="iPhone App" />
+          <ul>
+            <li className="links">
+              <a
+                href="http://appstore.com/screenhole"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                iPhone
+              </a>
+            </li>
+            <li className="links">
+              <a
+                href="https://rink.hockeyapp.net/apps/df7fde32da044e62980cfb683cb7d0b9"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Macintosh
+              </a>
+            </li>
+            <li className="beta-link">
+              Feeling adventurous? Checkout our{" "}
+              <a href="/beta" target="_blank" rel="noopener noreferrer">
+                Beta
+              </a>{" "}
+              for Macintosh.
+            </li>
+          </ul>
         </section>
         <Helmet>
           {/* Drop meta tags in here */}
@@ -114,5 +120,11 @@ const Page = styled.div`
   }
   .links {
     font-size: 200%;
+  }
+  .beta-link {
+    font-size: 100%;
+  }
+  li {
+    margin-bottom: 1rem;
   }
 `;

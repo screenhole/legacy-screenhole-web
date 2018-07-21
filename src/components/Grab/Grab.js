@@ -25,6 +25,7 @@ class Grab extends Component {
       textMemoField: this.props.variant === "single" ? true : false,
       memos: this.props.memos.reverse(),
       description: this.props.description || null,
+      media_type: this.props.media_type || "image",
     };
 
     this.state.isBlocked = false;
@@ -174,6 +175,27 @@ class Grab extends Component {
   };
 
   render() {
+    const { media_type } = this.state;
+    var grabMedia;
+
+    switch (media_type) {
+      case "recording":
+        grabMedia = (
+          <video width="400" controls="controls" preload="metadata">
+            <source src={`${this.props.image}#t=0.5`} type="video/mp4" />
+          </video>
+        );
+        break;
+      default:
+        grabMedia = (
+          <GrabImage
+            src={`${this.props.image};1000x1000,fit.png`}
+            alt={`${this.props.username}’s grab on Screenhole`}
+          />
+        );
+        break;
+    }
+
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
@@ -257,10 +279,7 @@ class Grab extends Component {
               to={`/${this.props.username}/~${this.props.id}`}
               className="grab-image-link"
             >
-              <GrabImage
-                src={`${this.props.image};1000x1000,fit.png`}
-                alt={`${this.props.username}’s grab on Screenhole`}
-              />
+              {grabMedia}
             </Link>
             {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
