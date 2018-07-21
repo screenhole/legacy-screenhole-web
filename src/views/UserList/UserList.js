@@ -14,7 +14,7 @@ class UserList extends Component {
   async componentDidMount() {
     const users = await api.get('/users');
 
-    if (users.ok) {
+    if (users && users.ok) {
       this.setState({
         users: users.data.users,
         error: null,
