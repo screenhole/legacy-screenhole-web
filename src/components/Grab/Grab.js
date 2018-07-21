@@ -181,7 +181,7 @@ class Grab extends Component {
     switch (media_type) {
       case "recording":
         grabMedia = (
-          <video width="400" controls="controls" preload="metadata">
+          <video width="400" controls="controls" preload="metadata" playsInline muted>
             <source src={`${this.props.image}#t=0.5`} type="video/mp4" />
           </video>
         );
