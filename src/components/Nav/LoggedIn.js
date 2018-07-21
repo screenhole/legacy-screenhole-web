@@ -22,6 +22,7 @@ class LoggedIn extends Component {
         </a>
         <NavLink to="/wtf">wtf</NavLink>
         <NavLink to="/apps">apps</NavLink>
+        <NavLink to="/peeps">peeps</NavLink>
         <ActivityBadge />
         <Menu className="nav-dropdown">
           <Avatar gravatar={gravatar_hash} username={username} />
