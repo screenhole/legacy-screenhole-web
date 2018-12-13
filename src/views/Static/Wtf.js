@@ -15,6 +15,9 @@ export default class Wtf extends Component {
             share "grabs" you take from your Mac or iPhone. 
           </p>
           <p>
+          We don’t have a ton of rules, so just don’t be a dick and everything will be ok.
+          </p>
+          <p>
             There’s no drag &amp; drop, or editing. You can only post grabs with
             our fun apps. We encourage you to post as much as you like.
           </p>
