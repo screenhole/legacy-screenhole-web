@@ -19,7 +19,7 @@ export default class Wtf extends Component {
             our fun apps. We encourage you to post as much as you like.
           </p>
 
-          <p>We're considering open sourcing the whole thing soon... so others can submit new features.</p>
+          <p>We’re considering open sourcing the whole thing soon... so others can submit new features.</p>
         </section>
 
         <section>
