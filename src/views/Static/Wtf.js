@@ -75,12 +75,11 @@ export default class Wtf extends Component {
           </p>
           <h2>Buttcoin?</h2>
           <p>
-            It’s a craptocurrency. Score Buttcoin by using Screenhole. You can
-            spend it soon.
+            It’s a craptocurrency. Score Buttcoin by using Screenhole. Spend your buttcoin on post comments &amp; and unlocking <a href="/">invite</a> codes.
           </p>
           <h2>Set your Avatar</h2>
           <p>
-            Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>.
+            Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>. 
             We’ll let you manually set it in your profile soon.
           </p>
           <h1>Get in touch</h1>
