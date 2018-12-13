@@ -10,14 +10,16 @@ export default class Wtf extends Component {
         <section>
           <img src="/img/wtf.png" alt="What the actual fuck?" />
           <p>
-            Screenhole is an experiment run by{" "}
+            Screenhole is a fun internet hangout run by{" "}
             <a href="http://thinko.com">Thinko</a>. It’s a place to hang out and
-            share "grabs" you take from your Mac or iPhone.
+            share "grabs" you take from your Mac or iPhone. 
           </p>
           <p>
             There’s no drag &amp; drop, or editing. You can only post grabs with
             our fun apps. We encourage you to post as much as you like.
           </p>
+
+          <p>We're considering open sourcing the whole thing soon... so others can submit new features.</p>
         </section>
 
         <section>
@@ -93,7 +95,7 @@ export default class Wtf extends Component {
           <p>HAVE FUN!</p>
           <p>
             - Last updated by <a href="/pasquale">@pasquale</a>{" "}
-            <TimeAgo date="2018-02-21
+            <TimeAgo date="2018-12-11
             17:49:56 -0500" />
           </p>
         </section>
