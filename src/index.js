@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as UnstatedProvider } from "unstated";
 import { ActionCableProvider } from "react-actioncable-provider";
 import Analytics from "react-router-ga";
+import ScrollMemory from 'react-router-scroll-memory';
 import { unregister } from "./registerServiceWorker";
 
 import api from "./utils/api";
@@ -36,6 +37,7 @@ class ScreenholeWeb extends React.Component {
           <Router>
             <Analytics id="UA-108383158-1" debug={false}>
               <div>
+                <ScrollMemory />
                 <App />
               </div>
             </Analytics>

@@ -9,6 +9,7 @@
     "clipboard": "^2.0.0",
     "emoji-regex": "^6.5.1",
     "final-form": "^4.2.0",
+    "localstorage-ttl": "^1.0.2",
     "minireset.css": "^0.0.3",
     "react": "^16.2.0",
     "react-actioncable-provider": "^1.0.3",
@@ -16,7 +17,7 @@
     "react-final-form": "^3.1.0",
     "react-headroom": "^2.2.2",
     "react-helmet": "^5.2.0",
-    "react-infinite-scroller": "^1.1.3",
+    "react-infinite-scroller": "https://github.com/CassetteRocks/react-infinite-scroller",
     "react-linkify": "^0.2.2",
     "react-lottie": "^1.0.0",
     "react-media": "^1.6.1",
@@ -24,6 +25,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-ga": "^1.0.0",
+    "react-router-scroll-memory": "^2.0.1",
     "react-scripts": "1.0.17",
     "react-scroll": "^1.7.7",
     "react-timeago": "^3.4.3",
@@ -39,7 +41,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "prettier": "^1.10.2",
+    "prettier": "^1.15.3",
     "prettierrc": "^0.0.0-5"
   }
 }
