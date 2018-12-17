@@ -17,19 +17,37 @@ const defaultOptions = {
   },
 };
 
+const messages = [
+  { text: "psst, wanna invite someone to screenhole?", url: "/invite" },
+  { text: "you’re awesome", url: "/" },
+  { text: "hope you're having a great day", url: "/" },
+  { text: "let’s see what’s on your screen, COWARD", url: "/" },
+  { text: "welcome to my hole", url: "/" },
+  { text: "click here if you have questions", url: "/wtf" },
+];
+
 class MrHole extends Component {
   state = {
     visible: true,
+    message: Math.floor(Math.random() * messages.length),
   };
 
-  goToInvites = () => {
-    this.props.history.push("/invite");
+  goToLink = url => {
+    this.props.history.push(url);
   };
 
   hideDatBoi = () => {
     this.setState({
       visible: false,
     });
+  };
+
+  componentDidMount = () => {
+    setInterval(() => {
+      this.setState({
+        message: Math.floor(Math.random() * messages.length),
+      });
+    }, 20000);
   };
 
   render() {
@@ -40,11 +58,13 @@ class MrHole extends Component {
             {this.state.visible && (
               <HoleBoye onClick={this.hideDatBoi}>
                 <Lottie options={defaultOptions} height={200} width={200} />
-                {auth.state.current && (
-                  <TalkBubble onClick={this.goToInvites}>
-                    Psst, wanna invite someone to Screenhole?
-                  </TalkBubble>
-                )}
+                <TalkBubble
+                  onClick={() =>
+                    this.goToLink(messages[this.state.message].url)
+                  }
+                >
+                  {messages[this.state.message].text}
+                </TalkBubble>
               </HoleBoye>
             )}
           </span>
