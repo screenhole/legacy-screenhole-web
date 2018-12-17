@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { ActionCable } from "react-actioncable-provider";
+import ls from "localstorage-ttl";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 
@@ -15,17 +16,45 @@ import * as Scroll from "react-scroll";
 
 const scroller = Scroll.animateScroll;
 
+/*
+- Check if initialLoad flag
+- Load fresh grabs into localStorage if true
+- Load up already existing grabs from localStorage
+- On ActionCable load up new grabs into localStorage
+*/
+
+const LOCALSTORAGE_TIMEOUT = 300000; // 5 minutes
+
 class GrabStream extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       hasMore: true,
-      grabs: [],
+      grabs: JSON.parse(ls.get("grabs")) || [],
     };
-
-    this.scrollUp = this.scrollUp.bind(this);
   }
+
+  componentDidMount = async () => {
+    if (!ls.get("grabs")) {
+      let res = await api.get(`/grabs?page=0`);
+
+      if (!res.ok) {
+        return this.setState({ hasMore: false });
+      }
+
+      const freshGrabs = JSON.stringify(res.data.grabs);
+      ls.set("grabs", freshGrabs, LOCALSTORAGE_TIMEOUT);
+
+      this.setState({
+        grabs: res.data.grabs,
+      });
+
+      if (!res.data.meta.next_page) {
+        this.setState({ hasMore: false });
+      }
+    }
+  };
 
   loadMore = async page => {
     let res = await api.get(`/grabs?page=${page}`);
@@ -34,8 +63,12 @@ class GrabStream extends Component {
       return this.setState({ hasMore: false });
     }
 
+    const grabs = [...this.state.grabs, ...res.data.grabs];
+    const freshGrabs = JSON.stringify(grabs);
+    ls.set("grabs", freshGrabs, LOCALSTORAGE_TIMEOUT);
+
     this.setState({
-      grabs: [...this.state.grabs, ...res.data.grabs],
+      grabs: grabs,
     });
 
     if (!res.data.meta.next_page) {
@@ -44,18 +77,22 @@ class GrabStream extends Component {
   };
 
   onReceived = data => {
+    const grabs = [data.grab, ...this.state.grabs];
+    const freshGrabs = JSON.stringify(grabs);
+    ls.set("grabs", freshGrabs, LOCALSTORAGE_TIMEOUT);
+
     this.setState({
-      grabs: [data.grab, ...this.state.grabs],
+      grabs: grabs,
     });
   };
 
-  scrollUp() {
+  scrollUp = () => {
     scroller.scrollTo(0, {
       duration: 750,
       delay: 100,
       smooth: "easeInOutCubic",
     });
-  }
+  };
 
   render() {
     let grabs = [];
@@ -87,8 +124,9 @@ class GrabStream extends Component {
         />
 
         <InfiniteScroll
-          pageStart={0}
+          pageStart={1}
           loadMore={this.loadMore}
+          initialLoad={false}
           hasMore={this.state.hasMore}
           loader={
             <div className="loader" key="loader">

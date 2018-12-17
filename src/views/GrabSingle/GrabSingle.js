@@ -70,6 +70,7 @@ class GrabSingle extends Component {
               description={this.state.grab.description}
               media_type={this.state.grab.media_type}
             />
+            <Back href="javascript:history.go(-1)">↩ Back</Back>
           </span>
         ) : (
           <img src={loader} alt="loading..." />
@@ -83,6 +84,12 @@ export default GrabSingle;
 
 const Wrapper = styled.article`
   display: block;
+`;
+
+const Back = styled.a`
+  font-size: 1.5rem;
+  display: inline-block;
+  padding: 0.5em 0;
 `;
 
 class MetaTags extends Component {

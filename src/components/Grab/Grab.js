@@ -181,7 +181,13 @@ class Grab extends Component {
     switch (media_type) {
       case "recording":
         grabMedia = (
-          <video width="400" controls="controls" preload="metadata" playsInline muted>
+          <video
+            width="400"
+            controls="controls"
+            preload="metadata"
+            playsInline
+            muted
+          >
             <source src={`${this.props.image}#t=0.5`} type="video/mp4" />
           </video>
         );
@@ -189,7 +195,7 @@ class Grab extends Component {
       default:
         grabMedia = (
           <GrabImage
-            src={`${this.props.image};1000x1000,fit.png`}
+            src={`${this.props.image};1800x1000,fit.png`}
             alt={`${this.props.username}’s grab on Screenhole`}
           />
         );
@@ -284,81 +290,80 @@ class Grab extends Component {
             {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
             )}
-            {auth.state.authenticated &&
-              this.state.textMemoField && (
-                <Form
-                  className="grab-text-memo-form"
-                  onSubmit={this.submitMessage}
-                  render={({ handleSubmit, values }) => {
-                    // Assign zero length or it will be undefined due
-                    // to the input not being used and having no value
-                    let messageLength = 0;
+            {auth.state.authenticated && this.state.textMemoField && (
+              <Form
+                className="grab-text-memo-form"
+                onSubmit={this.submitMessage}
+                render={({ handleSubmit, values }) => {
+                  // Assign zero length or it will be undefined due
+                  // to the input not being used and having no value
+                  let messageLength = 0;
 
-                    if (values.message) {
-                      // Assign actual length once user starts typing
-                      messageLength = values.message.length;
-                    }
+                  if (values.message) {
+                    // Assign actual length once user starts typing
+                    messageLength = values.message.length;
+                  }
 
-                    return (
-                      <ChommentInputWrapper
-                        onSubmit={
-                          // Check if message length is larger than
-                          // user’s buttcoin balance
-                          // Submit the form if more buttcoin than msg length
-                          messageLength > auth.state.buttcoins
-                            ? this.cancelSubmit.bind(this)
-                            : handleSubmit
-                        }
-                      >
-                        <Field name="message">
-                          {({ input, meta }) => (
-                            <Fragment>
-                              <Input
-                                {...input}
-                                type="text"
-                                placeholder="Type yer chomment"
-                                autoComplete="off"
-                                autoFocus
-                                className={
-                                  input.value.length > auth.state.buttcoins
-                                    ? "needs-more-buttcoin"
-                                    : null
-                                }
-                              />
-                              <ChommentCost>
-                                {input.value.length <= auth.state.buttcoins && (
-                                  <span>
-                                    Hit enter to chomment for{" "}
-                                    <span className="butt-value">
-                                      <span className="butt-coin">
-                                        {input.value.length}
-                                      </span>{" "}
-                                      buttcoin
-                                    </span>
-                                  </span>
-                                )}
-                                {input.value.length > auth.state.buttcoins && (
-                                  <span>
-                                    You’re short{" "}
-                                    <span className="butt-value-negative">
-                                      <span className="butt-coin">
-                                        {input.value.length -
-                                          auth.state.buttcoins}
-                                      </span>{" "}
-                                      buttcoin.
+                  return (
+                    <ChommentInputWrapper
+                      onSubmit={
+                        // Check if message length is larger than
+                        // user’s buttcoin balance
+                        // Submit the form if more buttcoin than msg length
+                        messageLength > auth.state.buttcoins
+                          ? this.cancelSubmit.bind(this)
+                          : handleSubmit
+                      }
+                    >
+                      <Field name="message">
+                        {({ input, meta }) => (
+                          <Fragment>
+                            <Input
+                              {...input}
+                              type="text"
+                              placeholder="Type yer chomment"
+                              autoComplete="off"
+                              autoFocus
+                              className={
+                                input.value.length > auth.state.buttcoins
+                                  ? "needs-more-buttcoin"
+                                  : null
+                              }
+                            />
+                            <ChommentCost>
+                              {input.value.length <= auth.state.buttcoins && (
+                                <span>
+                                  Hit enter to chomment for{" "}
+                                  <span className="butt-value">
+                                    <span className="butt-coin">
+                                      {input.value.length}
                                     </span>{" "}
-                                    Delete some characters.
+                                    buttcoin
                                   </span>
-                                )}
-                              </ChommentCost>
-                            </Fragment>
-                          )}
-                        </Field>
-                      </ChommentInputWrapper>
-                    );
-                  }}
-                />
-              )}
+                                </span>
+                              )}
+                              {input.value.length > auth.state.buttcoins && (
+                                <span>
+                                  You’re short{" "}
+                                  <span className="butt-value-negative">
+                                    <span className="butt-coin">
+                                      {input.value.length -
+                                        auth.state.buttcoins}
+                                    </span>{" "}
+                                    buttcoin.
+                                  </span>{" "}
+                                  Delete some characters.
+                                </span>
+                              )}
+                            </ChommentCost>
+                          </Fragment>
+                        )}
+                      </Field>
+                    </ChommentInputWrapper>
+                  );
+                }}
+              />
+            )}
             {this.props.showMemos &&
               this.state.memos.map(memo => {
                 if (!memo.pending && memo.variant === "voice") {
