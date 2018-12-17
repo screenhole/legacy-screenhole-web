@@ -1,3 +1,4 @@
+import "react-app-polyfill/ie11"; // For IE 11 support
 import "babel-polyfill"; // required for prerendering & OG tags!
 import React from "react";
 import ReactDOM from "react-dom";
@@ -5,7 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as UnstatedProvider } from "unstated";
 import { ActionCableProvider } from "react-actioncable-provider";
 import Analytics from "react-router-ga";
-import ScrollMemory from 'react-router-scroll-memory';
+import ScrollMemory from "react-router-scroll-memory";
 import { unregister } from "./registerServiceWorker";
 
 import api from "./utils/api";
