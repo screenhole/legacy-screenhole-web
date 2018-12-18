@@ -23,7 +23,7 @@ const scroller = Scroll.animateScroll;
 - On ActionCable load up new grabs into localStorage
 */
 
-const LOCALSTORAGE_TIMEOUT = 300000; // 5 minutes
+const LOCALSTORAGE_TIMEOUT = 120000; // 2 minutes
 
 class GrabStream extends Component {
   constructor(props) {
