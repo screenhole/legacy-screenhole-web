@@ -16,13 +16,6 @@ import * as Scroll from "react-scroll";
 
 const scroller = Scroll.animateScroll;
 
-/*
-- Check if initialLoad flag
-- Load fresh grabs into localStorage if true
-- Load up already existing grabs from localStorage
-- On ActionCable load up new grabs into localStorage
-*/
-
 const LOCALSTORAGE_TIMEOUT = 120000; // 2 minutes
 
 class GrabStream extends Component {
