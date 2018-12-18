@@ -2,6 +2,8 @@
 
 > screenhole.net frontend
 
+> NOTE: PRs not formatted with Prettier will not be merged 🌶️
+
 ## Setup
 
 ```
