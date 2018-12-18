@@ -20,7 +20,7 @@
     "react-helmet": "^5.2.0",
     "react-infinite-scroller": "https://github.com/CassetteRocks/react-infinite-scroller",
     "react-linkify": "^0.2.2",
-    "react-lottie": "^1.0.0",
+    "react-lottie": "^1.2.3",
     "react-media": "^1.6.1",
     "react-player": "^1.1.1",
     "react-router": "^4.2.0",
@@ -44,5 +44,11 @@
   "devDependencies": {
     "prettier": "^1.15.3",
     "prettierrc": "^0.0.0-5"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

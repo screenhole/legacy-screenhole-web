@@ -8,8 +8,8 @@ import NumberEasing from "che-react-number-easing";
 
 import AuthContainer from "../../utils/AuthContainer";
 
-import * as ButtcoinSpin from "../../animations/buttcoin/spin.json";
-import * as ButtcoinToot from "../../animations/buttcoin/toot.json";
+import ButtcoinSpin from "../../animations/buttcoin/spin.json";
+import ButtcoinToot from "../../animations/buttcoin/toot.json";
 import * as cashRegisterSequence from "../../sounds/buttcoin-cash-register-sequence.mp3";
 
 const animationSpin = {

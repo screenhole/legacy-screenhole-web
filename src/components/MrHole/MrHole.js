@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import AuthContainer from "../../utils/AuthContainer";
 
-import * as MrHoleIdle from "../../animations/mr-hole/idle.json";
+import MrHoleIdle from "../../animations/mr-hole/idle.json";
 
 const defaultOptions = {
   loop: true,

@@ -21,6 +21,7 @@ import Wtf from "./views/Static/Wtf";
 import Eula from "./views/Static/Eula";
 import Privacy from "./views/Static/Privacy";
 import Apps from "./views/Static/Apps";
+import Code from "./views/Static/Code";
 import UserList from "./views/UserList/UserList";
 
 // Remember that route order matters for proper matching!
@@ -34,6 +35,7 @@ class Routes extends Component {
         <Route exact path="/eula" component={Eula} />
         <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/apps" component={Apps} />
+        <Route exact path="/code" component={Code} />
 
         <Route exact path="/login" component={Login} />
         <PublicRoute exact path="/register" component={Register} />

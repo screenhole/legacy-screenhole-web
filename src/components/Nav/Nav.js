@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Media from "react-media";
 import Lottie from "react-lottie";
 
-import * as LogoExplosion from "../../animations/logo/intro.json";
+import LogoExplosion from "../../animations/logo/intro.json";
 
 import AuthContainer from "../../utils/AuthContainer";
 
