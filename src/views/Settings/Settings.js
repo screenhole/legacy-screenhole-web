@@ -63,7 +63,7 @@ class Settings extends Component {
                 <a href="https://gravatar.com" target="_blank">
                   Gravatar.com
                 </a>{" "}
-                and link it up your Screenhole email address.
+                and link it up to your Screenhole email address.
               </p>
 
               <Field name="email">
