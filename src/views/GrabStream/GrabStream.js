@@ -29,23 +29,27 @@ class GrabStream extends Component {
   }
 
   componentDidMount = async () => {
-    if (!ls.get("grabs")) {
-      let res = await api.get(`/grabs?page=0`);
+    window.onpopstate = e => {
+      // serve cache by default when navigating back
+      return;
+    };
 
-      if (!res.ok) {
-        return this.setState({ hasMore: false });
-      }
+    // load fresh grabs
+    let res = await api.get(`/grabs?page=0`);
 
-      const freshGrabs = JSON.stringify(res.data.grabs);
-      ls.set("grabs", freshGrabs, LOCALSTORAGE_TIMEOUT);
+    if (!res.ok) {
+      return this.setState({ hasMore: false });
+    }
 
-      this.setState({
-        grabs: res.data.grabs,
-      });
+    const freshGrabs = JSON.stringify(res.data.grabs);
+    ls.set("grabs", freshGrabs, LOCALSTORAGE_TIMEOUT);
 
-      if (!res.data.meta.next_page) {
-        this.setState({ hasMore: false });
-      }
+    this.setState({
+      grabs: res.data.grabs,
+    });
+
+    if (!res.data.meta.next_page) {
+      this.setState({ hasMore: false });
     }
   };
 
