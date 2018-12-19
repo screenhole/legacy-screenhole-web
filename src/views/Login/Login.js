@@ -80,10 +80,9 @@ class Login extends Component {
                     />
                     <Label>
                       Username{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -102,10 +101,9 @@ class Login extends Component {
                     />
                     <Label>
                       Password{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -201,4 +199,9 @@ const Button = styled.button`
   font-weight: 700;
   transition: all 0.2s ease;
   outline: none;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.92);
+  }
 `;

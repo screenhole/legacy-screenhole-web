@@ -58,6 +58,14 @@ class Settings extends Component {
             <Wrapper onSubmit={handleSubmit}>
               <h1>Settings</h1>
 
+              <p>
+                If you want to change your avatar, go to{" "}
+                <a href="https://gravatar.com" target="_blank">
+                  Gravatar.com
+                </a>{" "}
+                and link it up your Screenhole email address.
+              </p>
+
               <Field name="email">
                 {({ input, meta }) => (
                   <InputWrapper>
@@ -70,10 +78,9 @@ class Settings extends Component {
                     />
                     <Label>
                       Email{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -90,10 +97,9 @@ class Settings extends Component {
                     />
                     <Label>
                       Username{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -108,10 +114,9 @@ class Settings extends Component {
                     />
                     <Label>
                       Name{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -127,10 +132,9 @@ class Settings extends Component {
                     />
                     <Label>
                       Bio{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -149,10 +153,9 @@ class Settings extends Component {
                     />
                     <Label>
                       Leave blank to not change{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -171,10 +174,9 @@ class Settings extends Component {
                     />
                     <Label>
                       Leave blank to not change{" "}
-                      {(meta.error || meta.submitError) &&
-                        meta.touched && (
-                          <span>{meta.error || meta.submitError}</span>
-                        )}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
                     </Label>
                   </InputWrapper>
                 )}
@@ -198,6 +200,12 @@ export default Settings;
 const Wrapper = styled.form`
   max-width: 320px;
   margin: 0 auto;
+
+  > p {
+    color: #858090;
+    margin-top: 1rem;
+    line-height: 150%;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -261,4 +269,8 @@ const Button = styled.button`
   font-weight: 700;
   transition: all 0.2s ease;
   outline: none;
+
+  &:active {
+    transform: scale(0.92);
+  }
 `;
