@@ -24,6 +24,10 @@ const messages = [
   { text: "let’s see what’s on your screen, COWARD", url: "/" },
   { text: "welcome to my hole", url: "/" },
   { text: "click here if you have questions", url: "/wtf" },
+  {
+    text: "know how to code? click here to contribute some lines.",
+    url: "/code",
+  },
 ];
 
 class MrHole extends Component {
