@@ -12,17 +12,21 @@ export default class Wtf extends Component {
           <p>
             Screenhole is a fun internet hangout run by{" "}
             <a href="http://thinko.com">Thinko</a>. It’s a place to hang out and
-            share "grabs" you take from your Mac or iPhone. 
+            share "grabs" you take from your Mac or iPhone.
           </p>
           <p>
-          We don’t have a ton of rules, so just don’t be a dick and everything will be ok.
+            We don’t have a ton of rules, so just don’t be a dick and everything
+            will be ok.
           </p>
           <p>
             There’s no drag &amp; drop, or editing. You can only post grabs with
             our fun apps. We encourage you to post as much as you like.
           </p>
 
-          <p>We’re considering open sourcing the whole thing soon... so others can submit new features.</p>
+          <p>
+            We’re considering open sourcing the whole thing soon... so others
+            can submit new features.
+          </p>
         </section>
 
         <section>
@@ -75,12 +79,14 @@ export default class Wtf extends Component {
           </p>
           <h2>Buttcoin?</h2>
           <p>
-            It’s a craptocurrency. Score Buttcoin by using Screenhole. Spend your buttcoin on post comments &amp; and unlocking <a href="/">invite</a> codes.
+            It’s a craptocurrency. Score Buttcoin by using Screenhole. Spend
+            your buttcoin on post comments &amp; and unlocking{" "}
+            <a href="/">invite</a> codes.
           </p>
           <h2>Set your Avatar</h2>
           <p>
-            Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>. 
-            We’ll let you manually set it in your profile soon.
+            Set your Avatar using <a href="http://gravatar.com">gravatar.com</a>
+            . We’ll let you manually set it in your profile soon.
           </p>
           <h1>Get in touch</h1>
           <p>
@@ -97,8 +103,18 @@ export default class Wtf extends Component {
           <p>HAVE FUN!</p>
           <p>
             - Last updated by <a href="/pasquale">@pasquale</a>{" "}
-            <TimeAgo date="2018-12-11
-            17:49:56 -0500" />
+            <TimeAgo
+              date="2018-12-11
+            17:49:56 -0500"
+            />
+          </p>
+        </section>
+
+        <section>
+          <h1>Contributing</h1>
+          <p>
+            Wanna fix some bugs or work on new features?{" "}
+            <Link to="/code">Check this page out.</Link>
           </p>
         </section>
       </Page>
