@@ -19,7 +19,7 @@
     "react-headroom": "^2.2.2",
     "react-helmet": "^5.2.0",
     "react-infinite-scroller": "https://github.com/CassetteRocks/react-infinite-scroller",
-    "react-linkify": "https://github.com/tasti/react-linkify",
+    "react-linkify": "https://github.com/tasti/react-linkify#d472095b5b0d64e9d76942f46c1e855ef6122083",
     "react-lottie": "^1.2.3",
     "react-media": "^1.6.1",
     "react-player": "^1.1.1",

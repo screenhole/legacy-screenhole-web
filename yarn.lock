@@ -6501,7 +6501,7 @@ micromatch@^3.1.10, micromatch@^3.1.4, micromatch@^3.1.8, micromatch@^3.1.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.2"
 
-"micromatch@github:jonschlinkert/micromatch#2.2.0":
+micromatch@jonschlinkert/micromatch#2.2.0:
   version "2.2.0"
   resolved "https://codeload.github.com/jonschlinkert/micromatch/tar.gz/5017fd78202e04c684cc31d3c2fb1f469ea222ff"
   dependencies:
@@ -8452,12 +8452,13 @@ react-helmet@^5.2.0:
   dependencies:
     prop-types "^15.5.8"
 
-"react-linkify@https://github.com/tasti/react-linkify":
+"react-linkify@https://github.com/tasti/react-linkify#d472095b5b0d64e9d76942f46c1e855ef6122083":
   version "0.2.2"
-  resolved "https://github.com/tasti/react-linkify#8e5fad3f709480a9bdeeabf92c76b2be17843087"
+  resolved "https://github.com/tasti/react-linkify#d472095b5b0d64e9d76942f46c1e855ef6122083"
   dependencies:
     linkify-it "^2.0.3"
-    tlds "^1.199.0"
+    prop-types "^15.5.8"
+    tlds "^1.57.0"
 
 react-lottie@^1.2.3:
   version "1.2.3"
@@ -9889,7 +9890,7 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.0.2.tgz#82d27468aca5ade8e5fd1e6d22b57dd43ebdfb7c"
   integrity sha512-2NM0auVBGft5tee/OxP4PI3d8WItkDM+fPnaRAVo6xTDI2knbz9eC5ArWGqtGlYqiH3RU5yMpdyTTO7MguC4ow==
 
-tlds@^1.199.0:
+tlds@^1.57.0:
   version "1.203.1"
   resolved "https://registry.yarnpkg.com/tlds/-/tlds-1.203.1.tgz#4dc9b02f53de3315bc98b80665e13de3edfc1dfc"
   integrity sha512-7MUlYyGJ6rSitEZ3r1Q1QNV8uSIzapS8SmmhSusBuIc7uIxPPwsKllEP0GRp1NS6Ik6F+fRZvnjDWm3ecv2hDw==
