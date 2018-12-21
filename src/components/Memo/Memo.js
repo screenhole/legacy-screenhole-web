@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
-import Linkify from "react-linkify";
 import TimeAgo from "react-timeago";
 
+import Linkify from "../../utils/Linkify";
 import Avatar from "../User/Avatar";
 
 export default class Memo extends Component {
@@ -38,7 +38,6 @@ export default class Memo extends Component {
             <Message>
               <Linkify
                 className="memo-message"
-                properties={{ target: "_blank" }}
               >
                 {this.props.message}
               </Linkify>
