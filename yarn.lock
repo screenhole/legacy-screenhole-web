@@ -8452,7 +8452,7 @@ react-helmet@^5.2.0:
   dependencies:
     prop-types "^15.5.8"
 
-"react-linkify@https://github.com/tasti/react-linkify#8e5fad3f709480a9bdeeabf92c76b2be17843087":
+"react-linkify@https://github.com/tasti/react-linkify":
   version "0.2.2"
   resolved "https://github.com/tasti/react-linkify#8e5fad3f709480a9bdeeabf92c76b2be17843087"
   dependencies:
