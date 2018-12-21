@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
-import Linkify from "react-linkify";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
 
+import Linkify from "../../utils/Linkify";
 import Avatar from "../User/Avatar";
 
 const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
@@ -43,7 +43,7 @@ class Chomment extends Component {
             </Username>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
-                <Linkify properties={{ target: "_blank" }}>
+                <Linkify>
                   {this.props.message}
                 </Linkify>
               </Message>
