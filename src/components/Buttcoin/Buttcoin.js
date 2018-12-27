@@ -6,6 +6,8 @@ import styled from "styled-components";
 import ReactPlayer from "react-player";
 import NumberEasing from "che-react-number-easing";
 
+import api from "../../utils/api";
+
 import AuthContainer from "../../utils/AuthContainer";
 
 import ButtcoinSpin from "../../animations/buttcoin/spin.json";
@@ -35,6 +37,16 @@ class Buttcoin extends Component {
     playing: false,
     animationOptions: animationSpin,
   };
+
+  componentDidMount = async () => {
+    if (this.props.keepFresh) {
+      console.log("refreshing buttcoin count...");
+
+      const currentUser = await api.get("/users/current");
+      api.setCurrentUser(currentUser.data.user);
+    }
+  };
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>

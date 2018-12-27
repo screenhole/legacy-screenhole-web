@@ -32,7 +32,11 @@ class Nav extends Component {
             <Media query="(max-width: 790px)">
               {matches =>
                 matches ? (
-                  <Buttcoin amount={auth.state.buttcoins} />
+                  <Buttcoin
+                    amount={auth.state.buttcoins}
+                    keepFresh={true}
+                    username={auth.state.current.username}
+                  />
                 ) : (
                   <Link className="nav-logo-link" to="/">
                     <Logo>
