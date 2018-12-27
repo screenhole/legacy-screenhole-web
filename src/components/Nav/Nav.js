@@ -12,6 +12,7 @@ import AuthContainer from "../../utils/AuthContainer";
 import Guest from "./Guest";
 import LoggedIn from "./LoggedIn";
 import MobileMenu from "./MobileMenu";
+import Buttcoin from "../Buttcoin/Buttcoin";
 
 const defaultOptions = {
   loop: false,
@@ -28,11 +29,19 @@ class Nav extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Navbar>
-            <Link className="nav-logo-link" to="/">
-              <Logo>
-                <Lottie options={defaultOptions} width={400} />
-              </Logo>
-            </Link>
+            <Media query="(max-width: 790px)">
+              {matches =>
+                matches ? (
+                  <Buttcoin amount={auth.state.buttcoins} />
+                ) : (
+                  <Link className="nav-logo-link" to="/">
+                    <Logo>
+                      <Lottie options={defaultOptions} width={400} />
+                    </Logo>
+                  </Link>
+                )
+              }
+            </Media>
             <Menu>
               <Media query="(max-width: 790px)">
                 {matches =>
