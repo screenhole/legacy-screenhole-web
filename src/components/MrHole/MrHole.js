@@ -19,6 +19,7 @@ const defaultOptions = {
 
 const messages = [
   { text: "psst, wanna invite someone to screenhole?", url: "/invite" },
+  { text: "merry chrysler", url: "/" },
   { text: "you’re awesome", url: "/" },
   { text: "hope you're having a great day", url: "/" },
   { text: "let’s see what’s on your screen, COWARD", url: "/" },
