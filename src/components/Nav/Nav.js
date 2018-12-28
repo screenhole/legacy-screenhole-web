@@ -31,7 +31,7 @@ class Nav extends Component {
           <Navbar>
             <Media query="(max-width: 790px)">
               {matches =>
-                matches ? (
+                matches && auth.state.buttcoins !== 0 ? (
                   <Buttcoin
                     amount={auth.state.buttcoins}
                     keepFresh={true}
