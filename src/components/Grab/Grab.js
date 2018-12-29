@@ -101,7 +101,7 @@ class Grab extends Component {
     let res = await api.delete(`/grabs/${this.props.id}`);
 
     if (res.ok) {
-      window.location = "/";
+      window.location = `/${this.props.username}`;
     } else {
       alert("Sorry, could not delete grab. Try again.");
     }
