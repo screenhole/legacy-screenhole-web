@@ -18,10 +18,25 @@ import loader from "../../images/loader.gif";
 
 let scroller = Scroll.animateScroll;
 
+const canNotify = () => {
+  if (!("Notification" in window)) {
+    // user doesn't support notifications, what a loser
+    return false;
+  }
+
+  if (Notification.permission !== "granted") {
+    // user doesn't want us in their lives; fair play
+    return false;
+  }
+
+  return true;
+};
+
 class ChommentStream extends Component {
   state = {
     hasMore: true,
     chomments: [],
+    canNotify: canNotify(),
   };
 
   loadMore = async page => {
@@ -44,6 +59,26 @@ class ChommentStream extends Component {
     this.setState({
       chomments: [data.chomment, ...this.state.chomments],
     });
+
+    this.notify(data.chomment);
+  };
+
+  notify = chomment => {
+    if (!canNotify()) {
+      return;
+    }
+
+    new Notification(`@${chomment.user.username}`, { body: chomment.message });
+  };
+
+  requestNotifyPermission = () => {
+    if (canNotify()) {
+      return this.setState({ canNotify: true });
+    }
+
+    Notification.requestPermission();
+
+    return this.setState({ canNotify: true });
   };
 
   submitMessage = async values => {
@@ -93,6 +128,7 @@ class ChommentStream extends Component {
                 channel={{ channel: "ChommentsChannel" }}
                 onReceived={this.onReceived}
               />
+
               <InfiniteScroll
                 element="section"
                 pageStart={0}
@@ -124,6 +160,14 @@ class ChommentStream extends Component {
                             />
                           )}
                         </Field>
+
+                        {!this.state.canNotify && (
+                          <NotificationNag
+                            onClick={() => this.requestNotifyPermission()}
+                          >
+                            Notify on Chomment?
+                          </NotificationNag>
+                        )}
                       </ChommentInputWrapper>
                     );
                   }}
@@ -212,6 +256,15 @@ const ChommentInputWrapper = styled.form`
     width: 100%;
     top: var(--nav-height);
   }
+`;
+
+const NotificationNag = styled.div`
+  padding: calc(var(--app-padding) / 2) var(--app-padding);
+  font-size: 0.8rem;
+  background-color: var(--body-bg-color);
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid #222;
+  cursor: pointer;
 `;
 
 const Input = styled.input`
