@@ -130,6 +130,7 @@ class ChommentStream extends Component {
             <Chomments
               id="ChommentStream"
               authenticated={auth.state.authenticated}
+              canNotify={this.state.canNotify}
             >
               <ActionCable
                 channel={{ channel: "ChommentsChannel" }}
@@ -201,6 +202,18 @@ class ChommentStream extends Component {
 
 export default ChommentStream;
 
+const chommentPadding = (authenticated, canNotify) => {
+  if (authenticated && !canNotify) {
+    return "6rem";
+  }
+
+  if (authenticated) {
+    return "4rem";
+  }
+
+  return "calc(var(--app-padding) / 2)";
+};
+
 const Chomments = styled.aside`
   position: fixed;
   left: 0;
@@ -211,7 +224,7 @@ const Chomments = styled.aside`
   box-shadow: inset -1px 0 0 0 var(--divider-color);
   padding: var(--app-padding);
   padding-top: ${props =>
-    props.authenticated ? "4rem" : "calc(var(--app-padding) / 2)"};
+    chommentPadding(props.authenticated, props.canNotify)};
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -266,12 +279,15 @@ const ChommentInputWrapper = styled.form`
 `;
 
 const NotificationNag = styled.div`
-  padding: calc(var(--app-padding) / 2) var(--app-padding);
+  padding: 0 var(--app-padding);
+  display: flex;
+  align-items: center;
   font-size: 0.8rem;
   background-color: var(--body-bg-color);
   color: rgba(255, 255, 255, 0.5);
   border-bottom: 1px solid #222;
   cursor: pointer;
+  height: 2rem;
 `;
 
 const Input = styled.input`
