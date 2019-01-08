@@ -173,7 +173,7 @@ class ChommentStream extends Component {
                           <NotificationNag
                             onClick={() => this.requestNotifyPermission()}
                           >
-                            Notify on Chomment?
+                            Notify on new Chomment?
                           </NotificationNag>
                         )}
                       </ChommentInputWrapper>
