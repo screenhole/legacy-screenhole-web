@@ -68,6 +68,13 @@ class ChommentStream extends Component {
       return;
     }
 
+    const currentUser = JSON.parse(localStorage.getItem("user_current"));
+    const currentUserId = currentUser.id;
+
+    if (currentUserId === chomment.user.id) {
+      return;
+    }
+
     new Notification(`@${chomment.user.username}`, { body: chomment.message });
   };
 
