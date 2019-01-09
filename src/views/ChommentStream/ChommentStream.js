@@ -208,18 +208,6 @@ class ChommentStream extends Component {
 
 export default ChommentStream;
 
-const chommentPadding = (authenticated, canNotify) => {
-  if (authenticated && !canNotify) {
-    return "6rem";
-  }
-
-  if (authenticated) {
-    return "4rem";
-  }
-
-  return "calc(var(--app-padding) / 2)";
-};
-
 const Chomments = styled.aside`
   position: fixed;
   left: 0;
@@ -229,8 +217,11 @@ const Chomments = styled.aside`
   max-width: var(--sidebar-width);
   box-shadow: inset -1px 0 0 0 var(--divider-color);
   padding: var(--app-padding);
-  padding-top: ${props =>
-    chommentPadding(props.authenticated, props.canNotify)};
+  padding-top: 4rem;
+  @media (min-width: 791px) {
+    padding-top: ${props =>
+      props.authenticated && props.canNotify ? "4rem" : "6rem"};
+  }
   display: flex;
   flex-direction: column;
   overflow: auto;
