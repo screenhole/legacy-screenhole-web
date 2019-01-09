@@ -170,11 +170,17 @@ class ChommentStream extends Component {
                         </Field>
 
                         {!this.state.canNotify && (
-                          <NotificationNag
-                            onClick={() => this.requestNotifyPermission()}
-                          >
-                            Notify on new Chomment?
-                          </NotificationNag>
+                          <Media query="(min-width: 791px)">
+                            {matches =>
+                              matches ? (
+                                <NotificationNag
+                                  onClick={() => this.requestNotifyPermission()}
+                                >
+                                  Notify on new Chomment?
+                                </NotificationNag>
+                              ) : null
+                            }
+                          </Media>
                         )}
                       </ChommentInputWrapper>
                     );
