@@ -18,10 +18,25 @@ import loader from "../../images/loader.gif";
 
 let scroller = Scroll.animateScroll;
 
+const canNotify = () => {
+  if (!("Notification" in window)) {
+    // user doesn't support notifications, what a loser
+    return false;
+  }
+
+  if (Notification.permission !== "granted") {
+    // user doesn't want us in their lives; fair play
+    return false;
+  }
+
+  return true;
+};
+
 class ChommentStream extends Component {
   state = {
     hasMore: true,
     chomments: [],
+    canNotify: canNotify(),
   };
 
   loadMore = async page => {
@@ -44,6 +59,33 @@ class ChommentStream extends Component {
     this.setState({
       chomments: [data.chomment, ...this.state.chomments],
     });
+
+    this.notify(data.chomment);
+  };
+
+  notify = chomment => {
+    if (!canNotify()) {
+      return;
+    }
+
+    const currentUser = JSON.parse(localStorage.getItem("user_current"));
+    const currentUserId = currentUser.id;
+
+    if (currentUserId === chomment.user.id) {
+      return;
+    }
+
+    new Notification(`@${chomment.user.username}`, { body: chomment.message });
+  };
+
+  requestNotifyPermission = () => {
+    if (canNotify()) {
+      return this.setState({ canNotify: true });
+    }
+
+    Notification.requestPermission();
+
+    return this.setState({ canNotify: true });
   };
 
   submitMessage = async values => {
@@ -88,11 +130,13 @@ class ChommentStream extends Component {
             <Chomments
               id="ChommentStream"
               authenticated={auth.state.authenticated}
+              canNotify={this.state.canNotify}
             >
               <ActionCable
                 channel={{ channel: "ChommentsChannel" }}
                 onReceived={this.onReceived}
               />
+
               <InfiniteScroll
                 element="section"
                 pageStart={0}
@@ -124,6 +168,20 @@ class ChommentStream extends Component {
                             />
                           )}
                         </Field>
+
+                        {!this.state.canNotify && (
+                          <Media query="(min-width: 791px)">
+                            {matches =>
+                              matches ? (
+                                <NotificationNag
+                                  onClick={() => this.requestNotifyPermission()}
+                                >
+                                  Notify on new Chomment?
+                                </NotificationNag>
+                              ) : null
+                            }
+                          </Media>
+                        )}
                       </ChommentInputWrapper>
                     );
                   }}
@@ -159,8 +217,11 @@ const Chomments = styled.aside`
   max-width: var(--sidebar-width);
   box-shadow: inset -1px 0 0 0 var(--divider-color);
   padding: var(--app-padding);
-  padding-top: ${props =>
-    props.authenticated ? "4rem" : "calc(var(--app-padding) / 2)"};
+  padding-top: 4rem;
+  @media (min-width: 791px) {
+    padding-top: ${props =>
+      props.authenticated && props.canNotify ? "4rem" : "6rem"};
+  }
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -212,6 +273,18 @@ const ChommentInputWrapper = styled.form`
     width: 100%;
     top: var(--nav-height);
   }
+`;
+
+const NotificationNag = styled.div`
+  padding: 0 var(--app-padding);
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  background-color: var(--body-bg-color);
+  color: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  height: 2rem;
 `;
 
 const Input = styled.input`
