@@ -3,49 +3,45 @@ import { Form, Field } from "react-final-form";
 import { FORM_ERROR } from "final-form";
 import Media from "react-media";
 import styled from "styled-components";
-
 import api from "../../utils/api";
-
-const onSubmit = async values => {
-  const token = await api.post("/users/token", { auth: values });
-  console.log(token);
-
-  if (!token.ok) {
-    api.resetLocalStorage();
-    return { [FORM_ERROR]: "Login Failed" };
-  }
-
-  api.setAuthHeader(token.data.jwt);
-
-  const currentUser = await api.get("/users/current");
-  console.log(currentUser);
-
-  if (!currentUser.ok) {
-    api.resetLocalStorage();
-    return { [FORM_ERROR]: "Login Failed [2]" };
-  }
-
-  api.setCurrentUser(currentUser.data.user);
-
-  if (true || !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-    console.log("sent jwt:///");
-    window.location = "screenhole:///jwt/" + token.data.jwt;
-  }
-
-  // wait for screenhole:/// call
-  setTimeout(() => {
-    // TODO: update state without hard reload
-    // TODO: pass thru AuthContainer
-    // this.props.history
-    window.location = "/";
-  }, 250);
-};
+import WithAuthContainer from "../../utils/WithAuthContainer";
 
 class Login extends Component {
+  onSubmit = async values => {
+    const token = await api.post("/users/token", { auth: values });
+    console.log(token);
+
+    if (!token.ok) {
+      api.resetLocalStorage();
+      return { [FORM_ERROR]: "Login Failed" };
+    }
+
+    api.setAuthHeader(token.data.jwt);
+
+    const currentUser = await api.get("/users/current");
+    console.log(currentUser);
+
+    if (!currentUser.ok) {
+      api.resetLocalStorage();
+      return { [FORM_ERROR]: "Login Failed [2]" };
+    }
+
+    api.setCurrentUser(currentUser.data.user);
+
+    if (true || !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      console.log("sent jwt:///");
+      window.location = "screenhole:///jwt/" + token.data.jwt;
+    }
+    this.props.auth.authenticate(currentUser.data.user);
+    setTimeout(() => {
+      this.props.history.push("/");
+    }, 250);
+  };
+
   render() {
     return (
       <Form
-        onSubmit={onSubmit}
+        onSubmit={this.onSubmit}
         validate={values => {
           const errors = {};
           if (!values.username) {
@@ -127,7 +123,7 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default WithAuthContainer(Login);
 
 const Wrapper = styled.form`
   max-width: 320px;
