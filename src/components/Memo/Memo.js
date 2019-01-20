@@ -21,26 +21,28 @@ export default class Memo extends Component {
     });
   }
   render() {
+    const hasUserData = this.props.gravatar && this.props.username;
     const playingTheme = this.state.playing ? "playing" : "paused";
     return (
       <Wrapper>
-        <Avatar gravatar={this.props.gravatar} username={this.props.username} />
+        {hasUserData && (
+          <Avatar
+            gravatar={this.props.gravatar}
+            username={this.props.username}
+          />
+        )}
         <MemoBlock theme={playingTheme} data-variant={this.props.variant}>
           <div>
             {!this.props.hideUsername && (
               <Link to={`/${this.props.username}`}>
                 <Username data-variant={this.props.variant}>
                   {this.props.username}
-                  {this.props.audio && ':'}
+                  {this.props.audio && ":"}
                 </Username>
               </Link>
             )}
             <Message>
-              <Linkify
-                className="memo-message"
-              >
-                {this.props.message}
-              </Linkify>
+              <Linkify className="memo-message">{this.props.message}</Linkify>
             </Message>
             <TimeAgo date={this.props.created_at} />
           </div>

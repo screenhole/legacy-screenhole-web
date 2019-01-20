@@ -175,33 +175,6 @@ class Grab extends Component {
   };
 
   render() {
-    const { media_type } = this.state;
-    var grabMedia;
-
-    switch (media_type) {
-      case "recording":
-        grabMedia = (
-          <video
-            width="400"
-            controls="controls"
-            preload="metadata"
-            playsInline
-            muted
-          >
-            <source src={`${this.props.image}#t=0.5`} type="video/mp4" />
-          </video>
-        );
-        break;
-      default:
-        grabMedia = (
-          <GrabImage
-            src={`${this.props.image};1800x1000,fit.png`}
-            alt={`${this.props.username}’s grab on Screenhole`}
-          />
-        );
-        break;
-    }
-
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
@@ -281,15 +254,24 @@ class Grab extends Component {
               <HorizontalDivider />
               <TimeAgo date={this.props.created_at} />
             </UserInfo>
-            <Link
-              to={`/${this.props.username}/~${this.props.id}`}
-              className="grab-image-link"
-            >
-              {grabMedia}
-            </Link>
+            <ChommentMedia
+              state={this.state}
+              username={this.props.username}
+              image={this.props.image}
+              chommentmediaid={this.props.id}
+            />
             {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
             )}
+            <TopChommentStyling>
+              <TopChomment
+                state={this.state}
+                username={this.props.username}
+                image={this.props.image}
+                chommentmediaid={this.props.id}
+                txtChomments={this.textMemos()}
+              />
+            </TopChommentStyling>
             {auth.state.authenticated && this.state.textMemoField && (
               <Form
                 className="grab-text-memo-form"
@@ -401,6 +383,137 @@ class Grab extends Component {
 }
 
 export default Grab;
+
+const ChommentMedia = ({
+  state = undefined,
+  username = undefined,
+  image = undefined,
+  chommentmediaid = undefined,
+}) => {
+  // console.log("~~~ START ChommentMedia ~~~");
+
+  if (!state && !username && !image) {
+    return null;
+  }
+
+  // console.log("state", state);
+  // console.log("username", username);
+  // console.log("image", image);
+  // console.log("chommentmediaid", chommentmediaid);
+
+  const { media_type } = state;
+  var grabMedia;
+
+  switch (media_type) {
+    case "recording":
+      grabMedia = (
+        <Fragment>
+          <video
+            width="400"
+            controls="controls"
+            preload="metadata"
+            playsInline
+            muted
+          >
+            <source src={`${image}#t=0.5`} type="video/mp4" />
+          </video>
+        </Fragment>
+      );
+      return grabMedia;
+    default:
+      grabMedia = (
+        <GrabImage
+          src={`${image};1800x1000,fit.png`}
+          alt={`${username}’s grab on Screenhole`}
+        />
+      );
+      return (
+        <Link
+          to={`/${username}/~${chommentmediaid}`}
+          className="grab-image-link"
+        >
+          {grabMedia}
+        </Link>
+      );
+  }
+
+  // if media = image
+  // clicking on it takes you to the thing
+  // if media = video
+  // if media video -- clicking on it plays it
+
+  // console.log("~~~ END ChommentMedia ~~~");
+};
+
+const TopChomment = ({
+  state = undefined,
+  username = undefined,
+  image = undefined,
+  chommentmediaid = undefined,
+  txtChomments = [],
+}) => {
+  // console.log("~~~ START TopChomment ~~~");
+
+  if (!state && !username) {
+    return null;
+  }
+
+  // console.log("state", state);
+  // console.log("username", username);
+  // console.log("image", image);
+  // console.log("chommentmediaid", chommentmediaid);
+  // console.log("txtChomments", txtChomments);
+
+  if (txtChomments.length > 0) {
+    let _top = txtChomments[0];
+    // console.log("top text chomment", _top);
+    var _username = _top && _top.user ? _top.user.username : undefined;
+    var _gravatar_hash =
+      _top && _top.user ? _top.user.gravatar_hash : undefined;
+
+    var hasData = _username && _gravatar_hash;
+
+    return (
+      <Fragment>
+        {!hasData && (
+          <Fragment>
+            <Memo
+              key={_top.id}
+              message={_top.message}
+              username={_username}
+              gravatar={_gravatar_hash}
+              created_at={_top.created_at}
+              variant="chomment"
+            />
+            <Link
+              to={`/${username}/~${chommentmediaid}`}
+              className="grab-image-link"
+            >
+              <span>
+                View all {txtChomments.length > 1 ? txtChomments.length : ""}{" "}
+                chomments
+              </span>
+            </Link>
+          </Fragment>
+        )}
+      </Fragment>
+    );
+  }
+
+  var media_type = state.media_type;
+
+  if (media_type === "recording" && !hasData) {
+    return (
+      <Link to={`/${username}/~${chommentmediaid}`} className="grab-image-link">
+        View Video
+      </Link>
+    );
+  }
+
+  return null;
+
+  // console.log("~~~ END TopChomment ~~~");
+};
 
 const Wrapper = styled.article`
   margin-bottom: 4rem;
@@ -761,4 +874,9 @@ const ChommentCost = styled.div`
   .butt-coin {
     font-family: "Menlo", monospace;
   }
+`;
+
+const TopChommentStyling = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
