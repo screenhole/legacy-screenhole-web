@@ -13,6 +13,7 @@ import api from "../../utils/api";
 import Avatar from "../User/Avatar";
 import Memo from "../Memo/Memo";
 import Tooltip from "../Tooltip/Tooltip";
+import Buttcoin from "../Buttcoin/Buttcoin";
 
 class Grab extends Component {
   constructor(props) {
@@ -55,7 +56,11 @@ class Grab extends Component {
 
   textMemos = () => {
     return (this.state.memos || []).filter(function(memo) {
-      return !memo.pending && memo.variant === "chomment";
+      return (
+        !memo.pending &&
+        memo.variant === "chomment" &&
+        !memo.message.match(/💸️/g)
+      );
     });
   };
 
@@ -330,6 +335,20 @@ class Grab extends Component {
                                   : null
                               }
                             />
+                            <TipButton
+                              onClick={e => {
+                                e.preventDefault();
+                                const money = "💸️";
+                                values.message = money.repeat(33);
+                                handleSubmit();
+                              }}
+                            >
+                              <Buttcoin />
+                              <span>
+                                Tip
+                                <span className="hidden-butt"> +99</span>
+                              </span>
+                            </TipButton>
                             <ChommentCost>
                               {input.value.length <= auth.state.buttcoins && (
                                 <span>
@@ -714,6 +733,8 @@ export const chommentIcon = (
 const ChommentInputWrapper = styled.form`
   display: block;
   width: 100%;
+  position: relative;
+  padding-left: 3.5rem;
 `;
 
 const Input = styled.input`
@@ -760,5 +781,61 @@ const ChommentCost = styled.div`
 
   .butt-coin {
     font-family: "Menlo", monospace;
+  }
+`;
+
+const TipButton = styled.div`
+  position: absolute;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 40em;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  top: 0.25rem;
+  left: 0;
+  cursor: pointer;
+  transition: 0.15s ease all;
+  text-align: center;
+
+  svg {
+    pointer-events: none;
+  }
+
+  span {
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0 0.15em;
+    font-weight: 500;
+  }
+
+  .hidden-butt {
+    width: 100%;
+    max-width: 0;
+    opacity: 0;
+    display: inline-block;
+    transition: 0.25s ease all;
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  @media (pointer: fine) {
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 3px var(--primary-color);
+
+      .hidden-butt {
+        opacity: 1;
+        max-width: 1.75rem;
+      }
+    }
   }
 `;

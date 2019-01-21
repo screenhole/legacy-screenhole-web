@@ -38,15 +38,6 @@ class Buttcoin extends Component {
     animationOptions: animationSpin,
   };
 
-  componentDidMount = async () => {
-    if (this.props.keepFresh) {
-      console.log("refreshing buttcoin count...");
-
-      const currentUser = await api.get("/users/current");
-      api.setCurrentUser(currentUser.data.user);
-    }
-  };
-
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
