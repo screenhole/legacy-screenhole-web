@@ -59,9 +59,23 @@ class Grab extends Component {
       return (
         !memo.pending &&
         memo.variant === "chomment" &&
-        !memo.message.match(/💸️/g)
+        !memo.message.match(/^💸.*💸️/)
       );
     });
+  };
+
+  buttcoinTips = () => {
+    const tips = (this.state.memos || []).filter(memo => {
+      return (
+        !memo.pending &&
+        memo.variant === "chomment" &&
+        memo.message.match(/^💸.*💸️/)
+      );
+    });
+
+    return tips.reduce((memo, buttcoin) => {
+      return memo + buttcoin.message.length;
+    }, 0);
   };
 
   stickerMemos = () => {
@@ -295,6 +309,11 @@ class Grab extends Component {
             {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
             )}
+            {this.buttcoinTips() > 0 && (
+              <SpaceTop>
+                <Buttcoin amount={this.buttcoinTips()} />
+              </SpaceTop>
+            )}
             {auth.state.authenticated && this.state.textMemoField && (
               <Form
                 className="grab-text-memo-form"
@@ -344,10 +363,7 @@ class Grab extends Component {
                               }}
                             >
                               <Buttcoin />
-                              <span>
-                                Tip
-                                <span className="hidden-butt"> +99</span>
-                              </span>
+                              <span>Tip 99</span>
                             </TipButton>
                             <ChommentCost>
                               {input.value.length <= auth.state.buttcoins && (
@@ -807,20 +823,12 @@ const TipButton = styled.div`
     pointer-events: none;
   }
 
-  span {
+  > span {
     white-space: nowrap;
     display: inline-block;
     font-size: 0.75rem;
-    padding: 0 0.15em;
     font-weight: 500;
-  }
-
-  .hidden-butt {
-    width: 100%;
-    max-width: 0;
-    opacity: 0;
-    display: inline-block;
-    transition: 0.25s ease all;
+    transform: translateY(-2px);
   }
 
   &:active {
@@ -831,11 +839,10 @@ const TipButton = styled.div`
     &:hover,
     &:focus {
       box-shadow: 0 0 0 3px var(--primary-color);
-
-      .hidden-butt {
-        opacity: 1;
-        max-width: 1.75rem;
-      }
     }
   }
+`;
+
+const SpaceTop = styled.div`
+  margin-top: 1rem;
 `;
