@@ -6,6 +6,7 @@ import TimeAgo from "react-timeago";
 
 import Linkify from "../../utils/Linkify";
 import Avatar from "../User/Avatar";
+import Buttcoin from "../Buttcoin/Buttcoin";
 
 export default class Memo extends Component {
   constructor() {
@@ -31,15 +32,19 @@ export default class Memo extends Component {
               <Link to={`/${this.props.username}`}>
                 <Username data-variant={this.props.variant}>
                   {this.props.username}
-                  {this.props.audio && ':'}
+                  {this.props.audio && ":"}
                 </Username>
               </Link>
             )}
             <Message>
-              <Linkify
-                className="memo-message"
-              >
-                {this.props.message}
+              <Linkify className="memo-message">
+                {this.props.message.match(/^💸.*💸️/) ? (
+                  <TipChomment>
+                    tipped <Buttcoin amount={this.props.message.length} />
+                  </TipChomment>
+                ) : (
+                  <p>{this.props.message}</p>
+                )}
               </Linkify>
             </Message>
             <TimeAgo date={this.props.created_at} />
@@ -135,7 +140,7 @@ const Username = styled.span`
   }
 `;
 
-const Message = styled.p`
+const Message = styled.div`
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
   display: inline;
   word-break: break-word;
@@ -204,3 +209,14 @@ const pauseIcon = (
     />
   </svg>
 );
+
+const TipChomment = styled.div`
+  display: flex;
+  align-items: center;
+  color: var(--buttcoin-color);
+  font-size: 0.875rem;
+
+  svg {
+    margin-left: 0.25em;
+  }
+`;
