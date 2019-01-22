@@ -309,11 +309,27 @@ class Grab extends Component {
             {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
             )}
-            {this.buttcoinTips() > 0 && (
-              <SpaceTop>
+            <SpaceTop>
+              {this.buttcoinTips() > 0 && (
                 <Buttcoin amount={this.buttcoinTips()} />
-              </SpaceTop>
-            )}
+              )}
+              {this.textMemos().length > 0 && (
+                <Link
+                  to={`/${this.props.username}/~${this.props.id}`}
+                  className="grab-image-link"
+                >
+                  View all chomments
+                </Link>
+              )}
+              {this.props.media_type === "recording" && (
+                <Link
+                  to={`/${this.props.username}/~${this.props.id}`}
+                  className="grab-image-link"
+                >
+                  View video
+                </Link>
+              )}
+            </SpaceTop>
             {auth.state.authenticated && this.state.textMemoField && (
               <Form
                 className="grab-text-memo-form"
@@ -846,4 +862,17 @@ const TipButton = styled.div`
 
 const SpaceTop = styled.div`
   margin-top: 1rem;
+  display: flex;
+  align-items: center;
+
+  .buttcoin + a,
+  a + a {
+    margin-left: 0.5rem;
+
+    &::before {
+      content: " • ";
+      color: var(--muted-color);
+      position: relative;
+    }
+  }
 `;
