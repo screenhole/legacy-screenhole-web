@@ -829,6 +829,7 @@ const TipButton = styled.div`
     font-size: 0.75rem;
     font-weight: 500;
     transform: translateY(-2px);
+    user-select: none;
   }
 
   &:active {
