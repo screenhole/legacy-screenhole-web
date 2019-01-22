@@ -182,8 +182,7 @@ export default class Activity extends Component {
                   <ActivityInfo>
                     <ActivityLink grab_id={note.meta.grab_id}>
                       <p>
-                        {/* User */}
-                        @{note.actor.username}
+                        {/* User */}@{note.actor.username}
                         {/* Action */}
                         {note.variant === "voice_memo" && (
                           <span> left a voice memo </span>
@@ -208,7 +207,11 @@ export default class Activity extends Component {
                       username={note.actor.username}
                       gravatar={note.actor.gravatar_hash}
                       variant={note.variant}
-                      audio={note.cross_ref && !note.cross_ref.pending ? note.cross_ref.media_public_url : null}
+                      audio={
+                        note.cross_ref && !note.cross_ref.pending
+                          ? note.cross_ref.media_public_url
+                          : null
+                      }
                       hideUsername={true}
                     />
                   </ActivityInfo>
@@ -286,6 +289,12 @@ const View = styled.div`
 
   .negative {
     color: var(--danger-color);
+  }
+
+  .memo-message .buttcoin {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
   }
 `;
 
