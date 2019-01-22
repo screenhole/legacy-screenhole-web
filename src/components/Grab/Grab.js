@@ -358,12 +358,12 @@ class Grab extends Component {
                               onClick={e => {
                                 e.preventDefault();
                                 const money = "💸️";
-                                values.message = money.repeat(33);
+                                values.message = money.repeat(23);
                                 handleSubmit();
                               }}
                             >
                               <Buttcoin />
-                              <span>Tip 99</span>
+                              <span>Tip 69</span>
                             </TipButton>
                             <ChommentCost>
                               {input.value.length <= auth.state.buttcoins && (
