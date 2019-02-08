@@ -39,23 +39,23 @@ class Chomment extends Component {
           />
           <Content>
             <Username>
+              {this.props.countryCode && (
+                <CountryEmoji>{this.props.countryEmoji}</CountryEmoji>
+              )}
               <Link to={`/${this.props.username}`}>{this.props.username}</Link>
             </Username>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
-                <Linkify>
-                  {this.props.message}
-                </Linkify>
+                <Linkify>{this.props.message}</Linkify>
               </Message>
             )}
-            {this.props.variant === "voice_memo" &&
-              this.props.reference && (
-                <Link to={`/grab/~${this.props.reference.id}`}>
-                  <Message className="voice-memo-link">
-                    {this.props.message}
-                  </Message>
-                </Link>
-              )}
+            {this.props.variant === "voice_memo" && this.props.reference && (
+              <Link to={`/grab/~${this.props.reference.id}`}>
+                <Message className="voice-memo-link">
+                  {this.props.message}
+                </Message>
+              </Link>
+            )}
           </Content>
         </InnerChomment>
         <TimeAgo date={this.props.created_at} />
@@ -140,6 +140,7 @@ const Message = styled.p`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 const Username = styled.span`
@@ -155,6 +156,11 @@ const Username = styled.span`
       border-bottom: 1px solid var(--primary-color);
     }
   }
+`;
+
+const CountryEmoji = styled.span`
+  float: right;
+  opacity: 0.75;
 `;
 
 const UsernameTimeWrapper = styled.div`
