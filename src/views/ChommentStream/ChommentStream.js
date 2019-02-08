@@ -71,6 +71,8 @@ class ChommentStream extends Component {
       chomments.push(
         <Chomment
           username={chomment.user.username}
+          countryEmoji={chomment.user.country_emoji}
+          countryCode={chomment.user.country_code}
           message={chomment.message}
           gravatar={chomment.user.gravatar_hash}
           variant={chomment.variant}
