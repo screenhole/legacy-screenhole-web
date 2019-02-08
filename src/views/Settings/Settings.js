@@ -29,6 +29,20 @@ const onSubmit = async values => {
 };
 
 class Settings extends Component {
+  state = {
+    countries: [],
+  };
+
+  async componentDidMount() {
+    const countries = await api.get(`/countries`);
+
+    if (!countries.ok) {
+      return;
+    }
+
+    this.setState({ countries: countries.data.countries });
+  }
+
   render() {
     return (
       <Form
@@ -139,6 +153,25 @@ class Settings extends Component {
                   </InputWrapper>
                 )}
               </Field>
+              <Field name="country_code">
+                {({ input, meta }) => (
+                  <InputWrapper>
+                    <Select {...input}>
+                      {this.state.countries.map(c => (
+                        <Option value={c.code} key={c.code}>
+                          {c.name} {c.emoji}
+                        </Option>
+                      ))}
+                    </Select>
+                    <Label>
+                      Country{" "}
+                      {(meta.error || meta.submitError) && meta.touched && (
+                        <span>{meta.error || meta.submitError}</span>
+                      )}
+                    </Label>
+                  </InputWrapper>
+                )}
+              </Field>
               <Field name="password">
                 {({ input, meta }) => (
                   <InputWrapper>
@@ -242,6 +275,24 @@ const Input = styled.input`
     color: var(--input-color);
   }
 `;
+
+const Select = styled.select`
+  appearance: textfield;
+  width: 100%;
+  display: block;
+  padding: 0.75rem 0;
+  font-size: 1.75rem;
+  border: 0;
+  border-bottom: 2px solid var(--input-color);
+  background-color: transparent;
+  transition: all 0.2s ease;
+  color: #fff;
+  outline: none;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+`;
+
+const Option = styled.option``;
 
 const Label = styled.label`
   color: var(--input-color);
