@@ -12,7 +12,9 @@ class LoggedIn extends Component {
 
     return (
       <Fragment>
-        <Buttcoin amount={buttcoins} username={username} keepFresh={true} />
+        <Link to="/sup">
+          <Buttcoin amount={buttcoins} username={username} keepFresh={true} />
+        </Link>
         <a
           href="https://twitter.com/screenhole"
           target="_blank"
