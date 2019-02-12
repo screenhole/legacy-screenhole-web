@@ -87,6 +87,7 @@ class UserStream extends Component {
           memos={grab.memos}
           gravatar={grab.user.gravatar_hash}
           media_type={grab.media_type}
+          created_at={grab.created_at}
           key={i}
         />,
       ),
