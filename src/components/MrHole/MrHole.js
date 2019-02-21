@@ -23,6 +23,7 @@ const messages = [
   { text: "you’re awesome", url: "/" },
   { text: "hope you're having a great day", url: "/" },
   { text: "let’s see what’s on your screen, COWARD", url: "/" },
+  { text: "69 is a niiiiiiiice number", url: "/" },
   { text: "pro tip: shrek is made of wasabi", url: "/" },
   { text: "welcome to my hole", url: "/" },
   { text: "click here if you have questions", url: "/wtf" },
