@@ -96,36 +96,45 @@ class UserStream extends Component {
     return (
       <Wrapper>
         {this.state.user && (
-          <ProfileHeader>
-            <MetaTags
-              username={this.state.user.username}
-              name={this.state.user.name || this.state.user.username}
-              gravatar_hash={this.state.user.gravatar_hash}
-              bio={this.state.user.bio}
-              grabs={this.state.user.stats.grabs}
-            />
-            <UserInfo>
-              <Avatar
+          <>
+            <ProfileHeader>
+              <MetaTags
                 username={this.state.user.username}
-                gravatar={this.state.user.gravatar_hash}
-                size={500}
+                name={this.state.user.name || this.state.user.username}
+                gravatar_hash={this.state.user.gravatar_hash}
+                bio={this.state.user.bio}
+                grabs={this.state.user.stats.grabs}
               />
-              <UserBio>
-                <h1>{this.state.user.name}</h1>
-                <h2>@{this.state.user.username}</h2>
-                <p>{this.state.user.bio}</p>
+              <UserInfo>
+                <Avatar
+                  username={this.state.user.username}
+                  gravatar={this.state.user.gravatar_hash}
+                  size={500}
+                />
+                <UserBio>
+                  <h1>{this.state.user.name}</h1>
+                  <h2>@{this.state.user.username}</h2>
+                  <p>{this.state.user.bio}</p>
 
-                {this.state.currentUser &&
-                  this.state.user.id === this.state.currentUser.id && (
-                    <Link to="/settings">Edit profile</Link>
-                  )}
-              </UserBio>
-            </UserInfo>
-            <UserStats>
-              <Number>{this.state.user.stats.grabs}</Number>
-              <Label>Grabs</Label>
-            </UserStats>
-          </ProfileHeader>
+                  {this.state.currentUser &&
+                    this.state.user.id === this.state.currentUser.id && (
+                      <Link to="/settings">Edit profile</Link>
+                    )}
+                </UserBio>
+              </UserInfo>
+              <UserStats>
+                <Number>{this.state.user.stats.grabs}</Number>
+                <Label>Grabs</Label>
+              </UserStats>
+            </ProfileHeader>
+            {this.state.user.badges.length > 0 && (
+              <BadgeCarousel>
+                {this.state.user.badges.map(b => (
+                  <Badge>{b.id.replace(/_/g, " ")}</Badge>
+                ))}
+              </BadgeCarousel>
+            )}
+          </>
         )}
         <GrabsWrapper>
           <ActionCable
@@ -176,6 +185,20 @@ const ProfileHeader = styled.header`
     padding: 1rem;
     flex-wrap: wrap;
   }
+`;
+
+const BadgeCarousel = styled("marquee")`
+  padding: 1rem 3rem;
+  border-bottom: var(--divider);
+`;
+
+const Badge = styled.span`
+  display: inline-block;
+  margin: 0 2rem;
+  background-color: #fff;
+  color: #000;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
 `;
 
 const UserInfo = styled.div`
