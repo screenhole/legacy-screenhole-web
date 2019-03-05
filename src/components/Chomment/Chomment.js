@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
-import {reactStringReplace} from 'react-string-replace';
 
 import Linkify from "react-linkify";
 import Avatar from "../User/Avatar";
