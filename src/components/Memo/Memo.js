@@ -4,7 +4,8 @@ import ReactPlayer from "react-player";
 import styled from "styled-components";
 import TimeAgo from "react-timeago";
 
-import Linkify from "../../utils/Linkify";
+import Linkify from "react-linkify";
+import {withReply} from '../../utils/withReply'
 import Avatar from "../User/Avatar";
 import Buttcoin from "../Buttcoin/Buttcoin";
 
@@ -37,13 +38,13 @@ export default class Memo extends Component {
               </Link>
             )}
             <Message>
-              <Linkify className="memo-message">
+              <Linkify properties={{target: '_blank' }} className="memo-message">
                 {this.props.message.match(/^💸.*💸️/) ? (
                   <TipChomment>
                     tipped <Buttcoin amount={this.props.message.length} />
                   </TipChomment>
                 ) : (
-                  <p>{this.props.message}</p>
+                  <p>{withReply(this.props.message)}</p>
                 )}
               </Linkify>
             </Message>

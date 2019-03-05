@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
+import {reactStringReplace} from 'react-string-replace';
 
-import Linkify from "../../utils/Linkify";
+import Linkify from "react-linkify";
 import Avatar from "../User/Avatar";
+import {withReply} from '../../utils/withReply';
 
 const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
 
@@ -46,7 +48,7 @@ class Chomment extends Component {
             </Username>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
-                <Linkify>{this.props.message}</Linkify>
+                <Linkify properties={{target: '_blank' }}>{withReply(this.props.message)}</Linkify>
               </Message>
             )}
             {this.props.variant === "voice_memo" && this.props.reference && (
