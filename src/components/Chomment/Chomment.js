@@ -7,22 +7,9 @@ import {reactStringReplace} from 'react-string-replace';
 
 import Linkify from "react-linkify";
 import Avatar from "../User/Avatar";
+import {withReply} from '../../utils/withReply';
 
 const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
-
-const withReply = (message) => {
-  const catchMention = message.match(/(@\w+)/g);
-
-  if (catchMention) {
-    const linkedReply = `<a href="/${catchMention[0].slice(1)}">${catchMention[0]}</a>`;
-    const composedMessage = message.replace(catchMention[0], linkedReply);
-
-    // yolo baby
-    return <span dangerouslySetInnerHTML={ {__html: composedMessage}} />
-  } else {
-    return message;
-  }
-}
 
 class Chomment extends Component {
   constructor(props) {

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import TimeAgo from "react-timeago";
 
 import Linkify from "react-linkify";
+import {withReply} from '../../utils/withReply'
 import Avatar from "../User/Avatar";
 import Buttcoin from "../Buttcoin/Buttcoin";
 
@@ -43,7 +44,7 @@ export default class Memo extends Component {
                     tipped <Buttcoin amount={this.props.message.length} />
                   </TipChomment>
                 ) : (
-                  <p>{this.props.message}</p>
+                  <p>{withReply(this.props.message)}</p>
                 )}
               </Linkify>
             </Message>
