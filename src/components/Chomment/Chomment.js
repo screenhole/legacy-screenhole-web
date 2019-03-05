@@ -3,11 +3,26 @@ import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
 import styled from "styled-components";
 import emojiRegex from "emoji-regex";
+import {reactStringReplace} from 'react-string-replace';
 
 import Linkify from "react-linkify";
 import Avatar from "../User/Avatar";
 
 const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
+
+const withReply = (message) => {
+  const catchMention = message.match(/(@\w+)/g);
+
+  if (catchMention) {
+    const linkedReply = `<a href="/${catchMention[0].slice(1)}">${catchMention[0]}</a>`;
+    const composedMessage = message.replace(catchMention[0], linkedReply);
+
+    // yolo baby
+    return <span dangerouslySetInnerHTML={ {__html: composedMessage}} />
+  } else {
+    return message;
+  }
+}
 
 class Chomment extends Component {
   constructor(props) {
@@ -46,7 +61,7 @@ class Chomment extends Component {
             </Username>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
-                <Linkify properties={{target: '_blank' }}>{this.props.message}</Linkify>
+                <Linkify properties={{target: '_blank' }}>{withReply(this.props.message)}</Linkify>
               </Message>
             )}
             {this.props.variant === "voice_memo" && this.props.reference && (
