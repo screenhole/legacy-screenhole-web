@@ -187,7 +187,7 @@ const ProfileHeader = styled.header`
   }
 `;
 
-const BadgeCarousel = styled("marquee")`
+const BadgeCarousel = styled.marquee`
   padding: 1rem 3rem;
   border-bottom: var(--divider);
 `;
@@ -195,10 +195,26 @@ const BadgeCarousel = styled("marquee")`
 const Badge = styled.span`
   display: inline-block;
   margin: 0 2rem;
-  background-color: #fff;
-  color: #000;
+  background-color: HSLA(250, 77%, 59%, 1.00);
+  color: white;
+  letter-spacing: .05em;
+  border-radius: 8px;
   padding: 0.5rem 1rem;
   text-transform: uppercase;
+
+  &:nth-child(2) {
+    background-color: HSLA(147, 96%, 54%, 1.00);
+    color: #004a22;
+  }
+
+  &:nth-child(3) {
+    background-color: #ef1062;
+  }
+
+  &:nth-child(5) {
+    background-color: HSLA(147, 100%, 15%, 1.00);
+    color: #17ff81;
+  }
 `;
 
 const UserInfo = styled.div`
