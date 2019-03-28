@@ -24,6 +24,8 @@ import Apps from "./views/Static/Apps";
 import Code from "./views/Static/Code";
 import UserList from "./views/UserList/UserList";
 
+import NewHole from "./views/Multihole/NewHole";
+
 // Remember that route order matters for proper matching!
 
 class Routes extends Component {
@@ -46,6 +48,9 @@ class Routes extends Component {
         <PrivateRoute exact path="/logout" component={Logout} />
         <PrivateRoute exact path="/settings" component={Settings} />
         <PrivateRoute exact path="/sup" component={Activity} />
+
+        {/* Multihole */}
+        <PrivateRoute exact path="/cgi-bin/new" component={NewHole} />
 
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/~:id" component={GrabSingle} />
