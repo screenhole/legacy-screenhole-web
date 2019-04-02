@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import Tooltip from "../Tooltip/Tooltip";
+import { Subscribe } from "unstated";
+
+import AuthContainer from "../../utils/AuthContainer";
 
 import Avatar from "../User/Avatar";
 import Buttcoin from "../Buttcoin/Buttcoin";
@@ -11,31 +15,37 @@ class LoggedIn extends Component {
     const { buttcoins, username, gravatar_hash } = this.props;
 
     return (
-      <Fragment>
-        <Link to="/sup">
-          <Buttcoin amount={buttcoins} username={username} keepFresh={true} />
-        </Link>
-        <a
-          href="https://twitter.com/screenhole"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          twitter
-        </a>
-        <NavLink to="/wtf">wtf</NavLink>
-        <NavLink to="/apps">apps</NavLink>
-        <NavLink to="/peeps">peeps</NavLink>
-        <ActivityBadge />
-        <Menu className="nav-dropdown">
-          <Avatar gravatar={gravatar_hash} username={username} />
-          <Dropdown className="user-nav-dropdown">
-            <Link to={`/${username}`}>@{username}</Link>
-            <NavLink to="/invite">invite</NavLink>
-            <NavLink to="/settings">settings</NavLink>
-            <Link to="/logout">log out</Link>
-          </Dropdown>
-        </Menu>
-      </Fragment>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Fragment>
+            <NavLink to="/wtf">wtf</NavLink>
+            <NavLink to="/apps">apps</NavLink>
+            <NavLink to="/peeps">peeps</NavLink>
+            <Tooltip title="Upload a grab" position="bottom">
+              <UploadButton onClick={() => auth.toggleUploader("on")}>
+                {uploadIcon}
+              </UploadButton>
+            </Tooltip>
+            <ActivityBadge />
+            <Link to="/sup">
+              <Buttcoin
+                amount={buttcoins}
+                username={username}
+                keepFresh={true}
+              />
+            </Link>
+            <Menu className="nav-dropdown">
+              <Avatar gravatar={gravatar_hash} username={username} />
+              <Dropdown className="user-nav-dropdown">
+                <Link to={`/${username}`}>@{username}</Link>
+                <NavLink to="/invite">invite</NavLink>
+                <NavLink to="/settings">settings</NavLink>
+                <Link to="/logout">log out</Link>
+              </Dropdown>
+            </Menu>
+          </Fragment>
+        )}
+      </Subscribe>
     );
   }
 }
@@ -88,3 +98,47 @@ const Dropdown = styled.div`
     padding: 0.5rem 1rem;
   }
 `;
+
+const UploadButton = styled.button`
+  border: none;
+  box-shadow: none;
+  background: none;
+  color: white;
+  margin-left: 2rem;
+  outline: none;
+  transition: 0.15s ease all;
+
+  svg {
+    position: relative;
+    top: 0.2rem;
+  }
+
+  @media (pointer: fine) {
+    &:hover,
+    &:focus {
+      color: var(--secondary-color);
+      cursor: pointer;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+`;
+
+const uploadIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21.2 15c.7-1.2 1-2.5.7-3.9-.6-2-2.4-3.5-4.4-3.5h-1.2c-.7-3-3.2-5.2-6.2-5.6-3-.3-5.9 1.3-7.3 4-1.2 2.5-1 6.5.5 8.8m8.7-1.6V21" />
+    <path d="M16 16l-4-4-4 4" />
+  </svg>
+);

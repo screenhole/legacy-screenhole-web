@@ -8,6 +8,7 @@ import Nav from "./components/Nav/Nav";
 import NavTabs from "./components/Nav/NavTabs";
 import ChommentStream from "./views/ChommentStream/ChommentStream";
 import MrHole from "./components/MrHole/MrHole";
+import WebUploader from "./components/Upload/WebUploader";
 
 class App extends Component {
   componentDidMount() {
@@ -24,6 +25,8 @@ class App extends Component {
         <MainContent>
           <Routes />
         </MainContent>
+
+        <WebUploader />
 
         {/* Render global Chomments and Mr. Hole on desktop */}
         <Media query="(min-width: 791px)">

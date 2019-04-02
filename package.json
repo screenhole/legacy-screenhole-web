@@ -32,7 +32,7 @@
     "react-timeago": "^3.4.3",
     "react-tippy": "^1.2.2",
     "react-trend": "^1.2.4",
-    "styled-components": "^2.4.0",
+    "styled-components": "^4.2.0",
     "unstated": "^1.0.3"
   },
   "scripts": {
