@@ -137,9 +137,10 @@ const Caption = styled.label`
     box-shadow: none;
     color: white;
     transition: 0.25s ease all;
+    resize: none;
 
     &:focus {
-      background-color: var(--primary-color);
+      box-shadow: 0 0 0 4px black, 0 0 0 6px var(--primary-color);
       outline: none;
     }
   }

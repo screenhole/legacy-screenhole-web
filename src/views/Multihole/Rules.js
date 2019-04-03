@@ -24,6 +24,7 @@ export default class Rules extends Component {
     return (
       <Page>
         <h1>Rules</h1>
+        <p>Shape your community by setting your own rules.</p>
         <hr />
         <InputGroup>
           <InputWrapper>
@@ -150,6 +151,10 @@ const Page = styled.div`
     border-color: var(--super-muted-color);
     margin: 2rem 0;
   }
+
+  > p {
+    color: var(--muted-color);
+  }
 `;
 
 const InputGroup = styled.div`
@@ -183,7 +188,7 @@ const Input = styled.input`
   transition: 0.25s ease all;
 
   &:focus {
-    background-color: var(--primary-color);
+    box-shadow: 0 0 0 4px black, 0 0 0 6px var(--primary-color);
     outline: none;
   }
 `;
