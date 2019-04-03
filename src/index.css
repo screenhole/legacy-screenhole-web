@@ -17,11 +17,7 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-text-decoration-skip: ink;
-  font-family: 'Inter', sans-serif;
-}
-
-@supports (font-variation-settings: normal) {
-  html { font-family: 'Inter var', sans-serif; }
+  font-family: 'Inter', system-ui, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 body {
