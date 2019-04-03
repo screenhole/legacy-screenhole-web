@@ -6,7 +6,7 @@ import emojiRegex from "emoji-regex";
 
 import Linkify from "react-linkify";
 import Avatar from "../User/Avatar";
-import {withReply} from '../../utils/withReply';
+import { withReply } from "../../utils/withReply";
 
 const maxAmountOfOnlyEmoji = /^[\W\S\D]{0,8}\W$/gu;
 
@@ -47,7 +47,9 @@ class Chomment extends Component {
             </Username>
             {this.props.variant === "generic" && (
               <Message className="ChommentMessage">
-                <Linkify properties={{target: '_blank' }}>{withReply(this.props.message)}</Linkify>
+                <Linkify properties={{ target: "_blank" }}>
+                  {withReply(this.props.message)}
+                </Linkify>
               </Message>
             )}
             {this.props.variant === "voice_memo" && this.props.reference && (
@@ -102,7 +104,7 @@ const InnerChomment = styled.div`
 
 const Message = styled.p`
   color: var(--muted-color);
-  line-height: 1.45;
+  line-height: 1.4;
   font-size: 0.925rem;
   word-break: break-word;
 
@@ -147,6 +149,7 @@ const Content = styled.div`
 const Username = styled.span`
   a {
     color: var(--link-color);
+    font-weight: 600;
     display: inline-block;
     align-self: flex-start;
     border-bottom: 1px solid transparent;

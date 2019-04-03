@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 *,
 *::before,
 *::after {
@@ -15,7 +17,11 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-text-decoration-skip: ink;
-  font-family: Poppins, sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html { font-family: 'Inter var', sans-serif; }
 }
 
 body {
