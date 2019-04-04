@@ -104,8 +104,8 @@ const InnerChomment = styled.div`
 
 const Message = styled.p`
   color: var(--muted-color);
-  line-height: 1.4;
-  font-size: 0.925rem;
+  line-height: 1.25;
+  font-size: 1rem;
   word-break: break-word;
 
   a {
@@ -165,6 +165,7 @@ const Username = styled.span`
 const CountryEmoji = styled.span`
   float: right;
   opacity: 0.75;
+  pointer-events: none;
 `;
 
 const UsernameTimeWrapper = styled.div`
@@ -174,7 +175,7 @@ const UsernameTimeWrapper = styled.div`
   width: 100%;
 
   time {
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     color: var(--super-muted-color);
   }
 `;
