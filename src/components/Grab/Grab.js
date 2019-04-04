@@ -501,7 +501,7 @@ const UserInfo = styled.div`
   }
 
   time {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     color: var(--super-muted-color);
     text-align: right;
     flex-shrink: 0;
