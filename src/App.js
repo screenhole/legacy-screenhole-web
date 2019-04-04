@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { hot } from 'react-hot-loader'
 import styled from "styled-components";
 import Media from "react-media";
 
@@ -49,7 +50,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
 
 const MainContent = styled.main`
   width: 100%;

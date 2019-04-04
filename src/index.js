@@ -7,7 +7,6 @@ import { Provider as UnstatedProvider } from "unstated";
 import { ActionCableProvider } from "react-actioncable-provider";
 import Analytics from "react-router-ga";
 import ScrollMemory from "react-router-scroll-memory";
-import { unregister } from "./registerServiceWorker";
 
 import api from "./utils/api";
 
@@ -50,7 +49,3 @@ class ScreenholeWeb extends React.Component {
 }
 
 ReactDOM.render(<ScreenholeWeb />, document.getElementById("app"));
-
-// Not now
-// registerServiceWorker();
-unregister();
