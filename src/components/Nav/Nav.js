@@ -258,6 +258,9 @@ const Menu = styled.div`
 const MultiholeName = styled.p`
   display: flex;
   align-items: center;
+  font-size: 1.25rem;
+  position: relative;
+  top: -3px;
 
   svg {
     margin-right: 0.25rem;
