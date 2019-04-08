@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { hot } from 'react-hot-loader'
 import styled from "styled-components";
+import { Subscribe } from "unstated";
 import Media from "react-media";
 
 import Routes from "./Routes.js";
+import AuthContainer from "./utils/AuthContainer";
+import HideChat from "./utils/HideChat";
 
 import Nav from "./components/Nav/Nav";
 import NavTabs from "./components/Nav/NavTabs";
@@ -15,42 +17,52 @@ class App extends Component {
   componentDidMount() {
     window.ClientRequestsGracefulRefresh = () => {
       // TODO: check if MainContent is scrolled past a threshold
-      window.location = window.location;
+      window.reload();
     };
   }
 
   render() {
     return (
-      <div className="App">
-        <Nav />
-        <MainContent>
-          <Routes />
-        </MainContent>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <div className="App">
+            <Nav />
+            <MainContent>
+              <Routes />
+            </MainContent>
 
-        <WebUploader />
+            <WebUploader />
 
-        {/* Render global Chomments and Mr. Hole on desktop */}
-        <Media query="(min-width: 791px)">
-          {matches =>
-            matches && (
-              <Fragment>
-                <ChommentStream />
-                <MrHole />
-              </Fragment>
-            )
-          }
-        </Media>
+            {/* Render global Chomments and Mr. Hole on desktop */}
+            <Media query="(min-width: 791px)">
+              {matches =>
+                matches && (
+                  <Fragment>
+                    {auth.state.rules.chomments ? (
+                      <ChommentStream />
+                    ) : (
+                      <HideChat />
+                    )}
+                    <MrHole />
+                  </Fragment>
+                )
+              }
+            </Media>
 
-        {/* Render bottom nav bar for mobile */}
-        <Media query="(max-width: 790px)">
-          {matches => matches && <NavTabs />}
-        </Media>
-      </div>
+            {/* Render bottom nav bar for mobile */}
+            <Media query="(max-width: 790px)">
+              {matches =>
+                matches && <NavTabs chomments={auth.state.rules.chomments} />
+              }
+            </Media>
+          </div>
+        )}
+      </Subscribe>
     );
   }
 }
 
-export default hot(module)(App);
+export default App;
 
 const MainContent = styled.main`
   width: 100%;

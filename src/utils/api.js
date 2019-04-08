@@ -20,7 +20,7 @@ api.addResponseTransform(response => {
   if (!response.ok) {
     if (response.status === 401) {
       api.resetLocalStorage();
-      window.location = window.location;
+      window.reload();
     }
   }
 });

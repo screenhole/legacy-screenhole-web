@@ -8,9 +8,11 @@ class NavTabs extends Component {
   render() {
     return (
       <Container>
-        <NavLink to="/view/mobile/chomments" className="match-size">
-          {chommentIcon}
-        </NavLink>
+        {this.props.chomments && (
+          <NavLink to="/view/mobile/chomments" className="match-size">
+            {chommentIcon}
+          </NavLink>
+        )}
         <NavLink to="/view/mobile/feed">{feedIcon}</NavLink>
         <NavLink to="/sup">{supIcon}</NavLink>
       </Container>

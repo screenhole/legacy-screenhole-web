@@ -8,6 +8,10 @@ class AuthContainer extends Container {
     current: api.currentUser,
     buttcoins: api.currentUser ? api.currentUser.stats.buttcoins : 0,
     uploader: false,
+    rules: {
+      chomments: false,
+      webUpload: false,
+    },
   };
 
   authenticate = user => {

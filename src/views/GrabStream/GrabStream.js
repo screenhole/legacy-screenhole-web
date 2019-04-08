@@ -109,6 +109,8 @@ class GrabStream extends Component {
           media_type={grab.media_type}
         />,
       );
+
+      return false;
     });
 
     return (

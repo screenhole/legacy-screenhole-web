@@ -70,6 +70,7 @@ class GrabSingle extends Component {
               description={this.state.grab.description}
               media_type={this.state.grab.media_type}
             />
+            {/* eslint-disable-next-line */}
             <Back href="javascript:history.go(-1)">↩ Back</Back>
           </span>
         ) : (

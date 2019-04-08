@@ -21,11 +21,13 @@ class LoggedIn extends Component {
             <NavLink to="/wtf">wtf</NavLink>
             <NavLink to="/apps">apps</NavLink>
             <NavLink to="/peeps">peeps</NavLink>
-            <Tooltip title="Upload a grab" position="bottom">
-              <UploadButton onClick={() => auth.toggleUploader("on")}>
-                {uploadIcon}
-              </UploadButton>
-            </Tooltip>
+            {auth.state.rules.webUpload && (
+              <Tooltip title="Upload a grab" position="bottom">
+                <UploadButton onClick={() => auth.toggleUploader("on")}>
+                  {uploadIcon}
+                </UploadButton>
+              </Tooltip>
+            )}
             <ActivityBadge />
             <Link to="/sup">
               <Buttcoin
@@ -96,6 +98,13 @@ const Dropdown = styled.div`
     color: #fff;
     display: block;
     padding: 0.5rem 1rem;
+
+    @media (pointer: fine) {
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
   }
 `;
 

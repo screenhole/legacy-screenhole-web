@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-
-import { Form, Field } from "react-final-form";
-import { FORM_ERROR } from "final-form";
-
-const HideChat = createGlobalStyle`
-  #ChommentStream { display: none; }
-  main { padding-left: var(--app-padding) !important; }
-`;
+import styled from "styled-components";
+import HideChat from "../../utils/HideChat";
 
 export default class NewHole extends Component {
   render() {
@@ -70,45 +63,23 @@ export default class NewHole extends Component {
           </CoolThing>
         </CoolListOfThings>
 
-        <Form
-          render={({ pristine, values }) => {
-            return (
-              <Wrapper>
-                <Field name="name">
-                  {({ input, meta }) => (
-                    <InputWrapper>
-                      <Input
-                        {...input}
-                        type="text"
-                        placeholder="e.g. Hole Foods Buttcoin Market"
-                        autoCapitalize="off"
-                        autoCorrect="off"
-                        autoComplete="off"
-                      />
-                      <Label>Name</Label>
-                    </InputWrapper>
-                  )}
-                </Field>
-                <Field name="domain">
-                  {({ input, meta }) => (
-                    <InputWrapper>
-                      <Input
-                        {...input}
-                        type="text"
-                        placeholder="holefoods"
-                        autoCapitalize="off"
-                        autoCorrect="off"
-                        autoComplete="off"
-                      />
-                      <Label>Subdomain on screenhole.net</Label>
-                    </InputWrapper>
-                  )}
-                </Field>
-                <Button type="submit">Go!</Button>
-              </Wrapper>
-            );
-          }}
-        />
+        <InputGroup>
+          <InputWrapper>
+            <Label>
+              <span>Hole Name</span>
+              <Input type="text" />
+            </Label>
+          </InputWrapper>
+          <InputWrapper>
+            <Label>
+              <span>Subdomain</span>
+              <Input type="text" />
+            </Label>
+          </InputWrapper>
+          <InputWrapper>
+            <Button>Create hole</Button>
+          </InputWrapper>
+        </InputGroup>
       </Page>
     );
   }
@@ -172,61 +143,40 @@ const CoolThing = styled.li`
   }
 `;
 
-// Form stuff temp
-const Wrapper = styled.form`
-  max-width: 500px;
-  margin-top: 1rem;
-
-  > p {
-    color: #858090;
-    margin-top: 1rem;
-    line-height: 150%;
-  }
+const InputGroup = styled.form`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 1rem 2rem;
+  align-items: end;
+  margin-top: 2rem;
 `;
 
-const InputWrapper = styled.div`
-  margin: 1rem 0;
+const InputWrapper = styled.div``;
+
+const Label = styled.label`
+  color: var(--muted-color);
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const Input = styled.input`
-  width: 100%;
-  display: block;
-  padding: 0.75rem 0;
-  font-size: 1.75rem;
-  border: 0;
-  border-bottom: 2px solid var(--input-color);
-  background-color: transparent;
-  transition: all 0.2s ease;
-  color: #fff;
-  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1.25rem;
+  border: none;
+  box-shadow: none;
+  color: white;
+  transition: 0.25s ease all;
 
   &:focus {
-    color: #fff;
-    border-color: #fff;
-  }
-
-  ::-webkit-input-placeholder {
-    color: var(--input-color);
-  }
-  ::-moz-placeholder {
-    color: var(--input-color);
-  }
-  :-ms-input-placeholder {
-    color: var(--input-color);
-  }
-  :-moz-placeholder {
-    color: var(--input-color);
-  }
-`;
-
-const Label = styled.label`
-  color: var(--input-color);
-  margin-top: 0.75rem;
-  margin-bottom: 1.25rem;
-  display: block;
-
-  span {
-    color: red;
+    box-shadow: 0 0 0 4px black, 0 0 0 6px var(--primary-color);
+    outline: none;
   }
 `;
 

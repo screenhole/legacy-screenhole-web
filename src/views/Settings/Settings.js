@@ -74,7 +74,11 @@ class Settings extends Component {
 
               <p>
                 If you want to change your avatar, go to{" "}
-                <a href="https://gravatar.com" target="_blank">
+                <a
+                  href="https://gravatar.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Gravatar.com
                 </a>{" "}
                 and link it up to your Screenhole email address.

@@ -48,7 +48,7 @@ export default class Invite extends Component {
   };
   componentWillMount() {
     this.loadData();
-
+    // eslint-disable-next-line
     const clipboard = new Clipboard(".copy-to-clipboard");
   }
   loadData = async () => {
@@ -83,9 +83,10 @@ export default class Invite extends Component {
                   <span className="buttcoin">
                     {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}{" "}
                     buttcoins
-                  </span>. Once you generate an invite, share the code, or the
-                  link with a friend, and they can join Screenhole. We’ll keep
-                  track of who you invite to make sure your friends are nice!
+                  </span>
+                  . Once you generate an invite, share the code, or the link
+                  with a friend, and they can join Screenhole. We’ll keep track
+                  of who you invite to make sure your friends are nice!
                   Screenhole is a jerk free zone, so let’s keep them out.
                 </p>
                 <p className="small">
@@ -98,8 +99,8 @@ export default class Invite extends Component {
                 this.state.BUTTCOIN_INVITE_PRICE ? (
                   <p className="buttcoin">
                     You need {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}{" "}
-                    buttcoins to generate invites. <br />Earn some more and come
-                    back here.
+                    buttcoins to generate invites. <br />
+                    Earn some more and come back here.
                   </p>
                 ) : (
                   <button

@@ -20,6 +20,7 @@ class Chomment extends Component {
   }
   componentWillMount() {
     const catchEmoji = emojiRegex();
+    // eslint-disable-next-line
     let match;
     while ((match = catchEmoji.exec(this.props.message))) {
       if (this.props.message.match(maxAmountOfOnlyEmoji)) {

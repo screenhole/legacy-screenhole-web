@@ -41,9 +41,9 @@ class Nav extends Component {
                   </Link>
                 ) : (
                   <div className="nav-logo-link">
-                    {/* <Logo> */}
-                    {/* <Lottie options={defaultOptions} width={400} /> */}
-                    {/* </Logo> */}
+                    <Logo>
+                      <Lottie options={defaultOptions} width={400} />
+                    </Logo>
                     <DropdownMenu className="nav-dropdown">
                       <MultiholeName>
                         <svg
@@ -59,10 +59,10 @@ class Nav extends Component {
                         >
                           <path d="M6 9l6 6 6-6" />
                         </svg>
-                        <Link to="/">holefoods</Link>
+                        {/* <Link to="/">holefoods</Link> */}
                       </MultiholeName>
                       <Dropdown className="multihole-nav-dropdown">
-                        <p>Manage holefoods</p>
+                        {/* <p>Manage holefoods</p>
                         <Link to="/cgi-bin/hole/rules">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ class Nav extends Component {
                           </svg>
                           Invites
                         </Link>
-                        <hr />
+                        <hr /> */}
                         <OtherHoles>
                           <p>Switch holes</p>
                           <Link to="/cgi-bin/hole/invites">
@@ -118,7 +118,7 @@ class Nav extends Component {
                               height={18}
                               viewBox="0 0 24 24"
                               fill="none"
-                              stroke="#fff"
+                              stroke="currentColor"
                               strokeWidth={2}
                               strokeLinecap="round"
                               strokeLinejoin="round"
@@ -239,7 +239,7 @@ const Navbar = styled.nav`
 const Logo = styled.div`
   position: absolute;
   top: -10.75rem;
-  left: -5rem;
+  left: -3.75rem;
   pointer-events: none;
 `;
 
@@ -313,6 +313,13 @@ const Dropdown = styled.div`
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
+
+    @media (pointer: fine) {
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
 
     svg {
       flex-shrink: 0;

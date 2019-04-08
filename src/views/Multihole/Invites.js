@@ -46,7 +46,7 @@ export default class Invites extends Component {
   };
   componentWillMount() {
     this.loadData();
-
+    // eslint-disable-next-line
     const clipboard = new Clipboard(".copy-to-clipboard");
   }
   loadData = async () => {
