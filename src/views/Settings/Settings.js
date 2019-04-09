@@ -153,25 +153,6 @@ class Settings extends Component {
                   </InputWrapper>
                 )}
               </Field>
-              <Field name="country_code">
-                {({ input, meta }) => (
-                  <InputWrapper>
-                    <Select {...input}>
-                      {this.state.countries.map(c => (
-                        <Option value={c.code} key={c.code}>
-                          {c.name} {c.emoji}
-                        </Option>
-                      ))}
-                    </Select>
-                    <Label>
-                      Country{" "}
-                      {(meta.error || meta.submitError) && meta.touched && (
-                        <span>{meta.error || meta.submitError}</span>
-                      )}
-                    </Label>
-                  </InputWrapper>
-                )}
-              </Field>
               <Field name="password">
                 {({ input, meta }) => (
                   <InputWrapper>
