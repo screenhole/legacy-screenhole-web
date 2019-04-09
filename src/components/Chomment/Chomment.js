@@ -40,9 +40,6 @@ class Chomment extends Component {
           />
           <Content>
             <Username>
-              {this.props.countryCode && (
-                <CountryEmoji>{this.props.countryEmoji}</CountryEmoji>
-              )}
               <Link to={`/${this.props.username}`}>{this.props.username}</Link>
             </Username>
             {this.props.variant === "generic" && (
@@ -160,12 +157,6 @@ const Username = styled.span`
       border-bottom: 1px solid var(--primary-color);
     }
   }
-`;
-
-const CountryEmoji = styled.span`
-  float: right;
-  opacity: 0.75;
-  pointer-events: none;
 `;
 
 const UsernameTimeWrapper = styled.div`
