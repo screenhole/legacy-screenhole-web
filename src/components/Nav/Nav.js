@@ -42,7 +42,9 @@ class Nav extends Component {
                 ) : (
                   <div className="nav-logo-link">
                     <Logo>
-                      <Lottie options={defaultOptions} width={400} />
+                      <Link to="/">
+                        <Lottie options={defaultOptions} width={400} />
+                      </Link>
                     </Logo>
                     <DropdownMenu className="nav-dropdown">
                       <MultiholeName>
@@ -102,14 +104,8 @@ class Nav extends Component {
                         <hr /> */}
                         <OtherHoles>
                           <p>Switch holes</p>
-                          <Link to="/cgi-bin/hole/invites">
-                            <EnterIcon /> REAL INTERVIEWS
-                          </Link>
-                          <Link to="/cgi-bin/hole/invites">
-                            <EnterIcon /> another hole bites the busta rhymes
-                          </Link>
-                          <Link to="/cgi-bin/hole/invites">
-                            <EnterIcon /> DTS
+                          <Link to="https://thinko.screenhole.net">
+                            <EnterIcon /> Thinko
                           </Link>
                           <Link to="/cgi-bin/hole/redeem">
                             <svg

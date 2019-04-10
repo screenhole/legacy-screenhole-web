@@ -9,8 +9,8 @@ class AuthContainer extends Container {
     buttcoins: api.currentUser ? api.currentUser.stats.buttcoins : 0,
     uploader: false,
     rules: {
-      chomments: false,
-      webUpload: false,
+      chomments: true,
+      webUpload: true,
     },
   };
 

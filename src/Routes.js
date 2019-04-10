@@ -61,7 +61,7 @@ class Routes extends Component {
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/~:id" component={GrabSingle} />
 
-        {/* Special mobile routes to work with NavTabs */}
+        {/* Special mobile routes to work with MobileNav */}
         <Route exact path="/view/mobile/feed" component={GrabStream} />
         <Media query="(min-width: 791px)">
           {matches =>

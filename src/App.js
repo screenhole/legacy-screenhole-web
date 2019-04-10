@@ -8,7 +8,7 @@ import AuthContainer from "./utils/AuthContainer";
 import HideChat from "./utils/HideChat";
 
 import Nav from "./components/Nav/Nav";
-import NavTabs from "./components/Nav/NavTabs";
+import MobileNav from "./components/Nav/MobileNav";
 import ChommentStream from "./views/ChommentStream/ChommentStream";
 import MrHole from "./components/MrHole/MrHole";
 import WebUploader from "./components/Upload/WebUploader";
@@ -52,7 +52,7 @@ class App extends Component {
             {/* Render bottom nav bar for mobile */}
             <Media query="(max-width: 790px)">
               {matches =>
-                matches && <NavTabs chomments={auth.state.rules.chomments} />
+                matches && <MobileNav chomments={auth.state.rules.chomments} />
               }
             </Media>
           </div>

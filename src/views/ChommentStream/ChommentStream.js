@@ -120,7 +120,7 @@ class ChommentStream extends Component {
                             <Input
                               {...input}
                               type="text"
-                              placeholder="Type some chomments"
+                              placeholder="Type a message"
                               autoComplete="off"
                             />
                           )}
