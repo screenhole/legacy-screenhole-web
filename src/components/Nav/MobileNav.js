@@ -7,6 +7,20 @@ import { hot } from "react-hot-loader";
 import Buttcoin from "../Buttcoin/Buttcoin";
 
 class MobileNav extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      menuOpen: false,
+    };
+  }
+
+  toggleMenu = () => {
+    this.setState({
+      menuOpen: !this.state.menuOpen,
+    });
+  };
+
   render() {
     return (
       <Container>
@@ -16,75 +30,77 @@ class MobileNav extends Component {
         )}
         <NavLink to="/add">{addIcon}</NavLink>
         <NavLink to="/sup">{supIcon}</NavLink>
-        <Hamburger>{hamgburgerIcon}</Hamburger>
-        <Menu>
-          <DynamicMenuWrapper>
-            <TopMenu>
-              <Link to="/wtf">
-                <span>wtf is screenhole?</span>
-              </Link>
-            </TopMenu>
-            <HoleManagement>
-              <h2>Switch holes</h2>
-              <Link to="/cgi-bin/hole/join">
-                {unlockIcon}
-                Join another hole
-              </Link>
-            </HoleManagement>
-            <HoleSwitcher>
-              <Hole href="/">
-                <Title>Screenhole</Title>
-                <URL>screenhole.com</URL>
-              </Hole>
-              <Hole href="https://thinko.screenhole.com">
-                <Title>Thinko</Title>
-                <URL>thinko.screenhole.com</URL>
-              </Hole>
-              <Hole href="https://dts.screenhole.com">
-                <Title>Down to Shop</Title>
-                <URL>dts.screenhole.com</URL>
-              </Hole>
-              <div />
-            </HoleSwitcher>
-            <HoleAdmin>
-              <Link to="/cgi-bin/hole/rules">
-                <span>
-                  {rulesIcon}
-                  Rules
-                </span>
-              </Link>
-              <Link to="/cgi-bin/hole/invites">
-                <span>
-                  {invitesIcon}
-                  Invites
-                </span>
-              </Link>
-              <Link to="/cgi-bin/hole/new">
-                <span>
-                  {newHoleIcon}
-                  Create a new hole
-                </span>
-              </Link>
-            </HoleAdmin>
-          </DynamicMenuWrapper>
-          <UserInfo>
-            <Avatar src="https://source.unsplash.com/400x400" />
-            <Info>
-              <Link to="/wojtek" className="mobile-nav-username">
-                @emma
-              </Link>
-              <Stats>
-                <Stat>
-                  <Buttcoin amount={99583} />
-                </Stat>
-                <Stat>1,036 Grabs</Stat>
-              </Stats>
-              <Link to="/settings" className="mobile-nav-settings">
-                {settingsIcon}
-              </Link>
-            </Info>
-          </UserInfo>
-        </Menu>
+        <Hamburger onClick={this.toggleMenu}>{hamgburgerIcon}</Hamburger>
+        {this.state.menuOpen && (
+          <Menu>
+            <DynamicMenuWrapper>
+              <TopMenu>
+                <Link to="/wtf">
+                  <span>wtf is screenhole?</span>
+                </Link>
+              </TopMenu>
+              <HoleManagement>
+                <h2>Switch holes</h2>
+                <Link to="/cgi-bin/hole/join">
+                  {unlockIcon}
+                  Join another hole
+                </Link>
+              </HoleManagement>
+              <HoleSwitcher>
+                <Hole href="/">
+                  <Title>Screenhole</Title>
+                  <URL>screenhole.com</URL>
+                </Hole>
+                <Hole href="https://thinko.screenhole.com">
+                  <Title>Thinko</Title>
+                  <URL>thinko.screenhole.com</URL>
+                </Hole>
+                <Hole href="https://dts.screenhole.com">
+                  <Title>Down to Shop</Title>
+                  <URL>dts.screenhole.com</URL>
+                </Hole>
+                <div />
+              </HoleSwitcher>
+              <HoleAdmin>
+                <Link to="/cgi-bin/hole/rules">
+                  <span>
+                    {rulesIcon}
+                    Rules
+                  </span>
+                </Link>
+                <Link to="/cgi-bin/hole/invites">
+                  <span>
+                    {invitesIcon}
+                    Invites
+                  </span>
+                </Link>
+                <Link to="/cgi-bin/hole/new">
+                  <span>
+                    {newHoleIcon}
+                    Create a new hole
+                  </span>
+                </Link>
+              </HoleAdmin>
+            </DynamicMenuWrapper>
+            <UserInfo>
+              <Avatar src="https://source.unsplash.com/400x400" />
+              <Info>
+                <Link to="/wojtek" className="mobile-nav-username">
+                  @emma
+                </Link>
+                <Stats>
+                  <Stat>
+                    <Buttcoin amount={99583} />
+                  </Stat>
+                  <Stat>1,036 Grabs</Stat>
+                </Stats>
+                <Link to="/settings" className="mobile-nav-settings">
+                  {settingsIcon}
+                </Link>
+              </Info>
+            </UserInfo>
+          </Menu>
+        )}
       </Container>
     );
   }
