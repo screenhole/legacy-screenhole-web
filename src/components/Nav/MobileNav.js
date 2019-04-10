@@ -21,16 +21,35 @@ class MobileNav extends Component {
     });
   };
 
+  dismissMenu = () => {
+    this.setState({
+      menuOpen: false,
+    });
+  };
+
   render() {
     return (
       <Container>
-        <NavLink to="/view/mobile/feed">{feedIcon}</NavLink>
+        <NavLink to="/view/mobile/feed" onClick={this.dismissMenu}>
+          {feedIcon}
+        </NavLink>
         {this.props.chomments && (
-          <NavLink to="/view/mobile/chomments">{chommentIcon}</NavLink>
+          <NavLink to="/view/mobile/chomments" onClick={this.dismissMenu}>
+            {chommentIcon}
+          </NavLink>
         )}
-        <NavLink to="/add">{addIcon}</NavLink>
-        <NavLink to="/sup">{supIcon}</NavLink>
-        <Hamburger onClick={this.toggleMenu}>{hamgburgerIcon}</Hamburger>
+        <NavLink to="/add" onClick={this.dismissMenu}>
+          {addIcon}
+        </NavLink>
+        <NavLink to="/sup" onClick={this.dismissMenu}>
+          {supIcon}
+        </NavLink>
+        <Hamburger
+          className={this.state.menuOpen ? "active" : ""}
+          onClick={this.toggleMenu}
+        >
+          {this.state.menuOpen ? closeIcon : hamgburgerIcon}
+        </Hamburger>
         {this.state.menuOpen && (
           <Menu>
             <DynamicMenuWrapper>
@@ -150,6 +169,10 @@ const Hamburger = styled.button`
 
   &:active {
     transform: scale(0.92);
+  }
+
+  &.active svg {
+    color: white;
   }
 `;
 
@@ -527,5 +550,22 @@ const rulesIcon = (
   >
     <circle cx="12" cy="12" r="3" />
     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+  </svg>
+);
+
+const closeIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={28}
+    height={28}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={3}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1={20} y1={6} x2={6} y2={20} />
+    <line x1={6} y1={6} x2={20} y2={20} />
   </svg>
 );
