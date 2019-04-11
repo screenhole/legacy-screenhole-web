@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const HideChat = createGlobalStyle`
-  #ChommentStream { display: none; }
+  #Chat { display: none; }
   main { padding-left: var(--app-padding) !important; }
 `;
 

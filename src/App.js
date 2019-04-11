@@ -9,7 +9,7 @@ import HideChat from "./utils/HideChat";
 
 import Nav from "./components/Nav/Nav";
 import MobileNav from "./components/Nav/MobileNav";
-import ChommentStream from "./views/ChommentStream/ChommentStream";
+import Chat from "./views/Chat/Chat";
 import MrHole from "./components/MrHole/MrHole";
 import WebUploader from "./components/Upload/WebUploader";
 
@@ -17,7 +17,7 @@ class App extends Component {
   componentDidMount() {
     window.ClientRequestsGracefulRefresh = () => {
       // TODO: check if MainContent is scrolled past a threshold
-      window.reload();
+      window.location = window.location;
     };
   }
 
@@ -38,11 +38,7 @@ class App extends Component {
               {matches =>
                 matches && (
                   <Fragment>
-                    {auth.state.rules.chomments ? (
-                      <ChommentStream />
-                    ) : (
-                      <HideChat />
-                    )}
+                    {auth.state.rules.chat ? <Chat /> : <HideChat />}
                     <MrHole />
                   </Fragment>
                 )
@@ -52,7 +48,12 @@ class App extends Component {
             {/* Render bottom nav bar for mobile */}
             <Media query="(max-width: 790px)">
               {matches =>
-                matches && <MobileNav chomments={auth.state.rules.chomments} />
+                matches && (
+                  <MobileNav
+                    chat={auth.state.rules.chat}
+                    webUpload={auth.state.rules.webUpload}
+                  />
+                )
               }
             </Media>
           </div>

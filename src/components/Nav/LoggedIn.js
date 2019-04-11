@@ -30,11 +30,7 @@ class LoggedIn extends Component {
             )}
             <ActivityBadge />
             <Link to="/sup">
-              <Buttcoin
-                amount={buttcoins}
-                username={username}
-                keepFresh={true}
-              />
+              <Buttcoin amount={buttcoins} username={username} />
             </Link>
             <Menu className="nav-dropdown">
               <Avatar gravatar={gravatar_hash} username={username} />

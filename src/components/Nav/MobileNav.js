@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
+import { Subscribe } from "unstated";
+
+import AuthContainer from "../../utils/AuthContainer";
 
 import { hot } from "react-hot-loader";
 
 import Buttcoin from "../Buttcoin/Buttcoin";
+import Avatar from "../User/Avatar";
 
 class MobileNav extends Component {
   constructor() {
@@ -29,98 +33,118 @@ class MobileNav extends Component {
 
   render() {
     return (
-      <Container>
-        <NavLink to="/view/mobile/feed" onClick={this.dismissMenu}>
-          {feedIcon}
-        </NavLink>
-        {this.props.chomments && (
-          <NavLink to="/view/mobile/chomments" onClick={this.dismissMenu}>
-            {chommentIcon}
-          </NavLink>
+      <Subscribe to={[AuthContainer]}>
+        {auth => (
+          <Container>
+            <NavLink to="/cgi-bin/mobile/feed" onClick={this.dismissMenu}>
+              {feedIcon}
+            </NavLink>
+            {this.props.chat && (
+              <NavLink to="/cgi-bin/mobile/chat" onClick={this.dismissMenu}>
+                {chommentIcon}
+              </NavLink>
+            )}
+            {this.props.webUpload && (
+              <NavLink to="/cgi-bin/add" onClick={this.dismissMenu}>
+                {addIcon}
+              </NavLink>
+            )}
+            <NavLink to="/sup" onClick={this.dismissMenu}>
+              {supIcon}
+            </NavLink>
+            <Hamburger
+              className={this.state.menuOpen ? "active" : ""}
+              onClick={this.toggleMenu}
+            >
+              {this.state.menuOpen ? closeIcon : hamgburgerIcon}
+            </Hamburger>
+            {this.state.menuOpen && (
+              <Menu>
+                <DynamicMenuWrapper>
+                  <TopMenu>
+                    <Link to="/wtf" onClick={this.dismissMenu}>
+                      <span>wtf is screenhole?</span>
+                    </Link>
+                  </TopMenu>
+                  <HoleManagement>
+                    <h2>Switch holes</h2>
+                    <Link to="/cgi-bin/hole/join" onClick={this.dismissMenu}>
+                      {unlockIcon}
+                      Join another hole
+                    </Link>
+                  </HoleManagement>
+                  <HoleSwitcher>
+                    {/* Loop through holes here */}
+                    <Hole href="/" onClick={this.dismissMenu}>
+                      <Title>Screenhole</Title>
+                      <URL>screenhole.com</URL>
+                    </Hole>
+                    <Hole
+                      href="https://thinko.screenhole.com"
+                      onClick={this.dismissMenu}
+                    >
+                      <Title>Thinko</Title>
+                      <URL>thinko.screenhole.com</URL>
+                    </Hole>
+                    <div />
+                  </HoleSwitcher>
+                  <HoleAdmin>
+                    <Link to="/cgi-bin/hole/rules" onClick={this.dismissMenu}>
+                      <span>
+                        {rulesIcon}
+                        Rules
+                      </span>
+                    </Link>
+                    <Link to="/cgi-bin/hole/invites" onClick={this.dismissMenu}>
+                      <span>
+                        {invitesIcon}
+                        Invites
+                      </span>
+                    </Link>
+                    <Link to="/cgi-bin/hole/new" onClick={this.dismissMenu}>
+                      <span>
+                        {newHoleIcon}
+                        Create a new hole
+                      </span>
+                    </Link>
+                  </HoleAdmin>
+                </DynamicMenuWrapper>
+                <UserInfo>
+                  <Avatar
+                    gravatar={auth.state.current.gravatar_hash}
+                    username={auth.state.current.username}
+                  />
+                  <Info>
+                    <Link
+                      to={`${auth.state.current.username}`}
+                      className="mobile-nav-username"
+                      onClick={this.dismissMenu}
+                    >
+                      @{auth.state.current.username}
+                    </Link>
+                    <Stats>
+                      <Stat>
+                        <Buttcoin amount={auth.state.current.stats.buttcoins} />
+                      </Stat>
+                      <Stat>
+                        {auth.state.current.stats.grabs.toLocaleString("en-US")}{" "}
+                        Grabs
+                      </Stat>
+                    </Stats>
+                    <Link
+                      to="/settings"
+                      className="mobile-nav-settings"
+                      onClick={this.dismissMenu}
+                    >
+                      {settingsIcon}
+                    </Link>
+                  </Info>
+                </UserInfo>
+              </Menu>
+            )}
+          </Container>
         )}
-        <NavLink to="/add" onClick={this.dismissMenu}>
-          {addIcon}
-        </NavLink>
-        <NavLink to="/sup" onClick={this.dismissMenu}>
-          {supIcon}
-        </NavLink>
-        <Hamburger
-          className={this.state.menuOpen ? "active" : ""}
-          onClick={this.toggleMenu}
-        >
-          {this.state.menuOpen ? closeIcon : hamgburgerIcon}
-        </Hamburger>
-        {this.state.menuOpen && (
-          <Menu>
-            <DynamicMenuWrapper>
-              <TopMenu>
-                <Link to="/wtf">
-                  <span>wtf is screenhole?</span>
-                </Link>
-              </TopMenu>
-              <HoleManagement>
-                <h2>Switch holes</h2>
-                <Link to="/cgi-bin/hole/join">
-                  {unlockIcon}
-                  Join another hole
-                </Link>
-              </HoleManagement>
-              <HoleSwitcher>
-                <Hole href="/">
-                  <Title>Screenhole</Title>
-                  <URL>screenhole.com</URL>
-                </Hole>
-                <Hole href="https://thinko.screenhole.com">
-                  <Title>Thinko</Title>
-                  <URL>thinko.screenhole.com</URL>
-                </Hole>
-                <Hole href="https://dts.screenhole.com">
-                  <Title>Down to Shop</Title>
-                  <URL>dts.screenhole.com</URL>
-                </Hole>
-                <div />
-              </HoleSwitcher>
-              <HoleAdmin>
-                <Link to="/cgi-bin/hole/rules">
-                  <span>
-                    {rulesIcon}
-                    Rules
-                  </span>
-                </Link>
-                <Link to="/cgi-bin/hole/invites">
-                  <span>
-                    {invitesIcon}
-                    Invites
-                  </span>
-                </Link>
-                <Link to="/cgi-bin/hole/new">
-                  <span>
-                    {newHoleIcon}
-                    Create a new hole
-                  </span>
-                </Link>
-              </HoleAdmin>
-            </DynamicMenuWrapper>
-            <UserInfo>
-              <Avatar src="https://source.unsplash.com/400x400" />
-              <Info>
-                <Link to="/wojtek" className="mobile-nav-username">
-                  @emma
-                </Link>
-                <Stats>
-                  <Stat>
-                    <Buttcoin amount={99583} />
-                  </Stat>
-                  <Stat>1,036 Grabs</Stat>
-                </Stats>
-                <Link to="/settings" className="mobile-nav-settings">
-                  {settingsIcon}
-                </Link>
-              </Info>
-            </UserInfo>
-          </Menu>
-        )}
-      </Container>
+      </Subscribe>
     );
   }
 }
@@ -251,20 +275,17 @@ const UserInfo = styled.div`
   background: rgba(255, 255, 255, 0.035);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 const Info = styled.div`
   .mobile-nav-username {
     font-size: 1.5rem;
   }
-`;
-
-const Avatar = styled.img`
-  border-radius: 100%;
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  background-color: #111;
 `;
 
 const Stats = styled.div`
@@ -309,6 +330,8 @@ const HoleSwitcher = styled.div`
   grid-gap: 1rem;
   overflow: auto;
   grid: auto / auto-flow max-content;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const Hole = styled.a`

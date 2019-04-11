@@ -18,6 +18,11 @@ const scroller = Scroll.animateScroll;
 
 const LOCALSTORAGE_TIMEOUT = 120000; // 2 minutes
 
+// Get subdomain
+const subdomain = window.location.host.split(".")[1]
+  ? window.location.host.split(".")[0]
+  : false;
+
 class GrabStream extends Component {
   constructor(props) {
     super(props);
@@ -34,8 +39,15 @@ class GrabStream extends Component {
       return;
     };
 
-    // load fresh grabs
-    let res = await api.get(`/grabs?page=0`);
+    let res;
+
+    // Get hole data
+    if (subdomain) {
+      res = await api.get(`/grabs?page=0&hole=${subdomain}`);
+    } else {
+      // load fresh grabs
+      res = await api.get(`/grabs?page=0`);
+    }
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
@@ -54,7 +66,15 @@ class GrabStream extends Component {
   };
 
   loadMore = async page => {
-    let res = await api.get(`/grabs?page=${page}`);
+    let res;
+
+    // Get hole data
+    if (subdomain) {
+      res = await api.get(`/grabs?hole=${subdomain}`);
+    } else {
+      // load fresh grabs
+      res = await api.get(`/grabs?page=0`);
+    }
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
@@ -133,7 +153,13 @@ class GrabStream extends Component {
             </div>
           }
         >
-          {grabs}
+          {grabs.length > 0 ? (
+            grabs
+          ) : (
+            <NoGrabs>
+              No grabs for this hole. Why don’t you add one right now?
+            </NoGrabs>
+          )}
         </InfiniteScroll>
       </Grabs>
     );
@@ -144,6 +170,11 @@ export default GrabStream;
 
 const Grabs = styled.div`
   display: block;
+`;
+
+const NoGrabs = styled.p`
+  color: var(--muted-color);
+  padding: 2rem 0;
 `;
 
 class MetaTags extends Component {

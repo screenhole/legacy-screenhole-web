@@ -7,10 +7,11 @@ class AuthContainer extends Container {
     authenticated: api.authenticated,
     current: api.currentUser,
     buttcoins: api.currentUser ? api.currentUser.stats.buttcoins : 0,
+    hole: api.currentHole,
     uploader: false,
     rules: {
-      chomments: true,
-      webUpload: true,
+      chat: true,
+      webUpload: false,
     },
   };
 

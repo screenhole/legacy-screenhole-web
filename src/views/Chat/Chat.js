@@ -18,7 +18,7 @@ import loader from "../../images/loader.gif";
 
 let scroller = Scroll.animateScroll;
 
-class ChommentStream extends Component {
+class Chat extends Component {
   state = {
     hasMore: true,
     chomments: [],
@@ -60,7 +60,7 @@ class ChommentStream extends Component {
       duration: 750,
       delay: 100,
       smooth: "easeInOutCubic",
-      containerId: "ChommentStream",
+      containerId: "Chat",
     });
   }
 
@@ -85,10 +85,7 @@ class ChommentStream extends Component {
       <Fragment>
         <Subscribe to={[AuthContainer]}>
           {auth => (
-            <Chomments
-              id="ChommentStream"
-              authenticated={auth.state.authenticated}
-            >
+            <Chomments id="Chat" authenticated={auth.state.authenticated}>
               <ActionCable
                 channel={{ channel: "ChommentsChannel" }}
                 onReceived={this.onReceived}
@@ -138,7 +135,7 @@ class ChommentStream extends Component {
           {matches =>
             matches ? null : (
               <BackToTop
-                className="ChommentStream--BackToTop"
+                className="Chat--BackToTop"
                 onClick={this.scrollUp.bind(this)}
               />
             )
@@ -149,7 +146,7 @@ class ChommentStream extends Component {
   }
 }
 
-export default ChommentStream;
+export default Chat;
 
 const Chomments = styled.aside`
   position: fixed;

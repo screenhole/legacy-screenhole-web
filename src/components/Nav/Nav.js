@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Subscribe } from "unstated";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
@@ -11,7 +11,6 @@ import AuthContainer from "../../utils/AuthContainer";
 
 import Guest from "./Guest";
 import LoggedIn from "./LoggedIn";
-import MobileMenu from "./MobileMenu";
 import Buttcoin from "../Buttcoin/Buttcoin";
 
 const defaultOptions = {
@@ -29,158 +28,141 @@ class Nav extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Navbar>
-            <Media query="(max-width: 790px)">
-              {matches =>
-                matches && auth.state.buttcoins !== 0 ? (
-                  <Link to="/sup">
-                    <Buttcoin
-                      amount={auth.state.buttcoins}
-                      keepFresh={true}
-                      username={auth.state.current.username}
-                    />
-                  </Link>
-                ) : (
-                  <div className="nav-logo-link">
-                    <Logo>
-                      <Link to="/">
-                        <Lottie options={defaultOptions} width={400} />
-                      </Link>
-                    </Logo>
-                    <DropdownMenu className="nav-dropdown">
-                      <MultiholeName>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="#fff"
-                          strokeWidth="4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M6 9l6 6 6-6" />
-                        </svg>
-                        {/* <Link to="/">holefoods</Link> */}
-                      </MultiholeName>
-                      <Dropdown className="multihole-nav-dropdown">
-                        {/* <p>Manage holefoods</p>
-                        <Link to="/cgi-bin/hole/rules">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <circle cx="12" cy="12" r="3" />
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                          </svg>
-                          Rules
-                        </Link>
-                        <Link to="/cgi-bin/hole/invites">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                            <circle cx="8.5" cy="7" r="4" />
-                            <line x1="20" y1="8" x2="20" y2="14" />
-                            <line x1="23" y1="11" x2="17" y2="11" />
-                          </svg>
-                          Invites
-                        </Link>
-                        <hr /> */}
-                        <OtherHoles>
-                          <p>Switch holes</p>
-                          <Link to="https://thinko.screenhole.net">
-                            <EnterIcon /> Thinko
-                          </Link>
-                          <Link to="/cgi-bin/hole/redeem">
+            <div className="nav-logo-link">
+              <Logo>
+                <Link to="/">
+                  <Lottie options={defaultOptions} width={400} />
+                </Link>
+              </Logo>
+              <DropdownMenu className="nav-dropdown">
+                <MultiholeName>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#fff"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M6 9l6 6 6-6" />
+                  </svg>
+                  {/* <Link to="/">holefoods</Link> */}
+                </MultiholeName>
+                <Dropdown className="multihole-nav-dropdown">
+                  {/* <p>Manage holefoods</p>
+                          <Link to="/cgi-bin/hole/rules">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              width={18}
-                              height={18}
+                              width="18"
+                              height="18"
                               viewBox="0 0 24 24"
                               fill="none"
                               stroke="currentColor"
-                              strokeWidth={2}
+                              strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
                             >
-                              <rect
-                                x={3}
-                                y={11}
-                                width={18}
-                                height={11}
-                                rx={2}
-                                ry={2}
-                              />
-                              <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                              <circle cx="12" cy="12" r="3" />
+                              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
                             </svg>
-                            Join another hole
+                            Rules
                           </Link>
-                        </OtherHoles>
-                        <hr />
-                        <NavLink to="/cgi-bin/new">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <line x1="12" y1="5" x2="12" y2="19" />
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                          </svg>
-                          Create hole
-                        </NavLink>
-                      </Dropdown>
-                    </DropdownMenu>
-                  </div>
-                )
-              }
-            </Media>
+                          <Link to="/cgi-bin/hole/invites">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                              <circle cx="8.5" cy="7" r="4" />
+                              <line x1="20" y1="8" x2="20" y2="14" />
+                              <line x1="23" y1="11" x2="17" y2="11" />
+                            </svg>
+                            Invites
+                          </Link>
+                          <hr /> */}
+                  <OtherHoles>
+                    <p>Switch holes</p>
+                    <Link to="https://thinko.screenhole.net">
+                      <EnterIcon /> Thinko
+                    </Link>
+                    <Link to="/cgi-bin/hole/redeem">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width={18}
+                        height={18}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <rect
+                          x={3}
+                          y={11}
+                          width={18}
+                          height={11}
+                          rx={2}
+                          ry={2}
+                        />
+                        <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                      </svg>
+                      Join another hole
+                    </Link>
+                  </OtherHoles>
+                  <hr />
+                  <NavLink to="/cgi-bin/new">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                    Create hole
+                  </NavLink>
+                </Dropdown>
+              </DropdownMenu>
+            </div>
             <Menu>
-              <Media query="(max-width: 790px)">
+              <Media query="(min-width: 920px)">
                 {matches =>
                   matches ? (
-                    auth.state.authenticated && auth.state.current ? (
-                      <MobileMenu>
+                    <Fragment>
+                      {auth.state.authenticated && auth.state.current ? (
                         <LoggedIn
                           username={auth.state.current.username}
                           gravatar_hash={auth.state.current.gravatar_hash}
                           buttcoins={auth.state.buttcoins}
                         />
-                      </MobileMenu>
-                    ) : (
-                      <MobileMenu>
+                      ) : (
                         <Guest />
-                      </MobileMenu>
-                    )
-                  ) : auth.state.authenticated && auth.state.current ? (
-                    <LoggedIn
-                      username={auth.state.current.username}
-                      gravatar_hash={auth.state.current.gravatar_hash}
-                      buttcoins={auth.state.buttcoins}
-                    />
+                      )}
+                    </Fragment>
                   ) : (
-                    <Guest />
+                    <Link to="/sup">
+                      <Buttcoin
+                        amount={auth.state.current.stats.buttcoins}
+                        username={auth.state.current.username}
+                      />
+                    </Link>
                   )
                 }
               </Media>

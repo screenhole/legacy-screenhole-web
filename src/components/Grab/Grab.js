@@ -138,7 +138,7 @@ class Grab extends Component {
     }
 
     // hard refresh
-    window.reload();
+    window.location = window.location;;
   };
 
   reportGrab = async () => {
