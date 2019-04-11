@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Media from "react-media";
 
-import LogoExplosion from "../../animations/logo/intro.json";
+import api from "../../utils/api";
 
 import AuthContainer from "../../utils/AuthContainer";
 
@@ -19,6 +19,23 @@ var subdomain = window.location.host.split(".")[1]
   : false;
 
 class Nav extends Component {
+  state = {
+    holeName: "",
+  };
+
+  componentWillMount = async () => {
+    // Get hole data
+    if (subdomain) {
+      let res = await api.get(`/holes/${subdomain}`);
+
+      const name = res.data.hole.name;
+
+      this.setState({
+        holeName: name || "",
+      });
+    }
+  };
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
@@ -45,7 +62,7 @@ class Nav extends Component {
                   >
                     <path d="M6 9l6 6 6-6" />
                   </svg>
-                  {subdomain && <Link to="/">holefoods</Link>}
+                  {subdomain && <Link to="/">{this.state.holeName}</Link>}
                 </MultiholeName>
                 <Dropdown className="multihole-nav-dropdown">
                   {/* <p>Manage holefoods</p>
