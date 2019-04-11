@@ -60,86 +60,111 @@ class MobileNav extends Component {
             </Hamburger>
             {this.state.menuOpen && (
               <Menu>
-                <DynamicMenuWrapper>
-                  <TopMenu>
-                    <Link to="/wtf" onClick={this.dismissMenu}>
-                      <span>wtf is screenhole?</span>
+                {auth.state.current && (
+                  <>
+                    <DynamicMenuWrapper>
+                      <TopMenu>
+                        <Link to="/wtf" onClick={this.dismissMenu}>
+                          <span>wtf is screenhole?</span>
+                        </Link>
+                      </TopMenu>
+                      <HoleManagement>
+                        <h2>Switch holes</h2>
+                        <Link
+                          to="/cgi-bin/hole/join"
+                          onClick={this.dismissMenu}
+                        >
+                          {unlockIcon}
+                          Join another hole
+                        </Link>
+                      </HoleManagement>
+                      <HoleSwitcher>
+                        {/* Loop through holes here */}
+                        <Hole href="/" onClick={this.dismissMenu}>
+                          <Title>Screenhole</Title>
+                          <URL>screenhole.com</URL>
+                        </Hole>
+                        <Hole
+                          href="https://thinko.screenhole.com"
+                          onClick={this.dismissMenu}
+                        >
+                          <Title>Thinko</Title>
+                          <URL>thinko.screenhole.com</URL>
+                        </Hole>
+                        <div />
+                      </HoleSwitcher>
+                      <HoleAdmin>
+                        <Link
+                          to="/cgi-bin/hole/rules"
+                          onClick={this.dismissMenu}
+                        >
+                          <span>
+                            {rulesIcon}
+                            Rules
+                          </span>
+                        </Link>
+                        <Link
+                          to="/cgi-bin/hole/invites"
+                          onClick={this.dismissMenu}
+                        >
+                          <span>
+                            {invitesIcon}
+                            Invites
+                          </span>
+                        </Link>
+                        <Link to="/cgi-bin/hole/new" onClick={this.dismissMenu}>
+                          <span>
+                            {newHoleIcon}
+                            Create a new hole
+                          </span>
+                        </Link>
+                      </HoleAdmin>
+                    </DynamicMenuWrapper>
+                    <UserInfo>
+                      <Avatar
+                        gravatar={auth.state.current.gravatar_hash}
+                        username={auth.state.current.username}
+                      />
+                      <Info>
+                        <Link
+                          to={`${auth.state.current.username}`}
+                          className="mobile-nav-username"
+                          onClick={this.dismissMenu}
+                        >
+                          @{auth.state.current.username}
+                        </Link>
+                        <Stats>
+                          <Stat>
+                            <Buttcoin
+                              amount={auth.state.current.stats.buttcoins}
+                            />
+                          </Stat>
+                          <Stat>
+                            {auth.state.current.stats.grabs.toLocaleString(
+                              "en-US",
+                            )}{" "}
+                            Grabs
+                          </Stat>
+                        </Stats>
+                        <Link
+                          to="/settings"
+                          className="mobile-nav-settings"
+                          onClick={this.dismissMenu}
+                        >
+                          {settingsIcon}
+                        </Link>
+                      </Info>
+                    </UserInfo>
+                  </>
+                )}
+
+                {!auth.state.authenticated && (
+                  <LogInButton>
+                    <Link to="/login" onClick={this.dismissMenu}>
+                      Log in
                     </Link>
-                  </TopMenu>
-                  <HoleManagement>
-                    <h2>Switch holes</h2>
-                    <Link to="/cgi-bin/hole/join" onClick={this.dismissMenu}>
-                      {unlockIcon}
-                      Join another hole
-                    </Link>
-                  </HoleManagement>
-                  <HoleSwitcher>
-                    {/* Loop through holes here */}
-                    <Hole href="/" onClick={this.dismissMenu}>
-                      <Title>Screenhole</Title>
-                      <URL>screenhole.com</URL>
-                    </Hole>
-                    <Hole
-                      href="https://thinko.screenhole.com"
-                      onClick={this.dismissMenu}
-                    >
-                      <Title>Thinko</Title>
-                      <URL>thinko.screenhole.com</URL>
-                    </Hole>
-                    <div />
-                  </HoleSwitcher>
-                  <HoleAdmin>
-                    <Link to="/cgi-bin/hole/rules" onClick={this.dismissMenu}>
-                      <span>
-                        {rulesIcon}
-                        Rules
-                      </span>
-                    </Link>
-                    <Link to="/cgi-bin/hole/invites" onClick={this.dismissMenu}>
-                      <span>
-                        {invitesIcon}
-                        Invites
-                      </span>
-                    </Link>
-                    <Link to="/cgi-bin/hole/new" onClick={this.dismissMenu}>
-                      <span>
-                        {newHoleIcon}
-                        Create a new hole
-                      </span>
-                    </Link>
-                  </HoleAdmin>
-                </DynamicMenuWrapper>
-                <UserInfo>
-                  <Avatar
-                    gravatar={auth.state.current.gravatar_hash}
-                    username={auth.state.current.username}
-                  />
-                  <Info>
-                    <Link
-                      to={`${auth.state.current.username}`}
-                      className="mobile-nav-username"
-                      onClick={this.dismissMenu}
-                    >
-                      @{auth.state.current.username}
-                    </Link>
-                    <Stats>
-                      <Stat>
-                        <Buttcoin amount={auth.state.current.stats.buttcoins} />
-                      </Stat>
-                      <Stat>
-                        {auth.state.current.stats.grabs.toLocaleString("en-US")}{" "}
-                        Grabs
-                      </Stat>
-                    </Stats>
-                    <Link
-                      to="/settings"
-                      className="mobile-nav-settings"
-                      onClick={this.dismissMenu}
-                    >
-                      {settingsIcon}
-                    </Link>
-                  </Info>
-                </UserInfo>
+                  </LogInButton>
+                )}
               </Menu>
             )}
           </Container>
@@ -376,6 +401,38 @@ const HoleAdmin = styled.div`
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.25);
     border-radius: 6px;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1rem;
+
+    &:last-child {
+      grid-column: 1 / -1;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      margin-right: 0.25em;
+      color: #666;
+    }
+  }
+`;
+
+const LogInButton = styled.div`
+  padding: 0 4rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    padding: 2rem;
     border: none;
     color: var(--primary-color);
     font-size: 1rem;
