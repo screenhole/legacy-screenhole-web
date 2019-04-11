@@ -3,7 +3,6 @@ import { Subscribe } from "unstated";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Media from "react-media";
-import Lottie from "react-lottie";
 
 import LogoExplosion from "../../animations/logo/intro.json";
 
@@ -13,14 +12,11 @@ import Guest from "./Guest";
 import LoggedIn from "./LoggedIn";
 import Buttcoin from "../Buttcoin/Buttcoin";
 
-const defaultOptions = {
-  loop: false,
-  autoplay: true,
-  animationData: LogoExplosion,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice",
-  },
-};
+import screenholeLogo from "../../images/screenhole-logo.svg";
+
+var subdomain = window.location.host.split(".")[1]
+  ? window.location.host.split(".")[0]
+  : false;
 
 class Nav extends Component {
   render() {
@@ -29,11 +25,11 @@ class Nav extends Component {
         {auth => (
           <Navbar>
             <div className="nav-logo-link">
-              <Logo>
+              {!subdomain && (
                 <Link to="/">
-                  <Lottie options={defaultOptions} width={400} />
+                  <Logo src={screenholeLogo} />
                 </Link>
-              </Logo>
+              )}
               <DropdownMenu className="nav-dropdown">
                 <MultiholeName>
                   <svg
@@ -49,7 +45,7 @@ class Nav extends Component {
                   >
                     <path d="M6 9l6 6 6-6" />
                   </svg>
-                  {/* <Link to="/">holefoods</Link> */}
+                  {subdomain && <Link to="/">holefoods</Link>}
                 </MultiholeName>
                 <Dropdown className="multihole-nav-dropdown">
                   {/* <p>Manage holefoods</p>
@@ -158,10 +154,14 @@ class Nav extends Component {
                     </Fragment>
                   ) : (
                     <Link to="/sup">
-                      <Buttcoin
-                        amount={auth.state.current.stats.buttcoins}
-                        username={auth.state.current.username}
-                      />
+                      {auth.state.authenticated &&
+                        auth.state.current &&
+                        !subdomain && (
+                          <Buttcoin
+                            amount={auth.state.current.stats.buttcoins}
+                            username={auth.state.current.username}
+                          />
+                        )}
                     </Link>
                   )
                 }
@@ -197,9 +197,10 @@ const Navbar = styled.nav`
   }
 
   .nav-logo-link {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     height: var(--nav-height);
-    width: 240px;
+    width: 300px;
     position: relative;
   }
 
@@ -214,11 +215,13 @@ const Navbar = styled.nav`
   }
 `;
 
-const Logo = styled.div`
+const Logo = styled.img`
   position: absolute;
-  top: -10.75rem;
-  left: -3.75rem;
-  pointer-events: none;
+  left: 1.75rem;
+  top: 0;
+  height: 60px;
+  width: auto;
+  z-index: 999;
 `;
 
 const Menu = styled.div`
@@ -250,6 +253,7 @@ const DropdownMenu = styled.div`
   padding: 1rem;
   padding-left: 0;
   top: 0.35rem;
+  min-width: 180px;
 
   &:hover {
     .multihole-nav-dropdown {
