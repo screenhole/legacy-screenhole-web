@@ -65,7 +65,10 @@ class App extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <div className="App">
-            <Nav holeName={this.state.hole.name} />
+            <Nav
+              holeName={this.state.hole.name}
+              webUpload={rules && rules.web_upload_enabled}
+            />
             <MainContent>
               <Routes subdomain={this.state.subdomain} />
             </MainContent>

@@ -21,7 +21,7 @@ class LoggedIn extends Component {
             <NavLink to="/wtf">wtf</NavLink>
             <NavLink to="/apps">apps</NavLink>
             <NavLink to="/peeps">peeps</NavLink>
-            {auth.state.rules.webUpload && (
+            {this.props.webUpload && (
               <Tooltip title="Upload a grab" position="bottom">
                 <UploadButton onClick={() => auth.toggleUploader("on")}>
                   {uploadIcon}

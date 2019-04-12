@@ -43,7 +43,7 @@ export default class WebUploader extends Component {
 const UploadModal = styled.div`
   position: fixed;
   top: calc(64px - 0.25rem);
-  right: 1.5rem;
+  right: 2.125rem;
   width: 515px;
   padding: 2rem 3rem;
   background-color: black;

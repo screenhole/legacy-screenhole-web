@@ -7,23 +7,23 @@
 ## Setup
 
 ```
-npm install
+yarn install
 ```
 
 #### If you're pulling changes and want to install new packages:
 
 ```
 # To install all packages
-npm install
+yarn install
 
 # To add a new one (works like `npm install`)
-npm install --save <packageName>
+yarn add <packageName>
 ```
 
 ## Development
 
 ```
-npm start
+yarn start
 ```
 
 It should open up [localhost:3000](http://localhost:3000) in your browser. Reloads the app when saving changes. Uses production API by default.
@@ -33,7 +33,7 @@ It should open up [localhost:3000](http://localhost:3000) in your browser. Reloa
 Build for production with minification. Unlikely you need to do this explicitly, will be run prior to each deploy.
 
 ```
-npm run build
+yarn build
 ```
 
 ## Deploy

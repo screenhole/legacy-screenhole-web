@@ -143,6 +143,7 @@ class Nav extends Component {
                           username={auth.state.current.username}
                           gravatar_hash={auth.state.current.gravatar_hash}
                           buttcoins={auth.state.buttcoins}
+                          webUpload={this.props.webUpload}
                         />
                       ) : (
                         <Guest />
