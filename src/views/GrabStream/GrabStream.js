@@ -153,13 +153,7 @@ class GrabStream extends Component {
             </div>
           }
         >
-          {grabs.length > 0 ? (
-            grabs
-          ) : (
-            <NoGrabs>
-              No grabs for this hole. Why don’t you add one right now?
-            </NoGrabs>
-          )}
+          {grabs}
         </InfiniteScroll>
       </Grabs>
     );
@@ -170,11 +164,6 @@ export default GrabStream;
 
 const Grabs = styled.div`
   display: block;
-`;
-
-const NoGrabs = styled.p`
-  color: var(--muted-color);
-  padding: 2rem 0;
 `;
 
 class MetaTags extends Component {

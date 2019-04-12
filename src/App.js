@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Subscribe } from "unstated";
 import Media from "react-media";
 
+import api from "./utils/api";
+
 import Routes from "./Routes.js";
 import AuthContainer from "./utils/AuthContainer";
 import HideChat from "./utils/HideChat";
@@ -14,21 +16,58 @@ import MrHole from "./components/MrHole/MrHole";
 import WebUploader from "./components/Upload/WebUploader";
 
 class App extends Component {
-  componentDidMount() {
+  state = {
+    hole: false,
+    subdomain: false,
+  };
+
+  componentDidMount = async () => {
     window.ClientRequestsGracefulRefresh = () => {
       // TODO: check if MainContent is scrolled past a threshold
       window.location = window.location;
     };
-  }
+
+    // Check if we’re on a subdomain
+    const subdomain = window.location.host.split(".")[1]
+      ? window.location.host.split(".")[0]
+      : false;
+
+    if (subdomain) {
+      let res = await api.get(`/holes/${subdomain}`);
+
+      // Save this for re-use later
+      sessionStorage.setItem("current_hole", JSON.stringify(res.data.hole));
+
+      // Set state here with the hole data
+      this.setState({
+        hole: {
+          ...res.data.hole,
+        },
+        subdomain,
+      });
+    } else {
+      this.setState({
+        hole: {
+          rules: {
+            chat_enabled: true,
+            web_upload_enabled: false,
+          },
+        },
+        subdomain: false,
+      });
+    }
+  };
 
   render() {
+    const { rules } = this.state.hole;
+
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <div className="App">
-            <Nav />
+            <Nav holeName={this.state.hole.name} />
             <MainContent>
-              <Routes />
+              <Routes subdomain={this.state.subdomain} />
             </MainContent>
 
             <WebUploader />
@@ -38,7 +77,7 @@ class App extends Component {
               {matches =>
                 matches && (
                   <Fragment>
-                    {auth.state.rules.chat ? <Chat /> : <HideChat />}
+                    {rules && rules.chat_enabled ? <Chat /> : <HideChat />}
                     <MrHole />
                   </Fragment>
                 )
@@ -50,8 +89,8 @@ class App extends Component {
               {matches =>
                 matches && (
                   <MobileNav
-                    chat={auth.state.rules.chat}
-                    webUpload={auth.state.rules.webUpload}
+                    chat={rules && rules.chat_enabled}
+                    webUpload={rules && rules.web_upload_enabled}
                   />
                 )
               }

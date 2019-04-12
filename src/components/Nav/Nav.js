@@ -4,8 +4,6 @@ import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Media from "react-media";
 
-import api from "../../utils/api";
-
 import AuthContainer from "../../utils/AuthContainer";
 
 import Guest from "./Guest";
@@ -14,35 +12,14 @@ import Buttcoin from "../Buttcoin/Buttcoin";
 
 import screenholeLogo from "../../images/screenhole-logo.svg";
 
-var subdomain = window.location.host.split(".")[1]
-  ? window.location.host.split(".")[0]
-  : false;
-
 class Nav extends Component {
-  state = {
-    holeName: "",
-  };
-
-  componentWillMount = async () => {
-    // Get hole data
-    if (subdomain) {
-      let res = await api.get(`/holes/${subdomain}`);
-
-      const name = res.data.hole.name;
-
-      this.setState({
-        holeName: name || "",
-      });
-    }
-  };
-
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Navbar>
             <div className="nav-logo-link">
-              {!subdomain && (
+              {!this.props.holeName && (
                 <Link to="/">
                   <Logo src={screenholeLogo} />
                 </Link>
@@ -62,7 +39,9 @@ class Nav extends Component {
                   >
                     <path d="M6 9l6 6 6-6" />
                   </svg>
-                  {subdomain && <Link to="/">{this.state.holeName}</Link>}
+                  {this.props.holeName && (
+                    <Link to="/">{this.props.holeName}</Link>
+                  )}
                 </MultiholeName>
                 <Dropdown className="multihole-nav-dropdown">
                   {/* <p>Manage holefoods</p>
@@ -134,7 +113,7 @@ class Nav extends Component {
                     </Link>
                   </OtherHoles>
                   <hr />
-                  <NavLink to="/cgi-bin/new">
+                  <NavLink to="/cgi-bin/hole/new">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
@@ -173,7 +152,7 @@ class Nav extends Component {
                     <Link to="/sup">
                       {auth.state.authenticated &&
                         auth.state.current &&
-                        !subdomain && (
+                        !this.props.holeName && (
                           <Buttcoin
                             amount={auth.state.current.stats.buttcoins}
                             username={auth.state.current.username}
