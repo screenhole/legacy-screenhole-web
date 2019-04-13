@@ -80,7 +80,10 @@ class MobileNav extends Component {
                       </HoleManagement>
                       <HoleSwitcher>
                         {/* Loop through holes here */}
-                        <Hole href="/" onClick={this.dismissMenu}>
+                        <Hole
+                          href="https://screenhole.com"
+                          onClick={this.dismissMenu}
+                        >
                           <Title>Screenhole</Title>
                           <URL>screenhole.com</URL>
                         </Hole>
