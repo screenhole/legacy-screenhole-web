@@ -11,7 +11,7 @@ class AuthContainer extends Container {
     uploader: false,
     rules: {
       chat: true,
-      webUpload: false,
+      webUpload: true,
     },
   };
 

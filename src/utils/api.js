@@ -56,7 +56,7 @@ if (localStorage.getItem("user_current")) {
 }
 
 api.setCurrentHole = async subdomain => {
-  // const res = await api.get(`/holes/${subdomain}`);
+  // const res = await api.get(`/api/v2/holes/${subdomain}`);
   //
   // api.currentHole = "fuck";
 };

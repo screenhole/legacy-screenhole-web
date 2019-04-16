@@ -43,7 +43,7 @@ class GrabStream extends Component {
 
     // Get hole data
     if (subdomain) {
-      res = await api.get(`/holes/${subdomain}/grabs?page=0`);
+      res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=0`);
     } else {
       // load fresh grabs
       res = await api.get(`/grabs?page=0`);
@@ -70,7 +70,7 @@ class GrabStream extends Component {
 
     // Get hole data
     if (subdomain) {
-      res = await api.get(`/holes/${subdomain}/grabs?page=0`);
+      res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=0`);
     } else {
       // load fresh grabs
       res = await api.get(`/grabs?page=0`);

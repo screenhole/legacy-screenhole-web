@@ -14,7 +14,7 @@ class GrabSingle extends Component {
   };
 
   async componentWillMount() {
-    const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+    const grab = await api.get(`/api/v2/grabs/${this.state.currentGrab}`);
 
     if (grab.ok) {
       this.setState({
@@ -29,7 +29,7 @@ class GrabSingle extends Component {
         grab: null,
       });
 
-      const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+      const grab = await api.get(`/api/v2/grabs/${this.state.currentGrab}`);
 
       if (grab.ok) {
         this.setState({

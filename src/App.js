@@ -17,7 +17,12 @@ import WebUploader from "./components/Upload/WebUploader";
 
 class App extends Component {
   state = {
-    hole: false,
+    hole: {
+      rules: {
+        chat_enabled: false,
+        web_upload_enabled: false,
+      },
+    },
     subdomain: false,
   };
 
@@ -33,16 +38,14 @@ class App extends Component {
       : false;
 
     if (subdomain) {
-      let res = await api.get(`/holes/${subdomain}`);
+      let res = await api.get(`/api/v2/holes/${subdomain}`);
 
       // Save this for re-use later
       sessionStorage.setItem("current_hole", JSON.stringify(res.data.hole));
 
       // Set state here with the hole data
       this.setState({
-        hole: {
-          ...res.data.hole,
-        },
+        hole: res.data.hole,
         subdomain,
       });
     } else {
@@ -59,15 +62,13 @@ class App extends Component {
   };
 
   render() {
-    const { rules } = this.state.hole;
-
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <div className="App">
             <Nav
               holeName={this.state.hole.name}
-              webUpload={rules && rules.web_upload_enabled}
+              webUpload={this.state.hole.rules.web_upload_enabled}
             />
             <MainContent>
               <Routes subdomain={this.state.subdomain} />
@@ -80,7 +81,11 @@ class App extends Component {
               {matches =>
                 matches && (
                   <Fragment>
-                    {rules && rules.chat_enabled ? <Chat /> : <HideChat />}
+                    {this.state.hole.rules.chat_enabled ? (
+                      <Chat />
+                    ) : (
+                      <HideChat />
+                    )}
                     <MrHole />
                   </Fragment>
                 )
@@ -92,8 +97,8 @@ class App extends Component {
               {matches =>
                 matches && (
                   <MobileNav
-                    chat={rules && rules.chat_enabled}
-                    webUpload={rules && rules.web_upload_enabled}
+                    chat={this.state.hole.rules.chat_enabled}
+                    webUpload={this.state.hole.rules.web_upload_enabled}
                   />
                 )
               }

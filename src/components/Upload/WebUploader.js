@@ -1,17 +1,103 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Subscribe } from "unstated";
+import Helmet from "react-helmet";
+
+import api from "../../utils/api";
 
 import AuthContainer from "../../utils/AuthContainer";
 
 export default class WebUploader extends Component {
+  uploadGrab = async e => {
+    e.preventDefault();
+
+    // Check if we’re on a subdomain
+    const subdomain = window.location.host.split(".")[1]
+      ? window.location.host.split(".")[0]
+      : false;
+
+    let getUploadToken = await api.post(`/api/v2/upload_tokens`);
+    let data = getUploadToken.data;
+    const file = this.grabUpload.files[0];
+    const caption = this.grabCaption.value;
+
+    if (getUploadToken.ok) {
+      // Start uploading if everything is ok
+      const uploadFile = async (file, options) => {
+        if (!file) options.onError.apply(this, [null, "no file"]);
+
+        options = options || {};
+        // start upload
+        const upload = new window.Carbon.Upload(file, {
+          url: data.url,
+          method: "PUT",
+          authorization: "Bearer " + data.token,
+          chuckSize: 1024 * 1024 * 32,
+        });
+        if (options.onStart) {
+          upload.on("start", e => options.onStart.apply(this, [upload, e]));
+        }
+        if (options.onProgress) {
+          upload.on("progress", e =>
+            options.onProgress.apply(this, [upload, e]),
+          );
+        }
+        if (options.onComplete) {
+          upload.on("complete", e =>
+            options.onComplete.apply(this, [upload, e]),
+          );
+        }
+        if (options.onError) {
+          upload.on("error", e => options.onError.apply(this, [upload, e]));
+        }
+        return upload.start();
+      };
+
+      uploadFile(file, {
+        async onStart(upload, e) {
+          console.log("start", upload, e);
+        },
+        onProgress(upload, e) {
+          console.log("progress", e, upload.baseUri, Math.round(e.value * 100));
+        },
+        async onComplete(upload, e) {
+          console.log("complete", upload, e);
+
+          let uploadGrab = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
+            grab: {
+              image_path: upload.result.key,
+              description: caption,
+            },
+          });
+        },
+        onError(upload, e) {
+          console.log("error", upload, e);
+          alert("Something went wrong. Check the console.");
+        },
+      });
+    } else {
+      alert("Something went wrong. Check the console.");
+      console.warn(data);
+    }
+
+    // let res = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
+    //   grab: {
+    //     image_path: "/butts",
+    //     description: "foo bar",
+    //   },
+    // });
+
+    // debugger;
+  };
+
   render() {
     return (
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <div>
             {auth.state.uploader && (
-              <UploadModal>
+              <UploadModal onSubmit={this.uploadGrab}>
+                <Helmet />
                 <CloseButton onClick={() => auth.toggleUploader("off")}>
                   {closeIcon}
                 </CloseButton>
@@ -22,14 +108,22 @@ export default class WebUploader extends Component {
                   10MB)
                 </p>
                 <Caption>
-                  <input type="file" />
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.gif,.png"
+                    ref={ref => (this.grabUpload = ref)}
+                  />
                 </Caption>
                 <Caption>
                   <span>Caption</span>
-                  <textarea cols="30" rows="3" />
+                  <textarea
+                    cols="30"
+                    rows="3"
+                    ref={ref => (this.grabCaption = ref)}
+                  />
                 </Caption>
                 <div className="center-it">
-                  <Button>Upload!</Button>
+                  <Button type="submit">Upload!</Button>
                 </div>
               </UploadModal>
             )}
@@ -40,7 +134,7 @@ export default class WebUploader extends Component {
   }
 }
 
-const UploadModal = styled.div`
+const UploadModal = styled.form`
   position: fixed;
   top: calc(64px - 0.25rem);
   right: 2.125rem;

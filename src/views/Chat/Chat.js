@@ -18,21 +18,34 @@ import loader from "../../images/loader.gif";
 
 let scroller = Scroll.animateScroll;
 
+// Get subdomain
+const subdomain = window.location.host.split(".")[1]
+  ? window.location.host.split(".")[0]
+  : false;
+
 class Chat extends Component {
   state = {
     hasMore: true,
-    chomments: [],
+    chat_messages: [],
   };
 
   loadMore = async page => {
-    let res = await api.get(`/chomments?page=${page}`);
+    let res;
+
+    if (subdomain) {
+      res = await api.get(
+        `/api/v2/holes/${subdomain}/chat_messages?page=${page}`,
+      );
+    } else {
+      res = await api.get(`/api/v2/chat_messages?page=${page}`);
+    }
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
     }
 
     this.setState({
-      chomments: [...this.state.chomments, ...res.data.chomments],
+      chat_messages: [...this.state.chat_messages, ...res.data.chat_messages],
     });
 
     if (!res.data.meta.next_page) {
@@ -42,7 +55,7 @@ class Chat extends Component {
 
   onReceived = data => {
     this.setState({
-      chomments: [data.chomment, ...this.state.chomments],
+      chat_messages: [data.chat_message, ...this.state.chat_messages],
     });
   };
 
@@ -52,7 +65,15 @@ class Chat extends Component {
     let message = values.message;
     values.message = "";
 
-    await api.post("/chomments", { chomment: { message: message } });
+    if (subdomain) {
+      await api.post(`/api/v2/holes/${subdomain}/chat_messages`, {
+        chat_message: { message: message },
+      });
+    } else {
+      await api.post("/api/v2/chat_messages", {
+        chat_message: { message: message },
+      });
+    }
   };
 
   scrollUp() {
@@ -65,18 +86,18 @@ class Chat extends Component {
   }
 
   render() {
-    let chomments = [];
+    let chat_messages = [];
 
-    this.state.chomments.map(chomment =>
-      chomments.push(
+    this.state.chat_messages.map(chat_message =>
+      chat_messages.push(
         <Chomment
-          username={chomment.user.username}
-          message={chomment.message}
-          gravatar={chomment.user.gravatar_hash}
-          variant={chomment.variant}
-          reference={chomment.cross_ref}
-          key={chomment.id}
-          created_at={chomment.created_at}
+          username={chat_message.user.username}
+          message={chat_message.message}
+          gravatar={chat_message.user.gravatar_hash}
+          variant={chat_message.variant}
+          reference={chat_message.cross_ref}
+          key={chat_message.id}
+          created_at={chat_message.created_at}
         />,
       ),
     );
@@ -103,7 +124,7 @@ class Chat extends Component {
                   </div>
                 }
               >
-                {chomments}
+                {chat_messages}
               </InfiniteScroll>
 
               {auth.state.authenticated && (
