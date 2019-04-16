@@ -54,9 +54,11 @@ class Chat extends Component {
   };
 
   onReceived = data => {
-    this.setState({
-      chat_messages: [data.chat_message, ...this.state.chat_messages],
-    });
+    console.warn("fix actioncable to return chat_message instead of chomment");
+
+    // this.setState({
+    //   chat_messages: [data.message, ...this.state.chat_messages],
+    // });
   };
 
   submitMessage = async values => {
@@ -70,7 +72,7 @@ class Chat extends Component {
         chat_message: { message: message },
       });
     } else {
-      await api.post("/api/v2/chat_messages", {
+      await api.post(`/api/v2/holes/root/chat_messages`, {
         chat_message: { message: message },
       });
     }
@@ -94,7 +96,7 @@ class Chat extends Component {
           username={chat_message.user.username}
           message={chat_message.message}
           gravatar={chat_message.user.gravatar_hash}
-          variant={chat_message.variant}
+          variant="generic"
           reference={chat_message.cross_ref}
           key={chat_message.id}
           created_at={chat_message.created_at}

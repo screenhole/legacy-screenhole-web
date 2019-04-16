@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Subscribe } from "unstated";
-import Helmet from "react-helmet";
 
 import api from "../../utils/api";
 
 import AuthContainer from "../../utils/AuthContainer";
+
+import Button from "../Button/Button";
 
 export default class WebUploader extends Component {
   uploadGrab = async e => {
@@ -97,7 +98,6 @@ export default class WebUploader extends Component {
           <div>
             {auth.state.uploader && (
               <UploadModal onSubmit={this.uploadGrab}>
-                <Helmet />
                 <CloseButton onClick={() => auth.toggleUploader("off")}>
                   {closeIcon}
                 </CloseButton>
@@ -123,7 +123,7 @@ export default class WebUploader extends Component {
                   />
                 </Caption>
                 <div className="center-it">
-                  <Button type="submit">Upload!</Button>
+                  <ButtonUpload type="submit">Upload!</ButtonUpload>
                 </div>
               </UploadModal>
             )}
@@ -243,23 +243,6 @@ const Caption = styled.label`
   }
 `;
 
-const Button = styled.button`
-  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
-  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  transition: 0.25s ease all, 0.15s ease box-shadow;
-  position: relative;
-  cursor: pointer;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.125rem;
-  margin-top: 1rem;
-`;
-
 const closeIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -276,3 +259,7 @@ const closeIcon = (
     <line x1={6} y1={6} x2={18} y2={18} />
   </svg>
 );
+
+const ButtonUpload = styled(Button)`
+  margin-top: 1rem;
+`;
