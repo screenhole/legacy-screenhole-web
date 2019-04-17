@@ -6,12 +6,23 @@ export default class DebugMenu extends Component {
     localStorage.removeItem("grabs");
   };
 
+  clearGrabCache = () => {
+    localStorage.removeItem("user_current");
+    localStorage.removeItem("default_auth_token");
+  };
+
   render() {
     return (
       <Menu>
         <h1>DEBUG</h1>
         <br />
-        <button onClick={this.clearGrabCache}>Clear grab cache</button>
+        <button onClick={this.clearGrabCache}>Purge grab cache</button>
+        <br />
+        <br />
+        <button onClick={this.clearUserCache}>Purge user cache</button>
+        <br />
+        <br />
+        <p>Reload after clicking these buttons.</p>
       </Menu>
     );
   }

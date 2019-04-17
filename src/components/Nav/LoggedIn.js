@@ -5,6 +5,7 @@ import Tooltip from "../Tooltip/Tooltip";
 import { Subscribe } from "unstated";
 
 import AuthContainer from "../../utils/AuthContainer";
+import subdomain from "../../utils/subdomain";
 
 import Avatar from "../User/Avatar";
 import Buttcoin from "../Buttcoin/Buttcoin";
@@ -36,7 +37,7 @@ class LoggedIn extends Component {
               <Avatar gravatar={gravatar_hash} username={username} />
               <Dropdown className="user-nav-dropdown">
                 <Link to={`/${username}`}>@{username}</Link>
-                <NavLink to="/invite">invite</NavLink>
+                {!subdomain && <NavLink to="/invite">invite</NavLink>}
                 <NavLink to="/settings">settings</NavLink>
                 <Link to="/logout">log out</Link>
               </Dropdown>

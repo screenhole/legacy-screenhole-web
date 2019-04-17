@@ -109,10 +109,12 @@ class Chat extends Component {
         <Subscribe to={[AuthContainer]}>
           {auth => (
             <Chomments id="Chat" authenticated={auth.state.authenticated}>
-              <ActionCable
-                channel={{ channel: "ChommentsChannel" }}
-                onReceived={this.onReceived}
-              />
+              {!subdomain && (
+                <ActionCable
+                  channel={{ channel: "ChommentsChannel" }}
+                  onReceived={this.onReceived}
+                />
+              )}
 
               <InfiniteScroll
                 element="section"

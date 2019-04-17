@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class Button extends Component {
-  constructor() {
-    super();
-  }
   render() {
     return <ButtonStyle {...this.props}>{this.props.children}</ButtonStyle>;
   }
@@ -18,6 +15,7 @@ const ButtonStyle = styled.button`
   transition: 0.25s ease all, 0.15s ease box-shadow;
   position: relative;
   cursor: pointer;
+  outline: 0;
   border: none;
   color: white;
   font-size: 1rem;
@@ -27,6 +25,8 @@ const ButtonStyle = styled.button`
   @media (pointer: fine) {
     &:hover,
     &:focus {
+      box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1),
+        0 0 0 4px var(--body-bg-color), 0 0 0 6px HSLA(255, 83%, 45%, 1);
     }
 
     &:active {

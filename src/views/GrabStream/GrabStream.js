@@ -6,6 +6,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
 
 import Grab from "./../../components/Grab/Grab";
 import BackToTop from "../../components/Nav/BackToTop";
@@ -17,11 +18,6 @@ import * as Scroll from "react-scroll";
 const scroller = Scroll.animateScroll;
 
 const LOCALSTORAGE_TIMEOUT = 120000; // 2 minutes
-
-// Get subdomain
-const subdomain = window.location.host.split(".")[1]
-  ? window.location.host.split(".")[0]
-  : false;
 
 class GrabStream extends Component {
   constructor(props) {
@@ -70,10 +66,10 @@ class GrabStream extends Component {
 
     // Get hole data
     if (subdomain) {
-      res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=0`);
+      res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=${page}`);
     } else {
       // load fresh grabs
-      res = await api.get(`/grabs?page=0`);
+      res = await api.get(`/grabs?page=${page}`);
     }
 
     if (!res.ok) {
@@ -137,10 +133,12 @@ class GrabStream extends Component {
       <Grabs id="GrabStream">
         <MetaTags />
         <BackToTop onClick={this.scrollUp} />
-        <ActionCable
-          channel={{ channel: "GrabsChannel" }}
-          onReceived={this.onReceived}
-        />
+        {!subdomain && (
+          <ActionCable
+            channel={{ channel: "GrabsChannel" }}
+            onReceived={this.onReceived}
+          />
+        )}
 
         <InfiniteScroll
           pageStart={1}

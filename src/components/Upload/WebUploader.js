@@ -3,19 +3,15 @@ import styled from "styled-components";
 import { Subscribe } from "unstated";
 
 import api from "../../utils/api";
-
+import subdomain from "../../utils/subdomain";
 import AuthContainer from "../../utils/AuthContainer";
 
 import Button from "../Button/Button";
+import Login from "../../views/Login/Login";
 
 export default class WebUploader extends Component {
   uploadGrab = async e => {
     e.preventDefault();
-
-    // Check if we’re on a subdomain
-    const subdomain = window.location.host.split(".")[1]
-      ? window.location.host.split(".")[0]
-      : false;
 
     let getUploadToken = await api.post(`/api/v2/upload_tokens`);
     let data = getUploadToken.data;
@@ -70,6 +66,11 @@ export default class WebUploader extends Component {
               description: caption,
             },
           });
+
+          if (uploadGrab.ok) {
+            this.grabUpload.value = "";
+            this.grabCaption.value = "";
+          }
         },
         onError(upload, e) {
           console.log("error", upload, e);
@@ -80,15 +81,6 @@ export default class WebUploader extends Component {
       alert("Something went wrong. Check the console.");
       console.warn(data);
     }
-
-    // let res = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
-    //   grab: {
-    //     image_path: "/butts",
-    //     description: "foo bar",
-    //   },
-    // });
-
-    // debugger;
   };
 
   render() {
@@ -97,34 +89,39 @@ export default class WebUploader extends Component {
         {auth => (
           <div>
             {auth.state.uploader && (
-              <UploadModal onSubmit={this.uploadGrab}>
-                <CloseButton onClick={() => auth.toggleUploader("off")}>
-                  {closeIcon}
-                </CloseButton>
-                <h3>Post a grab</h3>
-                <p>
-                  Upload those juicy <strong>.jpg</strong>,{" "}
-                  <strong>.png</strong>, and <strong>.gif</strong> grabs (max
-                  10MB)
-                </p>
-                <Caption>
-                  <input
-                    type="file"
-                    accept=".jpg,.jpeg,.gif,.png"
-                    ref={ref => (this.grabUpload = ref)}
-                  />
-                </Caption>
-                <Caption>
-                  <span>Caption</span>
-                  <textarea
-                    cols="30"
-                    rows="3"
-                    ref={ref => (this.grabCaption = ref)}
-                  />
-                </Caption>
-                <div className="center-it">
-                  <ButtonUpload type="submit">Upload!</ButtonUpload>
-                </div>
+              <UploadModal>
+                {!auth.state.current ? (
+                  <Login />
+                ) : (
+                  <form onSubmit={this.uploadGrab}>
+                    <CloseButton onClick={() => auth.toggleUploader("off")}>
+                      {closeIcon}
+                    </CloseButton>
+                    <h3>Post a grab</h3>
+                    <p>
+                      Upload those juicy <strong>.jpg</strong>,{" "}
+                      <strong>.png</strong> grabs (max 10MB)
+                    </p>
+                    <Caption>
+                      <input
+                        type="file"
+                        accept=".jpg,.jpeg,.gif,.png"
+                        ref={ref => (this.grabUpload = ref)}
+                      />
+                    </Caption>
+                    <Caption>
+                      <span>Caption</span>
+                      <textarea
+                        cols="30"
+                        rows="3"
+                        ref={ref => (this.grabCaption = ref)}
+                      />
+                    </Caption>
+                    <div className="center-it">
+                      <ButtonUpload type="submit">Upload!</ButtonUpload>
+                    </div>
+                  </form>
+                )}
               </UploadModal>
             )}
           </div>
@@ -134,15 +131,22 @@ export default class WebUploader extends Component {
   }
 }
 
-const UploadModal = styled.form`
+const UploadModal = styled.div`
   position: fixed;
   top: calc(64px - 0.25rem);
-  right: 2.125rem;
-  width: 515px;
-  padding: 2rem 3rem;
+  right: 0;
+  height: 100vh;
+  width: 100%;
   background-color: black;
-  box-shadow: 0 0 0 4px var(--primary-color), 0 4px 15px 0 rgba(0, 0, 0, 0.75);
-  border-radius: 6px;
+  padding: 2rem 3rem;
+
+  @media (min-width: 791px) {
+    right: 2.125rem;
+    width: 515px;
+    height: auto;
+    box-shadow: 0 0 0 4px var(--primary-color), 0 4px 15px 0 rgba(0, 0, 0, 0.75);
+    border-radius: 6px;
+  }
   z-index: 999;
   animation: jellyReveal 0.65s linear both;
   opacity: 0;
@@ -150,16 +154,18 @@ const UploadModal = styled.form`
   transition: all 0.4s ease;
   transform-origin: 40% -20%;
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: -13px;
-    right: 290px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 7px 10px;
-    border-color: transparent transparent #6a40ee;
+  @media (min-width: 791px) {
+    &::after {
+      content: "";
+      position: absolute;
+      top: -13px;
+      right: 290px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 7px 10px;
+      border-color: transparent transparent #6a40ee;
+    }
   }
 
   h3,
@@ -195,8 +201,8 @@ const CloseButton = styled.button`
   outline: none;
   color: white;
   position: absolute;
-  top: 0.5rem;
   right: 0.25rem;
+  top: 0.5rem;
   transition: 0.15s ease all;
 
   @media (pointer: fine) {

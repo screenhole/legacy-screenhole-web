@@ -53,6 +53,7 @@ class App extends Component {
         });
       } else {
         // If you’re not logged in you will hit a roadblock
+        // NOTE: not currently cause we let this one be public for now
         this.setState({
           unauthorized: true,
         });
@@ -126,7 +127,7 @@ class App extends Component {
               }
             </Media>
 
-            {subdomain && this.state.loadingCover && (
+            {subdomain && this.state.loadingCover && !auth.state.current && (
               <LoadingCover>
                 <MrHoleSolo />
                 {this.state.unauthorized && (

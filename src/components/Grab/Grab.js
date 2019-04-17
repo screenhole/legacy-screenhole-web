@@ -138,7 +138,7 @@ class Grab extends Component {
     }
 
     // hard refresh
-    window.location = window.location;;
+    window.location = window.location;
   };
 
   reportGrab = async () => {
@@ -197,7 +197,7 @@ class Grab extends Component {
       default:
         grabMedia = (
           <GrabImage
-            src={`${this.props.image};1800x1000,fit.png`}
+            src={`${this.props.image};1800x1000,fit.webp`}
             alt={`${this.props.username}’s grab on Screenhole`}
           />
         );

@@ -45,9 +45,14 @@ class MobileNav extends Component {
               </NavLink>
             )}
             {this.props.webUpload && (
-              <NavLink to="/cgi-bin/add" onClick={this.dismissMenu}>
+              <UploaderButton
+                onClick={() => {
+                  auth.toggleUploader("on");
+                  this.dismissMenu();
+                }}
+              >
                 {addIcon}
-              </NavLink>
+              </UploaderButton>
             )}
             <NavLink to="/sup" onClick={this.dismissMenu}>
               {supIcon}
@@ -225,6 +230,18 @@ const Hamburger = styled.button`
 
   &.active svg {
     color: white;
+  }
+`;
+
+const UploaderButton = styled.button`
+  background: none;
+  border: none;
+  box-shadow: none;
+  transition: 0.15s ease all;
+  outline: 0;
+
+  &:active {
+    transform: scale(0.98);
   }
 `;
 
