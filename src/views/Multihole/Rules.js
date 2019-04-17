@@ -23,6 +23,7 @@ export default class Rules extends Component {
   render() {
     return (
       <Page>
+        <h3>this doesn’t work yet</h3>
         <h1>Rules</h1>
         <p>Shape your community by setting your own rules.</p>
         <hr />

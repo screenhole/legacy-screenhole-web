@@ -7,6 +7,7 @@ export default class NewHole extends Component {
     return (
       <Page>
         <HideChat />
+        <h3>this doesn’t work yet</h3>
         <h1>
           Create a new hole <Badge>BETA</Badge>
         </h1>
