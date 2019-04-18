@@ -54,11 +54,12 @@ class Chat extends Component {
   };
 
   onReceived = data => {
-    console.warn("fix actioncable to return chat_message instead of chomment");
-
-    // this.setState({
-    //   chat_messages: [data.message, ...this.state.chat_messages],
-    // });
+    // actioncable disabled on private holes
+    if (!subdomain) {
+      this.setState({
+        chat_messages: [data.chomment, ...this.state.chat_messages],
+      });
+    }
   };
 
   submitMessage = async values => {
@@ -72,7 +73,7 @@ class Chat extends Component {
         chat_message: { message: message },
       });
     } else {
-      await api.post(`/api/v2/holes/root/chat_messages`, {
+      await api.post(`/api/v2/chat_messages`, {
         chat_message: { message: message },
       });
     }
@@ -156,7 +157,7 @@ class Chat extends Component {
           )}
         </Subscribe>
         {/* Show Chomments back to top arrow on mobile */}
-        <Media query="(min-width: 791px)">
+        <Media query="(min-width: 820px)">
           {matches =>
             matches ? null : (
               <BackToTop
@@ -215,7 +216,7 @@ const Chomments = styled.aside`
     background-color: var(--primary-color);
   }
 
-  @media (max-width: 790px) {
+  @media (max-width: 819px) {
     max-width: 100%;
     height: calc(90vh - var(--nav-height));
     -webkit-overflow-scrolling: touch;
@@ -231,7 +232,7 @@ const ChommentInputWrapper = styled.form`
   top: var(--nav-height);
   left: 0;
 
-  @media (max-width: 790px) {
+  @media (max-width: 819px) {
     width: 100%;
     top: var(--nav-height);
   }

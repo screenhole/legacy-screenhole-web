@@ -140,7 +140,7 @@ const UploadModal = styled.div`
   background-color: black;
   padding: 2rem 3rem;
 
-  @media (min-width: 791px) {
+  @media (min-width: 820px) {
     right: 2.125rem;
     width: 515px;
     height: auto;
@@ -154,7 +154,7 @@ const UploadModal = styled.div`
   transition: all 0.4s ease;
   transform-origin: 40% -20%;
 
-  @media (min-width: 791px) {
+  @media (min-width: 820px) {
     &::after {
       content: "";
       position: absolute;

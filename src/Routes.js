@@ -63,7 +63,7 @@ class Routes extends Component {
 
         {/* Special mobile routes to work with MobileNav */}
         <Route exact path="/cgi-bin/mobile/feed" component={GrabStream} />
-        <Media query="(min-width: 791px)">
+        <Media query="(min-width: 820px)">
           {matches =>
             matches ? (
               <Route

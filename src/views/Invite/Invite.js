@@ -207,7 +207,7 @@ const Page = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  @media (max-width: 790px) {
+  @media (max-width: 819px) {
     padding: 0;
   }
 

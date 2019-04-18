@@ -92,13 +92,17 @@ class MobileNav extends Component {
                           <Title>Screenhole</Title>
                           <URL>screenhole.com</URL>
                         </Hole>
-                        <Hole
-                          href="https://thinko.screenhole.com"
-                          onClick={this.dismissMenu}
-                        >
-                          <Title>Thinko</Title>
-                          <URL>thinko.screenhole.com</URL>
-                        </Hole>
+                        {auth.state.current.holes.map(hole => (
+                          <Hole
+                            href={`https://${hole.subdomain}.screenhole.com`}
+                            onClick={this.dismissMenu}
+                            key={hole.subdomain}
+                          >
+                            <Title>{hole.name}</Title>
+                            <URL>{hole.subdomain}.screenhole.com</URL>
+                          </Hole>
+                        ))}
+
                         <div />
                       </HoleSwitcher>
                       <HoleAdmin>

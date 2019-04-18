@@ -73,11 +73,11 @@ export default class Activity extends Component {
     }
   };
 
-  onReceived = data => {
-    this.setState({
-      notes: [data, ...this.state.notes],
-    });
-  };
+  // onReceived = data => {
+  //   this.setState({
+  //     notes: [data, ...this.state.notes],
+  //   });
+  // };
 
   scrollUp = () => {
     scroller.scrollTo(0, {

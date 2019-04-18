@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import subdomain from "../../utils/subdomain";
@@ -89,12 +89,17 @@ export default class HolePicker extends Component {
               <hr />
               <OtherHoles>
                 <p>Switch holes</p>
-                <Link to="https://screenhole.net">
+                <HoleLink href="https://screenhole.net">
                   <EnterIcon /> Screenhole
-                </Link>
-                <Link to="https://thinko.screenhole.net">
-                  <EnterIcon /> Thinko
-                </Link>
+                </HoleLink>
+                {this.props.auth.state.current.holes.map(hole => (
+                  <HoleLink
+                    href={`https://${hole.subdomain}.screenhole.net`}
+                    key={hole.subdomain}
+                  >
+                    <EnterIcon /> {hole.name}
+                  </HoleLink>
+                ))}
                 {/* <Link to="/cgi-bin/hole/redeem">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +126,7 @@ export default class HolePicker extends Component {
             </Link> */}
               </OtherHoles>
               <hr />
-              <NavLink to="/cgi-bin/hole/new">
+              {/* <NavLink to="/cgi-bin/hole/new">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -137,7 +142,7 @@ export default class HolePicker extends Component {
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 Create hole
-              </NavLink>
+              </NavLink> */}
             </Dropdown>
           )}
         </DropdownMenu>
@@ -161,6 +166,7 @@ const Logo = styled.img`
   height: 60px;
   width: auto;
   z-index: 999;
+  cursor: pointer;
 
   &.logged-out {
     left: 0;
@@ -189,6 +195,11 @@ const OtherHoles = styled.div`
   display: block;
   background-color: rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
+`;
+
+const HoleLink = styled.a`
+  display: flex;
+  align-items: center;
 `;
 
 const EnterIcon = () => (

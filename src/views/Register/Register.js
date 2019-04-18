@@ -163,7 +163,7 @@ class Register extends Component {
                 Go!
               </Button>
 
-              <Media query="(max-width: 791px)">
+              <Media query="(max-width: 820px)">
                 <Label>
                   By registering you agree to the <a href="/eula">EULA</a> &amp;{" "}
                   <a href="/privacy">Privacy Policy</a>

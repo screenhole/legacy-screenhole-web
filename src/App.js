@@ -35,6 +35,7 @@ class App extends Component {
   componentDidMount = async () => {
     window.ClientRequestsGracefulRefresh = () => {
       // TODO: check if MainContent is scrolled past a threshold
+      // eslint-disable-next-line
       window.location = window.location;
     };
 
@@ -100,7 +101,7 @@ class App extends Component {
             <WebUploader />
 
             {/* Render global Chat and Mr. Hole on desktop */}
-            <Media query="(min-width: 791px)">
+            <Media query="(min-width: 820px)">
               {matches =>
                 matches && (
                   <Fragment>
@@ -116,7 +117,7 @@ class App extends Component {
             </Media>
 
             {/* Render bottom nav bar for mobile */}
-            <Media query="(max-width: 790px)">
+            <Media query="(max-width: 819px)">
               {matches =>
                 matches && (
                   <MobileNav
@@ -156,13 +157,13 @@ const MainContent = styled.main`
   width: 100%;
   padding: var(--app-padding);
   padding-left: calc(var(--app-padding) + var(--sidebar-width));
-  @media (min-width: 791px) {
+  @media (min-width: 820px) {
     padding: 3rem;
     padding-top: var(--app-padding);
     padding-left: calc(3rem + var(--sidebar-width));
   }
 
-  @media (max-width: 790px) {
+  @media (max-width: 819px) {
     padding-left: var(--app-padding);
     padding-bottom: calc(var(--nav-height) * 1.5);
   }

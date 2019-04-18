@@ -138,6 +138,7 @@ class Grab extends Component {
     }
 
     // hard refresh
+    // eslint-disable-next-line
     window.location = window.location;
   };
 
@@ -245,7 +246,7 @@ class Grab extends Component {
                 {this.props.showBlockReportDropdown &&
                   this.state.currentUser &&
                   this.props.username !== this.state.currentUser.username && (
-                    <Media query="(max-width: 791px)">
+                    <Media query="(max-width: 820px)">
                       <Dropdown>
                         <Button
                           onClick={() =>
@@ -443,7 +444,7 @@ const UserInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0.75rem;
-  @media (max-width: 400px), (min-width: 790px) and (max-width: 840px) {
+  @media (max-width: 400px), (min-width: 819px) and (max-width: 840px) {
     flex-wrap: wrap;
   }
 
@@ -589,7 +590,7 @@ const HorizontalDivider = styled.div`
   height: 1px;
   background-color: rgba(255, 255, 255, 0.1);
   margin: 0 1rem;
-  @media (max-width: 400px), (min-width: 790px) and (max-width: 840px) {
+  @media (max-width: 400px), (min-width: 819px) and (max-width: 840px) {
     display: none;
   }
 `;
