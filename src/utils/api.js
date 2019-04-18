@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 
 const apiEndpoint =
-  process.env.NODE_ENV === "production" ? "/api" : "https://screenhole.net/api";
+  process.env.NODE_ENV === "production" ? "/api" : "https://api.screenhole.net";
 
 const api = create({
   baseURL: apiEndpoint,

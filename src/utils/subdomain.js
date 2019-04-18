@@ -1,6 +1,6 @@
 // Check if we’re on a subdomain
-const subdomain = window.location.host.split(".")[1]
-  ? window.location.host.split(".")[0]
-  : false;
+var parts = window.location.hostname.split(".");
+var firstPart = parts.shift();
+var subdomain = firstPart === "screenhole" ? false : firstPart;
 
 export default subdomain;
