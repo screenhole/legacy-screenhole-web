@@ -10,6 +10,7 @@ import * as Scroll from "react-scroll";
 import AuthContainer from "../../utils/AuthContainer";
 
 import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
 
 import Chomment from "../../components/Chomment/Chomment";
 import BackToTop from "../../components/Nav/BackToTop";
@@ -17,11 +18,6 @@ import BackToTop from "../../components/Nav/BackToTop";
 import loader from "../../images/loader.gif";
 
 let scroller = Scroll.animateScroll;
-
-// Get subdomain
-const subdomain = window.location.host.split(".")[1]
-  ? window.location.host.split(".")[0]
-  : false;
 
 class Chat extends Component {
   state = {
