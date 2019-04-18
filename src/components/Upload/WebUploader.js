@@ -13,7 +13,7 @@ export default class WebUploader extends Component {
   uploadGrab = async e => {
     e.preventDefault();
 
-    let getUploadToken = await api.post(`/api/v2/upload_tokens`);
+    let getUploadToken = await api.post(`/v2/upload_tokens`);
     let data = getUploadToken.data;
     const file = this.grabUpload.files[0];
     const caption = this.grabCaption.value;
@@ -60,7 +60,7 @@ export default class WebUploader extends Component {
         async onComplete(upload, e) {
           console.log("complete", upload, e);
 
-          let uploadGrab = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
+          let uploadGrab = await api.post(`/v2/holes/${subdomain}/grabs`, {
             grab: {
               image_path: upload.result.key,
               description: caption,

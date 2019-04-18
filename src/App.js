@@ -40,7 +40,7 @@ class App extends Component {
     };
 
     if (subdomain) {
-      let res = await api.get(`/api/v2/holes/${subdomain}`);
+      let res = await api.get(`/v2/holes/${subdomain}`);
 
       if (res.ok) {
         // Save this for re-use later
