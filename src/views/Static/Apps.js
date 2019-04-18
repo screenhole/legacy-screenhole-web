@@ -68,7 +68,7 @@ export default class apps extends Component {
 const Page = styled.div`
   margin: 0 auto 50px auto;
   padding: 50px;
-  @media (max-width: 790px) {
+  @media (max-width: 819px) {
     padding: 0;
   }
   max-width: 1000px;

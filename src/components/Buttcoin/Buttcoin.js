@@ -6,8 +6,6 @@ import styled from "styled-components";
 import ReactPlayer from "react-player";
 import NumberEasing from "che-react-number-easing";
 
-import api from "../../utils/api";
-
 import AuthContainer from "../../utils/AuthContainer";
 
 import ButtcoinSpin from "../../animations/buttcoin/spin.json";

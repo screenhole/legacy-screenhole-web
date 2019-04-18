@@ -129,8 +129,8 @@ class UserStream extends Component {
             </ProfileHeader>
             {this.state.user.badges.length > 0 && (
               <BadgeCarousel>
-                {this.state.user.badges.map(b => (
-                  <Badge>{b.id.replace(/_/g, " ")}</Badge>
+                {this.state.user.badges.map((b, i) => (
+                  <Badge key={i}>{b.id.replace(/_/g, " ")}</Badge>
                 ))}
               </BadgeCarousel>
             )}
@@ -195,15 +195,15 @@ const BadgeCarousel = styled.marquee`
 const Badge = styled.span`
   display: inline-block;
   margin: 0 2rem;
-  background-color: HSLA(250, 77%, 59%, 1.00);
+  background-color: HSLA(250, 77%, 59%, 1);
   color: white;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   border-radius: 8px;
   padding: 0.5rem 1rem;
   text-transform: uppercase;
 
   &:nth-child(2) {
-    background-color: HSLA(147, 96%, 54%, 1.00);
+    background-color: HSLA(147, 96%, 54%, 1);
     color: #004a22;
   }
 
@@ -212,7 +212,7 @@ const Badge = styled.span`
   }
 
   &:nth-child(5) {
-    background-color: HSLA(147, 100%, 15%, 1.00);
+    background-color: HSLA(147, 100%, 15%, 1);
     color: #17ff81;
   }
 `;

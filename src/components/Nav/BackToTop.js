@@ -50,7 +50,7 @@ const Arrow = styled.span`
 const Wrapper = styled.div`
   position: absolute;
 
-  &:not(.ChommentStream--BackToTop) {
+  &:not(.Chat--BackToTop) {
     .headroom {
       position: fixed;
       top: 0;
@@ -71,14 +71,14 @@ const Wrapper = styled.div`
     }
   }
 
-  &.ChommentStream--BackToTop {
+  &.Chat--BackToTop {
     .headroom,
     .headroom--scrolled,
     .headroom--pinned,
     .headroom--unpinned,
     .headroom--unfixed {
       position: fixed;
-      bottom: calc(var(--nav-height) + 1rem);
+      bottom: calc(var(--nav-height) + 2rem);
       left: 50%;
       transform: translateX(-50%);
       z-index: 5;

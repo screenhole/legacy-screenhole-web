@@ -44,9 +44,11 @@ class Avatar extends Component {
 export default Avatar;
 
 const Image = styled.img`
-  border-radius: 1000px;
+  border-radius: 100%;
   height: 2.25rem;
   display: block;
+  object-fit: cover;
+  background-color: #111;
 `;
 
 const PhoneIcon = styled.span`

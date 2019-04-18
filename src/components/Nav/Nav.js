@@ -1,27 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Subscribe } from "unstated";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Media from "react-media";
-import Lottie from "react-lottie";
-
-import LogoExplosion from "../../animations/logo/intro.json";
 
 import AuthContainer from "../../utils/AuthContainer";
 
+import HolePicker from "./HolePicker";
 import Guest from "./Guest";
 import LoggedIn from "./LoggedIn";
-import MobileMenu from "./MobileMenu";
 import Buttcoin from "../Buttcoin/Buttcoin";
-
-const defaultOptions = {
-  loop: false,
-  autoplay: true,
-  animationData: LogoExplosion,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice",
-  },
-};
 
 class Nav extends Component {
   render() {
@@ -29,50 +17,34 @@ class Nav extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <Navbar>
-            <Media query="(max-width: 790px)">
-              {matches =>
-                matches && auth.state.buttcoins !== 0 ? (
-                  <Link to="/sup">
-                    <Buttcoin
-                      amount={auth.state.buttcoins}
-                      keepFresh={true}
-                      username={auth.state.current.username}
-                    />
-                  </Link>
-                ) : (
-                  <Link className="nav-logo-link" to="/">
-                    <Logo>
-                      <Lottie options={defaultOptions} width={400} />
-                    </Logo>
-                  </Link>
-                )
-              }
-            </Media>
+            <HolePicker auth={auth} {...this.props} />
             <Menu>
-              <Media query="(max-width: 790px)">
+              <Media query="(min-width: 820px)">
                 {matches =>
                   matches ? (
-                    auth.state.authenticated && auth.state.current ? (
-                      <MobileMenu>
+                    <Fragment>
+                      {auth.state.authenticated && auth.state.current ? (
                         <LoggedIn
                           username={auth.state.current.username}
                           gravatar_hash={auth.state.current.gravatar_hash}
                           buttcoins={auth.state.buttcoins}
+                          webUpload={this.props.webUpload}
                         />
-                      </MobileMenu>
-                    ) : (
-                      <MobileMenu>
+                      ) : (
                         <Guest />
-                      </MobileMenu>
-                    )
-                  ) : auth.state.authenticated && auth.state.current ? (
-                    <LoggedIn
-                      username={auth.state.current.username}
-                      gravatar_hash={auth.state.current.gravatar_hash}
-                      buttcoins={auth.state.buttcoins}
-                    />
+                      )}
+                    </Fragment>
                   ) : (
-                    <Guest />
+                    <Link to="/sup">
+                      {auth.state.authenticated &&
+                        auth.state.current &&
+                        !this.props.holeName && (
+                          <Buttcoin
+                            amount={auth.state.current.stats.buttcoins}
+                            username={auth.state.current.username}
+                          />
+                        )}
+                    </Link>
                   )
                 }
               </Media>
@@ -106,29 +78,15 @@ const Navbar = styled.nav`
     flex-shrink: 0;
   }
 
-  .nav-logo-link {
-    display: inline-block;
-    height: var(--nav-height);
-    width: 240px;
-    position: relative;
-  }
-
   [aria-current="true"] {
     color: white;
   }
 
   .activity-badge-nav {
-    @media (max-width: 790px) {
+    @media (max-width: 819px) {
       display: none !important;
     }
   }
-`;
-
-const Logo = styled.div`
-  position: absolute;
-  top: -10.75rem;
-  left: -5rem;
-  pointer-events: none;
 `;
 
 const Menu = styled.div`

@@ -8,9 +8,7 @@ import Clipboard from "clipboard";
 import api from "../../utils/api";
 import AuthContainer from "../../utils/AuthContainer";
 
-import Buttcoin from "../../components/Buttcoin/Buttcoin";
-
-export default class Invite extends Component {
+export default class Invites extends Component {
   constructor() {
     super();
 
@@ -61,7 +59,7 @@ export default class Invite extends Component {
 
     if (buttcoin.ok) {
       this.setState({
-        BUTTCOIN_INVITE_PRICE: buttcoin.data.price,
+        BUTTCOIN_INVITE_PRICE: 0,
       });
     }
   };
@@ -77,17 +75,12 @@ export default class Invite extends Component {
           <Page>
             <div>
               <section>
-                <h1>Invite yer friends to the ’hole</h1>
+                <h1>Invite your friends</h1>
                 <p>
-                  An invite costs{" "}
-                  <span className="buttcoin">
-                    {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}{" "}
-                    buttcoins
-                  </span>
-                  . Once you generate an invite, share the code, or the link
-                  with a friend, and they can join Screenhole. We’ll keep track
-                  of who you invite to make sure your friends are nice!
-                  Screenhole is a jerk free zone, so let’s keep them out.
+                  Once you generate an invite share the code or the link with a
+                  friend so they can join Screenhole. We’ll keep track of who
+                  you invite to make sure your friends are nice! Screenhole is a
+                  jerk free zone, so let’s keep them out.
                 </p>
                 <p className="small">
                   Please do not give invites to Mark Zuckerberg, Logan / Jake
@@ -95,25 +88,13 @@ export default class Invite extends Component {
                 </p>
               </section>
               <section>
-                {auth.state.current.stats.buttcoins <
-                this.state.BUTTCOIN_INVITE_PRICE ? (
-                  <p className="buttcoin">
-                    You need {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}{" "}
-                    buttcoins to generate invites. <br />
-                    Earn some more and come back here.
-                  </p>
-                ) : (
-                  <button
-                    className="generate"
-                    disabled={this.state.inviteButtonLocked}
-                    onClick={this.generateInvite.bind(this)}
-                  >
-                    Create {this.state.inviteGenerated ? "another" : null}{" "}
-                    invite for
-                    <Buttcoin />
-                    {this.state.BUTTCOIN_INVITE_PRICE.toLocaleString()}
-                  </button>
-                )}
+                <button
+                  className="generate"
+                  disabled={this.state.inviteButtonLocked}
+                  onClick={this.generateInvite.bind(this)}
+                >
+                  Create {this.state.inviteGenerated ? "another" : "an"} invite
+                </button>
                 {this.state.inviteGenerated && (
                   <NewInvite
                     className={this.state.codeCopied ? "copied" : null}
@@ -161,9 +142,7 @@ export default class Invite extends Component {
                           {invite.invited === null && (
                             <CopyToClipboardButton
                               className="copy-to-clipboard"
-                              data-clipboard-text={`https://screenhole.net/register/${
-                                invite.code
-                              }`}
+                              data-clipboard-text={invite.code}
                             >
                               Copy
                             </CopyToClipboardButton>

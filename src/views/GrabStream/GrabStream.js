@@ -6,6 +6,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
 
 import Grab from "./../../components/Grab/Grab";
 import BackToTop from "../../components/Nav/BackToTop";
@@ -34,8 +35,15 @@ class GrabStream extends Component {
       return;
     };
 
-    // load fresh grabs
-    let res = await api.get(`/grabs?page=0`);
+    let res;
+
+    // Get hole data
+    if (subdomain) {
+      res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=0`);
+    } else {
+      // load fresh grabs
+      res = await api.get(`/grabs?page=0`);
+    }
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
@@ -54,7 +62,15 @@ class GrabStream extends Component {
   };
 
   loadMore = async page => {
-    let res = await api.get(`/grabs?page=${page}`);
+    let res;
+
+    // Get hole data
+    if (subdomain) {
+      res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=${page}`);
+    } else {
+      // load fresh grabs
+      res = await api.get(`/grabs?page=${page}`);
+    }
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
@@ -109,16 +125,20 @@ class GrabStream extends Component {
           media_type={grab.media_type}
         />,
       );
+
+      return false;
     });
 
     return (
       <Grabs id="GrabStream">
         <MetaTags />
         <BackToTop onClick={this.scrollUp} />
-        <ActionCable
-          channel={{ channel: "GrabsChannel" }}
-          onReceived={this.onReceived}
-        />
+        {!subdomain && (
+          <ActionCable
+            channel={{ channel: "GrabsChannel" }}
+            onReceived={this.onReceived}
+          />
+        )}
 
         <InfiniteScroll
           pageStart={1}

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
-import { ActionCable } from "react-actioncable-provider";
+// import { ActionCable } from "react-actioncable-provider";
 import Trend from "react-trend";
 import { Link } from "react-router-dom";
 import TimeAgo from "react-timeago";
@@ -39,7 +39,7 @@ export default class Activity extends Component {
     let buttcoinTrends = await api.get(`/buttcoins/trends`);
 
     let trendsData = buttcoinTrends.data;
-    let trends = new Array();
+    let trends = [];
 
     if (trendsData !== undefined && trendsData.data !== undefined) {
       for (let i in trendsData) {
@@ -73,11 +73,11 @@ export default class Activity extends Component {
     }
   };
 
-  onReceived = data => {
-    this.setState({
-      notes: [data, ...this.state.notes],
-    });
-  };
+  // onReceived = data => {
+  //   this.setState({
+  //     notes: [data, ...this.state.notes],
+  //   });
+  // };
 
   scrollUp = () => {
     scroller.scrollTo(0, {

@@ -3,6 +3,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
 
 import Grab from "../../components/Grab/Grab";
 
@@ -14,7 +15,19 @@ class GrabSingle extends Component {
   };
 
   async componentWillMount() {
-    const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+    let grab;
+
+    if (subdomain) {
+      // grab = await api.get(
+      //   `/api/v2/holes/${subdomain}/grabs/${this.state.currentGrab}`,
+      // );
+
+      // TODO: change to correct endpoint after it works
+      grab = await api.get(`/grabs/${this.state.currentGrab}`);
+      // yolo
+    } else {
+      grab = await api.get(`/grabs/${this.state.currentGrab}`);
+    }
 
     if (grab.ok) {
       this.setState({
@@ -29,7 +42,13 @@ class GrabSingle extends Component {
         grab: null,
       });
 
-      const grab = await api.get(`/grabs/${this.state.currentGrab}`);
+      let grab;
+
+      if (subdomain) {
+        grab = await api.get(`/api/v2/grabs/${this.state.currentGrab}`);
+      } else {
+        grab = await api.get(`/grabs/${this.state.currentGrab}`);
+      }
 
       if (grab.ok) {
         this.setState({
@@ -70,6 +89,7 @@ class GrabSingle extends Component {
               description={this.state.grab.description}
               media_type={this.state.grab.media_type}
             />
+            {/* eslint-disable-next-line */}
             <Back href="javascript:history.go(-1)">↩ Back</Back>
           </span>
         ) : (

@@ -19,13 +19,14 @@ api.websocketURL = "wss://api.screenhole.net";
 api.addResponseTransform(response => {
   if (!response.ok) {
     if (response.status === 401) {
-      api.resetLocalStorage();
-      window.location = window.location;
+      // api.resetLocalStorage();
+      // window.location = window.location;
     }
   }
 });
 
 api.currentUser = null;
+api.currentHole = null;
 api.authenticated = false;
 
 api.setCurrentUser = user => {
@@ -53,5 +54,11 @@ if (localStorage.getItem("default_auth_token")) {
 if (localStorage.getItem("user_current")) {
   api.setCurrentUser(JSON.parse(localStorage.getItem("user_current")));
 }
+
+api.setCurrentHole = async subdomain => {
+  // const res = await api.get(`/api/v2/holes/${subdomain}`);
+  //
+  // api.currentHole = "fuck";
+};
 
 export default api;

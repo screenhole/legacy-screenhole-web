@@ -7,6 +7,12 @@ class AuthContainer extends Container {
     authenticated: api.authenticated,
     current: api.currentUser,
     buttcoins: api.currentUser ? api.currentUser.stats.buttcoins : 0,
+    hole: api.currentHole,
+    uploader: false,
+    rules: {
+      chat: true,
+      webUpload: true,
+    },
   };
 
   authenticate = user => {
@@ -34,6 +40,12 @@ class AuthContainer extends Container {
     userData.stats.buttcoins = amount;
     // Inject it into localStorage so it stays between reloads
     window.localStorage.setItem("user_current", JSON.stringify(userData));
+  };
+
+  toggleUploader = bool => {
+    this.setState({
+      uploader: bool === "on" ? true : false,
+    });
   };
 }
 
