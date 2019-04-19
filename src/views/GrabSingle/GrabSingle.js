@@ -45,7 +45,7 @@ class GrabSingle extends Component {
       let grab;
 
       if (subdomain) {
-        grab = await api.get(`/v2/grabs/${this.state.currentGrab}`);
+        grab = await api.get(`/api/v2/grabs/${this.state.currentGrab}`);
       } else {
         grab = await api.get(`/grabs/${this.state.currentGrab}`);
       }
