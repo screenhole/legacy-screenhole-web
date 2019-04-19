@@ -29,11 +29,9 @@ class Chat extends Component {
     let res;
 
     if (subdomain) {
-      res = await api.get(
-        `/v2/holes/${subdomain}/chat_messages?page=${page}`,
-      );
+      res = await api.get(`/v2/holes/${subdomain}/chat_messages?page=${page}`);
     } else {
-      res = await api.get(`/v2/chat_messages?page=${page}`);
+      res = await api.get(`/api/v2/chat_messages?page=${page}`);
     }
 
     if (!res.ok) {
@@ -69,7 +67,7 @@ class Chat extends Component {
         chat_message: { message: message },
       });
     } else {
-      await api.post(`/v2/chat_messages`, {
+      await api.post(`/api/v2/chat_messages`, {
         chat_message: { message: message },
       });
     }

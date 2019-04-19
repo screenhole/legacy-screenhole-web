@@ -159,15 +159,3 @@ const Username = styled.span`
     }
   }
 `;
-
-const UsernameTimeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-
-  time {
-    font-size: 0.95rem;
-    color: var(--super-muted-color);
-  }
-`;

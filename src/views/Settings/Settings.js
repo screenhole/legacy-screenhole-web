@@ -31,20 +31,6 @@ const onSubmit = async values => {
 };
 
 class Settings extends Component {
-  state = {
-    countries: [],
-  };
-
-  async componentDidMount() {
-    const countries = await api.get(`/countries`);
-
-    if (!countries.ok) {
-      return;
-    }
-
-    this.setState({ countries: countries.data.countries });
-  }
-
   render() {
     return (
       <Form
