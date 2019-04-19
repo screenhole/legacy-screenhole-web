@@ -198,7 +198,7 @@ class Grab extends Component {
       default:
         grabMedia = (
           <GrabImage
-            src={`${this.props.image};1800x1000,fit.webp`}
+            src={`${this.props.image};1800x1000,fit.png`}
             alt={`${this.props.username}’s grab on Screenhole`}
           />
         );
