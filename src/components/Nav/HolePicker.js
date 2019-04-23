@@ -44,7 +44,7 @@ export default class HolePicker extends Component {
           {this.props.auth.state.current && (
             <Dropdown className="multihole-nav-dropdown">
               {/* TODO: unhack this lol so temp it shouldnt even exist */}
-              {this.props.auth.state.current.holes &&
+              {this.props.auth.state.current.holes.length > 0 &&
                 this.props.auth.state.current.holes[0].subdomain ===
                   subdomain && (
                   <span>
