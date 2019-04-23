@@ -13,6 +13,7 @@ import api from "./utils/api";
 import App from "./App";
 
 import "minireset.css";
+import "./fonts.css";
 import "./variables.css";
 import "./index.css";
 
