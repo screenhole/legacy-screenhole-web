@@ -8,6 +8,8 @@ import screenholeLogo from "../../images/screenhole-logo.svg";
 
 export default class HolePicker extends Component {
   render() {
+    const hasHoles = this.props.auth.state.current.holes;
+
     return (
       <NavLogoLink className="nav-logo-link">
         {!this.props.holeName && (
@@ -44,7 +46,8 @@ export default class HolePicker extends Component {
           {this.props.auth.state.current && (
             <Dropdown className="multihole-nav-dropdown">
               {/* TODO: unhack this lol so temp it shouldnt even exist */}
-              {this.props.auth.state.current.holes.length > 0 &&
+              {hasHoles &&
+                this.props.auth.state.current.holes.length > 0 &&
                 this.props.auth.state.current.holes[0].subdomain ===
                   subdomain && (
                   <span>
