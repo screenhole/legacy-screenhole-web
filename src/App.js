@@ -133,7 +133,8 @@ class App extends Component {
                 <MrHoleSolo />
                 {this.state.unauthorized && (
                   <Message>
-                    You don't have access to this hole.{" "}
+                    You don't have access to this hole. <br />
+                    <br />
                     <Link to="/login" onClick={this.removeCover}>
                       Log in
                     </Link>{" "}
@@ -188,4 +189,5 @@ const Message = styled.p`
   text-align: center;
   color: white;
   font-size: 1.25rem;
+  padding: 0 1rem;
 `;

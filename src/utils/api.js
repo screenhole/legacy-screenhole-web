@@ -19,8 +19,8 @@ api.websocketURL = "wss://api.screenhole.net";
 api.addResponseTransform(response => {
   if (!response.ok) {
     if (response.status === 401) {
-      // api.resetLocalStorage();
-      // window.location = window.location;
+      api.resetLocalStorage();
+      window.location = window.location;
     }
   }
 });
