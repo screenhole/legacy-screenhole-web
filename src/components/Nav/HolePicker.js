@@ -44,7 +44,8 @@ export default class HolePicker extends Component {
           {this.props.auth.state.current && (
             <Dropdown className="multihole-nav-dropdown">
               {/* TODO: unhack this lol so temp it shouldnt even exist */}
-              {this.props.auth.state.current.holes.length > 0 &&
+              {this.props.auth.state.current.holes &&
+                this.props.auth.state.current.holes.length > 0 &&
                 this.props.auth.state.current.holes[0].subdomain ===
                   subdomain && (
                   <span>
@@ -93,14 +94,16 @@ export default class HolePicker extends Component {
                 <HoleLink href="https://screenhole.net">
                   <EnterIcon /> Screenhole
                 </HoleLink>
-                {this.props.auth.state.current.holes.map(hole => (
-                  <HoleLink
-                    href={`https://${hole.subdomain}.screenhole.net`}
-                    key={hole.subdomain}
-                  >
-                    <EnterIcon /> {hole.name}
-                  </HoleLink>
-                ))}
+                {/* TODO: make this pretty later */}
+                {this.props.auth.state.current.holes &&
+                  this.props.auth.state.current.holes.map(hole => (
+                    <HoleLink
+                      href={`https://${hole.subdomain}.screenhole.net`}
+                      key={hole.subdomain}
+                    >
+                      <EnterIcon /> {hole.name}
+                    </HoleLink>
+                  ))}
                 {/* <Link to="/cgi-bin/hole/redeem">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
