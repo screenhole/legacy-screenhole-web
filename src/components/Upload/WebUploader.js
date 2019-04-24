@@ -10,6 +10,11 @@ import Button from "../Button/Button";
 import Login from "../../views/Login/Login";
 
 export default class WebUploader extends Component {
+  state = {
+    progress: 0,
+    uploading: false,
+  };
+
   uploadGrab = async e => {
     e.preventDefault();
 
@@ -53,9 +58,17 @@ export default class WebUploader extends Component {
       uploadFile(file, {
         async onStart(upload, e) {
           console.log("start", upload, e);
+
+          this.setState({
+            uploading: true,
+          });
         },
         onProgress(upload, e) {
           console.log("progress", e, upload.baseUri, Math.round(e.value * 100));
+
+          this.setState({
+            progress: Math.round(e.value * 100),
+          });
         },
         async onComplete(upload, e) {
           console.log("complete", upload, e);
@@ -70,11 +83,22 @@ export default class WebUploader extends Component {
           if (uploadGrab.ok) {
             this.grabUpload.value = "";
             this.grabCaption.value = "";
+            window.location = window.location;
+
+            this.setState({
+              uploading: false,
+              progress: 0,
+            });
           }
         },
         onError(upload, e) {
           console.log("error", upload, e);
           alert("Something went wrong. Check the console.");
+
+          this.setState({
+            uploading: false,
+            progress: 0,
+          });
         },
       });
     } else {
@@ -107,6 +131,7 @@ export default class WebUploader extends Component {
                         type="file"
                         accept=".jpg,.jpeg,.gif,.png"
                         ref={ref => (this.grabUpload = ref)}
+                        disabled={this.state.uploading}
                       />
                     </Caption>
                     <Caption>
@@ -115,10 +140,21 @@ export default class WebUploader extends Component {
                         cols="30"
                         rows="3"
                         ref={ref => (this.grabCaption = ref)}
+                        disabled={this.state.uploading}
                       />
                     </Caption>
                     <div className="center-it">
-                      <ButtonUpload type="submit">Upload!</ButtonUpload>
+                      <ButtonUpload
+                        type="submit"
+                        disabled={this.state.uploading}
+                      >
+                        Upload!
+                      </ButtonUpload>
+                      {this.state.uploading && (
+                        <ProgressBarWrapper>
+                          <ProgressBar progress={this.state.progress} />
+                        </ProgressBarWrapper>
+                      )}
                     </div>
                   </form>
                 )}
@@ -268,4 +304,37 @@ const closeIcon = (
 
 const ButtonUpload = styled(Button)`
   margin-top: 1rem;
+`;
+
+const ProgressBarWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 48px;
+  background-color: var(--body-bg-color);
+  transform: translateY(1rem);
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ProgressBar = styled.div`
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 200px;
+  width: 100%;
+  height: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
+    box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1);
+    width: ${props => props.progress}%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.15s ease width;
+  }
 `;
