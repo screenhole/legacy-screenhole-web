@@ -201,21 +201,31 @@ class Grab extends Component {
 
       case "gif":
         grabMedia = (
-          <video preload="metadata" playsInline loop muted autoPlay>
-            <source
-              src={`${this.props.image};native.mp4#t=0.01`}
-              type="video/mp4"
-            />
-          </video>
+          <Link
+            to={`/${this.props.username}/~${this.props.id}`}
+            className="grab-image-link"
+          >
+            <video preload="metadata" playsInline loop muted autoPlay>
+              <source
+                src={`${this.props.image};native.mp4#t=0.01`}
+                type="video/mp4"
+              />
+            </video>
+          </Link>
         );
         break;
 
       default:
         grabMedia = (
-          <GrabImage
-            src={`${this.props.image};1800x1000,fit.png`}
-            alt={`${this.props.username}’s grab on Screenhole`}
-          />
+          <Link
+            to={`/${this.props.username}/~${this.props.id}`}
+            className="grab-image-link"
+          >
+            <GrabImage
+              src={`${this.props.image};1800x1000,fit.png`}
+              alt={`${this.props.username}’s grab on Screenhole`}
+            />
+          </Link>
         );
         break;
     }
@@ -287,12 +297,7 @@ class Grab extends Component {
               <HorizontalDivider />
               <TimeAgo date={this.props.created_at} />
             </UserInfo>
-            <Link
-              to={`/${this.props.username}/~${this.props.id}`}
-              className="grab-image-link"
-            >
-              {grabMedia}
-            </Link>
+            {grabMedia}
             {this.state.description && (
               <GrabDescription>{this.state.description}</GrabDescription>
             )}

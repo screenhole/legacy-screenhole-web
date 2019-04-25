@@ -88,6 +88,11 @@ class GrabSingle extends Component {
               created_at={this.state.grab.created_at}
               description={this.state.grab.description}
               media_type={this.state.grab.media_type}
+              media_filetype={
+                (this.state.grab.accelerator_metadata &&
+                  this.state.grab.accelerator_metadata.format) ||
+                "png"
+              }
             />
             {/* eslint-disable-next-line */}
             <Back href="javascript:history.go(-1)">↩ Back</Back>
