@@ -10,9 +10,123 @@ import Button from "../Button/Button";
 import Login from "../../views/Login/Login";
 
 export default class WebUploader extends Component {
-  state = {
-    progress: 0,
-    uploading: false,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isDragOver: false,
+      progress: 0,
+      uploading: false,
+      uploadingFromDrop: false,
+    };
+  }
+
+  componentDidMount() {
+    document.addEventListener("carbon:dragenter", this.onDragEnter);
+    document.addEventListener("carbon:dragover", this.onDragOver);
+    document.addEventListener("carbon:dragend", this.onDragEnd);
+    document.addEventListener("carbon:drop", this.onDrop);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("carbon:dragenter", this.onDragEnter);
+    document.removeEventListener("carbon:dragover", this.onDragOver);
+    document.removeEventListener("carbon:dragend", this.onDragEnd);
+    document.removeEventListener("carbon:drop", this.onDrop);
+  }
+
+  uploadFile = async (file, url, token, options) => {
+    if (!file) options.onError.apply(this, [null, "no file"]);
+
+    options = options || {};
+    // start upload
+    const upload = new window.Carbon.Upload(file, {
+      url: url,
+      method: "PUT",
+      authorization: "Bearer " + token,
+      chuckSize: 1024 * 1024 * 32,
+    });
+    if (options.onStart) {
+      upload.on("start", e => options.onStart.apply(this, [upload, e]));
+    }
+    if (options.onProgress) {
+      upload.on("progress", e => options.onProgress.apply(this, [upload, e]));
+    }
+    if (options.onComplete) {
+      upload.on("complete", e => options.onComplete.apply(this, [upload, e]));
+    }
+    if (options.onError) {
+      upload.on("error", e => options.onError.apply(this, [upload, e]));
+    }
+    return upload.start();
+  };
+
+  onDragOver = e => {
+    this.setState({ isDragOver: true });
+  };
+
+  onDragEnd = e => {
+    this.setState({ isDragOver: false });
+  };
+
+  onDrop = async e => {
+    let getUploadToken = await api.post(`/api/v2/upload_tokens`);
+    let data = getUploadToken.data;
+    const file = e.detail.files[0];
+
+    if (getUploadToken.ok) {
+      // Start uploading if everything is ok
+      this.uploadFile(file, data.url, data.token, {
+        async onStart(upload, e) {
+          console.log("start", upload, e);
+
+          this.setState({
+            uploading: true,
+            uploadingFromDrop: true,
+          });
+        },
+        onProgress(upload, e) {
+          const progressValue = Math.round(e.value * 100);
+          console.log("progress", e, upload.baseUri, progressValue);
+
+          this.setState({
+            progress: progressValue,
+          });
+        },
+        async onComplete(upload, e) {
+          console.log("complete", upload, e);
+
+          let uploadGrab = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
+            grab: {
+              image_path: upload.result.key,
+            },
+          });
+
+          if (uploadGrab.ok) {
+            window.location = window.location;
+
+            this.setState({
+              uploading: false,
+              uploadingFromDrop: false,
+              progress: 0,
+            });
+          }
+        },
+        onError(upload, e) {
+          console.log("error", upload, e);
+          alert("Something went wrong. Check the console.");
+
+          this.setState({
+            uploading: false,
+            uploadingFromDrop: false,
+            progress: 0,
+          });
+        },
+      });
+    } else {
+      alert("Something went wrong. Check the console.");
+      console.warn(data);
+    }
   };
 
   uploadGrab = async e => {
@@ -25,37 +139,7 @@ export default class WebUploader extends Component {
 
     if (getUploadToken.ok) {
       // Start uploading if everything is ok
-      const uploadFile = async (file, options) => {
-        if (!file) options.onError.apply(this, [null, "no file"]);
-
-        options = options || {};
-        // start upload
-        const upload = new window.Carbon.Upload(file, {
-          url: data.url,
-          method: "PUT",
-          authorization: "Bearer " + data.token,
-          chuckSize: 1024 * 1024 * 32,
-        });
-        if (options.onStart) {
-          upload.on("start", e => options.onStart.apply(this, [upload, e]));
-        }
-        if (options.onProgress) {
-          upload.on("progress", e =>
-            options.onProgress.apply(this, [upload, e]),
-          );
-        }
-        if (options.onComplete) {
-          upload.on("complete", e =>
-            options.onComplete.apply(this, [upload, e]),
-          );
-        }
-        if (options.onError) {
-          upload.on("error", e => options.onError.apply(this, [upload, e]));
-        }
-        return upload.start();
-      };
-
-      uploadFile(file, {
+      this.uploadFile(file, data.url, data.token, {
         async onStart(upload, e) {
           console.log("start", upload, e);
 
@@ -112,6 +196,14 @@ export default class WebUploader extends Component {
       <Subscribe to={[AuthContainer]}>
         {auth => (
           <div>
+            <Dropzone isDragOver={this.state.isDragOver}>
+              Drop it like it’s hot.
+            </Dropzone>
+            {this.state.uploadingFromDrop && (
+              <DropzoneProgress>
+                <ProgressBar progress={this.state.progress} />
+              </DropzoneProgress>
+            )}
             {auth.state.uploader && (
               <UploadModal>
                 {!auth.state.current ? (
@@ -337,4 +429,41 @@ const ProgressBar = styled.div`
     top: 0;
     transition: 0.15s ease width;
   }
+`;
+
+const Dropzone = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: HSLA(255, 83%, 58%, 0.98);
+  border: 24px dashed HSLA(255, 83%, 40%, 1);
+  color: black;
+  font-weight: 700;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 5rem;
+  z-index: 999999999;
+  transition: 0.15s ease all;
+  opacity: ${props => (props.isDragOver ? 1 : 0)};
+  visibility: ${props => (props.isDragOver ? "visible" : "hidden")};
+  pointer-events: ${props => (props.isDragOver ? "all" : "none")};
+`;
+
+const DropzoneProgress = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--body-bg-color);
+  border-bottom: 1px solid var(--super-muted-color);
+  z-index: 99999;
+  padding: 0 1rem;
 `;

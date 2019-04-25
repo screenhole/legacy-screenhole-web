@@ -9,10 +9,6 @@ class AuthContainer extends Container {
     buttcoins: api.currentUser ? api.currentUser.stats.buttcoins : 0,
     hole: api.currentHole,
     uploader: false,
-    rules: {
-      chat: true,
-      webUpload: true,
-    },
   };
 
   authenticate = user => {
