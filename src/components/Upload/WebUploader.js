@@ -301,9 +301,6 @@ const UploadModal = styled.div`
     border-radius: 6px;
   }
   z-index: 999;
-  animation: jellyReveal 0.65s linear both;
-  opacity: 0;
-  visibility: hidden;
   transition: all 0.4s ease;
   transform-origin: 40% -20%;
 
