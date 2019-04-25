@@ -230,9 +230,18 @@ const DropdownMenu = styled.div`
   top: 0.35rem;
   min-width: 180px;
 
+  .multihole-nav-dropdown {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: 0.15s ease all;
+  }
+
   &:hover {
     .multihole-nav-dropdown {
-      animation: jellyReveal 0.65s linear both;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
   }
 `;
