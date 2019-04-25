@@ -50,12 +50,17 @@ class Chat extends Component {
   };
 
   onReceived = data => {
-    // actioncable disabled on private holes
-    if (!subdomain) {
+    if (subdomain) {
       this.setState({
-        chat_messages: [data.chomment, ...this.state.chat_messages],
+        chat_messages: [data.chat_message, ...this.state.chat_messages],
       });
+
+      return;
     }
+
+    this.setState({
+      chat_messages: [data.chomment, ...this.state.chat_messages],
+    });
   };
 
   submitMessage = async values => {
@@ -106,15 +111,13 @@ class Chat extends Component {
         <Subscribe to={[AuthContainer]}>
           {auth => (
             <Chomments id="Chat" authenticated={auth.state.authenticated}>
-              {!subdomain && (
-                <ActionCable
-                  channel={{
-                    channel: "ChommentsChannel",
-                    hole: subdomain ? subdomain : "root",
-                  }}
-                  onReceived={this.onReceived}
-                />
-              )}
+              <ActionCable
+                channel={{
+                  channel: "ChommentsChannel",
+                  hole: subdomain ? subdomain : "root",
+                }}
+                onReceived={this.onReceived}
+              />
 
               <InfiniteScroll
                 element="section"
