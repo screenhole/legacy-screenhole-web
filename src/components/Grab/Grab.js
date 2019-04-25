@@ -473,6 +473,7 @@ const Wrapper = styled.article`
   video {
     border-radius: 5px;
     background-color: var(--body-bg-color);
+    max-width: 600px;
   }
 `;
 
