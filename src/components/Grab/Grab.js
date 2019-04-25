@@ -316,6 +316,23 @@ class Grab extends Component {
                   View video
                 </Link>
               )}
+              {/* TODO: DRY this up */}
+              {this.props.media_filetype === "mov" && (
+                <Link
+                  to={`/${this.props.username}/~${this.props.id}`}
+                  className="grab-image-link"
+                >
+                  View video
+                </Link>
+              )}
+              {this.props.media_filetype === "gif" && (
+                <Link
+                  to={`/${this.props.username}/~${this.props.id}`}
+                  className="grab-image-link"
+                >
+                  View GIF
+                </Link>
+              )}
             </SpaceTop>
             {auth.state.authenticated && this.state.textMemoField && (
               <Form
