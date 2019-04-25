@@ -78,7 +78,15 @@ export default class WebUploader extends Component {
     let data = getUploadToken.data;
     const file = e.detail.files[0];
 
-    if (getUploadToken.ok) {
+    if (
+      getUploadToken.ok ||
+      file.size < 10000000 ||
+      file.type === "image/png" ||
+      file.type === "image/jpg" ||
+      file.type === "image/jpeg" ||
+      file.type === "video/quicktime" ||
+      file.type === "video/mp4"
+    ) {
       // Start uploading if everything is ok
       this.uploadFile(file, data.url, data.token, {
         async onStart(upload, e) {
@@ -126,8 +134,12 @@ export default class WebUploader extends Component {
         },
       });
     } else {
-      alert("Something went wrong. Check the console.");
-      console.warn(data);
+      if (file.size > 9999999) {
+        alert("Your file is too large! (10 MB max)");
+      } else {
+        alert("Something went wrong. Check the console.");
+        console.warn(data);
+      }
     }
   };
 
@@ -139,7 +151,14 @@ export default class WebUploader extends Component {
     const file = this.grabUpload.files[0];
     const caption = this.grabCaption.value;
 
-    if (getUploadToken.ok) {
+    if (
+      (getUploadToken.ok && file.size < 10000000) ||
+      file.type === "image/png" ||
+      file.type === "image/jpg" ||
+      file.type === "image/jpeg" ||
+      file.type === "video/quicktime" ||
+      file.type === "video/mp4"
+    ) {
       // Start uploading if everything is ok
       this.uploadFile(file, data.url, data.token, {
         async onStart(upload, e) {
@@ -187,8 +206,12 @@ export default class WebUploader extends Component {
         },
       });
     } else {
-      alert("Something went wrong. Check the console.");
-      console.warn(data);
+      if (file.size > 9999999) {
+        alert("Your file is too large! (10 MB max)");
+      } else {
+        alert("Something went wrong. Check the console.");
+        console.warn(data);
+      }
     }
   };
 
@@ -217,12 +240,13 @@ export default class WebUploader extends Component {
                     <h3>Post a grab</h3>
                     <p>
                       Upload those juicy <strong>.jpg</strong>,{" "}
-                      <strong>.png</strong> grabs (max 10MB)
+                      <strong>.png</strong>, <strong>.gif</strong>,{" "}
+                      <strong>.mp4</strong> grabs (max 10MB)
                     </p>
                     <Caption>
                       <input
                         type="file"
-                        accept=".jpg,.jpeg,.gif,.png"
+                        accept=".jpg,.jpeg,.gif,.png,.mp4"
                         ref={ref => (this.grabUpload = ref)}
                         disabled={this.state.uploading}
                       />

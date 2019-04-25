@@ -123,6 +123,10 @@ class GrabStream extends Component {
           created_at={grab.created_at}
           description={grab.description}
           media_type={grab.media_type}
+          media_filetype={
+            (grab.accelerator_metadata && grab.accelerator_metadata.format) ||
+            "png"
+          }
         />,
       );
 

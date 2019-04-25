@@ -178,23 +178,38 @@ class Grab extends Component {
   };
 
   render() {
-    const { media_type } = this.state;
+    const { media_filetype } = this.props;
     var grabMedia;
 
-    switch (media_type) {
-      case "recording":
+    switch (media_filetype) {
+      case "mov":
         grabMedia = (
           <video
-            width="400"
+            width="500"
             controls="controls"
             preload="metadata"
             playsInline
-            muted
+            loop
           >
-            <source src={`${this.props.image}#t=0.5`} type="video/mp4" />
+            <source
+              src={`${this.props.image};native.mp4#t=0.01`}
+              type="video/mp4"
+            />
           </video>
         );
         break;
+
+      case "gif":
+        grabMedia = (
+          <video preload="metadata" playsInline loop muted autoPlay>
+            <source
+              src={`${this.props.image};native.mp4#t=0.01`}
+              type="video/mp4"
+            />
+          </video>
+        );
+        break;
+
       default:
         grabMedia = (
           <GrabImage
@@ -436,6 +451,11 @@ const Wrapper = styled.article`
 
   form {
     margin-top: 1rem;
+  }
+
+  video {
+    border-radius: 5px;
+    background-color: var(--body-bg-color);
   }
 `;
 
