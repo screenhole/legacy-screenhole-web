@@ -59,7 +59,9 @@ const Menu = styled.div`
 
   &:hover {
     .user-nav-dropdown {
-      animation: jellyReveal 0.65s linear both;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
   }
 `;
@@ -76,7 +78,8 @@ const Dropdown = styled.div`
   box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.35);
   opacity: 0;
   visibility: hidden;
-  transition: all 0.4s ease;
+  transform: translateY(-10px);
+  transition: all 0.15s ease;
   transform-origin: 80% -20%;
 
   &::after {
