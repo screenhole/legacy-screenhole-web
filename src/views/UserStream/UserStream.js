@@ -6,6 +6,7 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 
 import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
 
 import Avatar from "../../components/User/Avatar";
 import Grab from "../../components/Grab/Grab";
@@ -138,7 +139,10 @@ class UserStream extends Component {
         )}
         <GrabsWrapper>
           <ActionCable
-            channel={{ channel: "GrabsChannel" }}
+            channel={{
+              channel: "GrabsChannel",
+              hole: subdomain ? subdomain : "root",
+            }}
             onReceived={this.onReceived}
           />
           <InfiniteScroll

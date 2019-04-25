@@ -42,7 +42,7 @@ class GrabStream extends Component {
       res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=0`);
     } else {
       // load fresh grabs
-      res = await api.get(`/grabs?page=0`);
+      res = await api.get(`/api/v2/holes/root/grabs?page=0`);
     }
 
     if (!res.ok) {
@@ -69,7 +69,7 @@ class GrabStream extends Component {
       res = await api.get(`/api/v2/holes/${subdomain}/grabs?page=${page}`);
     } else {
       // load fresh grabs
-      res = await api.get(`/grabs?page=${page}`);
+      res = await api.get(`/api/v2/holes/root/grabs?page=${page}`);
     }
 
     if (!res.ok) {
@@ -133,12 +133,13 @@ class GrabStream extends Component {
       <Grabs id="GrabStream">
         <MetaTags />
         <BackToTop onClick={this.scrollUp} />
-        {!subdomain && (
-          <ActionCable
-            channel={{ channel: "GrabsChannel" }}
-            onReceived={this.onReceived}
-          />
-        )}
+        <ActionCable
+          channel={{
+            channel: "GrabsChannel",
+            hole: subdomain ? subdomain : "root",
+          }}
+          onReceived={this.onReceived}
+        />
 
         <InfiniteScroll
           pageStart={1}

@@ -24,7 +24,7 @@ class App extends Component {
     hole: {
       rules: {
         chat_enabled: false,
-        web_upload_enabled: false,
+        web_upload_enabled: true,
       },
     },
     subdomain: false,
@@ -65,7 +65,7 @@ class App extends Component {
         hole: {
           rules: {
             chat_enabled: true,
-            web_upload_enabled: false,
+            web_upload_enabled: true,
           },
         },
         subdomain: false,

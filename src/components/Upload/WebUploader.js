@@ -9,6 +9,10 @@ import AuthContainer from "../../utils/AuthContainer";
 import Button from "../Button/Button";
 import Login from "../../views/Login/Login";
 
+const endpoint = subdomain
+  ? `/api/v2/holes/${subdomain}/grabs`
+  : `/api/v2/holes/root/grabs`;
+
 export default class WebUploader extends Component {
   constructor(props) {
     super(props);
@@ -96,15 +100,13 @@ export default class WebUploader extends Component {
         async onComplete(upload, e) {
           console.log("complete", upload, e);
 
-          let uploadGrab = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
+          let uploadGrab = await api.post(endpoint, {
             grab: {
               image_path: upload.result.key,
             },
           });
 
           if (uploadGrab.ok) {
-            window.location = window.location;
-
             this.setState({
               uploading: false,
               uploadingFromDrop: false,
@@ -157,7 +159,7 @@ export default class WebUploader extends Component {
         async onComplete(upload, e) {
           console.log("complete", upload, e);
 
-          let uploadGrab = await api.post(`/api/v2/holes/${subdomain}/grabs`, {
+          let uploadGrab = await api.post(endpoint, {
             grab: {
               image_path: upload.result.key,
               description: caption,
@@ -167,7 +169,6 @@ export default class WebUploader extends Component {
           if (uploadGrab.ok) {
             this.grabUpload.value = "";
             this.grabCaption.value = "";
-            window.location = window.location;
 
             this.setState({
               uploading: false,

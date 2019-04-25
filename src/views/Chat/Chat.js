@@ -108,7 +108,10 @@ class Chat extends Component {
             <Chomments id="Chat" authenticated={auth.state.authenticated}>
               {!subdomain && (
                 <ActionCable
-                  channel={{ channel: "ChommentsChannel" }}
+                  channel={{
+                    channel: "ChommentsChannel",
+                    hole: subdomain ? subdomain : "root",
+                  }}
                   onReceived={this.onReceived}
                 />
               )}
