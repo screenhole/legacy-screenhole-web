@@ -6,6 +6,7 @@ import { ActionCable } from "react-actioncable-provider";
 import { Subscribe } from "unstated";
 import { Form, Field } from "react-final-form";
 import TimeAgo from "react-timeago";
+import ReactPlayer from "react-player";
 
 import AuthContainer from "../../utils/AuthContainer";
 import api from "../../utils/api";
@@ -184,18 +185,12 @@ class Grab extends Component {
     switch (media_filetype) {
       case "mov":
         grabMedia = (
-          <video
-            width="500"
-            controls="controls"
-            preload="metadata"
+          <ReactPlayer
+            url={`${this.props.image};audio,video/master.m3u8`}
+            controls
             playsInline
-            loop
-          >
-            <source
-              src={`${this.props.image};native.mp4#t=0.01`}
-              type="video/mp4"
-            />
-          </video>
+            preload="metadata"
+          />
         );
         break;
 
@@ -205,12 +200,15 @@ class Grab extends Component {
             to={`/${this.props.username}/~${this.props.id}`}
             className="grab-image-link"
           >
-            <video preload="metadata" playsInline loop muted autoPlay>
-              <source
-                src={`${this.props.image};native.mp4#t=0.01`}
-                type="video/mp4"
-              />
-            </video>
+            <ReactPlayer
+              url={`${this.props.image};video/master.m3u8`}
+              playsInline
+              loop
+              playing
+              muted
+              volume={0}
+              preload="metadata"
+            />
           </Link>
         );
         break;
@@ -478,6 +476,7 @@ const Wrapper = styled.article`
   video {
     border-radius: 5px;
     background-color: var(--body-bg-color);
+    width: 100%;
     max-width: 600px;
   }
 `;
