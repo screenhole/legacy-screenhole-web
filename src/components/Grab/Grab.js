@@ -189,6 +189,8 @@ class Grab extends Component {
             url={`${this.props.image};audio,video/master.m3u8`}
             controls
             playsInline
+            width="100%"
+            height="auto"
             preload="metadata"
           />
         );
@@ -205,7 +207,9 @@ class Grab extends Component {
               playsInline
               loop
               playing
-              muted
+              muted={true}
+              width="100%"
+              height="auto"
               volume={0}
               preload="metadata"
             />
@@ -478,6 +482,9 @@ const Wrapper = styled.article`
     background-color: var(--body-bg-color);
     width: 100%;
     max-width: 600px;
+    max-height: 70vh;
+    object-fit: contain;
+    position: relative;
   }
 `;
 
