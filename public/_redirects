@@ -1,3 +1,4 @@
 /api/*  https://api.screenhole.com/:splat  200
 /beta https://cl.ly/95a5390f11f9 301
 /*    /index.html   200
+/apps/android https://expo.io/artifacts/72217408-419d-4d6d-b572-15f22b14249f
