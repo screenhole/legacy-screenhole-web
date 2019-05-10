@@ -57,6 +57,13 @@ const Code = () => (
         </Info>
         <Stack>Swift</Stack>
       </Repo>
+      <Repo href="https://github.com/screenhole/ios-next" target="_blank">
+        <Title>ios-next</Title>
+        <Info>
+          Brand new cross-platform beta app for iOS and Android.
+        </Info>
+        <Stack>React Native, Expo</Stack>
+      </Repo>
       <Repo href="https://github.com/jake/screenhole-services" target="_blank">
         <Title>screenhole-services</Title>
         <Info>
