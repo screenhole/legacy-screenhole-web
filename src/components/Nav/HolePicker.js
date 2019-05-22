@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import subdomain from "../../utils/subdomain";
@@ -69,25 +69,25 @@ export default class HolePicker extends Component {
                     </Link>
                   </span>
                 )}
-              {/* <Link to="/cgi-bin/hole/invites">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="8.5" cy="7" r="4" />
-              <line x1="20" y1="8" x2="20" y2="14" />
-              <line x1="23" y1="11" x2="17" y2="11" />
-            </svg>
-            Invites
-          </Link> */}
+              <Link to="/cgi-bin/hole/invites">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <line x1="20" y1="8" x2="20" y2="14" />
+                  <line x1="23" y1="11" x2="17" y2="11" />
+                </svg>
+                Invites
+              </Link>
               <hr />
               <OtherHoles>
                 <p>Switch holes</p>
@@ -104,33 +104,26 @@ export default class HolePicker extends Component {
                       <EnterIcon /> {hole.name}
                     </HoleLink>
                   ))}
-                {/* <Link to="/cgi-bin/hole/redeem">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={18}
-                height={18}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect
-                  x={3}
-                  y={11}
-                  width={18}
-                  height={11}
-                  rx={2}
-                  ry={2}
-                />
-                <path d="M7 11V7a5 5 0 0 1 9.9-1" />
-              </svg>
-              Join another hole
-            </Link> */}
+                <Link to="/cgi-bin/hole/redeem">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={18}
+                    height={18}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x={3} y={11} width={18} height={11} rx={2} ry={2} />
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                  </svg>
+                  Join another hole
+                </Link>
               </OtherHoles>
               <hr />
-              {/* <NavLink to="/cgi-bin/hole/new">
+              <NavLink to="/cgi-bin/hole/new">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -146,7 +139,7 @@ export default class HolePicker extends Component {
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 Create hole
-              </NavLink> */}
+              </NavLink>
             </Dropdown>
           )}
         </DropdownMenu>

@@ -33,4 +33,10 @@ const ButtonStyle = styled.button`
       transform: scale(0.98);
     }
   }
+
+  &:disabled {
+    opacity: 0.25;
+    pointer-events: none;
+    cursor: wait;
+  }
 `;

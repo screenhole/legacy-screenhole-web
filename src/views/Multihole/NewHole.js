@@ -1,13 +1,50 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import HideChat from "../../utils/HideChat";
+
+import api from "../../utils/api";
+
+import Button from "../../components/Button/Button";
 
 export default class NewHole extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      name: "",
+      subdomain: "",
+      processing: false,
+    };
+  }
+
+  createNewHole = async e => {
+    e.preventDefault();
+
+    this.setState({
+      processing: true,
+    });
+
+    let req = await api.post(`/api/v2/holes`, {
+      name: this.state.name,
+      subdomain: this.state.subdomain,
+    });
+
+    if (req.ok) {
+      setTimeout(() => {
+        window.location = `https://${this.state.subdomain}.${
+          window.location.host
+        }`;
+      }, 2000);
+    } else {
+      alert("This one is already taken.");
+      this.setState({
+        processing: false,
+      });
+    }
+  };
+
   render() {
     return (
       <Page>
-        <HideChat />
-        <h3>this doesn’t work yet</h3>
         <h1>
           Create a new hole <Badge>BETA</Badge>
         </h1>
@@ -64,21 +101,38 @@ export default class NewHole extends Component {
           </CoolThing>
         </CoolListOfThings>
 
-        <InputGroup>
+        <InputGroup onSubmit={this.createNewHole}>
           <InputWrapper>
             <Label>
               <span>Hole Name</span>
-              <Input type="text" />
+              <Input
+                type="text"
+                value={this.state.name}
+                onChange={e => {
+                  this.setState({
+                    name: e.target.value,
+                  });
+                }}
+              />
             </Label>
           </InputWrapper>
           <InputWrapper>
             <Label>
               <span>Subdomain</span>
-              <Input type="text" />
+              <Input
+                type="text"
+                value={this.state.subdomain}
+                pattern="([A-Za-z0-9\-]+)"
+                onChange={e => {
+                  this.setState({
+                    subdomain: e.target.value,
+                  });
+                }}
+              />
             </Label>
           </InputWrapper>
           <InputWrapper>
-            <Button>Create hole</Button>
+            <Button disabled={this.state.processing}>Create hole</Button>
           </InputWrapper>
         </InputGroup>
       </Page>
@@ -179,19 +233,4 @@ const Input = styled.input`
     box-shadow: 0 0 0 4px black, 0 0 0 6px var(--primary-color);
     outline: none;
   }
-`;
-
-const Button = styled.button`
-  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
-  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  transition: 0.25s ease all, 0.15s ease box-shadow;
-  position: relative;
-  cursor: pointer;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 `;
