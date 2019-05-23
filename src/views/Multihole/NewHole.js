@@ -28,8 +28,11 @@ export default class NewHole extends Component {
       subdomain: this.state.subdomain,
     });
 
-    if (req.ok) {
+    const user = await api.get("/users/current");
+
+    if (req.ok && user.ok) {
       setTimeout(() => {
+        api.setCurrentUser(user.data.user);
         window.location = `https://${this.state.subdomain}.${
           window.location.host
         }`;

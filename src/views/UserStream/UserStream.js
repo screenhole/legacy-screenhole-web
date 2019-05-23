@@ -132,6 +132,22 @@ class UserStream extends Component {
                 <Label>Grabs</Label>
               </UserStats>
             </ProfileHeader>
+            {this.state.user.holes.length > 0 && (
+              <HoleMembershipList>
+                <h3>Member of these fine holes</h3>
+                <HolesGrid>
+                  {this.state.user.holes.map(hole => (
+                    <HoleName
+                      key={hole.subdomain}
+                      href={hole.subdomain + "." + window.location.host}
+                      target="_blank"
+                    >
+                      {hole.name}
+                    </HoleName>
+                  ))}
+                </HolesGrid>
+              </HoleMembershipList>
+            )}
             {this.state.user.badges.length > 0 && (
               <BadgeCarousel>
                 {this.state.user.badges.map((b, i) => (
@@ -295,6 +311,32 @@ const Label = styled.span`
   letter-spacing: 0.025em;
   font-size: 1.25rem;
   color: var(--super-muted-color);
+`;
+
+const HoleMembershipList = styled.div`
+  border-bottom: var(--divider);
+  padding: 1rem 0;
+
+  h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 1rem;
+  }
+`;
+
+const HolesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-gap: 0.5rem;
+`;
+
+const HoleName = styled.a`
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  padding: 0.25em 0.5em;
+  text-align: center;
 `;
 
 class MetaTags extends Component {
