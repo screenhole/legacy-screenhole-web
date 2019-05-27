@@ -29,6 +29,9 @@ import Rules from "./views/Multihole/Rules";
 import Invites from "./views/Multihole/Invites";
 import Join from "./views/Multihole/Join";
 
+// App Specific pages
+import AppUpload from "./views/AppSpecific/Upload";
+
 // Remember that route order matters for proper matching!
 
 class Routes extends Component {
@@ -57,6 +60,9 @@ class Routes extends Component {
         <PrivateRoute exact path="/cgi-bin/hole/rules" component={Rules} />
         <PrivateRoute exact path="/cgi-bin/hole/invites" component={Invites} />
         <PrivateRoute exact path="/cgi-bin/hole/redeem" component={Join} />
+
+        {/* App Specific */}
+        <Route exact path="/cgi-bin/app/upload/:token" component={AppUpload} />
 
         <Route exact path="/:username" component={UserStream} />
         <Route exact path="/:username/~:id" component={GrabSingle} />

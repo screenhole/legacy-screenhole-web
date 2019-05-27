@@ -284,6 +284,162 @@ export default class WebUploader extends Component {
   }
 }
 
+export class MobileWebUploader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      progress: 0,
+      uploading: false,
+    };
+  }
+
+  componentDidMount = async () => {
+    api.setAuthHeader(this.props.token);
+  };
+
+  uploadFile = async (file, url, token, options) => {
+    if (!file) options.onError.apply(this, [null, "no file"]);
+
+    options = options || {};
+    // start upload
+    const upload = new window.Carbon.Upload(file, {
+      url: url,
+      method: "PUT",
+      authorization: "Bearer " + token,
+      chuckSize: 1024 * 1024 * 32,
+    });
+    if (options.onStart) {
+      upload.on("start", e => options.onStart.apply(this, [upload, e]));
+    }
+    if (options.onProgress) {
+      upload.on("progress", e => options.onProgress.apply(this, [upload, e]));
+    }
+    if (options.onComplete) {
+      upload.on("complete", e => options.onComplete.apply(this, [upload, e]));
+    }
+    if (options.onError) {
+      upload.on("error", e => options.onError.apply(this, [upload, e]));
+    }
+    return upload.start();
+  };
+
+  uploadGrab = async e => {
+    e.preventDefault();
+
+    let getUploadToken = await api.post(`/api/v2/upload_tokens`);
+    let data = getUploadToken.data;
+    const file = this.grabUpload.files[0];
+    const caption = this.grabCaption.value;
+
+    if (
+      (getUploadToken.ok && file.size < 10000000) ||
+      file.type === "image/png" ||
+      file.type === "image/jpg" ||
+      file.type === "image/jpeg" ||
+      file.type === "video/quicktime" ||
+      file.type === "video/mp4"
+    ) {
+      // Start uploading if everything is ok
+      this.uploadFile(file, data.url, data.token, {
+        async onStart(upload, e) {
+          console.log("start", upload, e);
+
+          this.setState({
+            uploading: true,
+          });
+        },
+        onProgress(upload, e) {
+          console.log("progress", e, upload.baseUri, Math.round(e.value * 100));
+
+          this.setState({
+            progress: Math.round(e.value * 100),
+          });
+        },
+        async onComplete(upload, e) {
+          console.log("complete", upload, e);
+
+          let uploadGrab = await api.post(endpoint, {
+            grab: {
+              image_path: upload.result.key,
+              description: caption,
+            },
+          });
+
+          if (uploadGrab.ok) {
+            this.grabUpload.value = "";
+            this.grabCaption.value = "";
+
+            this.setState({
+              uploading: false,
+              progress: 0,
+            });
+          }
+        },
+        onError(upload, e) {
+          console.log("error", upload, e);
+          alert("Something went wrong. Check the console.");
+
+          this.setState({
+            uploading: false,
+            progress: 0,
+          });
+        },
+      });
+    } else {
+      if (file.size > 9999999) {
+        alert("Your file is too large! (10 MB max)");
+      } else {
+        alert("Something went wrong. Check the console.");
+        console.warn(data);
+      }
+    }
+  };
+
+  render() {
+    return (
+      <UploadModal mobile>
+        <form onSubmit={this.uploadGrab}>
+          <p>
+            Upload those juicy <strong>.jpg</strong>, <strong>.png</strong>,{" "}
+            <strong>.gif</strong>, <strong>.mp4</strong> grabs (max 10MB)
+          </p>
+          <Caption>
+            <input
+              type="file"
+              accept=".jpg,.jpeg,.gif,.png,.mp4"
+              ref={ref => (this.grabUpload = ref)}
+              disabled={this.state.uploading}
+            />
+          </Caption>
+          <Caption>
+            <span>Caption</span>
+            <textarea
+              cols="30"
+              rows="3"
+              ref={ref => (this.grabCaption = ref)}
+              disabled={this.state.uploading}
+            />
+          </Caption>
+          <div className="center-it">
+            <ButtonUpload type="submit" disabled={this.state.uploading}>
+              Upload!
+            </ButtonUpload>
+            {this.state.uploading && (
+              <ProgressBarWrapper>
+                <ProgressBar progress={this.state.progress} />
+              </ProgressBarWrapper>
+            )}
+          </div>
+        </form>
+        <br />
+        <br />
+        <p>Only one file will be uploaded.</p>
+      </UploadModal>
+    );
+  }
+}
+
 const UploadModal = styled.div`
   position: fixed;
   top: calc(64px - 0.25rem);
@@ -291,7 +447,9 @@ const UploadModal = styled.div`
   height: 100vh;
   width: 100%;
   background-color: black;
-  padding: 2rem 3rem;
+  padding: 2rem;
+
+  ${props => (props.mobile ? "top: 0" : "")}
 
   @media (min-width: 820px) {
     right: 2.125rem;
@@ -331,6 +489,7 @@ const UploadModal = styled.div`
     margin: 0.5rem 0;
     color: var(--muted-color);
     font-size: 0.875rem;
+    line-height: 1.5;
   }
 
   strong {
