@@ -1,29 +1,52 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
+
 export default class Rules extends Component {
   constructor() {
     super();
 
     // temp
     this.state = {
-      chomments: true,
-      webUpload: false,
-      views: true,
-      sfw: false,
+      chat_enabled: true,
+      chomments_enabled: true,
+      web_upload_enabled: true,
+      private_grabs_enabled: false,
     };
   }
 
-  handleRule = name => {
-    this.setState({
-      [name]: !this.state[name],
-    });
+  componentDidMount = async () => {
+    let res = await api.get(`/api/v2/holes/${subdomain}`);
+
+    if (res.ok) {
+      console.log(res.data.hole);
+
+      this.setState({
+        ...res.data.hole.rules,
+      });
+    }
+  };
+
+  handleRule = async name => {
+    this.setState(
+      {
+        [name]: !this.state[name],
+      },
+      async () => {
+        let res = await api.put(`/api/v2/holes/${subdomain}`, {
+          rules: { ...this.state },
+        });
+
+        console.log(res.data);
+      },
+    );
   };
 
   render() {
     return (
       <Page>
-        <h3>this doesn’t work yet</h3>
         <h1>Rules</h1>
         <p>Shape your community by setting your own rules.</p>
         <hr />
@@ -49,8 +72,8 @@ export default class Rules extends Component {
 
         <Grid>
           <Rule
-            onClick={() => this.handleRule("chomments")}
-            enabled={this.state.chomments}
+            onClick={() => this.handleRule("chomments_enabled")}
+            enabled={this.state.chomments_enabled}
           >
             <RuleIcon>
               <svg
@@ -68,11 +91,13 @@ export default class Rules extends Component {
               </svg>
             </RuleIcon>
             <RuleName>Chomments</RuleName>
-            <RuleStatus>{this.state.chomments ? "ON" : "OFF"}</RuleStatus>
+            <RuleStatus>
+              {this.state.chomments_enabled ? "ON" : "OFF"}
+            </RuleStatus>
           </Rule>
           <Rule
-            onClick={() => this.handleRule("webUpload")}
-            enabled={this.state.webUpload}
+            onClick={() => this.handleRule("web_upload_enabled")}
+            enabled={this.state.web_upload_enabled}
           >
             <RuleIcon>
               <svg
@@ -91,11 +116,13 @@ export default class Rules extends Component {
               </svg>
             </RuleIcon>
             <RuleName>Web Upload</RuleName>
-            <RuleStatus>{this.state.webUpload ? "ON" : "OFF"}</RuleStatus>
+            <RuleStatus>
+              {this.state.web_upload_enabled ? "ON" : "OFF"}
+            </RuleStatus>
           </Rule>
           <Rule
-            onClick={() => this.handleRule("views")}
-            enabled={this.state.views}
+            onClick={() => this.handleRule("private_grabs_enabled")}
+            enabled={this.state.private_grabs_enabled}
           >
             <RuleIcon>
               <svg
@@ -113,30 +140,10 @@ export default class Rules extends Component {
                 <circle cx={12} cy={12} r={3} />
               </svg>
             </RuleIcon>
-            <RuleName>Views</RuleName>
-            <RuleStatus>{this.state.views ? "ON" : "OFF"}</RuleStatus>
-          </Rule>
-          <Rule onClick={() => this.handleRule("sfw")} enabled={this.state.sfw}>
-            <RuleIcon>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#fff"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1={4} y1={9} x2={20} y2={9} />
-                <line x1={4} y1={15} x2={20} y2={15} />
-                <line x1={10} y1={3} x2={8} y2={21} />
-                <line x1={16} y1={3} x2={14} y2={21} />
-              </svg>
-            </RuleIcon>
-            <RuleName>SFW</RuleName>
-            <RuleStatus>{this.state.sfw ? "ON" : "OFF"}</RuleStatus>
+            <RuleName>Private Grabs</RuleName>
+            <RuleStatus>
+              {this.state.private_grabs_enabled ? "ON" : "OFF"}
+            </RuleStatus>
           </Rule>
         </Grid>
       </Page>
@@ -156,6 +163,13 @@ const Page = styled.div`
   > p {
     color: var(--muted-color);
   }
+
+  &::after {
+    content: "Available soon.";
+    display: block;
+    position: relative;
+    margin-top: 2rem;
+  }
 `;
 
 const InputGroup = styled.div`
@@ -163,6 +177,10 @@ const InputGroup = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-gap: 1rem 2rem;
   align-items: end;
+
+  ${"" /* temp disable */}
+  opacity: 0.5;
+  pointer-events: none;
 `;
 
 const InputWrapper = styled.div``;
@@ -198,6 +216,10 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   grid-gap: 2rem;
+
+  ${"" /* temp disable */}
+  opacity: 0.5;
+  pointer-events: none;
 `;
 
 const Rule = styled.div`

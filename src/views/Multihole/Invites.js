@@ -6,6 +6,7 @@ import TimeAgo from "react-timeago";
 import Clipboard from "clipboard";
 
 import api from "../../utils/api";
+import subdomain from "../../utils/subdomain";
 import AuthContainer from "../../utils/AuthContainer";
 
 export default class Invites extends Component {
@@ -17,7 +18,7 @@ export default class Invites extends Component {
       inviteGenerated: false,
       inviteLink: false,
       invites: false,
-      BUTTCOIN_INVITE_PRICE: "",
+      BUTTCOIN_INVITE_PRICE: 0,
       inviteButtonLocked: false,
     };
   }
@@ -26,16 +27,18 @@ export default class Invites extends Component {
       inviteButtonLocked: true,
     });
 
-    let generatedInvite = await api.post(`/invites`);
+    let generatedInvite = await api.post(
+      `/api/v2/holes/${subdomain}/invitations`,
+    );
 
     if (generatedInvite.ok) {
-      let invites = await api.get(`/invites`);
+      let invites = await api.get(`/api/v2/holes/${subdomain}/invitations`);
 
       if (invites.ok) {
         this.setState({
           codeCopied: false,
           inviteGenerated: true,
-          inviteLink: `https://screenhole.net/register/${
+          inviteLink: `https://${subdomain}.screenhole.net/register/${
             generatedInvite.data.invite.code
           }`,
           invites: invites.data.invites.reverse(),
@@ -44,23 +47,16 @@ export default class Invites extends Component {
       }
     }
   };
-  componentWillMount() {
+  componentDidMount() {
     this.loadData();
     // eslint-disable-next-line
     const clipboard = new Clipboard(".copy-to-clipboard");
   }
   loadData = async () => {
-    let invites = await api.get(`/invites`);
-    let buttcoin = await api.get(`/invites/price`);
+    let invites = await api.get(`/api/v2/holes/thinko/invitations`);
 
     if (invites.ok) {
       this.setState({ invites: invites.data.invites.reverse() });
-    }
-
-    if (buttcoin.ok) {
-      this.setState({
-        BUTTCOIN_INVITE_PRICE: 0,
-      });
     }
   };
   handleCopyButtonState() {

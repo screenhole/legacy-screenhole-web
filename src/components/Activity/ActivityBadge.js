@@ -18,7 +18,8 @@ export default class ActivityBadge extends Component {
 
 const Badge = styled.div`
   display: inline-block;
-  background-color: var(--primary-color);
+  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
+  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1);
   color: #fff;
   font-family: "Menlo", monospace;
   font-size: 0.75rem;

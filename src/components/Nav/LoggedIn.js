@@ -71,11 +71,13 @@ const Dropdown = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #6a40ee;
+  background-color: var(--primary-color);
+  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
+  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1),
+    0 10px 35px 0 rgba(0, 0, 0, 0.35);
   border-radius: 5px;
   margin-top: 2.75rem;
   padding: 0.25rem 0;
-  box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.35);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);

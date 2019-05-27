@@ -1,5 +1,6 @@
 .tippy-tooltip.screenhole-theme {
-  background-color: var(--primary-color) !important;
+  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1)) !important;
+  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1) !important;
   color: #fff;
   max-width: 286px;
   line-height: 1.35;

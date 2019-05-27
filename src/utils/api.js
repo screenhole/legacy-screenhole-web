@@ -20,6 +20,7 @@ api.addResponseTransform(response => {
   if (!response.ok) {
     if (response.status === 401) {
       api.resetLocalStorage();
+      // eslint-disable-next-line
       window.location = window.location;
     }
   }

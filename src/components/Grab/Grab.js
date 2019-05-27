@@ -810,10 +810,11 @@ const ChommentCost = styled.div`
 const TipButton = styled.div`
   position: absolute;
   background-color: var(--primary-color);
+  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
+  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1);
   border: none;
   border-radius: 40em;
   color: white;
-  font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -833,9 +834,10 @@ const TipButton = styled.div`
   > span {
     white-space: nowrap;
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 500;
     transform: translateY(-2px);
+    margin-top: 2px;
     user-select: none;
   }
 

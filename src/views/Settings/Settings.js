@@ -249,24 +249,6 @@ const Input = styled.input`
   }
 `;
 
-const Select = styled.select`
-  appearance: textfield;
-  width: 100%;
-  display: block;
-  padding: 0.75rem 0;
-  font-size: 1.75rem;
-  border: 0;
-  border-bottom: 2px solid var(--input-color);
-  background-color: transparent;
-  transition: all 0.2s ease;
-  color: #fff;
-  outline: none;
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-`;
-
-const Option = styled.option``;
-
 const Label = styled.label`
   color: var(--input-color);
   margin-top: 0.75rem;

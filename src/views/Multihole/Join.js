@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import Button from "../../components/Button/Button";
+
 export default class Join extends Component {
   render() {
     return (
@@ -89,20 +91,4 @@ const Input = styled.input`
     box-shadow: 0 0 0 4px black, 0 0 0 6px var(--primary-color);
     outline: none;
   }
-`;
-
-const Button = styled.button`
-  background: linear-gradient(HSLA(255, 83%, 58%, 1), HSLA(255, 83%, 48%, 1));
-  box-shadow: inset 0 1px 0 0 HSLA(255, 83%, 65%, 1);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  transition: 0.25s ease all, 0.15s ease box-shadow;
-  position: relative;
-  cursor: pointer;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.125rem;
 `;
