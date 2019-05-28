@@ -1,5 +1,5 @@
 /api/*  https://api.screenhole.com/:splat  200
 /beta https://cl.ly/95a5390f11f9 301
 /beta/ios https://testflight.apple.com/join/NK41A3kE 301
-/beta/android https://expo.io/artifacts/978e22fb-c0a6-421f-9bc6-4dac9d61e756 301
+/beta/android https://expo.io/artifacts/6fdefa2a-8fd4-4f5b-a945-2fcc403b374e 301
 /*    /index.html   200
