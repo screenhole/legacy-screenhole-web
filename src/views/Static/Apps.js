@@ -36,6 +36,18 @@ export default class apps extends Component {
               </a>{" "}
               for Macintosh.
             </li>
+            <li className="beta-link">
+              Got TestFlight? Checkout our{" "}
+              <a href="/beta/ios" target="_blank" rel="noopener noreferrer">
+                Beta for iOS
+              </a>.
+            </li>
+            <li className="beta-link">
+              Don’t like AirPods? Grab the{" "}
+              <a href="/beta/android" target="_blank" rel="noopener noreferrer">
+                Beta for Android
+              </a>.
+            </li>
           </ul>
         </section>
         <Helmet>
