@@ -53,7 +53,7 @@ export default class Invites extends Component {
     const clipboard = new Clipboard(".copy-to-clipboard");
   }
   loadData = async () => {
-    let invites = await api.get(`/api/v2/holes/thinko/invitations`);
+    let invites = await api.get(`/api/v2/holes/${subdomain}/invitations`);
 
     if (invites.ok) {
       this.setState({ invites: invites.data.invites.reverse() });
