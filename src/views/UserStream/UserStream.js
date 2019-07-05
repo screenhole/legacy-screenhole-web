@@ -53,7 +53,9 @@ class UserStream extends Component {
   }
 
   loadMore = async page => {
-    let res = await api.get(`/users/${this.state.user.id}/grabs?page=${page}`);
+    let subdomain_param = subdomain ? `&subdomain=${subdomain}` : null;
+
+    let res = await api.get(`/users/${this.state.user.id}/grabs?page=${page}${subdomain_param || ''}`);
 
     if (!res.ok) {
       return this.setState({ hasMore: false });
