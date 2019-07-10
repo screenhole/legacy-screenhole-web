@@ -98,7 +98,7 @@ export default class Wtf extends Component {
             <a href="mailto:screenhole@thinko.com">screenhole@thinko.com</a>,
             and we’ll get back to you. If you’re technically inclined, you can
             see / file bugs on{" "}
-            <a href="https://github.com/yothinko/screenhole/issues">github</a>.
+            <a href="https://github.com/yothinko/screenhole-issues/issues">github</a>.
           </p>
           <p>HAVE FUN!</p>
           <p>
