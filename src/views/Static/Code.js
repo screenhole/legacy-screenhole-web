@@ -16,7 +16,7 @@ const Code = () => (
     </p>
     <Grid>
       <Repo
-        href="https://github.com/yothinko/screenhole/issues"
+        href="https://github.com/yothinko/screenhole-issues/issues"
         target="_blank"
       >
         <Title>screenhole/issues</Title>
